@@ -1,4 +1,33 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using KalaGenset.ERP.HR.Core.Interface;
+using KalaGenset.ERP.HR.Core.Request;
+using KalaGenset.ERP.HR.Core.Services;
+using KalaGenset.ERP.HR.Core.Validation;
+using KalaGenset.ERP.HR.Data.DbContexts;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddJsonFile("appsettings.Development.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true);
+builder.Services.AddControllers()
+     .AddJsonOptions(options =>
+     {
+         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+         options.JsonSerializerOptions.PropertyNamingPolicy = null;
+     });
+
+//Configure ConnectionString from appsetting.json file
+builder.Services.AddDbContext<KalaDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("KalaDbContext")));
+//Dependency Injection services
+builder.Services.AddScoped<ICompanyEntityTypeMaster, CompanyEntityTypeMasterServices>();
+builder.Services.AddScoped<IValidator<CompanyEntityTypeMasterRequest>, CompanyEntityTypeRequestValidator>();
+
+// FluentValidation setup
+builder.Services.AddFluentValidationClientsideAdapters(); // Enables client-side adapter support
+builder.Services.AddValidatorsFromAssemblyContaining<CompanyEntityTypeRequestValidator>(); // Registers your validator(s)
 
 // Add services to the container.
 

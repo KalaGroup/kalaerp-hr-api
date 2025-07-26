@@ -7,10 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interface\" />
-    <Folder Include="Services\" />
-    <Folder Include="Request\" />
-    <Folder Include="ResponseDTO\" />
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KalaGenset.ERP.HR.Data\KalaGenset.ERP.HR.Data.csproj" />
   </ItemGroup>
 
 </Project>
