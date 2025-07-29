@@ -13,7 +13,6 @@ namespace KalaGenset.ERP.HR.Core.Validation
     /// <remarks>This static class contains extension methods for defining reusable validation rules that can
     /// be applied to various types of fields, such as strings, integers, and dates. These methods are designed to
     /// simplify the creation of consistent validation logic across different models.</remarks>
-
     public static class CustomValidators
     {
         public static IRuleBuilder<T, string> ApplyAlphaNumeric<T>(this IRuleBuilder<T, string> ruleBuilder,
@@ -27,7 +26,6 @@ namespace KalaGenset.ERP.HR.Core.Validation
                 .MaximumLength(maxLength)
                 .Matches(pattern).WithMessage(errorMessage);
         }
-
         public static IRuleBuilder<T, int?> MustBeValidId<T>(this IRuleBuilder<T, int?> ruleBuilder, string fieldName)
         {
             return ruleBuilder
@@ -39,7 +37,6 @@ namespace KalaGenset.ERP.HR.Core.Validation
             return ruleBuilder
                 .GreaterThan(0).WithMessage($"{fieldName} must be greater than zero.");
         }
-
         public static IRuleBuilder<T, DateTime> MustBePastOrNowWhenNew<T>(this IRuleBuilder<T, DateTime> ruleBuilder, string fieldName)
         {
             return ruleBuilder

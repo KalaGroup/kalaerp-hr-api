@@ -13,7 +13,6 @@ namespace KalaGenset.ERP.HR.API.Controllers
         private readonly ICurrencyMaster currencyMaster;
         private readonly IValidator<InsertCurrencyRequest> _validator;
         private readonly IValidator<UpdateCurrencyRequest> _updatevalidator;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CurrencyMasterController"/> class.
         /// </summary>
@@ -23,8 +22,6 @@ namespace KalaGenset.ERP.HR.API.Controllers
         /// <param name="currencyMaster">The service responsible for managing currency-related operations.</param>
         /// <param name="validator">The validator used to validate <see cref="InsertCurrencyRequest"/> objects.</param>
         /// <param name="updatevalidator">The validator used to validate <see cref="UpdateCurrencyRequest"/> objects.</param>
-      
-
         public CurrencyMasterController(ICurrencyMaster currencyMaster,
             IValidator<InsertCurrencyRequest> validator,
             IValidator<UpdateCurrencyRequest> updatevalidator)
@@ -34,7 +31,6 @@ namespace KalaGenset.ERP.HR.API.Controllers
             _updatevalidator = updatevalidator;
         }
         [HttpPost("createcurrency")]
-
         ///<summary>
         ///Create a new currency.
         ///
@@ -56,26 +52,22 @@ namespace KalaGenset.ERP.HR.API.Controllers
             }
 
         }
-
         /// <summary>
         /// Fetch All Currency method.
         /// </summary>
         /// <returns></returns>
 
         [HttpGet("getallcurrency")]
-
         public async Task<IActionResult> GetAllCurrency()
         {
             var currencyMsts = await currencyMaster.GetCurrencyMstsAsync();
             return Ok(currencyMsts);
         }
-
         /// <summary>
         /// Update Currency method.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-
         [HttpPut("updatecurrency")]
         public async Task<IActionResult> UpdateCurrency([FromBody] UpdateCurrencyRequest request)
         {
@@ -84,7 +76,6 @@ namespace KalaGenset.ERP.HR.API.Controllers
             {
                 return BadRequest(validationResult.Errors);
             }
-
             try
             {
                 await currencyMaster.UpdateCurrencyAsync(request);
@@ -95,27 +86,21 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while updating the currency.");
             }
         }
-
-
         /// <summary>
         /// Get Currency by Id method.  
         /// </summary>
         /// <param name="Id"></param>
-        /// <returns></returns>
-
         [HttpGet("getcurrencybyid/{Id}")]
         public async Task<IActionResult> GetCurrencyById(int Id)
         {
             var result = await currencyMaster.GetCurrencyByIdAsync(Id);
             return Ok(result);
         }
-
         /// <summary>
         /// Delete Currency method.
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-
         [HttpDelete("deletecurrency/{CurrencyId}")]
         public async Task<IActionResult> DeleteCurrency(int Id)
         {

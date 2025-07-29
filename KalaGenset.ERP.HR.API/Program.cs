@@ -3,7 +3,7 @@ using FluentValidation.AspNetCore;
 using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.Currency;
 using KalaGenset.ERP.HR.Core.Services;
-using KalaGenset.ERP.HR.Core.Validation;
+using KalaGenset.ERP.HR.Core.Validation.CurrencyValidation;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +24,19 @@ builder.Services.AddDbContext<KalaDbContext>(options =>
 builder.Services.AddScoped<ICurrencyMaster, CurrencyMasterServices>();
 builder.Services.AddScoped<IValidator<InsertCurrencyRequest>, InsertCurrencyRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateCurrencyRequest>, UpdateCurrencyRequestValidator>();
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
 
 
 
@@ -50,6 +63,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseCors("AllowAllOrigins");
 app.MapControllers();
 
 app.Run();
