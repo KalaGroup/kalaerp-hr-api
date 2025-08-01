@@ -31,7 +31,6 @@ namespace KalaGenset.ERP.HR.Core.Validation
             return ruleBuilder
                 .GreaterThan(0).WithMessage($"{fieldName} must be greater than 0.");
         }
-
         public static IRuleBuilder<T, int> MustBePresentWhenNew<T>(this IRuleBuilder<T, int> ruleBuilder, string fieldName)
         {
             return ruleBuilder
