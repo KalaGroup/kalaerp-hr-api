@@ -1,4 +1,30 @@
+using FluentValidation;
+using KalaGenset.ERP.HR.Core.Interface;
+using KalaGenset.ERP.HR.Core.Request.District;
+using KalaGenset.ERP.HR.Core.Services;
+using KalaGenset.ERP.HR.Core.Validation;
+using KalaGenset.ERP.HR.Core.Validator;
+using KalaGenset.ERP.HR.Data.DbContexts;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddJsonFile("appsettings.Development.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true);
+builder.Services.AddControllers()
+     .AddJsonOptions(options =>
+     {
+         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+         options.JsonSerializerOptions.PropertyNamingPolicy = null;
+     });
+
+//Configure ConnectionString from appsetting.json file
+builder.Services.AddDbContext<KalaDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("KalaDbContext")));
+//registering service
+builder.Services.AddScoped<IDistrictMaster, DistrictMasterService>();
+builder.Services.AddScoped<IValidator<InsertDistrictRequest>, InsertDistrictRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateDistrictRequest>, UpdateDistrictRequestValidator>();
 
 // Add services to the container.
 
