@@ -1,9 +1,9 @@
 using FluentValidation;
-using FluentValidation.AspNetCore;
 using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request;
 using KalaGenset.ERP.HR.Core.Services;
 using KalaGenset.ERP.HR.Core.Validation;
+using KalaGenset.ERP.HR.Core.Validator;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,7 +27,7 @@ builder.Services.AddFluentValidationClientsideAdapters(); // Enables client-side
 builder.Services.AddValidatorsFromAssemblyContaining<InsertCountryRequestValidator>(); 
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateCountryRequestValidator>(); 
 builder.Services.AddValidatorsFromAssemblyContaining<InsertCurrencyRequestValidator>()
-builder.Services.AddValidatorsFromAssemblyContaining<UpdateCurrencyRequestValidator>()
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateCurrencyRequestValidator>();
 
 //registering service
 builder.Services.AddScoped<ICountryMaster, CountryMasterService>();
@@ -36,6 +36,9 @@ builder.Services.AddScoped<IValidator<UpdateCountryRequest>, UpdateCountryReques
 builder.Services.AddScoped<ICurrencyMaster, CurrencyMasterServices>();
 builder.Services.AddScoped<IValidator<InsertCurrencyRequest>, InsertCurrencyRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateCurrencyRequest>, UpdateCurrencyRequestValidator>();
+builder.Services.AddScoped<IDistrictMaster, DistrictMasterService>();
+builder.Services.AddScoped<IValidator<InsertDistrictRequest>, InsertDistrictRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateDistrictRequest>, UpdateDistrictRequestValidator>();
 
 builder.Services.AddCors(options =>
 {

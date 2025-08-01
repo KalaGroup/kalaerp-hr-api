@@ -1,9 +1,11 @@
+﻿using System;
 ﻿using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentValidation;
 
 namespace KalaGenset.ERP.HR.Core.Validation
 {
@@ -26,16 +28,19 @@ namespace KalaGenset.ERP.HR.Core.Validation
                 .MaximumLength(maxLength)
                 .Matches(pattern).WithMessage(errorMessage);
         }
+
         public static IRuleBuilder<T, int?> MustBeValidId<T>(this IRuleBuilder<T, int?> ruleBuilder, string fieldName)
         {
             return ruleBuilder
                 .GreaterThan(0).WithMessage($"{fieldName} must be greater than 0.");
         }
+
         public static IRuleBuilder<T, int> MustBePresentWhenNew<T>(this IRuleBuilder<T, int> ruleBuilder, string fieldName)
         {
             return ruleBuilder
                 .GreaterThan(0).WithMessage($"{fieldName} must be greater than zero.");
         }
+
         public static IRuleBuilder<T, DateTime> MustBePastOrNowWhenNew<T>(this IRuleBuilder<T, DateTime> ruleBuilder, string fieldName)
         {
             return ruleBuilder
