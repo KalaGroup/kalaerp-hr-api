@@ -1,6 +1,6 @@
 using FluentValidation;
 using KalaGenset.ERP.HR.Core.Interface;
-using KalaGenset.ERP.HR.Core.Request.District;
+using KalaGenset.ERP.HR.Core.Request;
 using KalaGenset.ERP.HR.Core.Services;
 using KalaGenset.ERP.HR.Core.Validation;
 using KalaGenset.ERP.HR.Core.Validator;
@@ -21,31 +21,51 @@ builder.Services.AddControllers()
 //Configure ConnectionString from appsetting.json file
 builder.Services.AddDbContext<KalaDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("KalaDbContext")));
+
+// FluentValidation setup
+builder.Services.AddFluentValidationClientsideAdapters(); // Enables client-side adapter support
+builder.Services.AddValidatorsFromAssemblyContaining<InsertCountryRequestValidator>(); 
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateCountryRequestValidator>(); 
+builder.Services.AddValidatorsFromAssemblyContaining<InsertCurrencyRequestValidator>()
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateCurrencyRequestValidator>();
+
 //registering service
+builder.Services.AddScoped<ICountryMaster, CountryMasterService>();
+builder.Services.AddScoped<IValidator<InsertCountryRequest>, InsertCountryRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateCountryRequest>, UpdateCountryRequestValidator>();
+builder.Services.AddScoped<ICurrencyMaster, CurrencyMasterServices>();
+builder.Services.AddScoped<IValidator<InsertCurrencyRequest>, InsertCurrencyRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateCurrencyRequest>, UpdateCurrencyRequestValidator>();
 builder.Services.AddScoped<IDistrictMaster, DistrictMasterService>();
 builder.Services.AddScoped<IValidator<InsertDistrictRequest>, InsertDistrictRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateDistrictRequest>, UpdateDistrictRequestValidator>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
 // Add services to the container.
-
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
+app.UseCors("AllowAllOrigins");
 app.MapControllers();
-
 app.Run();

@@ -1,4 +1,6 @@
 ﻿using System;
+﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,10 +9,16 @@ using FluentValidation;
 
 namespace KalaGenset.ERP.HR.Core.Validation
 {
+    /// <summary>
+    /// Provides custom validation rules for use with FluentValidation.
+    /// </summary>
+    /// <remarks>This static class contains extension methods for defining reusable validation rules that can
+    /// be applied to various types of fields, such as strings, integers, and dates. These methods are designed to
+    /// simplify the creation of consistent validation logic across different models.</remarks>
     public static class CustomValidators
     {
         public static IRuleBuilder<T, string> ApplyAlphaNumeric<T>(this IRuleBuilder<T, string> ruleBuilder,
-        string fieldName,int maxLength = 100,bool allowSpaces = false)
+        string fieldName, int maxLength = 100, bool allowSpaces = false)
         {
             string pattern = allowSpaces ? "^[a-zA-Z0-9 ]*$" : "^[a-zA-Z0-9]*$";
             string errorMessage = $"{fieldName} must not contain special characters{(allowSpaces ? "" : " or spaces")}.";
@@ -41,3 +49,4 @@ namespace KalaGenset.ERP.HR.Core.Validation
         }
     }
 }
+
