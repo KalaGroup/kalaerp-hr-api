@@ -1,25 +1,60 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using KalaGenset.ERP.HR.Core.Interface;
+using KalaGenset.ERP.HR.Core.Request.Country;
+using KalaGenset.ERP.HR.Core.Services;
+using KalaGenset.ERP.HR.Core.Validation.CountryValidation;
+using KalaGenset.ERP.HR.Data.DbContexts;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddJsonFile("appsettings.Development.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true);
+builder.Services.AddControllers()
+     .AddJsonOptions(options =>
+     {
+         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+         options.JsonSerializerOptions.PropertyNamingPolicy = null;
+     });
+//Configure ConnectionString from appsetting.json file
+builder.Services.AddDbContext<KalaDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("KalaDbContext")));
 
+// FluentValidation setup
+builder.Services.AddFluentValidationClientsideAdapters(); // Enables client-side adapter support
+builder.Services.AddValidatorsFromAssemblyContaining<InsertCountryRequestValidator>(); // Registers your validator(s)
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateCountryRequestValidator>(); // Registers your validator(s)
+
+//registering service
+builder.Services.AddScoped<ICountryMaster, CountryMasterService>();
+builder.Services.AddScoped<IValidator<InsertCountryRequest>, InsertCountryRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateCountryRequest>, UpdateCountryRequestValidator>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
 // Add services to the container.
-
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
+app.UseCors("AllowAllOrigins");
 app.MapControllers();
-
 app.Run();
