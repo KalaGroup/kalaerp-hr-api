@@ -1,13 +1,14 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using KalaGenset.ERP.HR.Core.Interface;
-using KalaGenset.ERP.HR.Core.Request.Country;
+using KalaGenset.ERP.HR.Core.Request;
 using KalaGenset.ERP.HR.Core.Services;
-using KalaGenset.ERP.HR.Core.Validation.CountryValidation;
+using KalaGenset.ERP.HR.Core.Validation;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Configuration.AddJsonFile("appsettings.Development.json", optional: false, reloadOnChange: true)
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true);
 builder.Services.AddControllers()
@@ -16,19 +17,26 @@ builder.Services.AddControllers()
          options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
          options.JsonSerializerOptions.PropertyNamingPolicy = null;
      });
+
 //Configure ConnectionString from appsetting.json file
 builder.Services.AddDbContext<KalaDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("KalaDbContext")));
 
 // FluentValidation setup
 builder.Services.AddFluentValidationClientsideAdapters(); // Enables client-side adapter support
-builder.Services.AddValidatorsFromAssemblyContaining<InsertCountryRequestValidator>(); // Registers your validator(s)
-builder.Services.AddValidatorsFromAssemblyContaining<UpdateCountryRequestValidator>(); // Registers your validator(s)
+builder.Services.AddValidatorsFromAssemblyContaining<InsertCountryRequestValidator>(); 
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateCountryRequestValidator>(); 
+builder.Services.AddValidatorsFromAssemblyContaining<InsertCurrencyRequestValidator>()
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateCurrencyRequestValidator>()
 
 //registering service
 builder.Services.AddScoped<ICountryMaster, CountryMasterService>();
 builder.Services.AddScoped<IValidator<InsertCountryRequest>, InsertCountryRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateCountryRequest>, UpdateCountryRequestValidator>();
+builder.Services.AddScoped<ICurrencyMaster, CurrencyMasterServices>();
+builder.Services.AddScoped<IValidator<InsertCurrencyRequest>, InsertCurrencyRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateCurrencyRequest>, UpdateCurrencyRequestValidator>();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins",
