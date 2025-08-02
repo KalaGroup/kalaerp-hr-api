@@ -1,5 +1,3 @@
-﻿using System;
-﻿using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +13,7 @@ namespace KalaGenset.ERP.HR.Core.Validation
     /// <remarks>This static class contains extension methods for defining reusable validation rules that can
     /// be applied to various types of fields, such as strings, integers, and dates. These methods are designed to
     /// simplify the creation of consistent validation logic across different models.</remarks>
+
     public static class CustomValidators
     {
         public static IRuleBuilder<T, string> ApplyAlphaNumeric<T>(this IRuleBuilder<T, string> ruleBuilder,

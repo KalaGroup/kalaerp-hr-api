@@ -28,6 +28,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertCountryRequestValidat
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateCountryRequestValidator>(); 
 builder.Services.AddValidatorsFromAssemblyContaining<InsertCurrencyRequestValidator>()
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateCurrencyRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertCompanyEntityTypeRequestValidator>(); // Registers your validator(s)
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateCompanyEntityTypeRequestValidator>();
 
 //registering service
 builder.Services.AddScoped<ICountryMaster, CountryMasterService>();
@@ -39,6 +41,9 @@ builder.Services.AddScoped<IValidator<UpdateCurrencyRequest>, UpdateCurrencyRequ
 builder.Services.AddScoped<IDistrictMaster, DistrictMasterService>();
 builder.Services.AddScoped<IValidator<InsertDistrictRequest>, InsertDistrictRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateDistrictRequest>, UpdateDistrictRequestValidator>();
+builder.Services.AddScoped<ICompanyEntityTypeMaster, CompanyEntityTypeMasterServices>();
+builder.Services.AddScoped<IValidator<InsertCompanyEntityTypeMasterRequest>, InsertCompanyEntityTypeRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateCompanyEntityTypeMasterRequest>, UpdateCompanyEntityTypeRequestValidator>();
 
 builder.Services.AddCors(options =>
 {
