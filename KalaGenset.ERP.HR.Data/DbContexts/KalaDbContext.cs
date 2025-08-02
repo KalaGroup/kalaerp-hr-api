@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -16,24 +16,22 @@ public partial class KalaDbContext : DbContext
     {
     }
 
+    public virtual DbSet<CountryMaster> CountryMasters { get; set; }
+    public virtual DbSet<CurrencyMaster> CurrencyMasters { get; set; }
+    public virtual DbSet<DistrictMaster> DistrictMasters { get; set; }
     public virtual DbSet<CompanyEntityTypeMaster> CompanyEntityTypeMasters { get; set; }
-
-    public virtual DbSet<QualificationMaster> QualificationMasters { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Name=KalaDbContext");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<CompanyEntityTypeMaster>(entity =>
+        modelBuilder.Entity<DistrictMaster>(entity =>
         {
-            entity.HasKey(e => e.CompEntityTypeId).HasName("PK__CompanyE__E5D77CAD72C5B9E2");
+            entity.HasKey(e => e.DistrictId).HasName("PK__District__85FDA4A621B92E27");
 
             entity
-                .ToTable("CompanyEntityTypeMaster")
+                .ToTable("DistrictMaster")
                 .ToTable(tb => tb.IsTemporal(ttb =>
                     {
-                        ttb.UseHistoryTable("CompanyEntityTypeMasterHistory", "dbo");
+                        ttb.UseHistoryTable("DistrictMasterHistory", "dbo");
                         ttb
                             .HasPeriodStart("SysStartTime")
                             .HasColumnName("SysStartTime");
@@ -42,49 +40,101 @@ public partial class KalaDbContext : DbContext
                             .HasColumnName("SysEndTime");
                     }));
 
-            entity.Property(e => e.CompEntityTypeId).HasColumnName("CompEntityTypeID");
-            entity.Property(e => e.CompanyEntityTypeAuth).HasDefaultValue(true);
-            entity.Property(e => e.CompanyEntityTypeIsActive).HasDefaultValue(true);
-            entity.Property(e => e.CompanyEntityTypeIsDiscard).HasDefaultValue(true);
-            entity.Property(e => e.CompanyEntityTypeName).HasMaxLength(100);
-            entity.Property(e => e.CompanyEntityTypeRemark)
-                .HasMaxLength(100)
-                .HasDefaultValue("Nil");
-            entity.Property(e => e.CompanyEntityTypeShortName).HasMaxLength(50);
+            entity.Property(e => e.DistrictId).HasColumnName("DistrictID");
+            entity.Property(e => e.CountryId).HasColumnName("CountryID");
+            entity.Property(e => e.DistrictCode).HasMaxLength(10);
+            entity.Property(e => e.DistrictName).HasMaxLength(100);
+            entity.Property(e => e.ShortName).HasMaxLength(50);
+            entity.Property(e => e.StateId).HasColumnName("StateID");
         });
+         
+     modelBuilder.Entity<CountryMaster>(entity =>
+     {
+         entity.HasKey(e => e.CountryId).HasName("PK__CountryM__10D160BF87031573");
 
-        modelBuilder.Entity<QualificationMaster>(entity =>
-        {
-            entity.HasKey(e => e.QualificationId).HasName("PK__Qualific__C95C128A359B3D6D");
+         entity
+             .ToTable("CountryMaster")
+             .ToTable(tb => tb.IsTemporal(ttb =>
+                 {
+                     ttb.UseHistoryTable("CountryMasterHistory", "dbo");
+                     ttb
+                         .HasPeriodStart("SysStartTime")
+                         .HasColumnName("SysStartTime");
+                     ttb
+                         .HasPeriodEnd("SysEndTime")
+                         .HasColumnName("SysEndTime");
+                 }));
 
-            entity
-                .ToTable("QualificationMaster")
-                .ToTable(tb => tb.IsTemporal(ttb =>
-                    {
-                        ttb.UseHistoryTable("QualificationHistory", "dbo");
-                        ttb
-                            .HasPeriodStart("SysStartTime")
-                            .HasColumnName("SysStartTime");
-                        ttb
-                            .HasPeriodEnd("SysEndTime")
-                            .HasColumnName("SysEndTime");
-                    }));
+         entity.Property(e => e.CountryId).HasColumnName("CountryID");
+         entity.Property(e => e.CountryCode).HasMaxLength(50);
+         entity.Property(e => e.CountryName).HasMaxLength(100);
+         entity.Property(e => e.CountryShortName).HasMaxLength(50);
 
-            entity.Property(e => e.QualificationId).HasColumnName("QualificationID");
-            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.MasterQualificationTypeId).HasColumnName("MasterQualificationTypeID");
-            entity.Property(e => e.QualificationAuth).HasDefaultValue(true);
-            entity.Property(e => e.QualificationCode).HasMaxLength(10);
-            entity.Property(e => e.QualificationIsActive).HasDefaultValue(true);
-            entity.Property(e => e.QualificationIsDiscard).HasDefaultValue(true);
-            entity.Property(e => e.QualificationName).HasMaxLength(100);
-            entity.Property(e => e.QualificationRemark)
-                .HasMaxLength(100)
-                .HasDefaultValue("Nil");
-        });
+         entity.HasOne(d => d.CountryCurrency).WithMany(p => p.CountryMasters)
+             .HasForeignKey(d => d.CountryCurrencyId)
+             .OnDelete(DeleteBehavior.ClientSetNull)
+             .HasConstraintName("FK_CountryID_CountryCurrencyID1");
+     });
+     
+      modelBuilder.Entity<QualificationMaster>(entity =>
+  {
+      entity.HasKey(e => e.QualificationId).HasName("PK__Qualific__C95C128A359B3D6D");
 
-        OnModelCreatingPartial(modelBuilder);
-    }
+      entity
+          .ToTable("QualificationMaster")
+          .ToTable(tb => tb.IsTemporal(ttb =>
+              {
+                  ttb.UseHistoryTable("QualificationHistory", "dbo");
+                  ttb
+                      .HasPeriodStart("SysStartTime")
+                      .HasColumnName("SysStartTime");
+                  ttb
+                      .HasPeriodEnd("SysEndTime")
+                      .HasColumnName("SysEndTime");
+              }));
 
+      entity.Property(e => e.QualificationId).HasColumnName("QualificationID");
+      entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+      entity.Property(e => e.MasterQualificationTypeId).HasColumnName("MasterQualificationTypeID");
+      entity.Property(e => e.QualificationAuth).HasDefaultValue(true);
+      entity.Property(e => e.QualificationCode).HasMaxLength(10);
+      entity.Property(e => e.QualificationIsActive).HasDefaultValue(true);
+      entity.Property(e => e.QualificationIsDiscard).HasDefaultValue(true);
+      entity.Property(e => e.QualificationName).HasMaxLength(100);
+      entity.Property(e => e.QualificationRemark)
+          .HasMaxLength(100)
+          .HasDefaultValue("Nil");
+  });
+
+     modelBuilder.Entity<CurrencyMaster>(entity =>
+     {
+         entity.HasKey(e => e.CurrencyId).HasName("PK__Currency__14470AF05972C444");
+
+         entity
+             .ToTable("CurrencyMaster")
+             .ToTable(tb => tb.IsTemporal(ttb =>
+                 {
+                     ttb.UseHistoryTable("CurrencyMasterHistory", "dbo");
+                     ttb
+                         .HasPeriodStart("SysStartTime")
+                         .HasColumnName("SysStartTime");
+                     ttb
+                         .HasPeriodEnd("SysEndTime")
+                         .HasColumnName("SysEndTime");
+                 }));
+
+         entity.Property(e => e.CurrencyName)
+             .HasMaxLength(100)
+             .IsFixedLength();
+         entity.Property(e => e.CurrencyRemark)
+             .HasMaxLength(100)
+             .IsFixedLength();
+         entity.Property(e => e.CurrencySymbol)
+             .HasMaxLength(10)
+             .IsFixedLength();
+     });
+
+     OnModelCreatingPartial(modelBuilder);
+ }
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
