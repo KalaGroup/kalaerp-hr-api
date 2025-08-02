@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KalaGenset.ERP.HR.Core.Request
+namespace KalaGenset.ERP.HR.Core.Request.CompanyEntityTypeMaster
 {
-    public class CompanyEntityTypeMasterRequest
+    public class InsertCompanyEntityTypeMasterRequest
     {     
-        public int? CompEntityTypeId {  get; set; }
         public string CompanyEntityTypeName { get; set; } = null!;
 
         public string CompanyEntityTypeShortName { get; set; } = null!;

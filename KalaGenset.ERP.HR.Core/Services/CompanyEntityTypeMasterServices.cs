@@ -1,10 +1,11 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
-using KalaGenset.ERP.HR.Core.Request;
+using KalaGenset.ERP.HR.Core.Request.CompanyEntityTypeMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// </summary>
         /// <param name="insertCompanyEntityTypeMasterRequest"></param>
         /// <returns></returns>
-        public async Task InsertCompanyEntityTypeMaster(CompanyEntityTypeMasterRequest insertCompanyEntityTypeMasterRequest)
+        public async Task InsertCompanyEntityTypeMaster(InsertCompanyEntityTypeMasterRequest insertCompanyEntityTypeMasterRequest)
         {
             try
             {
@@ -54,7 +55,7 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// </summary>
         /// <param name="updateCompanyEntityTypeMasterRequest"></param>
         /// <returns></returns>
-        public async Task UpdateCompanyEntityMaster(CompanyEntityTypeMasterRequest updateCompanyEntityTypeMasterRequest)
+        public async Task UpdateCompanyEntityMaster(UpdateCompanyEntityTypeMasterRequest updateCompanyEntityTypeMasterRequest)
         {
             try
             {
@@ -82,19 +83,45 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// <param name="cid"></param>
         /// <returns></returns>
         public async Task DeleteCompanyAsync(int cid)
-        {   
+        {
             try
             {
                 var companyEntityType = await _context.CompanyEntityTypeMasters.FirstOrDefaultAsync(c => c.CompEntityTypeId == cid);
                 companyEntityType.CompanyEntityTypeIsActive = false;
-               // company.UpdatedDate = DateTime.Now;
+                // company.UpdatedDate = DateTime.Now;
                 _context.CompanyEntityTypeMasters.Update(companyEntityType);
-                await _context.SaveChangesAsync();   
+                await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 throw;
             }
         }
+
+        public async Task<CompanyEntityTypeMaster?> GetCompanyEntityTypeID(int cEntityId)
+        {
+            try
+            {
+                return await _context.CompanyEntityTypeMasters.FirstOrDefaultAsync(c => c.CompEntityTypeId == cEntityId);
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<CompanyEntityTypeMaster?>> GetCompanyEntityTypeAll()
+        {
+            try
+            {
+                return await _context.CompanyEntityTypeMasters.ToListAsync();
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
-}
+    }

@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using KalaGenset.ERP.HR.Core.Request;
+using KalaGenset.ERP.HR.Core.Request.CompanyEntityTypeMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,13 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KalaGenset.ERP.HR.Core.Validation
+namespace KalaGenset.ERP.HR.Core.Validation.CompanyEntityTypeMaster
 {
-    public class CompanyEntityTypeRequestValidator: AbstractValidator<CompanyEntityTypeMasterRequest>
+    public class InsertCompanyEntityTypeRequestValidator : AbstractValidator<InsertCompanyEntityTypeMasterRequest>
     {
         private readonly KalaDbContext _context;
 
-        public CompanyEntityTypeRequestValidator(KalaDbContext context)
+        public InsertCompanyEntityTypeRequestValidator(KalaDbContext context)
         {
             _context = context;
 

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using KalaGenset.ERP.HR.Core.Interface;
-using KalaGenset.ERP.HR.Core.Request;
+using KalaGenset.ERP.HR.Core.Request.CompanyEntityTypeMaster;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,18 +13,20 @@ namespace KalaGenset.ERP.HR.API.Controllers
     public class CompanyEntityTypeMasterController : ControllerBase
     {
         private readonly ICompanyEntityTypeMaster _companyEntityTypeMaster;
-        private readonly IValidator<CompanyEntityTypeMasterRequest> _validator;
+        private readonly IValidator<InsertCompanyEntityTypeMasterRequest> _insertValidator;
+        private readonly IValidator<UpdateCompanyEntityTypeMasterRequest> _updateValidator;
 
-        public CompanyEntityTypeMasterController(ICompanyEntityTypeMaster companyEntityTypeMaster, IValidator<CompanyEntityTypeMasterRequest> validator)
+        public CompanyEntityTypeMasterController(ICompanyEntityTypeMaster companyEntityTypeMaster, IValidator<InsertCompanyEntityTypeMasterRequest> insertValidator , IValidator<UpdateCompanyEntityTypeMasterRequest> updateValidator)
         {
             _companyEntityTypeMaster = companyEntityTypeMaster;
-            _validator = validator;
+            _insertValidator = insertValidator;
+            _updateValidator = updateValidator;
         }
 
         [HttpPost("addcompanyentitytype")]
-        public async Task<IActionResult> AddCompanyEntityType(CompanyEntityTypeMasterRequest insertCompanyEntityTypeMasterRequest)
+        public async Task<IActionResult> AddCompanyEntityType(InsertCompanyEntityTypeMasterRequest insertCompanyEntityTypeMasterRequest)
         {
-            var validationResult = await _validator.ValidateAsync(insertCompanyEntityTypeMasterRequest);
+            var validationResult = await _insertValidator.ValidateAsync(insertCompanyEntityTypeMasterRequest);
             if (!validationResult.IsValid)
             {
                 return BadRequest(validationResult.Errors);
@@ -41,9 +43,9 @@ namespace KalaGenset.ERP.HR.API.Controllers
         }
 
         [HttpPut("updatecompanyentitytype")]
-        public async Task<IActionResult> UpdateCompanyEntityType(CompanyEntityTypeMasterRequest updateCompanyEntityTypeMasterRequest)
+        public async Task<IActionResult> UpdateCompanyEntityType(UpdateCompanyEntityTypeMasterRequest updateCompanyEntityTypeMasterRequest)
         {
-            var validationResult = await _validator.ValidateAsync(updateCompanyEntityTypeMasterRequest);
+            var validationResult = await _updateValidator.ValidateAsync(updateCompanyEntityTypeMasterRequest);
             if (!validationResult.IsValid)
             {
                 return BadRequest(validationResult.Errors);
@@ -72,6 +74,18 @@ namespace KalaGenset.ERP.HR.API.Controllers
             }
         }
 
+        [HttpGet("getcomanyEntitytypebyid/{companyId}")]
+        public async Task<IActionResult> GetCompanyEntityTypeId(int companyId)
+        {
+            var result = await _companyEntityTypeMaster.GetCompanyEntityTypeID(companyId);
+            return Ok(result);
+        }
 
+        [HttpGet("getcomanyEntitytypegetall")]
+        public async Task<IActionResult> GetCompanyEntityTypeAll()
+        {
+            var result = await _companyEntityTypeMaster.GetCompanyEntityTypeAll();
+            return Ok(result);
+        }
     }
 }

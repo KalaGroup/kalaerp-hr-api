@@ -18,6 +18,8 @@ public partial class KalaDbContext : DbContext
 
     public virtual DbSet<CompanyEntityTypeMaster> CompanyEntityTypeMasters { get; set; }
 
+    public virtual DbSet<QualificationMaster> QualificationMasters { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=KalaDbContext");
 
@@ -49,6 +51,36 @@ public partial class KalaDbContext : DbContext
                 .HasMaxLength(100)
                 .HasDefaultValue("Nil");
             entity.Property(e => e.CompanyEntityTypeShortName).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<QualificationMaster>(entity =>
+        {
+            entity.HasKey(e => e.QualificationId).HasName("PK__Qualific__C95C128A359B3D6D");
+
+            entity
+                .ToTable("QualificationMaster")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("QualificationHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.QualificationId).HasColumnName("QualificationID");
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.MasterQualificationTypeId).HasColumnName("MasterQualificationTypeID");
+            entity.Property(e => e.QualificationAuth).HasDefaultValue(true);
+            entity.Property(e => e.QualificationCode).HasMaxLength(10);
+            entity.Property(e => e.QualificationIsActive).HasDefaultValue(true);
+            entity.Property(e => e.QualificationIsDiscard).HasDefaultValue(true);
+            entity.Property(e => e.QualificationName).HasMaxLength(100);
+            entity.Property(e => e.QualificationRemark)
+                .HasMaxLength(100)
+                .HasDefaultValue("Nil");
         });
 
         OnModelCreatingPartial(modelBuilder);
