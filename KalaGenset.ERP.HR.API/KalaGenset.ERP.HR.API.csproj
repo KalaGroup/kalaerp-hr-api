@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\KalaGenset.ERP.HR.Core\KalaGenset.ERP.HR.Core.csproj" />
     <ProjectReference Include="..\KalaGenset.ERP.HR.Data\KalaGenset.ERP.HR.Data.csproj" />
   </ItemGroup>
