@@ -18,6 +18,12 @@ using KalaGenset.ERP.HR.Core.Validation.CurrencyValidation;
 using KalaGenset.ERP.HR.Core.Validation.CompanyEntityTypeMaster;
 using KalaGenset.ERP.HR.Core.Validation.DistrictMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.CityMasterValidation;
+using KalaGenset.ERP.HR.Core.Validation.StateValidator;
+using KalaGenset.ERP.HR.Core.Validation.QualificationValidator;
+using KalaGenset.ERP.HR.Core.Validation.LocationValidator;
+using KalaGenset.ERP.HR.Core.Request.StateRequest;
+using KalaGenset.ERP.HR.Core.Request.QualificationRequest;
+using KalaGenset.ERP.HR.Core.Request.LocationRequest;
 
 
 
@@ -49,6 +55,10 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertCityRequestValidator>
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateCityRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertDistrictRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateDistrictRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertStateRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertQualificationRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertLocationRequestValidator>();
+
 //registering service
 builder.Services.AddScoped<ICountryMaster, CountryMasterService>();
 builder.Services.AddScoped<IValidator<InsertCountryRequest>, InsertCountryRequestValidator>();
@@ -72,6 +82,17 @@ builder.Services.AddScoped<IProfitcenterMaster, ProfitcenterMasterService>();
 builder.Services.AddScoped<IValidator<InsertProfitcenterRequest>, InsertProfitcenterRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateProfitcenterRequest>, UpdateProfitcenterRequestValidator>();
 builder.Services.AddScoped<IGradeFacilityAssignment, GradeFacilityAssignmentService>();
+builder.Services.AddScoped<IStateMaster, StateMasterService>();
+builder.Services.AddScoped<IQualificationMaster, QualificationMasterService>();
+builder.Services.AddScoped<ILocationMaster, LocationMasterService>();
+builder.Services.AddScoped<IValidator<InsertStateRequest>, InsertStateRequestValidator>();
+builder.Services.AddScoped<IValidator<InsertQualificationRequest>, InsertQualificationRequestValidator>();
+builder.Services.AddScoped<IValidator<InsertLocationRequest>, InsertLocationRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateStateRequest>, UpdateStateValidator>();
+builder.Services.AddScoped<IValidator<UpdateQualificationRequest>, UpdateQualificationValidator>();
+builder.Services.AddScoped<IValidator<UpdateLocationRequest>, UpdateLocationValidator>();
+
+
 
 builder.Services.AddCors(options =>
 {
