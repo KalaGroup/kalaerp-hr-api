@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace KalaGenset.ERP.HR.Core.Request
+{
+    public class InsertPetrolAllowanceMasterRequest
+    {
+        public string TwoWheelerPerKm { get; set; } = null!;
+
+        public string FourWheelerPerKm { get; set; } = null!;
+
+        public string PetrolAllowanceRemark { get; set; } = null!;
+
+        public string PetrolAllowanceAuthRemark { get; set; } = null!;
+
+        public bool PetrolAllowanceIsAuth { get; set; }
+
+        public bool PetrolAllowanceIsDiscard { get; set; }
+
+        public bool PetrolAllowanceIsActive { get; set; }
+
+        public int CreatedBy { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+    }
+}
