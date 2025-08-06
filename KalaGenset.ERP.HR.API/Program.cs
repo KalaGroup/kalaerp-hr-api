@@ -27,6 +27,12 @@ using KalaGenset.ERP.HR.Core.Request.LocationRequest;
 using KalaGenset.ERP.HR.Core.Request;
 using KalaGenset.ERP.HR.Core.Validation.QualificationTypeMaster;
 using KalaGenset.ERP.HR.Core.Validation.PetrolAllowanceMaster;
+using KalaGenset.ERP.HR.Core.Request.Department;
+using KalaGenset.ERP.HR.Core.Validation.DepartmentValidation;
+using KalaGenset.ERP.HR.Core.Request.Grade;
+using KalaGenset.ERP.HR.Core.Validation.GradeValidation;
+using KalaGenset.ERP.HR.Core.Request.ClassOfTravel;
+using KalaGenset.ERP.HR.Core.Validation.ClassOfTravelValidation;
 
 
 
@@ -100,7 +106,15 @@ builder.Services.AddScoped<IValidator<UpdateQualificationTypeMasterRequest>, Upd
 builder.Services.AddScoped<IPetrolAllowanceMaster, PetrolAllowanceMasterService>();
 builder.Services.AddScoped<IValidator<InsertPetrolAllowanceMasterRequest>, InsertPetrolAllowanceRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdatePetrolAllowanceMasterRequest>,UpdatePetrolAllowanceRequestValidator>();
-
+builder.Services.AddScoped<IDepartmentMaster, DepartmentMasterService>();
+builder.Services.AddScoped<IValidator<InsertDepartmentRequest>, InsertDepartmentRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateDepartmentRequest>, UpdateDepartmentRequestValidator>();
+builder.Services.AddScoped<IGradeMaster, GradeMasterService>();
+builder.Services.AddScoped<IValidator<InsertGradeRequest>, InsertGradeRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateGradeRequest>, UpdateGradeRequestValidator>();
+builder.Services.AddScoped<IClassOfTravelMaster, ClassOfTravelMasterService>();
+builder.Services.AddScoped<IValidator<InsertClassOfTravelRequest>, InsertClassOfTravelRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateClassOfTravelRequest>, UpdateClassOfTravelRequestValidator>();
 
 builder.Services.AddCors(options =>
 {
