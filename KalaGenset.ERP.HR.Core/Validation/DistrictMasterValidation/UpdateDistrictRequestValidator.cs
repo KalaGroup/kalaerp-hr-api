@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KalaGenset.ERP.HR.Core.Validation
+namespace KalaGenset.ERP.HR.Core.Validation.DistrictMasterValidation
 {
     public class UpdateDistrictRequestValidator : AbstractValidator<UpdateDistrictRequest>
     {

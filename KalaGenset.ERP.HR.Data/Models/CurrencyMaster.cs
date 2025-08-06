@@ -22,4 +22,8 @@ public partial class CurrencyMaster
     public int CreatedBy { get; set; }
 
     public DateTime CreatedDate { get; set; }
+
+    public virtual ICollection<CountryMaster> CountryMasters { get; set; } = new List<CountryMaster>();
+
+    public virtual ICollection<GradeMaster> GradeMasters { get; set; } = new List<GradeMaster>();
 }

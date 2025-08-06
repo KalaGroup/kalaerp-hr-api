@@ -24,4 +24,8 @@ public partial class QualificationMaster
     public int CreatedBy { get; set; }
 
     public DateTime CreatedDate { get; set; }
+
+    public virtual ICollection<DesignationMaster> DesignationMasters { get; set; } = new List<DesignationMaster>();
+
+    public virtual QualificationTypeMaster MasterQualificationType { get; set; } = null!;
 }

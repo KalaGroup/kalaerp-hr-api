@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace KalaGenset.ERP.HR.Core.Validator
+namespace KalaGenset.ERP.HR.Core.Validation.DistrictMasterValidation
 {
     public class InsertDistrictRequestValidator : AbstractValidator<InsertDistrictRequest>
     {
@@ -19,10 +19,6 @@ namespace KalaGenset.ERP.HR.Core.Validator
         public InsertDistrictRequestValidator(KalaDbContext context)
         {
             _context = context;
-
-
-
-
 
                    RuleFor(x => x.DistrictCode)
            .NotEmpty().WithMessage("DistrictCode is required.")
