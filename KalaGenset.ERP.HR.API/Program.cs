@@ -24,6 +24,9 @@ using KalaGenset.ERP.HR.Core.Validation.LocationValidator;
 using KalaGenset.ERP.HR.Core.Request.StateRequest;
 using KalaGenset.ERP.HR.Core.Request.QualificationRequest;
 using KalaGenset.ERP.HR.Core.Request.LocationRequest;
+using KalaGenset.ERP.HR.Core.Request;
+using KalaGenset.ERP.HR.Core.Validation.QualificationTypeMaster;
+using KalaGenset.ERP.HR.Core.Validation.PetrolAllowanceMaster;
 
 
 
@@ -91,7 +94,12 @@ builder.Services.AddScoped<IValidator<InsertLocationRequest>, InsertLocationRequ
 builder.Services.AddScoped<IValidator<UpdateStateRequest>, UpdateStateValidator>();
 builder.Services.AddScoped<IValidator<UpdateQualificationRequest>, UpdateQualificationValidator>();
 builder.Services.AddScoped<IValidator<UpdateLocationRequest>, UpdateLocationValidator>();
-
+builder.Services.AddScoped<IQualificationTypeMaster, QualificationTypeMasterService>();
+builder.Services.AddScoped<IValidator<InsertQualificationTypeMasterRequest>,InsertQualTypeMstRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateQualificationTypeMasterRequest>, UpdateQualTypeMstRequestValidator>();
+builder.Services.AddScoped<IPetrolAllowanceMaster, PetrolAllowanceMasterService>();
+builder.Services.AddScoped<IValidator<InsertPetrolAllowanceMasterRequest>, InsertPetrolAllowanceRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdatePetrolAllowanceMasterRequest>,UpdatePetrolAllowanceRequestValidator>();
 
 
 builder.Services.AddCors(options =>
