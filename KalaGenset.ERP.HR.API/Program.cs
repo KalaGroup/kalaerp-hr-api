@@ -1,19 +1,25 @@
 using FluentValidation;
-using KalaGenset.ERP.HR.Core.Interface;
-using KalaGenset.ERP.HR.Core.Services;
+using Microsoft.EntityFrameworkCore;
 using FluentValidation.AspNetCore;
 using KalaGenset.ERP.HR.Data.DbContexts;
-using Microsoft.EntityFrameworkCore;
+using KalaGenset.ERP.HR.Core.Interface;
+using KalaGenset.ERP.HR.Core.Services;
 using KalaGenset.ERP.HR.Core.Request.Country;
 using KalaGenset.ERP.HR.Core.Request.Currency;
 using KalaGenset.ERP.HR.Core.Request.District;
+using KalaGenset.ERP.HR.Core.Request.City;
+using KalaGenset.ERP.HR.Core.Request.CompanyEntityTypeMaster;
+using KalaGenset.ERP.HR.Core.Request.Facility;
+using KalaGenset.ERP.HR.Core.Request.ProfitcenterMaster;
+using KalaGenset.ERP.HR.Core.Validation.FacilityMaster;
+using KalaGenset.ERP.HR.Core.Validation.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Core.Validation.CountryValidation;
 using KalaGenset.ERP.HR.Core.Validation.CurrencyValidation;
 using KalaGenset.ERP.HR.Core.Validation.CompanyEntityTypeMaster;
 using KalaGenset.ERP.HR.Core.Validation.DistrictMasterValidation;
-using KalaGenset.ERP.HR.Core.Request.CompanyEntityTypeMaster;
 using KalaGenset.ERP.HR.Core.Validation.CityMasterValidation;
-using KalaGenset.ERP.HR.Core.Request.City;
+
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,10 +32,6 @@ builder.Services.AddControllers()
          options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
          options.JsonSerializerOptions.PropertyNamingPolicy = null;
      });
-
-// Add services to the container.
-builder.Services.AddScoped<ICityMaster, CityMasterService>();
-
 
 //Configure ConnectionString from appsetting.json file
 builder.Services.AddDbContext<KalaDbContext>(options =>
@@ -63,6 +65,13 @@ builder.Services.AddScoped<IValidator<UpdateCompanyEntityTypeMasterRequest>, Upd
 builder.Services.AddScoped<ICityMaster, CityMasterService>();
 builder.Services.AddScoped<IValidator<InsertCityRequest>, InsertCityRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateCityRequest>, UpdateCityRequestValidator>();
+builder.Services.AddScoped<IFacilityMaster, FacilityMasterService>();
+builder.Services.AddScoped<IValidator<InsertFacilityRequest>, InsertFacilityRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateFacilityRequest>, UpdateFacilityRequestValidator>();
+builder.Services.AddScoped<IProfitcenterMaster, ProfitcenterMasterService>();
+builder.Services.AddScoped<IValidator<InsertProfitcenterRequest>, InsertProfitcenterRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateProfitcenterRequest>, UpdateProfitcenterRequestValidator>();
+builder.Services.AddScoped<IGradeFacilityAssignment, GradeFacilityAssignmentService>();
 
 builder.Services.AddCors(options =>
 {
@@ -77,16 +86,6 @@ builder.Services.AddCors(options =>
 });
 // Add services to the container.
 builder.Services.AddControllers();
-
-// Enable CORS globally
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAllOrigins",
-        builder => builder.AllowAnyOrigin()
-                          .AllowAnyMethod()
-                          .AllowAnyHeader());
-});
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
