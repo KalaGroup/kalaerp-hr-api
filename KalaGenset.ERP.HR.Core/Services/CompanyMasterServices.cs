@@ -78,10 +78,6 @@ namespace KalaERP.HR.Core.Services
                 throw;//  Handle Error
             }
         }
-        public Task AddCurrencyAsync(InsertCurrencyRequest request)
-        {
-            throw new NotImplementedException();
-        }
         /// <summary>
         /// deletes a company from the system by its ID.
         /// soft delete is implemented by setting the CompanyIsActive property to false.

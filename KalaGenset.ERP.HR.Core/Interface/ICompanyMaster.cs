@@ -11,12 +11,34 @@ namespace KalaERP.HR.Core.Interface
 {
     public interface ICompanyMaster
     {
-        public Task AddCompanyAsync(InsertCompanyRequest request);// Adds a new company to the system
-        public Task<IEnumerable<CompanyMaster>> GetCompanyAsync();// Retrieves a list of all companies in the system
-        public Task<CompanyMaster> GetCompanyByIdAsync(int id);// Retrieves a specific company by its ID
-
-        public Task UpdateCompanyAsync(UpdateCompanyRequest request);// Updates an existing company in the system
-
-        public Task DeleteCompanyAsync(int id);// Deletes a company from the system by its ID
+        /// <summary>
+        /// adds a new company to the system.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public Task AddCompanyAsync(InsertCompanyRequest request);
+        /// <summary>
+        /// gets a list of all companies in the system.
+        /// </summary>
+        /// <returns></returns>
+        public Task<IEnumerable<CompanyMaster>> GetCompanyAsync();
+        /// <summary>
+        /// get by id of company
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Task<CompanyMaster> GetCompanyByIdAsync(int id);
+        /// <summary>
+        /// updates an existing company in the system.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public Task UpdateCompanyAsync(UpdateCompanyRequest request);
+        /// <summary>
+        /// deletes a company by its ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Task DeleteCompanyAsync(int id);
     }
 }

@@ -16,14 +16,23 @@ namespace KalaGenset.ERP.HR.API.Controllers
         private readonly IResposibilitiesMaster resposibilitiesMaster;
         private readonly IValidator<InsertResposibilitiesMasterRequest> _validator;// Validator for InsertCompanyRequest
         private readonly IValidator<UpdateResposibilitiesMasterRequest> _updateValidator;// Validator for UpdateCompanyRequest
-
+        /// <summary>
+        /// constructor to initialize the ResposibilitiesMasterController with the required services.
+        /// </summary>
+        /// <param name="resposibilitiesMaster"></param>
+        /// <param name="validator"></param>
+        /// <param name="updatevalidator"></param>
         public ResposibilitiesMasterController(IResposibilitiesMaster resposibilitiesMaster, IValidator<InsertResposibilitiesMasterRequest> validator, IValidator<UpdateResposibilitiesMasterRequest> updatevalidator)
         {
             this.resposibilitiesMaster = resposibilitiesMaster;
             _validator = validator;
             _updateValidator = updatevalidator;
         }
-
+        /// <summary>
+        /// adds a new responsibility to the system.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>new record</returns>
         [HttpPost("addresponsibilities")]
         public async Task<IActionResult> AddResponsibilitiesAsync([FromBody] InsertResposibilitiesMasterRequest request)
         {
@@ -49,9 +58,11 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error adding responsibility: {ex.Message}");
             }
         }
-
+        /// <summary>
+        /// gets all responsibilities from the system.
+        /// </summary>
+        /// <returns>all responsibilities</returns>
         [HttpGet("getresposibilities")]
-
         public async Task<IActionResult> GetResposibilitiesAsync()
         {
             try
@@ -64,7 +75,11 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error retrieving resposibilities: {ex.Message}");
             }
         }
-
+        /// <summary>
+        /// deletes a responsibility by its ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("deleteresposibilities/{id}")]
         public async Task<IActionResult> DeleteResposibilitiesAsync(int id)
         {
@@ -78,9 +93,12 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error deleting resposibility: {ex.Message}");
             }
         }
-
+        /// <summary>
+        /// gets a responsibility by its ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("getresposibilitiesbyid/{id}")]
-
         public async Task<IActionResult> GetResposibilitiesByIdAsync(int id)
         {
             try
@@ -97,6 +115,11 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error retrieving resposibility: {ex.Message}");
             }
         }
+        /// <summary>
+        /// updates an existing responsibility in the system.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPut("updateresposibilities")]
         public async Task<IActionResult> UpdateResposibilitiesAsync([FromBody] UpdateResposibilitiesMasterRequest request)
         {

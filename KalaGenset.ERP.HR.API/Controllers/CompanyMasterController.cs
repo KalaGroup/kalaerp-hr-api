@@ -18,8 +18,6 @@ namespace KalaERP.HR.API.Controllers
             this.companyMaster = companyMaster;
             _validator = validator;
             _updateValidator = updateValidator;
-           
-
         }
         /// <summary>
         /// adds a new company to the system.

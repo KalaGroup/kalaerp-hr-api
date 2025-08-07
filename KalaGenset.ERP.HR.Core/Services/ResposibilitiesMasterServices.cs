@@ -19,6 +19,12 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             this.context = context; // Initialize the context
         }
+        /// <summary>
+        /// adds a new responsibility to the system.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public async Task AddResposibilitiesAsync(InsertResposibilitiesMasterRequest request)
         {
             try
@@ -36,8 +42,6 @@ namespace KalaGenset.ERP.HR.Core.Services
                     ResposibilitiesIsActive = request.ResposibilitiesIsActive,
                     CreatedBy = request.CreatedBy,
                     CreatedDate = DateTime.Now,
-                    
-
                 };
                 context.ResposibilitiesMasters.Add(resposibility);
                 await context.SaveChangesAsync();
@@ -49,7 +53,12 @@ namespace KalaGenset.ERP.HR.Core.Services
                 throw new Exception("Error adding responsibility", ex);
             }
         }
-
+        /// <summary>
+        /// deletes a responsibility by its ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public async Task DeleteResposibilitiesAsync(int id)
         {
             try
@@ -65,18 +74,30 @@ namespace KalaGenset.ERP.HR.Core.Services
                 throw new Exception("Error deleting responsibility", ex);
             }
         }
-
+        /// <summary>
+        /// gets a list of all responsibilities in the system.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<ResposibilitiesMaster>> GetResposibilitiesAsync()
         {
             return await context.ResposibilitiesMasters.ToListAsync();
         }
-
+        /// <summary>
+        /// gets a responsibility by its ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ResposibilitiesMaster> GetResposibilitiesByIdAsync(int id)
         {
             return await context.ResposibilitiesMasters.FirstOrDefaultAsync(d => d.ResposibilitiesId == id);
 
         }
-
+        /// <summary>
+        /// updates an existing responsibility in the system.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public Task UpdateResposibilitiesAsync(UpdateResposibilitiesMasterRequest request)
         {
             try

@@ -54,7 +54,10 @@ namespace KalaERP.HR.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error adding designation: {ex.Message}");
             }
         }
-        //get all designations
+        /// <summary>
+        /// gets all designations from the system.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("getdesignation")]
         public async Task<IActionResult> GetDesignationAsync()
         {

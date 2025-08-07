@@ -10,10 +10,34 @@ namespace KalaGenset.ERP.HR.Core.Interface
 {
     public interface IResposibilitiesMaster
     {
-        public Task AddResposibilitiesAsync(InsertResposibilitiesMasterRequest request); // Adds a new responsibility to the system
-        public Task<IEnumerable<ResposibilitiesMaster>> GetResposibilitiesAsync(); // Retrieves a list of all responsibilities in the system
-        public Task<ResposibilitiesMaster> GetResposibilitiesByIdAsync(int id); // Retrieves a specific responsibility by its ID
-        public Task UpdateResposibilitiesAsync(UpdateResposibilitiesMasterRequest request); // Updates an existing responsibility in the system
-        public Task DeleteResposibilitiesAsync(int id); // Deletes a responsibility from the system by its ID
+        /// <summary>
+        /// add a new responsibility to the system.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public Task AddResposibilitiesAsync(InsertResposibilitiesMasterRequest request);
+        /// <summary>
+        /// gets all responsibilities from the system.
+        /// </summary>
+        /// <returns></returns>
+        public Task<IEnumerable<ResposibilitiesMaster>> GetResposibilitiesAsync();
+        /// <summary>
+        /// get responsibility by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Task<ResposibilitiesMaster> GetResposibilitiesByIdAsync(int id);
+        /// <summary>
+        /// update an existing responsibility in the system.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public Task UpdateResposibilitiesAsync(UpdateResposibilitiesMasterRequest request);
+        /// <summary>
+        /// deletes a responsibility by its ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Task DeleteResposibilitiesAsync(int id);
     }
 }

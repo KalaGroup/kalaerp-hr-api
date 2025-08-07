@@ -16,7 +16,11 @@ namespace KalaGenset.ERP.HR.API.Controllers
         {
             this.resposibilitiesDetail = resposibilitiesDetail;
         }
-        ///addresponsibilitiesdetail add record 
+        /// <summary>
+        /// adds a new responsibility detail to the system.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("addresponsibilitiesdetail")]
         public async Task<IActionResult> AddResponsibilitiesDetailAsync([FromBody] InsertResposibilitiesDetailrequest request)
         {
@@ -35,7 +39,10 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error adding responsibility detail: {ex.Message}");
             }
         }
-        // getresponsibilitiesdetail get all record
+        /// <summary>
+        /// gets all responsibility details from the system.
+        /// </summary>
+        /// <returns>allDetails</returns>
         [HttpGet("getresponsibilitiesdetail")]
         public async Task<IActionResult> GetResponsibilitiesDetail()
         {
@@ -49,7 +56,11 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error retrieving resposibilities: {ex.Message}");
             }
         }
-        // getresponsibilitiesdetailbyid get record by id
+        /// <summary>
+        /// deletes a responsibility detail by its ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("deleteresponsibilitiesdetail/{id}")]
         public async Task<IActionResult> DeleteResponsibilitiesDetailAsync(int id)
         {
@@ -64,7 +75,11 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error deleting responsibility detail: {ex.Message}");
             }
         }
-        // getresponsibilitiesdetailbyid get record by id
+        /// <summary>
+        /// gets a responsibility detail by its ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("getresponsibilitiesdetailbyid/{id}")]
         public async Task<IActionResult> GetResponsibilitiesDetailByIdAsync(int id)
         {
@@ -83,7 +98,11 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error retrieving resposibility: {ex.Message}");
             }
         }
-        // update responsibilities detail
+        /// <summary>
+        /// updates a responsibility detail in the system.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPut("updateresponsibilitiesdetail")]
         public async Task<IActionResult> UpdateResponsibilitiesDetailAsync([FromBody] UpdateResposibilitiesDetailRequest request)
         {

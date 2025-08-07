@@ -123,16 +123,16 @@ builder.Services.AddScoped<IValidator<UpdateGradeRequest>, UpdateGradeRequestVal
 builder.Services.AddScoped<IClassOfTravelMaster, ClassOfTravelMasterService>();
 builder.Services.AddScoped<IValidator<InsertClassOfTravelRequest>, InsertClassOfTravelRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateClassOfTravelRequest>, UpdateClassOfTravelRequestValidator>();
-builder.Services.AddScoped<ICompanyMaster, CompanyMasterServices>();// Register the ICompanyMaster service with its implementation
-builder.Services.AddScoped<IValidator<InsertCompanyRequest>, InsertCompanyRequestValidator>();// Register the InsertCompanyRequestValidator
-builder.Services.AddScoped<IValidator<UpdateCompanyRequest>, UpdateCompanyValidator>();// Register the UpdateCompanyValidator
-builder.Services.AddScoped<IDesignationMaster, DesignationMasterServices>();// Register the IDesignationMaster service with its implementation
-builder.Services.AddScoped<IValidator<InsertDesignationMasterRequest>, InsertDesignationValidator>();// Register the InsertCompanyRequestValidator
-builder.Services.AddScoped<IValidator<UpdateDesignationMasterRequest>, UpdateDesignationValidator>();// Register the UpdateCompanyValidator
-builder.Services.AddScoped<IResposibilitiesMaster, ResposibilitiesMasterServices>();// Register the IResposibilitiesMaster service with its implementation
-builder.Services.AddScoped<IValidator<InsertResposibilitiesMasterRequest>, InsertResposibilitiesMasterValidator>();// Register the InsertCompanyRequestValidator
-builder.Services.AddScoped<IValidator<UpdateResposibilitiesMasterRequest>, UpdateResposibilitiesMasterValidator>();// Register the UpdateCompanyValidator
-builder.Services.AddScoped<IResposibilitiesDetail, ResposibilitiesDetailsServices>();// Register the IResposibilitiesDetail service with its implementation
+builder.Services.AddScoped<ICompanyMaster, CompanyMasterServices>();
+builder.Services.AddScoped<IValidator<InsertCompanyRequest>, InsertCompanyRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateCompanyRequest>, UpdateCompanyValidator>();
+builder.Services.AddScoped<IDesignationMaster, DesignationMasterServices>();
+builder.Services.AddScoped<IValidator<InsertDesignationMasterRequest>, InsertDesignationValidator>();
+builder.Services.AddScoped<IValidator<UpdateDesignationMasterRequest>, UpdateDesignationValidator>();
+builder.Services.AddScoped<IResposibilitiesMaster, ResposibilitiesMasterServices>();
+builder.Services.AddScoped<IValidator<InsertResposibilitiesMasterRequest>, InsertResposibilitiesMasterValidator>();
+builder.Services.AddScoped<IValidator<UpdateResposibilitiesMasterRequest>, UpdateResposibilitiesMasterValidator>();
+builder.Services.AddScoped<IResposibilitiesDetail, ResposibilitiesDetailsServices>();
 
 
 builder.Services.AddCors(options =>

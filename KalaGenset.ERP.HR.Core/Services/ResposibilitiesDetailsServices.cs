@@ -18,7 +18,11 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             this.context = context; // Initialize the context
         }
-        // This method adds a new responsibility detail to the database
+        /// <summary>
+        /// Add new responsibility detail to the system.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public Task AddResposibilitiesDetailAsync(InsertResposibilitiesDetailrequest request)
         {
             try
@@ -38,7 +42,11 @@ namespace KalaGenset.ERP.HR.Core.Services
                 throw;
             }
         }
-        // This method deletes a responsibility detail by its ID
+        /// <summary>
+        /// deletes a responsibility detail by its ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Task DeleteResposibilitiesDetailAsync(int id)
         {
             try
@@ -59,17 +67,28 @@ namespace KalaGenset.ERP.HR.Core.Services
                 throw;
             }
         }
-        // This method retrieves all responsibility details from the database
+        /// <summary>
+        /// gets all responsibility details from the system.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<ResposibilitiesDetail>> GetResposibilitiesDetailAsync()
         {
             return await context.ResposibilitiesDetails.ToListAsync(); // Retrieve all responsibility details from the database asynchronously
         }
-        // This method retrieves a specific responsibility detail by its ID
+        /// <summary>
+        /// gets a responsibility detail by its ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ResposibilitiesDetail> GetResposibilitiesDetailByIdAsync(int id)
         {
            return await context.ResposibilitiesDetails.FirstOrDefaultAsync(d => d.ResposibilitiesDetailsId == id); // Retrieve a specific responsibility detail by its ID asynchronously
         }
-        // This method updates an existing responsibility detail
+        /// <summary>
+        /// updates an existing responsibility detail in the system.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public Task UpdateResposibilitiesDetailAsync(UpdateResposibilitiesDetailRequest request)
         {
             try
