@@ -1,38 +1,46 @@
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
 using FluentValidation.AspNetCore;
-using KalaGenset.ERP.HR.Data.DbContexts;
+using KalaERP.HR.Core.Interface;
+using KalaERP.HR.Core.Request.CompanyMaster;
+using KalaERP.HR.Core.Request.DesignationMaster;
+using KalaERP.HR.Core.Services;
+using KalaERP.HR.Core.Validation.Company;
+using KalaERP.HR.Core.Validation.DesignationMaster;
 using KalaGenset.ERP.HR.Core.Interface;
-using KalaGenset.ERP.HR.Core.Services;
+using KalaGenset.ERP.HR.Core.Request;
+using KalaGenset.ERP.HR.Core.Request.City;
+using KalaGenset.ERP.HR.Core.Request.ClassOfTravel;
+using KalaGenset.ERP.HR.Core.Request.CompanyEntityTypeMaster;
 using KalaGenset.ERP.HR.Core.Request.Country;
 using KalaGenset.ERP.HR.Core.Request.Currency;
+using KalaGenset.ERP.HR.Core.Request.Department;
 using KalaGenset.ERP.HR.Core.Request.District;
-using KalaGenset.ERP.HR.Core.Request.City;
-using KalaGenset.ERP.HR.Core.Request.CompanyEntityTypeMaster;
 using KalaGenset.ERP.HR.Core.Request.Facility;
+using KalaGenset.ERP.HR.Core.Request.Grade;
+using KalaGenset.ERP.HR.Core.Request.LocationRequest;
 using KalaGenset.ERP.HR.Core.Request.ProfitcenterMaster;
-using KalaGenset.ERP.HR.Core.Validation.FacilityMaster;
-using KalaGenset.ERP.HR.Core.Validation.ProfitcenterMaster;
+using KalaGenset.ERP.HR.Core.Request.QualificationRequest;
+using KalaGenset.ERP.HR.Core.Request.ResposibilitiesMaster;
+using KalaGenset.ERP.HR.Core.Request.StateRequest;
+using KalaGenset.ERP.HR.Core.Services;
+using KalaGenset.ERP.HR.Core.Validation.CityMasterValidation;
+using KalaGenset.ERP.HR.Core.Validation.ClassOfTravelValidation;
+using KalaGenset.ERP.HR.Core.Validation.CompanyEntityTypeMaster;
 using KalaGenset.ERP.HR.Core.Validation.CountryValidation;
 using KalaGenset.ERP.HR.Core.Validation.CurrencyValidation;
-using KalaGenset.ERP.HR.Core.Validation.CompanyEntityTypeMaster;
-using KalaGenset.ERP.HR.Core.Validation.DistrictMasterValidation;
-using KalaGenset.ERP.HR.Core.Validation.CityMasterValidation;
-using KalaGenset.ERP.HR.Core.Validation.StateValidator;
-using KalaGenset.ERP.HR.Core.Validation.QualificationValidator;
-using KalaGenset.ERP.HR.Core.Validation.LocationValidator;
-using KalaGenset.ERP.HR.Core.Request.StateRequest;
-using KalaGenset.ERP.HR.Core.Request.QualificationRequest;
-using KalaGenset.ERP.HR.Core.Request.LocationRequest;
-using KalaGenset.ERP.HR.Core.Request;
-using KalaGenset.ERP.HR.Core.Validation.QualificationTypeMaster;
-using KalaGenset.ERP.HR.Core.Validation.PetrolAllowanceMaster;
-using KalaGenset.ERP.HR.Core.Request.Department;
+using KalaGenset.ERP.HR.Core.Validation.DepartmentMaster;
 using KalaGenset.ERP.HR.Core.Validation.DepartmentValidation;
-using KalaGenset.ERP.HR.Core.Request.Grade;
+using KalaGenset.ERP.HR.Core.Validation.DistrictMasterValidation;
+using KalaGenset.ERP.HR.Core.Validation.FacilityMaster;
 using KalaGenset.ERP.HR.Core.Validation.GradeValidation;
-using KalaGenset.ERP.HR.Core.Request.ClassOfTravel;
-using KalaGenset.ERP.HR.Core.Validation.ClassOfTravelValidation;
+using KalaGenset.ERP.HR.Core.Validation.LocationValidator;
+using KalaGenset.ERP.HR.Core.Validation.PetrolAllowanceMaster;
+using KalaGenset.ERP.HR.Core.Validation.ProfitcenterMaster;
+using KalaGenset.ERP.HR.Core.Validation.QualificationTypeMaster;
+using KalaGenset.ERP.HR.Core.Validation.QualificationValidator;
+using KalaGenset.ERP.HR.Core.Validation.StateValidator;
+using KalaGenset.ERP.HR.Data.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
 
 
@@ -115,6 +123,17 @@ builder.Services.AddScoped<IValidator<UpdateGradeRequest>, UpdateGradeRequestVal
 builder.Services.AddScoped<IClassOfTravelMaster, ClassOfTravelMasterService>();
 builder.Services.AddScoped<IValidator<InsertClassOfTravelRequest>, InsertClassOfTravelRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateClassOfTravelRequest>, UpdateClassOfTravelRequestValidator>();
+builder.Services.AddScoped<ICompanyMaster, CompanyMasterServices>();// Register the ICompanyMaster service with its implementation
+builder.Services.AddScoped<IValidator<InsertCompanyRequest>, InsertCompanyRequestValidator>();// Register the InsertCompanyRequestValidator
+builder.Services.AddScoped<IValidator<UpdateCompanyRequest>, UpdateCompanyValidator>();// Register the UpdateCompanyValidator
+builder.Services.AddScoped<IDesignationMaster, DesignationMasterServices>();// Register the IDesignationMaster service with its implementation
+builder.Services.AddScoped<IValidator<InsertDesignationMasterRequest>, InsertDesignationValidator>();// Register the InsertCompanyRequestValidator
+builder.Services.AddScoped<IValidator<UpdateDesignationMasterRequest>, UpdateDesignationValidator>();// Register the UpdateCompanyValidator
+builder.Services.AddScoped<IResposibilitiesMaster, ResposibilitiesMasterServices>();// Register the IResposibilitiesMaster service with its implementation
+builder.Services.AddScoped<IValidator<InsertResposibilitiesMasterRequest>, InsertResposibilitiesMasterValidator>();// Register the InsertCompanyRequestValidator
+builder.Services.AddScoped<IValidator<UpdateResposibilitiesMasterRequest>, UpdateResposibilitiesMasterValidator>();// Register the UpdateCompanyValidator
+builder.Services.AddScoped<IResposibilitiesDetail, ResposibilitiesDetailsServices>();// Register the IResposibilitiesDetail service with its implementation
+
 
 builder.Services.AddCors(options =>
 {
