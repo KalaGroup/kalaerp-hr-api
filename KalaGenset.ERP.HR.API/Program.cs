@@ -22,6 +22,7 @@ using KalaGenset.ERP.HR.Core.Request.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Core.Request.QualificationRequest;
 using KalaGenset.ERP.HR.Core.Request.ResposibilitiesMaster;
 using KalaGenset.ERP.HR.Core.Request.StateRequest;
+using KalaGenset.ERP.HR.Core.Request.Workstation;
 using KalaGenset.ERP.HR.Core.Services;
 using KalaGenset.ERP.HR.Core.Validation.CityMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.ClassOfTravelValidation;
@@ -39,6 +40,7 @@ using KalaGenset.ERP.HR.Core.Validation.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Core.Validation.QualificationTypeMaster;
 using KalaGenset.ERP.HR.Core.Validation.QualificationValidator;
 using KalaGenset.ERP.HR.Core.Validation.StateValidator;
+using KalaGenset.ERP.HR.Core.Validation.WorkstationMasterValidation;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -75,6 +77,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<UpdateDistrictRequestValida
 builder.Services.AddValidatorsFromAssemblyContaining<InsertStateRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertQualificationRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertLocationRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertWorkstationRequestValidator>();
 
 //registering service
 builder.Services.AddScoped<ICountryMaster, CountryMasterService>();
@@ -133,7 +136,11 @@ builder.Services.AddScoped<IResposibilitiesMaster, ResposibilitiesMasterServices
 builder.Services.AddScoped<IValidator<InsertResposibilitiesMasterRequest>, InsertResposibilitiesMasterValidator>();
 builder.Services.AddScoped<IValidator<UpdateResposibilitiesMasterRequest>, UpdateResposibilitiesMasterValidator>();
 builder.Services.AddScoped<IResposibilitiesDetail, ResposibilitiesDetailsServices>();
-
+builder.Services.AddScoped<IWorkstationMaster, WorkstationMasterService>();
+// Fix for CS0311: Ensure the validator class implements the correct interface  
+builder.Services.AddScoped<IValidator<InsertWorkstationRequest>, InsertWorkstationRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateWorkstationRequest>, UpdateWorkstationMasterValidator>();
+builder.Services.AddScoped<IWorkstationMaster, WorkstationMasterService>();
 
 builder.Services.AddCors(options =>
 {
