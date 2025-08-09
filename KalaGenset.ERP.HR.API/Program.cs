@@ -18,6 +18,7 @@ using KalaGenset.ERP.HR.Core.Request.Department;
 using KalaGenset.ERP.HR.Core.Request.District;
 using KalaGenset.ERP.HR.Core.Request.Facility;
 using KalaGenset.ERP.HR.Core.Request.Grade;
+using KalaGenset.ERP.HR.Core.Request.KPAMaster;
 using KalaGenset.ERP.HR.Core.Request.LocationRequest;
 using KalaGenset.ERP.HR.Core.Request.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Core.Request.QualificationRequest;
@@ -36,6 +37,7 @@ using KalaGenset.ERP.HR.Core.Validation.DepartmentValidation;
 using KalaGenset.ERP.HR.Core.Validation.DistrictMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.FacilityMaster;
 using KalaGenset.ERP.HR.Core.Validation.GradeValidation;
+using KalaGenset.ERP.HR.Core.Validation.KPAMaster;
 using KalaGenset.ERP.HR.Core.Validation.LocationValidator;
 using KalaGenset.ERP.HR.Core.Validation.PetrolAllowanceMaster;
 using KalaGenset.ERP.HR.Core.Validation.ProfitcenterMaster;
@@ -81,6 +83,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertLocationRequestValida
 builder.Services.AddValidatorsFromAssemblyContaining<InsertAuthoritieMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateAuthoritieMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertWorkstationRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertKPAMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateKPAMasterValidator>();
 
 //registering service
 builder.Services.AddScoped<ICountryMaster, CountryMasterService>();
@@ -146,6 +150,10 @@ builder.Services.AddScoped<IAuthoritiesDetail, AuthoritiesDetailServices>();
 builder.Services.AddScoped<IWorkstationMaster, WorkstationMasterService>();
 builder.Services.AddScoped<IValidator<InsertWorkstationRequest>, InsertWorkstationRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateWorkstationRequest>, UpdateWorkstationMasterValidator>();
+builder.Services.AddScoped<IKPAMaster, KPAMasterServices>();
+builder.Services.AddScoped<IValidator<InsertKPAMasterRequest>, InsertKPAMasterValidator>();
+builder.Services.AddScoped<IValidator<UpdateKPAMasterRequest>, UpdateKPAMasterValidator>();
+builder.Services.AddScoped<IKpadetail, KPADetailsServices>();
 
 
 builder.Services.AddCors(options =>
