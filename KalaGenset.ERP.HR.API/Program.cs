@@ -8,6 +8,7 @@ using KalaERP.HR.Core.Validation.Company;
 using KalaERP.HR.Core.Validation.DesignationMaster;
 using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request;
+using KalaGenset.ERP.HR.Core.Request.AuthoritieMaster;
 using KalaGenset.ERP.HR.Core.Request.City;
 using KalaGenset.ERP.HR.Core.Request.ClassOfTravel;
 using KalaGenset.ERP.HR.Core.Request.CompanyEntityTypeMaster;
@@ -24,6 +25,7 @@ using KalaGenset.ERP.HR.Core.Request.ResposibilitiesMaster;
 using KalaGenset.ERP.HR.Core.Request.StateRequest;
 using KalaGenset.ERP.HR.Core.Request.Workstation;
 using KalaGenset.ERP.HR.Core.Services;
+using KalaGenset.ERP.HR.Core.Validation.AuthoritieMaster;
 using KalaGenset.ERP.HR.Core.Validation.CityMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.ClassOfTravelValidation;
 using KalaGenset.ERP.HR.Core.Validation.CompanyEntityTypeMaster;
@@ -61,14 +63,13 @@ builder.Services.AddControllers()
 //Configure ConnectionString from appsetting.json file
 builder.Services.AddDbContext<KalaDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("KalaDbContext")));
-
 // FluentValidation setup
 builder.Services.AddFluentValidationClientsideAdapters(); // Enables client-side adapter support
 builder.Services.AddValidatorsFromAssemblyContaining<InsertCountryRequestValidator>(); 
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateCountryRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertCurrencyRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateCurrencyRequestValidator>();
-builder.Services.AddValidatorsFromAssemblyContaining<InsertCompanyEntityTypeRequestValidator>(); // Registers your validator(s)
+builder.Services.AddValidatorsFromAssemblyContaining<InsertCompanyEntityTypeRequestValidator>(); 
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateCompanyEntityTypeRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertCityRequestValidator>(); 
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateCityRequestValidator>();
@@ -77,6 +78,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<UpdateDistrictRequestValida
 builder.Services.AddValidatorsFromAssemblyContaining<InsertStateRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertQualificationRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertLocationRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertAuthoritieMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateAuthoritieMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertWorkstationRequestValidator>();
 
 //registering service
@@ -95,7 +98,7 @@ builder.Services.AddScoped<IValidator<UpdateCompanyEntityTypeMasterRequest>, Upd
 builder.Services.AddScoped<ICityMaster, CityMasterService>();
 builder.Services.AddScoped<IValidator<InsertCityRequest>, InsertCityRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateCityRequest>, UpdateCityRequestValidator>();
-builder.Services.AddScoped<IFacilityMaster, FacilityMasterService>();
+builder.Services.AddScoped<IFacilityMaster, FacilityMasterService>(); 
 builder.Services.AddScoped<IValidator<InsertFacilityRequest>, InsertFacilityRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateFacilityRequest>, UpdateFacilityRequestValidator>();
 builder.Services.AddScoped<IProfitcenterMaster, ProfitcenterMasterService>();
@@ -136,11 +139,14 @@ builder.Services.AddScoped<IResposibilitiesMaster, ResposibilitiesMasterServices
 builder.Services.AddScoped<IValidator<InsertResposibilitiesMasterRequest>, InsertResposibilitiesMasterValidator>();
 builder.Services.AddScoped<IValidator<UpdateResposibilitiesMasterRequest>, UpdateResposibilitiesMasterValidator>();
 builder.Services.AddScoped<IResposibilitiesDetail, ResposibilitiesDetailsServices>();
+builder.Services.AddScoped<IAuthoritieMaster, AuthoritieMasterServices>();
+builder.Services.AddScoped<IValidator<InsertAuthoritieMasterRequest>, InsertAuthoritieMasterValidator>();
+builder.Services.AddScoped<IValidator<UpdateAuthoritieMasterRequest>, UpdateAuthoritieMasterValidator>();
+builder.Services.AddScoped<IAuthoritiesDetail, AuthoritiesDetailServices>(); 
 builder.Services.AddScoped<IWorkstationMaster, WorkstationMasterService>();
-// Fix for CS0311: Ensure the validator class implements the correct interface  
 builder.Services.AddScoped<IValidator<InsertWorkstationRequest>, InsertWorkstationRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateWorkstationRequest>, UpdateWorkstationMasterValidator>();
-builder.Services.AddScoped<IWorkstationMaster, WorkstationMasterService>();
+
 
 builder.Services.AddCors(options =>
 {
