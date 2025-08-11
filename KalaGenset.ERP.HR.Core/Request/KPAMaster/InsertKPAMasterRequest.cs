@@ -17,6 +17,7 @@ namespace KalaGenset.ERP.HR.Core.Request.KPAMaster
         public string Kpatype { get; set; } = null!;
 
         public string KpaauthRemark { get; set; } = null!;
+        public int KpadivisionId { get; set; }
 
         public bool Kpaauth { get; set; }
 

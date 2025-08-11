@@ -11,6 +11,8 @@ public partial class Kpamaster
 
     public int KpadesignationId { get; set; }
 
+    public int KpadivisionId { get; set; }
+
     public string Kparemark { get; set; } = null!;
 
     public string Kpatype { get; set; } = null!;
@@ -30,6 +32,8 @@ public partial class Kpamaster
     public virtual DesignationMaster Kpadesignation { get; set; } = null!;
 
     public virtual ICollection<Kpadetail> Kpadetails { get; set; } = new List<Kpadetail>();
+
+    public virtual DivisionMaster Kpadivision { get; set; } = null!;
 
     public virtual GradeMaster Kpagrade { get; set; } = null!;
 }

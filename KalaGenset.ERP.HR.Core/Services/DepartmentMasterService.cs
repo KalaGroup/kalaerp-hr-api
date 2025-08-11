@@ -37,6 +37,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                     DepartmentShortName = request.DepartmentShortName,
                     ParentDepartmentId = request.ParentDepartmentId,
                     DepartmentProfitcenterId = request.DepartmentProfitcenterId,
+                    DepartmentDivisionId = request.DepartmentDivisionId,
                     DepartmentRemark = request.DepartmentRemark,
                     DepartmentType = request.DepartmentType,
                     DepartmentAuthRemark = request.DepartmentAuthRemark,
@@ -76,6 +77,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                 department.DepartmentShortName = request.DepartmentShortName;
                 department.ParentDepartmentId = request.ParentDepartmentId;
                 department.DepartmentProfitcenterId = request.DepartmentProfitcenterId;
+                department.DepartmentDivisionId = request.DepartmentDivisionId;
                 department.DepartmentRemark = request.DepartmentRemark;
                 department.DepartmentType = request.DepartmentType;
                 department.DepartmentAuthRemark = request.DepartmentAuthRemark;

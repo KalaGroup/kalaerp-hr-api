@@ -11,6 +11,8 @@ public partial class AuthoritiesMaster
 
     public int AuthoritiesDesignationId { get; set; }
 
+    public int AuthoritiesDivisionId { get; set; }
+
     public string AuthoritiesRemark { get; set; } = null!;
 
     public string AuthoritiesType { get; set; } = null!;
@@ -30,6 +32,8 @@ public partial class AuthoritiesMaster
     public virtual DesignationMaster AuthoritiesDesignation { get; set; } = null!;
 
     public virtual ICollection<AuthoritiesDetail> AuthoritiesDetails { get; set; } = new List<AuthoritiesDetail>();
+
+    public virtual DivisionMaster AuthoritiesDivision { get; set; } = null!;
 
     public virtual GradeMaster AuthoritiesGrade { get; set; } = null!;
 }

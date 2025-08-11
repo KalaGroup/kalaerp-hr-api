@@ -11,6 +11,8 @@ public partial class RolesMaster
 
     public int RolesDesignationId { get; set; }
 
+    public int RolesDivisionId { get; set; }
+
     public string RolesRemark { get; set; } = null!;
 
     public string RolesType { get; set; } = null!;
@@ -30,6 +32,8 @@ public partial class RolesMaster
     public virtual DesignationMaster RolesDesignation { get; set; } = null!;
 
     public virtual ICollection<RolesDetail> RolesDetails { get; set; } = new List<RolesDetail>();
+
+    public virtual DivisionMaster RolesDivision { get; set; } = null!;
 
     public virtual GradeMaster RolesGrade { get; set; } = null!;
 }

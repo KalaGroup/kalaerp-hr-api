@@ -39,9 +39,13 @@ public partial class GradeMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public virtual ICollection<ActivityMaster> ActivityMasters { get; set; } = new List<ActivityMaster>();
+
     public virtual ICollection<AuthoritiesMaster> AuthoritiesMasters { get; set; } = new List<AuthoritiesMaster>();
 
     public virtual ICollection<ClassOfTravelMaster> ClassOfTravelMasters { get; set; } = new List<ClassOfTravelMaster>();
+
+    public virtual ICollection<CtcstructureMaster> CtcstructureMasters { get; set; } = new List<CtcstructureMaster>();
 
     public virtual ICollection<DesignationMaster> DesignationMasters { get; set; } = new List<DesignationMaster>();
 
@@ -51,7 +55,7 @@ public partial class GradeMaster
 
     public virtual ICollection<Kpamaster> Kpamasters { get; set; } = new List<Kpamaster>();
 
-    public virtual ICollection<ResposibilitiesMaster> ResposibilitiesMasters { get; set; } = new List<ResposibilitiesMaster>();
+    public virtual ICollection<ResponsibilitiesMaster> ResponsibilitiesMasters { get; set; } = new List<ResponsibilitiesMaster>();
 
     public virtual ICollection<RolesMaster> RolesMasters { get; set; } = new List<RolesMaster>();
 }

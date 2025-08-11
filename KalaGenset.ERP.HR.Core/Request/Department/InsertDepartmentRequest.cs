@@ -13,6 +13,7 @@ namespace KalaGenset.ERP.HR.Core.Request.Department
         public string DepartmentShortName { get; set; } 
         public int? ParentDepartmentId { get; set; }
         public int DepartmentProfitcenterId { get; set; }
+        public int? DepartmentDivisionId { get; set; }
         public string DepartmentRemark { get; set; }
         public string DepartmentType { get; set; } 
         public string DepartmentAuthRemark { get; set; } 
