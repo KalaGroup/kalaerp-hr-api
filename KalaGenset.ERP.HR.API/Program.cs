@@ -8,6 +8,7 @@ using KalaERP.HR.Core.Validation.Company;
 using KalaERP.HR.Core.Validation.DesignationMaster;
 using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request;
+using KalaGenset.ERP.HR.Core.Request.ActivityDetails;
 using KalaGenset.ERP.HR.Core.Request.AuthoritieMaster;
 using KalaGenset.ERP.HR.Core.Request.City;
 using KalaGenset.ERP.HR.Core.Request.ClassOfTravel;
@@ -33,6 +34,7 @@ using KalaGenset.ERP.HR.Core.Validation.CityMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.ClassOfTravelValidation;
 using KalaGenset.ERP.HR.Core.Validation.CompanyEntityTypeMaster;
 using KalaGenset.ERP.HR.Core.Validation.CountryValidation;
+using KalaGenset.ERP.HR.Core.Validation.CTCStructureMaster;
 using KalaGenset.ERP.HR.Core.Validation.CurrencyValidation;
 using KalaGenset.ERP.HR.Core.Validation.DepartmentMaster;
 using KalaGenset.ERP.HR.Core.Validation.DepartmentValidation;
@@ -89,9 +91,10 @@ builder.Services.AddValidatorsFromAssemblyContaining<UpdateAuthoritieMasterValid
 builder.Services.AddValidatorsFromAssemblyContaining<InsertWorkstationRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertKPAMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateKPAMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertCTCRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateCTCRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertDivisionRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateDivisionRequestValidator>();
-
 //registering service
 builder.Services.AddScoped<ICountryMaster, CountryMasterService>();
 builder.Services.AddScoped<IValidator<InsertCountryRequest>, InsertCountryRequestValidator>();
@@ -163,6 +166,9 @@ builder.Services.AddScoped<IKPAMaster, KPAMasterServices>();
 builder.Services.AddScoped<IValidator<InsertKPAMasterRequest>, InsertKPAMasterValidator>();
 builder.Services.AddScoped<IValidator<UpdateKPAMasterRequest>, UpdateKPAMasterValidator>();
 builder.Services.AddScoped<IKpadetail, KPADetailsServices>();
+builder.Services.AddScoped<ICTCStructureMaster,CTCStructureMasterServices>();
+builder.Services.AddScoped<IValidator<InsertCTCStructureMasterRequest>, InsertCTCRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateCTCStructureMasterRequest>, UpdateCTCRequestValidator>();
 builder.Services.AddScoped<IValidator<InsertDivisionMasterRequest>, InsertDivisionRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateDivisionMasterRequest>, UpdateDivisionRequestValidator>();
 builder.Services.AddScoped<IDivisionMaster, DivisionMasterService>();
