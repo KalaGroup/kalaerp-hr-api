@@ -17,6 +17,7 @@ using KalaGenset.ERP.HR.Core.Request.Country;
 using KalaGenset.ERP.HR.Core.Request.Currency;
 using KalaGenset.ERP.HR.Core.Request.Department;
 using KalaGenset.ERP.HR.Core.Request.District;
+using KalaGenset.ERP.HR.Core.Request.DivisionMaster;
 using KalaGenset.ERP.HR.Core.Request.EmployeeTypeMaster;
 using KalaGenset.ERP.HR.Core.Request.Facility;
 using KalaGenset.ERP.HR.Core.Request.Grade;
@@ -38,6 +39,7 @@ using KalaGenset.ERP.HR.Core.Validation.CurrencyValidation;
 using KalaGenset.ERP.HR.Core.Validation.DepartmentMaster;
 using KalaGenset.ERP.HR.Core.Validation.DepartmentValidation;
 using KalaGenset.ERP.HR.Core.Validation.DistrictMasterValidation;
+using KalaGenset.ERP.HR.Core.Validation.DivisionMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.EmployeeTypeMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.FacilityMaster;
 using KalaGenset.ERP.HR.Core.Validation.GradeValidation;
@@ -91,8 +93,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertKPAMasterValidator>()
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateKPAMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertCTCRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateCTCRequestValidator>();
-
-
+builder.Services.AddValidatorsFromAssemblyContaining<InsertDivisionRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateDivisionRequestValidator>();
 //registering service
 builder.Services.AddScoped<ICountryMaster, CountryMasterService>();
 builder.Services.AddScoped<IValidator<InsertCountryRequest>, InsertCountryRequestValidator>();
@@ -167,7 +169,9 @@ builder.Services.AddScoped<IKpadetail, KPADetailsServices>();
 builder.Services.AddScoped<ICTCStructureMaster,CTCStructureMasterServices>();
 builder.Services.AddScoped<IValidator<InsertCTCStructureMasterRequest>, InsertCTCRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateCTCStructureMasterRequest>, UpdateCTCRequestValidator>();
-
+builder.Services.AddScoped<IValidator<InsertDivisionMasterRequest>, InsertDivisionRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateDivisionMasterRequest>, UpdateDivisionRequestValidator>();
+builder.Services.AddScoped<IDivisionMaster, DivisionMasterService>();
 
 builder.Services.AddCors(options =>
 {
