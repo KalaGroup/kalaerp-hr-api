@@ -29,21 +29,22 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             try
             {
-                var resposibility = new ResposibilitiesMaster
+                var resposibility = new ResponsibilitiesMaster
                 {
-                    ResposibilitiesGradeId = request.ResposibilitiesGradeId,
-         
-                    ResposibilitiesRemark = request.ResposibilitiesRemark,
-                    ResposibilitiesType = request.ResposibilitiesType,
-                    ResposibilitiesDesignationId = request.ResposibilitiesDesignationId,
-                    ResposibilitiesAuthRemark = request.ResposibilitiesAuthRemark,
-                    ResposibilitiesAuth = request.ResposibilitiesAuth,
-                    ResposibilitiesIsDiscard = request.ResposibilitiesIsDiscard,
-                    ResposibilitiesIsActive = request.ResposibilitiesIsActive,
+                    ResponsibilitiesGradeId = request.ResposibilitiesGradeId,
+                         
+                    ResponsibilitiesRemark = request.ResposibilitiesRemark,
+                    ResponsibilitiesType = request.ResposibilitiesType,
+                    ResponsibilitiesDesignationId = request.ResposibilitiesDesignationId,
+                    ResponsibilitiesAuthRemark = request.ResposibilitiesAuthRemark,
+                    ResponsibilitiesDivisionId=request.ResponsibilitiesDivisionId,
+                    ResponsibilitiesAuth = request.ResposibilitiesAuth,
+                    ResponsibilitiesIsDiscard = request.ResposibilitiesIsDiscard,
+                    ResponsibilitiesIsActive = request.ResposibilitiesIsActive,
                     CreatedBy = request.CreatedBy,
                     CreatedDate = DateTime.Now,
                 };
-                context.ResposibilitiesMasters.Add(resposibility);
+                context.ResponsibilitiesMasters.Add(resposibility);
                 await context.SaveChangesAsync();
                
             }
@@ -63,9 +64,9 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             try
             {
-                var resposibilitie = await context.ResposibilitiesMasters.FirstOrDefaultAsync(c => c.ResposibilitiesId == id);
-                resposibilitie.ResposibilitiesIsActive = false;
-                context.ResposibilitiesMasters.Update(resposibilitie);
+                var resposibilitie = await context.ResponsibilitiesMasters.FirstOrDefaultAsync(c => c.ResponsibilitiesId == id);
+                resposibilitie.ResponsibilitiesIsActive = false;
+                context.ResponsibilitiesMasters.Update(resposibilitie);
                 await context.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -78,18 +79,18 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// gets a list of all responsibilities in the system.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<ResposibilitiesMaster>> GetResposibilitiesAsync()
+        public async Task<IEnumerable<ResponsibilitiesMaster>> GetResposibilitiesAsync()
         {
-            return await context.ResposibilitiesMasters.ToListAsync();
+            return await context.ResponsibilitiesMasters.ToListAsync();
         }
         /// <summary>
         /// gets a responsibility by its ID.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ResposibilitiesMaster> GetResposibilitiesByIdAsync(int id)
+        public async Task<ResponsibilitiesMaster> GetResposibilitiesByIdAsync(int id)
         {
-            return await context.ResposibilitiesMasters.FirstOrDefaultAsync(d => d.ResposibilitiesId == id);
+            return await context.ResponsibilitiesMasters.FirstOrDefaultAsync(d => d.ResponsibilitiesId == id);
 
         }
         /// <summary>
@@ -102,19 +103,20 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             try
             {
-                var resposibility = context.ResposibilitiesMasters.FirstOrDefault(d => d.ResposibilitiesId == request.ResposibilitiesId);
+                var resposibility = context.ResponsibilitiesMasters.FirstOrDefault(d => d.ResponsibilitiesId == request.ResposibilitiesId);
 
-               resposibility.ResposibilitiesGradeId = request.ResposibilitiesGradeId;
-                resposibility.ResposibilitiesDesignationId = request.ResposibilitiesDesignationId;
-                resposibility.ResposibilitiesRemark = request.ResposibilitiesRemark;
-                resposibility.ResposibilitiesType = request.ResposibilitiesType;
-                resposibility.ResposibilitiesAuthRemark = request.ResposibilitiesAuthRemark;
-                resposibility.ResposibilitiesAuth = request.ResposibilitiesAuth;
-                resposibility.ResposibilitiesIsDiscard = request.ResposibilitiesIsDiscard;
-                resposibility.ResposibilitiesIsActive = request.ResposibilitiesIsActive;
+               resposibility.ResponsibilitiesGradeId = request.ResposibilitiesGradeId;
+                resposibility.ResponsibilitiesDesignationId = request.ResposibilitiesDesignationId;
+                resposibility.ResponsibilitiesRemark = request.ResposibilitiesRemark;
+                resposibility.ResponsibilitiesType = request.ResposibilitiesType;
+                resposibility.ResponsibilitiesAuthRemark = request.ResposibilitiesAuthRemark;
+                resposibility.ResponsibilitiesDivisionId=request.ResponsibilitiesDivisionId;
+                resposibility.ResponsibilitiesAuth = request.ResposibilitiesAuth;
+                resposibility.ResponsibilitiesIsDiscard = request.ResposibilitiesIsDiscard;
+                resposibility.ResponsibilitiesIsActive = request.ResposibilitiesIsActive;
                 resposibility.CreatedBy = request.CreatedBy;
                 resposibility.CreatedDate = request.CreatedDate;
-                context.ResposibilitiesMasters.Update(resposibility);
+                context.ResponsibilitiesMasters.Update(resposibility);
                 return context.SaveChangesAsync();
             }
             catch (Exception ex)

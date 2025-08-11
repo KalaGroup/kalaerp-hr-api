@@ -20,13 +20,13 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// gets all responsibilities from the system.
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<ResposibilitiesMaster>> GetResposibilitiesAsync();
+        public Task<IEnumerable<ResponsibilitiesMaster>> GetResposibilitiesAsync();
         /// <summary>
         /// get responsibility by id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Task<ResposibilitiesMaster> GetResposibilitiesByIdAsync(int id);
+        public Task<ResponsibilitiesMaster> GetResposibilitiesByIdAsync(int id);
         /// <summary>
         /// update an existing responsibility in the system.
         /// </summary>

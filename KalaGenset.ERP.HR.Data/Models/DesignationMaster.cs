@@ -27,6 +27,8 @@ public partial class DesignationMaster
 
     public string DesignationRemark { get; set; } = null!;
 
+    public virtual ICollection<ActivityMaster> ActivityMasters { get; set; } = new List<ActivityMaster>();
+
     public virtual ICollection<AuthoritiesMaster> AuthoritiesMasters { get; set; } = new List<AuthoritiesMaster>();
 
     public virtual GradeMaster DesignationGrade { get; set; } = null!;
@@ -35,7 +37,7 @@ public partial class DesignationMaster
 
     public virtual ICollection<Kpamaster> Kpamasters { get; set; } = new List<Kpamaster>();
 
-    public virtual ICollection<ResposibilitiesMaster> ResposibilitiesMasters { get; set; } = new List<ResposibilitiesMaster>();
+    public virtual ICollection<ResponsibilitiesMaster> ResponsibilitiesMasters { get; set; } = new List<ResponsibilitiesMaster>();
 
     public virtual ICollection<RolesMaster> RolesMasters { get; set; } = new List<RolesMaster>();
 }

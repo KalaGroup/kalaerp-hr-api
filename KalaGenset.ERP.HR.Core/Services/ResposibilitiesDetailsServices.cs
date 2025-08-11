@@ -27,14 +27,14 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             try
             {
-                var resposibilitiesDetail = new ResposibilitiesDetail
+                var resposibilitiesDetail = new ResponsibilitiesDetail
                 {
                    DetailsResposibilitiesId=request.DetailsResposibilitiesId,
                     SrNo = request.SrNo,
-                    ResposibilitiesDetailsDescription = request.ResposibilitiesDetailsDescription,
+                    ResponsibilitiesDetailsDescription = request.ResposibilitiesDetailsDescription,
 
                 };
-                context.ResposibilitiesDetails.Add(resposibilitiesDetail); // Add the new responsibility detail to the context
+                context.ResponsibilitiesDetails.Add(resposibilitiesDetail); // Add the new responsibility detail to the context
                 return context.SaveChangesAsync(); // Save changes to the database asynchronously
             }
             catch
@@ -51,10 +51,10 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             try
             {
-                var resposibilitiesDetail = context.ResposibilitiesDetails.FirstOrDefault(d => d.ResposibilitiesDetailsId == id);
+                var resposibilitiesDetail = context.ResponsibilitiesDetails.FirstOrDefault(d => d.ResponsibilitiesDetailsId == id);
                 if (resposibilitiesDetail != null)
                 {
-                    context.ResposibilitiesDetails.Remove(resposibilitiesDetail); // Remove the responsibility detail from the context
+                    context.ResponsibilitiesDetails.Remove(resposibilitiesDetail); // Remove the responsibility detail from the context
                     return context.SaveChangesAsync(); // Save changes to the database asynchronously
                 }
                 else
@@ -71,18 +71,18 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// gets all responsibility details from the system.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<ResposibilitiesDetail>> GetResposibilitiesDetailAsync()
+        public async Task<IEnumerable<ResponsibilitiesDetail>> GetResposibilitiesDetailAsync()
         {
-            return await context.ResposibilitiesDetails.ToListAsync(); // Retrieve all responsibility details from the database asynchronously
+            return await context.ResponsibilitiesDetails.ToListAsync(); // Retrieve all responsibility details from the database asynchronously
         }
         /// <summary>
         /// gets a responsibility detail by its ID.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ResposibilitiesDetail> GetResposibilitiesDetailByIdAsync(int id)
+        public async Task<ResponsibilitiesDetail> GetResposibilitiesDetailByIdAsync(int id)
         {
-           return await context.ResposibilitiesDetails.FirstOrDefaultAsync(d => d.ResposibilitiesDetailsId == id); // Retrieve a specific responsibility detail by its ID asynchronously
+           return await context.ResponsibilitiesDetails.FirstOrDefaultAsync(d => d.ResponsibilitiesDetailsId == id); // Retrieve a specific responsibility detail by its ID asynchronously
         }
         /// <summary>
         /// updates an existing responsibility detail in the system.
@@ -93,13 +93,13 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             try
             {
-                var resposibilitiesDetail = context.ResposibilitiesDetails.FirstOrDefault(d => d.ResposibilitiesDetailsId == request.ResposibilitiesDetailsId);
+                var resposibilitiesDetail = context.ResponsibilitiesDetails.FirstOrDefault(d => d.ResponsibilitiesDetailsId == request.ResposibilitiesDetailsId);
                 if (resposibilitiesDetail != null)
                 {
                     resposibilitiesDetail.DetailsResposibilitiesId = request.DetailsResposibilitiesId;
                     resposibilitiesDetail.SrNo = request.SrNo;
-                    resposibilitiesDetail.ResposibilitiesDetailsDescription = request.ResposibilitiesDetailsDescription;
-                    context.ResposibilitiesDetails.Update(resposibilitiesDetail); // Update the existing responsibility detail
+                    resposibilitiesDetail.ResponsibilitiesDetailsDescription = request.ResposibilitiesDetailsDescription;
+                    context.ResponsibilitiesDetails.Update(resposibilitiesDetail); // Update the existing responsibility detail
                     return context.SaveChangesAsync(); // Save changes to the database asynchronously
                 }
                 else

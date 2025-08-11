@@ -13,6 +13,8 @@ public partial class DepartmentMaster
 
     public string DepartmentShortName { get; set; } = null!;
 
+    public int? DepartmentDivisionId { get; set; }
+
     public int? ParentDepartmentId { get; set; }
 
     public int DepartmentProfitcenterId { get; set; }
@@ -32,6 +34,8 @@ public partial class DepartmentMaster
     public int CreatedBy { get; set; }
 
     public DateTime CreatedDate { get; set; }
+
+    public virtual DivisionMaster? DepartmentDivision { get; set; }
 
     public virtual ProfitcenterMaster DepartmentProfitcenter { get; set; } = null!;
 

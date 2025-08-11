@@ -16,6 +16,10 @@ public partial class KalaDbContext : DbContext
     {
     }
 
+    public virtual DbSet<ActivityDetail> ActivityDetails { get; set; }
+
+    public virtual DbSet<ActivityMaster> ActivityMasters { get; set; }
+
     public virtual DbSet<AuthoritiesDetail> AuthoritiesDetails { get; set; }
 
     public virtual DbSet<AuthoritiesMaster> AuthoritiesMasters { get; set; }
@@ -30,6 +34,8 @@ public partial class KalaDbContext : DbContext
 
     public virtual DbSet<CountryMaster> CountryMasters { get; set; }
 
+    public virtual DbSet<CtcstructureMaster> CtcstructureMasters { get; set; }
+
     public virtual DbSet<CurrencyMaster> CurrencyMasters { get; set; }
 
     public virtual DbSet<DepartmentMaster> DepartmentMasters { get; set; }
@@ -37,6 +43,8 @@ public partial class KalaDbContext : DbContext
     public virtual DbSet<DesignationMaster> DesignationMasters { get; set; }
 
     public virtual DbSet<DistrictMaster> DistrictMasters { get; set; }
+
+    public virtual DbSet<DivisionMaster> DivisionMasters { get; set; }
 
     public virtual DbSet<EmployeeTypeMaster> EmployeeTypeMasters { get; set; }
 
@@ -60,9 +68,9 @@ public partial class KalaDbContext : DbContext
 
     public virtual DbSet<QualificationTypeMaster> QualificationTypeMasters { get; set; }
 
-    public virtual DbSet<ResposibilitiesDetail> ResposibilitiesDetails { get; set; }
+    public virtual DbSet<ResponsibilitiesDetail> ResponsibilitiesDetails { get; set; }
 
-    public virtual DbSet<ResposibilitiesMaster> ResposibilitiesMasters { get; set; }
+    public virtual DbSet<ResponsibilitiesMaster> ResponsibilitiesMasters { get; set; }
 
     public virtual DbSet<RolesDetail> RolesDetails { get; set; }
 
@@ -72,19 +80,84 @@ public partial class KalaDbContext : DbContext
 
     public virtual DbSet<WorkStationMaster> WorkStationMasters { get; set; }
 
-    //public async Task SavechangesAsync()
-    //{
-    //    throw new NotImplementedException();
-    //}
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=KalaDbContext");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<ActivityDetail>(entity =>
+        {
+            entity.HasKey(e => e.ActivityDetailsId).HasName("PK__Activity__FE7AB5A2821758CF");
+
+            entity.ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("ActivityDetailsHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.ActivityDetailsDescription)
+                .HasMaxLength(500)
+                .HasDefaultValue("Nil");
+
+            entity.HasOne(d => d.DetailsActivity).WithMany(p => p.ActivityDetails)
+                .HasForeignKey(d => d.DetailsActivityId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ActivityDetailsId_DetailsActivityId");
+        });
+
+        modelBuilder.Entity<ActivityMaster>(entity =>
+        {
+            entity.HasKey(e => e.ActivityId).HasName("PK__Activity__45F4A79190DD534C");
+
+            entity
+                .ToTable("ActivityMaster")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("ActivityMasterHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.ActivityAuth).HasDefaultValue(true);
+            entity.Property(e => e.ActivityAuthRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.ActivityIsActive).HasDefaultValue(true);
+            entity.Property(e => e.ActivityIsDiscard).HasDefaultValue(true);
+            entity.Property(e => e.ActivityRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.ActivityType).HasMaxLength(200);
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.ActivityDesignation).WithMany(p => p.ActivityMasters)
+                .HasForeignKey(d => d.ActivityDesignationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ActivityId_ActivityDesignationId");
+
+            entity.HasOne(d => d.ActivityDivision).WithMany(p => p.ActivityMasters)
+                .HasForeignKey(d => d.ActivityDivisionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ActivityId_ActivityDivisionId");
+
+            entity.HasOne(d => d.ActivityGrade).WithMany(p => p.ActivityMasters)
+                .HasForeignKey(d => d.ActivityGradeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ActivityId_ActivityGradeId");
+        });
+
         modelBuilder.Entity<AuthoritiesDetail>(entity =>
         {
-            entity.HasKey(e => e.AuthoritiesDetailsId).HasName("PK__Authorit__9F5D971FE92BA8EC");
+            entity.HasKey(e => e.AuthoritiesDetailsId).HasName("PK__Authorit__9F5D971FA0956502");
 
             entity.ToTable(tb => tb.IsTemporal(ttb =>
                     {
@@ -109,7 +182,7 @@ public partial class KalaDbContext : DbContext
 
         modelBuilder.Entity<AuthoritiesMaster>(entity =>
         {
-            entity.HasKey(e => e.AuthoritiesId).HasName("PK__Authorit__0B0FAE9D1D5FF0B2");
+            entity.HasKey(e => e.AuthoritiesId).HasName("PK__Authorit__0B0FAE9D8F22946B");
 
             entity
                 .ToTable("AuthoritiesMaster")
@@ -140,6 +213,11 @@ public partial class KalaDbContext : DbContext
                 .HasForeignKey(d => d.AuthoritiesDesignationId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_AuthoritiesId_AuthoritiesDesignationId");
+
+            entity.HasOne(d => d.AuthoritiesDivision).WithMany(p => p.AuthoritiesMasters)
+                .HasForeignKey(d => d.AuthoritiesDivisionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_AuthoritiesId_AuthoritiesDivisionId");
 
             entity.HasOne(d => d.AuthoritiesGrade).WithMany(p => p.AuthoritiesMasters)
                 .HasForeignKey(d => d.AuthoritiesGradeId)
@@ -362,6 +440,51 @@ public partial class KalaDbContext : DbContext
                 .HasConstraintName("FK_CountryID_CountryCurrencyID1");
         });
 
+        modelBuilder.Entity<CtcstructureMaster>(entity =>
+        {
+            entity.HasKey(e => e.CtcstructureId).HasName("PK__CTCStruc__4BBE2399DE46CA8F");
+
+            entity
+                .ToTable("CTCStructureMaster")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("CTCStructureMasterHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.CtcstructureId).HasColumnName("CTCStructureId");
+            entity.Property(e => e.CtcmasterBasic).HasColumnName("CTCMasterBasic");
+            entity.Property(e => e.CtcmasterBonus).HasColumnName("CTCMasterBonus");
+            entity.Property(e => e.CtcmasterCarAllowance).HasColumnName("CTCMasterCarAllowance");
+            entity.Property(e => e.CtcmasterCityCompensatoryAlowance).HasColumnName("CTCMasterCityCompensatoryAlowance");
+            entity.Property(e => e.CtcmasterConvAllowance).HasColumnName("CTCMasterConvAllowance");
+            entity.Property(e => e.CtcmasterDa).HasColumnName("CTCMasterDA");
+            entity.Property(e => e.CtcmasterDriverAllowance).HasColumnName("CTCMasterDriverAllowance");
+            entity.Property(e => e.CtcmasterEsic).HasColumnName("CTCMasterEsic");
+            entity.Property(e => e.CtcmasterFuelAllowance).HasColumnName("CTCMasterFuelAllowance");
+            entity.Property(e => e.CtcmasterGradeId).HasColumnName("CTCMasterGradeId");
+            entity.Property(e => e.CtcmasterGraduity).HasColumnName("CTCMasterGraduity");
+            entity.Property(e => e.CtcmasterGross).HasColumnName("CTCMasterGross");
+            entity.Property(e => e.CtcmasterHra).HasColumnName("CTCMasterHRA");
+            entity.Property(e => e.CtcmasterLeaveTravelAllowance).HasColumnName("CTCMasterLeaveTravelAllowance");
+            entity.Property(e => e.CtcmasterMedicalInsurance).HasColumnName("CTCMasterMedicalInsurance");
+            entity.Property(e => e.CtcmasterMiscAllowance).HasColumnName("CTCMasterMisc.Allowance");
+            entity.Property(e => e.CtcmasterMlwf).HasColumnName("CTCMasterMLWF");
+            entity.Property(e => e.CtcmasterPerformanceKpa).HasColumnName("CTCMasterPerformanceKPA");
+            entity.Property(e => e.CtcmasterPfemployee).HasColumnName("CTCMasterPFEmployee");
+            entity.Property(e => e.CtcmasterPfemployer).HasColumnName("CTCMasterPFEmployer");
+            entity.Property(e => e.CtcmasterPt).HasColumnName("CTCMasterPT");
+
+            entity.HasOne(d => d.CtcmasterGrade).WithMany(p => p.CtcstructureMasters)
+                .HasForeignKey(d => d.CtcmasterGradeId)
+                .HasConstraintName("FK_CTCStructuretId_CTCMasterGradeID");
+        });
+
         modelBuilder.Entity<CurrencyMaster>(entity =>
         {
             entity.HasKey(e => e.CurrencyId).HasName("PK__Currency__14470AF05972C444");
@@ -392,7 +515,7 @@ public partial class KalaDbContext : DbContext
 
         modelBuilder.Entity<DepartmentMaster>(entity =>
         {
-            entity.HasKey(e => e.DepartmentId).HasName("PK__Departme__B2079BEDBB90F3B5");
+            entity.HasKey(e => e.DepartmentId).HasName("PK__Departme__B2079BED98BCA5E2");
 
             entity
                 .ToTable("DepartmentMaster")
@@ -413,6 +536,7 @@ public partial class KalaDbContext : DbContext
                 .HasMaxLength(200)
                 .HasDefaultValue("Nil");
             entity.Property(e => e.DepartmentCode).HasMaxLength(10);
+            entity.Property(e => e.DepartmentDivisionId).HasColumnName("DepartmentDivisionID");
             entity.Property(e => e.DepartmentIsActive).HasDefaultValue(true);
             entity.Property(e => e.DepartmentIsDiscard).HasDefaultValue(true);
             entity.Property(e => e.DepartmentName).HasMaxLength(100);
@@ -423,6 +547,10 @@ public partial class KalaDbContext : DbContext
             entity.Property(e => e.DepartmentShortName).HasMaxLength(100);
             entity.Property(e => e.DepartmentType).HasMaxLength(200);
             entity.Property(e => e.ParentDepartmentId).HasColumnName("ParentDepartmentID");
+
+            entity.HasOne(d => d.DepartmentDivision).WithMany(p => p.DepartmentMasters)
+                .HasForeignKey(d => d.DepartmentDivisionId)
+                .HasConstraintName("FK_DepartmentId_DepartmentDivisionID");
 
             entity.HasOne(d => d.DepartmentProfitcenter).WithMany(p => p.DepartmentMasters)
                 .HasForeignKey(d => d.DepartmentProfitcenterId)
@@ -507,6 +635,31 @@ public partial class KalaDbContext : DbContext
                 .HasForeignKey(d => d.StateId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_DistrictId_StateId");
+        });
+
+        modelBuilder.Entity<DivisionMaster>(entity =>
+        {
+            entity.HasKey(e => e.DivisionId).HasName("PK__Division__20EFC6A89A11F1C4");
+
+            entity
+                .ToTable("DivisionMaster")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("DivisionMasterHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.DivisionAuthRemark).HasMaxLength(200);
+            entity.Property(e => e.DivisionCode).HasMaxLength(10);
+            entity.Property(e => e.DivisionMailId).HasMaxLength(200);
+            entity.Property(e => e.DivisionName).HasMaxLength(100);
+            entity.Property(e => e.DivisionRemark).HasMaxLength(200);
+            entity.Property(e => e.DivisionShortName).HasMaxLength(100);
         });
 
         modelBuilder.Entity<EmployeeTypeMaster>(entity =>
@@ -639,7 +792,7 @@ public partial class KalaDbContext : DbContext
 
         modelBuilder.Entity<Kpadetail>(entity =>
         {
-            entity.HasKey(e => e.KpadetailsId).HasName("PK__KPADetai__FEFE184CC2C552C9");
+            entity.HasKey(e => e.KpadetailsId).HasName("PK__KPADetai__FEFE184C23066192");
 
             entity
                 .ToTable("KPADetails")
@@ -669,7 +822,7 @@ public partial class KalaDbContext : DbContext
 
         modelBuilder.Entity<Kpamaster>(entity =>
         {
-            entity.HasKey(e => e.Kpaid).HasName("PK__KPAMaste__6C14894260566ED2");
+            entity.HasKey(e => e.Kpaid).HasName("PK__KPAMaste__6C148942A4717B17");
 
             entity
                 .ToTable("KPAMaster")
@@ -694,6 +847,7 @@ public partial class KalaDbContext : DbContext
                 .HasDefaultValue("Nil")
                 .HasColumnName("KPAAuthRemark");
             entity.Property(e => e.KpadesignationId).HasColumnName("KPADesignationId");
+            entity.Property(e => e.KpadivisionId).HasColumnName("KPADivisionId");
             entity.Property(e => e.KpagradeId).HasColumnName("KPAGradeId");
             entity.Property(e => e.KpaisActive)
                 .HasDefaultValue(true)
@@ -713,6 +867,11 @@ public partial class KalaDbContext : DbContext
                 .HasForeignKey(d => d.KpadesignationId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_KPAId_KPADesignationId");
+
+            entity.HasOne(d => d.Kpadivision).WithMany(p => p.Kpamasters)
+                .HasForeignKey(d => d.KpadivisionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_KPAId_KPADivisionId");
 
             entity.HasOne(d => d.Kpagrade).WithMany(p => p.Kpamasters)
                 .HasForeignKey(d => d.KpagradeId)
@@ -899,13 +1058,13 @@ public partial class KalaDbContext : DbContext
                 .HasDefaultValue("Nil");
         });
 
-        modelBuilder.Entity<ResposibilitiesDetail>(entity =>
+        modelBuilder.Entity<ResponsibilitiesDetail>(entity =>
         {
-            entity.HasKey(e => e.ResposibilitiesDetailsId).HasName("PK__Resposib__0D28C38AA1BA7148");
+            entity.HasKey(e => e.ResponsibilitiesDetailsId).HasName("PK__Responsi__32CE58DE9AFFFE2E");
 
             entity.ToTable(tb => tb.IsTemporal(ttb =>
                     {
-                        ttb.UseHistoryTable("ResposibilitiesDetailsHistory", "dbo");
+                        ttb.UseHistoryTable("ResponsibilitiesDetailsHistory", "dbo");
                         ttb
                             .HasPeriodStart("SysStartTime")
                             .HasColumnName("SysStartTime");
@@ -914,20 +1073,20 @@ public partial class KalaDbContext : DbContext
                             .HasColumnName("SysEndTime");
                     }));
 
-            entity.Property(e => e.ResposibilitiesDetailsDescription)
+            entity.Property(e => e.ResponsibilitiesDetailsDescription)
                 .HasMaxLength(500)
                 .HasDefaultValue("Nil");
         });
 
-        modelBuilder.Entity<ResposibilitiesMaster>(entity =>
+        modelBuilder.Entity<ResponsibilitiesMaster>(entity =>
         {
-            entity.HasKey(e => e.ResposibilitiesId).HasName("PK__Resposib__42119AAE21B3135F");
+            entity.HasKey(e => e.ResponsibilitiesId).HasName("PK__Responsi__0B2E60F259F147BE");
 
             entity
-                .ToTable("ResposibilitiesMaster")
+                .ToTable("ResponsibilitiesMaster")
                 .ToTable(tb => tb.IsTemporal(ttb =>
                     {
-                        ttb.UseHistoryTable("ResposibilitiesMasterHistory", "dbo");
+                        ttb.UseHistoryTable("ResponsibilitiesMasterHistory", "dbo");
                         ttb
                             .HasPeriodStart("SysStartTime")
                             .HasColumnName("SysStartTime");
@@ -937,31 +1096,36 @@ public partial class KalaDbContext : DbContext
                     }));
 
             entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.ResposibilitiesAuth).HasDefaultValue(true);
-            entity.Property(e => e.ResposibilitiesAuthRemark)
+            entity.Property(e => e.ResponsibilitiesAuth).HasDefaultValue(true);
+            entity.Property(e => e.ResponsibilitiesAuthRemark)
                 .HasMaxLength(200)
                 .HasDefaultValue("Nil");
-            entity.Property(e => e.ResposibilitiesIsActive).HasDefaultValue(true);
-            entity.Property(e => e.ResposibilitiesIsDiscard).HasDefaultValue(true);
-            entity.Property(e => e.ResposibilitiesRemark)
+            entity.Property(e => e.ResponsibilitiesIsActive).HasDefaultValue(true);
+            entity.Property(e => e.ResponsibilitiesIsDiscard).HasDefaultValue(true);
+            entity.Property(e => e.ResponsibilitiesRemark)
                 .HasMaxLength(200)
                 .HasDefaultValue("Nil");
-            entity.Property(e => e.ResposibilitiesType).HasMaxLength(200);
+            entity.Property(e => e.ResponsibilitiesType).HasMaxLength(200);
 
-            entity.HasOne(d => d.ResposibilitiesDesignation).WithMany(p => p.ResposibilitiesMasters)
-                .HasForeignKey(d => d.ResposibilitiesDesignationId)
+            entity.HasOne(d => d.ResponsibilitiesDesignation).WithMany(p => p.ResponsibilitiesMasters)
+                .HasForeignKey(d => d.ResponsibilitiesDesignationId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ResposibilitiesId_ResposibilitiesDesignationId");
+                .HasConstraintName("FK_ResponsibilitiesId_ResponsibilitiesDesignationId");
 
-            entity.HasOne(d => d.ResposibilitiesGrade).WithMany(p => p.ResposibilitiesMasters)
-                .HasForeignKey(d => d.ResposibilitiesGradeId)
+            entity.HasOne(d => d.ResponsibilitiesDivision).WithMany(p => p.ResponsibilitiesMasters)
+                .HasForeignKey(d => d.ResponsibilitiesDivisionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ResposibilitiesId_ResposibilitiesGradeId");
+                .HasConstraintName("FK_ResponsibilitiesId_ResponsibilitiesDivisionId");
+
+            entity.HasOne(d => d.ResponsibilitiesGrade).WithMany(p => p.ResponsibilitiesMasters)
+                .HasForeignKey(d => d.ResponsibilitiesGradeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ResponsibilitiesId_ResponsibilitiesGradeId");
         });
 
         modelBuilder.Entity<RolesDetail>(entity =>
         {
-            entity.HasKey(e => e.RolesDetailsId).HasName("PK__RolesDet__A8CC7A1E6B1EDEFF");
+            entity.HasKey(e => e.RolesDetailsId).HasName("PK__RolesDet__A8CC7A1E98985D13");
 
             entity.ToTable(tb => tb.IsTemporal(ttb =>
                     {
@@ -986,7 +1150,7 @@ public partial class KalaDbContext : DbContext
 
         modelBuilder.Entity<RolesMaster>(entity =>
         {
-            entity.HasKey(e => e.RolesId).HasName("PK__RolesMas__C4B2784043869C8B");
+            entity.HasKey(e => e.RolesId).HasName("PK__RolesMas__C4B278401DD391BB");
 
             entity
                 .ToTable("RolesMaster")
@@ -1017,6 +1181,11 @@ public partial class KalaDbContext : DbContext
                 .HasForeignKey(d => d.RolesDesignationId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_RolesId_RolesDesignationId");
+
+            entity.HasOne(d => d.RolesDivision).WithMany(p => p.RolesMasters)
+                .HasForeignKey(d => d.RolesDivisionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RolesId_RolesDivisionId");
 
             entity.HasOne(d => d.RolesGrade).WithMany(p => p.RolesMasters)
                 .HasForeignKey(d => d.RolesGradeId)

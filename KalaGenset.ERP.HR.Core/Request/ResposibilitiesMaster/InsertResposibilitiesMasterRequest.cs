@@ -15,6 +15,7 @@ namespace KalaGenset.ERP.HR.Core.Request.ResposibilitiesMaster
         public int ResposibilitiesDesignationId { get; set; }
 
         public string ResposibilitiesRemark { get; set; } = null!;
+        public int ResponsibilitiesDivisionId { get; set; }
 
         public string ResposibilitiesType { get; set; } = null!;
 
