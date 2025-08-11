@@ -72,6 +72,11 @@ public partial class KalaDbContext : DbContext
 
     public virtual DbSet<WorkStationMaster> WorkStationMasters { get; set; }
 
+    //public async Task SavechangesAsync()
+    //{
+    //    throw new NotImplementedException();
+    //}
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=KalaDbContext");
 
