@@ -8,6 +8,7 @@ using KalaERP.HR.Core.Validation.Company;
 using KalaERP.HR.Core.Validation.DesignationMaster;
 using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request;
+using KalaGenset.ERP.HR.Core.Request.AuthoritieMaster;
 using KalaGenset.ERP.HR.Core.Request.City;
 using KalaGenset.ERP.HR.Core.Request.ClassOfTravel;
 using KalaGenset.ERP.HR.Core.Request.CompanyEntityTypeMaster;
@@ -18,12 +19,15 @@ using KalaGenset.ERP.HR.Core.Request.District;
 using KalaGenset.ERP.HR.Core.Request.EmployeeTypeMaster;
 using KalaGenset.ERP.HR.Core.Request.Facility;
 using KalaGenset.ERP.HR.Core.Request.Grade;
+using KalaGenset.ERP.HR.Core.Request.KPAMaster;
 using KalaGenset.ERP.HR.Core.Request.LocationRequest;
 using KalaGenset.ERP.HR.Core.Request.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Core.Request.QualificationRequest;
 using KalaGenset.ERP.HR.Core.Request.ResposibilitiesMaster;
 using KalaGenset.ERP.HR.Core.Request.StateRequest;
+using KalaGenset.ERP.HR.Core.Request.Workstation;
 using KalaGenset.ERP.HR.Core.Services;
+using KalaGenset.ERP.HR.Core.Validation.AuthoritieMaster;
 using KalaGenset.ERP.HR.Core.Validation.CityMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.ClassOfTravelValidation;
 using KalaGenset.ERP.HR.Core.Validation.CompanyEntityTypeMaster;
@@ -35,12 +39,14 @@ using KalaGenset.ERP.HR.Core.Validation.DistrictMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.EmployeeTypeMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.FacilityMaster;
 using KalaGenset.ERP.HR.Core.Validation.GradeValidation;
+using KalaGenset.ERP.HR.Core.Validation.KPAMaster;
 using KalaGenset.ERP.HR.Core.Validation.LocationValidator;
 using KalaGenset.ERP.HR.Core.Validation.PetrolAllowanceMaster;
 using KalaGenset.ERP.HR.Core.Validation.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Core.Validation.QualificationTypeMaster;
 using KalaGenset.ERP.HR.Core.Validation.QualificationValidator;
 using KalaGenset.ERP.HR.Core.Validation.StateValidator;
+using KalaGenset.ERP.HR.Core.Validation.WorkstationMasterValidation;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -59,14 +65,13 @@ builder.Services.AddControllers()
 //Configure ConnectionString from appsetting.json file
 builder.Services.AddDbContext<KalaDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("KalaDbContext")));
-
 // FluentValidation setup
 builder.Services.AddFluentValidationClientsideAdapters(); // Enables client-side adapter support
 builder.Services.AddValidatorsFromAssemblyContaining<InsertCountryRequestValidator>(); 
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateCountryRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertCurrencyRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateCurrencyRequestValidator>();
-builder.Services.AddValidatorsFromAssemblyContaining<InsertCompanyEntityTypeRequestValidator>(); // Registers your validator(s)
+builder.Services.AddValidatorsFromAssemblyContaining<InsertCompanyEntityTypeRequestValidator>(); 
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateCompanyEntityTypeRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertCityRequestValidator>(); 
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateCityRequestValidator>();
@@ -77,6 +82,11 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertQualificationRequestV
 builder.Services.AddValidatorsFromAssemblyContaining<InsertLocationRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertEmpTypeMstRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateEmpTypeMstRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertAuthoritieMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateAuthoritieMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertWorkstationRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertKPAMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateKPAMasterValidator>();
 
 //registering service
 builder.Services.AddScoped<ICountryMaster, CountryMasterService>();
@@ -94,7 +104,7 @@ builder.Services.AddScoped<IValidator<UpdateCompanyEntityTypeMasterRequest>, Upd
 builder.Services.AddScoped<ICityMaster, CityMasterService>();
 builder.Services.AddScoped<IValidator<InsertCityRequest>, InsertCityRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateCityRequest>, UpdateCityRequestValidator>();
-builder.Services.AddScoped<IFacilityMaster, FacilityMasterService>();
+builder.Services.AddScoped<IFacilityMaster, FacilityMasterService>(); 
 builder.Services.AddScoped<IValidator<InsertFacilityRequest>, InsertFacilityRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateFacilityRequest>, UpdateFacilityRequestValidator>();
 builder.Services.AddScoped<IProfitcenterMaster, ProfitcenterMasterService>();
@@ -138,6 +148,17 @@ builder.Services.AddScoped<IResposibilitiesDetail, ResposibilitiesDetailsService
 builder.Services.AddScoped<IEmployeeTypeMaster,EmployeeTypeMasterService>();
 builder.Services.AddScoped<IValidator<InsertEmployeeTypeRequest>, InsertEmpTypeMstRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateEmployeeTypeRequest>, UpdateEmpTypeMstRequestValidator>();
+builder.Services.AddScoped<IAuthoritieMaster, AuthoritieMasterServices>();
+builder.Services.AddScoped<IValidator<InsertAuthoritieMasterRequest>, InsertAuthoritieMasterValidator>();
+builder.Services.AddScoped<IValidator<UpdateAuthoritieMasterRequest>, UpdateAuthoritieMasterValidator>();
+builder.Services.AddScoped<IAuthoritiesDetail, AuthoritiesDetailServices>(); 
+builder.Services.AddScoped<IWorkstationMaster, WorkstationMasterService>();
+builder.Services.AddScoped<IValidator<InsertWorkstationRequest>, InsertWorkstationRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateWorkstationRequest>, UpdateWorkstationMasterValidator>();
+builder.Services.AddScoped<IKPAMaster, KPAMasterServices>();
+builder.Services.AddScoped<IValidator<InsertKPAMasterRequest>, InsertKPAMasterValidator>();
+builder.Services.AddScoped<IValidator<UpdateKPAMasterRequest>, UpdateKPAMasterValidator>();
+builder.Services.AddScoped<IKpadetail, KPADetailsServices>();
 
 builder.Services.AddCors(options =>
 {
