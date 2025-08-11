@@ -15,6 +15,7 @@ using KalaGenset.ERP.HR.Core.Request.Country;
 using KalaGenset.ERP.HR.Core.Request.Currency;
 using KalaGenset.ERP.HR.Core.Request.Department;
 using KalaGenset.ERP.HR.Core.Request.District;
+using KalaGenset.ERP.HR.Core.Request.EmployeeTypeMaster;
 using KalaGenset.ERP.HR.Core.Request.Facility;
 using KalaGenset.ERP.HR.Core.Request.Grade;
 using KalaGenset.ERP.HR.Core.Request.LocationRequest;
@@ -31,6 +32,7 @@ using KalaGenset.ERP.HR.Core.Validation.CurrencyValidation;
 using KalaGenset.ERP.HR.Core.Validation.DepartmentMaster;
 using KalaGenset.ERP.HR.Core.Validation.DepartmentValidation;
 using KalaGenset.ERP.HR.Core.Validation.DistrictMasterValidation;
+using KalaGenset.ERP.HR.Core.Validation.EmployeeTypeMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.FacilityMaster;
 using KalaGenset.ERP.HR.Core.Validation.GradeValidation;
 using KalaGenset.ERP.HR.Core.Validation.LocationValidator;
@@ -41,8 +43,6 @@ using KalaGenset.ERP.HR.Core.Validation.QualificationValidator;
 using KalaGenset.ERP.HR.Core.Validation.StateValidator;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
-
-
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -75,6 +75,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<UpdateDistrictRequestValida
 builder.Services.AddValidatorsFromAssemblyContaining<InsertStateRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertQualificationRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertLocationRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertEmpTypeMstRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateEmpTypeMstRequestValidator>();
 
 //registering service
 builder.Services.AddScoped<ICountryMaster, CountryMasterService>();
@@ -133,7 +135,9 @@ builder.Services.AddScoped<IResposibilitiesMaster, ResposibilitiesMasterServices
 builder.Services.AddScoped<IValidator<InsertResposibilitiesMasterRequest>, InsertResposibilitiesMasterValidator>();
 builder.Services.AddScoped<IValidator<UpdateResposibilitiesMasterRequest>, UpdateResposibilitiesMasterValidator>();
 builder.Services.AddScoped<IResposibilitiesDetail, ResposibilitiesDetailsServices>();
-
+builder.Services.AddScoped<IEmployeeTypeMaster,EmployeeTypeMasterService>();
+builder.Services.AddScoped<IValidator<InsertEmployeeTypeRequest>, InsertEmpTypeMstRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateEmployeeTypeRequest>, UpdateEmpTypeMstRequestValidator>();
 
 builder.Services.AddCors(options =>
 {
