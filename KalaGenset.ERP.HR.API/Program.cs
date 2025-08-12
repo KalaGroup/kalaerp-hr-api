@@ -9,6 +9,7 @@ using KalaERP.HR.Core.Validation.DesignationMaster;
 using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request;
 using KalaGenset.ERP.HR.Core.Request.ActivityDetails;
+using KalaGenset.ERP.HR.Core.Request.ActivityMaster;
 using KalaGenset.ERP.HR.Core.Request.AuthoritieMaster;
 using KalaGenset.ERP.HR.Core.Request.City;
 using KalaGenset.ERP.HR.Core.Request.ClassOfTravel;
@@ -30,6 +31,7 @@ using KalaGenset.ERP.HR.Core.Request.ResposibilitiesMaster;
 using KalaGenset.ERP.HR.Core.Request.StateRequest;
 using KalaGenset.ERP.HR.Core.Request.Workstation;
 using KalaGenset.ERP.HR.Core.Services;
+using KalaGenset.ERP.HR.Core.Validation.ActivityMaster;
 using KalaGenset.ERP.HR.Core.Validation.AuthoritieMaster;
 using KalaGenset.ERP.HR.Core.Validation.CityMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.ClassOfTravelValidation;
@@ -97,6 +99,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertCTCRequestValidator>(
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateCTCRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertDivisionRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateDivisionRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertActivityMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateActivityMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertRecruitmentAttributeMasterRequest>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateRecruitmentAttributeMasterRequest>();
 //registering service
@@ -176,6 +180,10 @@ builder.Services.AddScoped<IValidator<UpdateCTCStructureMasterRequest>, UpdateCT
 builder.Services.AddScoped<IValidator<InsertDivisionMasterRequest>, InsertDivisionRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateDivisionMasterRequest>, UpdateDivisionRequestValidator>();
 builder.Services.AddScoped<IDivisionMaster, DivisionMasterService>();
+builder.Services.AddScoped<IActivityMaster, ActivityMasterServices>();
+builder.Services.AddScoped<IValidator<InsertActivityMasterRequest>, InsertActivityMasterValidator>();
+builder.Services.AddScoped<IValidator<UpdateActivityMasterRequest>, UpdateActivityMasterValidator>();
+builder.Services.AddScoped<IActivityDetails, ActivityDetailsServices>();
 builder.Services.AddScoped<IValidator<InsertRecruitmentAttributeMasterRequest>, InsertRecruitmentAttributeMasterValidator>();
 builder.Services.AddScoped<IValidator<UpdateRecruitmentAttributeMasterRequest>, UpdateRecruitmentAttributeMasterValidator>();
 builder.Services.AddScoped<IRecruitmentAttributeMaster, RecruitmentAttributeMasterService>();
