@@ -25,6 +25,7 @@ using KalaGenset.ERP.HR.Core.Request.KPAMaster;
 using KalaGenset.ERP.HR.Core.Request.LocationRequest;
 using KalaGenset.ERP.HR.Core.Request.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Core.Request.QualificationRequest;
+using KalaGenset.ERP.HR.Core.Request.RecruitmentAttributeMaster;
 using KalaGenset.ERP.HR.Core.Request.ResposibilitiesMaster;
 using KalaGenset.ERP.HR.Core.Request.StateRequest;
 using KalaGenset.ERP.HR.Core.Request.Workstation;
@@ -49,6 +50,7 @@ using KalaGenset.ERP.HR.Core.Validation.PetrolAllowanceMaster;
 using KalaGenset.ERP.HR.Core.Validation.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Core.Validation.QualificationTypeMaster;
 using KalaGenset.ERP.HR.Core.Validation.QualificationValidator;
+using KalaGenset.ERP.HR.Core.Validation.RecruitmentAttributeMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.StateValidator;
 using KalaGenset.ERP.HR.Core.Validation.WorkstationMasterValidation;
 using KalaGenset.ERP.HR.Data.DbContexts;
@@ -95,6 +97,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertCTCRequestValidator>(
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateCTCRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertDivisionRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateDivisionRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertRecruitmentAttributeMasterRequest>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateRecruitmentAttributeMasterRequest>();
 //registering service
 builder.Services.AddScoped<ICountryMaster, CountryMasterService>();
 builder.Services.AddScoped<IValidator<InsertCountryRequest>, InsertCountryRequestValidator>();
@@ -172,6 +176,9 @@ builder.Services.AddScoped<IValidator<UpdateCTCStructureMasterRequest>, UpdateCT
 builder.Services.AddScoped<IValidator<InsertDivisionMasterRequest>, InsertDivisionRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateDivisionMasterRequest>, UpdateDivisionRequestValidator>();
 builder.Services.AddScoped<IDivisionMaster, DivisionMasterService>();
+builder.Services.AddScoped<IValidator<InsertRecruitmentAttributeMasterRequest>, InsertRecruitmentAttributeMasterValidator>();
+builder.Services.AddScoped<IValidator<UpdateRecruitmentAttributeMasterRequest>, UpdateRecruitmentAttributeMasterValidator>();
+builder.Services.AddScoped<IRecruitmentAttributeMaster, RecruitmentAttributeMasterService>();
 
 builder.Services.AddCors(options =>
 {
