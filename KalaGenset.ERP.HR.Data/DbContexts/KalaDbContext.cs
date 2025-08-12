@@ -54,6 +54,8 @@ public partial class KalaDbContext : DbContext
 
     public virtual DbSet<GradeMaster> GradeMasters { get; set; }
 
+    public virtual DbSet<HolidayMaster> HolidayMasters { get; set; }
+
     public virtual DbSet<Kpadetail> Kpadetails { get; set; }
 
     public virtual DbSet<Kpamaster> Kpamasters { get; set; }
@@ -67,6 +69,10 @@ public partial class KalaDbContext : DbContext
     public virtual DbSet<QualificationMaster> QualificationMasters { get; set; }
 
     public virtual DbSet<QualificationTypeMaster> QualificationTypeMasters { get; set; }
+
+    public virtual DbSet<RecruitmentAttributeMaster> RecruitmentAttributeMasters { get; set; }
+
+    public virtual DbSet<RecruitmentStageStatusMaster> RecruitmentStageStatusMasters { get; set; }
 
     public virtual DbSet<ResponsibilitiesDetail> ResponsibilitiesDetails { get; set; }
 
@@ -790,6 +796,44 @@ public partial class KalaDbContext : DbContext
                 .HasConstraintName("FK_GradeId_GradeCurrencyId");
         });
 
+        modelBuilder.Entity<HolidayMaster>(entity =>
+        {
+            entity.HasKey(e => e.HolidayId).HasName("PK__HolidayM__2D35D57AA9CBAA9D");
+
+            entity
+                .ToTable("HolidayMaster")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("HolidayMasterHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.HolidayAuth).HasDefaultValue(true);
+            entity.Property(e => e.HolidayAuthRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.HolidayFor).HasMaxLength(100);
+            entity.Property(e => e.HolidayFy)
+                .HasMaxLength(20)
+                .HasColumnName("HolidayFY");
+            entity.Property(e => e.HolidayIsActive).HasDefaultValue(true);
+            entity.Property(e => e.HolidayIsDiscard).HasDefaultValue(true);
+            entity.Property(e => e.HolidayRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+
+            entity.HasOne(d => d.HolidayCompany).WithMany(p => p.HolidayMasters)
+                .HasForeignKey(d => d.HolidayCompanyId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_HolidayId_HolidayCompanyId");
+        });
+
         modelBuilder.Entity<Kpadetail>(entity =>
         {
             entity.HasKey(e => e.KpadetailsId).HasName("PK__KPADetai__FEFE184C23066192");
@@ -1055,6 +1099,66 @@ public partial class KalaDbContext : DbContext
             entity.Property(e => e.QualificationTypeName).HasMaxLength(100);
             entity.Property(e => e.QualificationTypeRemark)
                 .HasMaxLength(100)
+                .HasDefaultValue("Nil");
+        });
+
+        modelBuilder.Entity<RecruitmentAttributeMaster>(entity =>
+        {
+            entity.HasKey(e => e.RecruitmentAttributeId).HasName("PK__Recruitm__38F60A95899B5357");
+
+            entity
+                .ToTable("RecruitmentAttributeMaster")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("RecruitmentAttributeMasterHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.RecruitmentAttributeAuth).HasDefaultValue(true);
+            entity.Property(e => e.RecruitmentAttributeAuthRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.RecruitmentAttributeIsActive).HasDefaultValue(true);
+            entity.Property(e => e.RecruitmentAttributeIsDiscard).HasDefaultValue(true);
+            entity.Property(e => e.RecruitmentAttributeName).HasMaxLength(200);
+            entity.Property(e => e.RecruitmentAttributeRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+        });
+
+        modelBuilder.Entity<RecruitmentStageStatusMaster>(entity =>
+        {
+            entity.HasKey(e => e.RecruitmentStageStatusId).HasName("PK__Recruitm__BA9AE646A7D23D5C");
+
+            entity
+                .ToTable("RecruitmentStageStatusMaster")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("RecruitmentStageStatusMasterHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.RecruitmentStageStatusAuth).HasDefaultValue(true);
+            entity.Property(e => e.RecruitmentStageStatusAuthRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.RecruitmentStageStatusIsActive).HasDefaultValue(true);
+            entity.Property(e => e.RecruitmentStageStatusIsDiscard).HasDefaultValue(true);
+            entity.Property(e => e.RecruitmentStageStatusName).HasMaxLength(200);
+            entity.Property(e => e.RecruitmentStageStatusRemark)
+                .HasMaxLength(200)
                 .HasDefaultValue("Nil");
         });
 
