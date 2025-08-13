@@ -46,6 +46,8 @@ public partial class KalaDbContext : DbContext
 
     public virtual DbSet<DivisionMaster> DivisionMasters { get; set; }
 
+    public virtual DbSet<EmployeeMasterUpdationForMaster> EmployeeMasterUpdationForMasters { get; set; }
+
     public virtual DbSet<EmployeeTypeMaster> EmployeeTypeMasters { get; set; }
 
     public virtual DbSet<FacilityMaster> FacilityMasters { get; set; }
@@ -72,6 +74,8 @@ public partial class KalaDbContext : DbContext
 
     public virtual DbSet<RecruitmentAttributeMaster> RecruitmentAttributeMasters { get; set; }
 
+    public virtual DbSet<RecruitmentReferenceMaster> RecruitmentReferenceMasters { get; set; }
+
     public virtual DbSet<RecruitmentStageStatusMaster> RecruitmentStageStatusMasters { get; set; }
 
     public virtual DbSet<ResponsibilitiesDetail> ResponsibilitiesDetails { get; set; }
@@ -81,6 +85,8 @@ public partial class KalaDbContext : DbContext
     public virtual DbSet<RolesDetail> RolesDetails { get; set; }
 
     public virtual DbSet<RolesMaster> RolesMasters { get; set; }
+
+    public virtual DbSet<ShiftMaster> ShiftMasters { get; set; }
 
     public virtual DbSet<StateMaster> StateMasters { get; set; }
 
@@ -668,6 +674,36 @@ public partial class KalaDbContext : DbContext
             entity.Property(e => e.DivisionShortName).HasMaxLength(100);
         });
 
+        modelBuilder.Entity<EmployeeMasterUpdationForMaster>(entity =>
+        {
+            entity.HasKey(e => e.EmployeeMasterUpdationForId).HasName("PK__Employee__F3D1C5434D59270C");
+
+            entity
+                .ToTable("EmployeeMasterUpdationForMaster")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("EmployeeMasterUpdationForMasterHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.EmployeeMasterUpdationForAuth).HasDefaultValue(true);
+            entity.Property(e => e.EmployeeMasterUpdationForAuthRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.EmployeeMasterUpdationForIsActive).HasDefaultValue(true);
+            entity.Property(e => e.EmployeeMasterUpdationForIsDiscard).HasDefaultValue(true);
+            entity.Property(e => e.EmployeeMasterUpdationForName).HasMaxLength(200);
+            entity.Property(e => e.EmployeeMasterUpdationForRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+        });
+
         modelBuilder.Entity<EmployeeTypeMaster>(entity =>
         {
             entity.HasKey(e => e.EmployeeTypeId).HasName("PK__Employee__1F1B6AB4BB4FA5F6");
@@ -1132,6 +1168,36 @@ public partial class KalaDbContext : DbContext
                 .HasDefaultValue("Nil");
         });
 
+        modelBuilder.Entity<RecruitmentReferenceMaster>(entity =>
+        {
+            entity.HasKey(e => e.RecruitmentReferenceId).HasName("PK__Recruitm__09FF1BA185BC8E68");
+
+            entity
+                .ToTable("RecruitmentReferenceMaster")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("RecruitmentReferenceMasterHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.RecruitmentReferenceAuth).HasDefaultValue(true);
+            entity.Property(e => e.RecruitmentReferenceAuthRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.RecruitmentReferenceIsActive).HasDefaultValue(true);
+            entity.Property(e => e.RecruitmentReferenceIsDiscard).HasDefaultValue(true);
+            entity.Property(e => e.RecruitmentReferenceName).HasMaxLength(200);
+            entity.Property(e => e.RecruitmentReferenceRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+        });
+
         modelBuilder.Entity<RecruitmentStageStatusMaster>(entity =>
         {
             entity.HasKey(e => e.RecruitmentStageStatusId).HasName("PK__Recruitm__BA9AE646A7D23D5C");
@@ -1295,6 +1361,47 @@ public partial class KalaDbContext : DbContext
                 .HasForeignKey(d => d.RolesGradeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_RolesId_RolesGradeId");
+        });
+
+        modelBuilder.Entity<ShiftMaster>(entity =>
+        {
+            entity.HasKey(e => e.ShiftMasterId).HasName("PK__ShiftMas__2F438FEA79E8DBEC");
+
+            entity
+                .ToTable("ShiftMaster")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("ShiftMasterHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.ShiftMasterAliseName).HasMaxLength(50);
+            entity.Property(e => e.ShiftMasterAuth).HasDefaultValue(true);
+            entity.Property(e => e.ShiftMasterAuthRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.ShiftMasterIsActive).HasDefaultValue(true);
+            entity.Property(e => e.ShiftMasterIsDiscard).HasDefaultValue(true);
+            entity.Property(e => e.ShiftMasterName).HasMaxLength(50);
+            entity.Property(e => e.ShiftMasterRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+
+            entity.HasOne(d => d.ShiftMasterCompany).WithMany(p => p.ShiftMasters)
+                .HasForeignKey(d => d.ShiftMasterCompanyId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ShiftMasterId_ShiftMasterCompanyID");
+
+            entity.HasOne(d => d.ShiftMasterEmployeeType).WithMany(p => p.ShiftMasters)
+                .HasForeignKey(d => d.ShiftMasterEmployeeTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ShiftMasterId_ShiftMasterEmployeeTypeId");
         });
 
         modelBuilder.Entity<StateMaster>(entity =>

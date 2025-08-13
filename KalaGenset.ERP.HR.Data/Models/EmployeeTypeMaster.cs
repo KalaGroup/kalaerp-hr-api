@@ -26,4 +26,6 @@ public partial class EmployeeTypeMaster
     public int CreatedBy { get; set; }
 
     public DateTime CreatedDate { get; set; }
+
+    public virtual ICollection<ShiftMaster> ShiftMasters { get; set; } = new List<ShiftMaster>();
 }

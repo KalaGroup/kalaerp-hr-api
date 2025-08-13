@@ -89,7 +89,9 @@ public partial class CompanyMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public virtual ICollection<HolidayMaster> HolidayMasters { get; set; } = new List<HolidayMaster>();
+
     public virtual ICollection<ProfitcenterMaster> ProfitcenterMasters { get; set; } = new List<ProfitcenterMaster>();
 
-    public virtual ICollection<HolidayMaster> HolidayMasters { get; set; } = new List<HolidayMaster>();
+    public virtual ICollection<ShiftMaster> ShiftMasters { get; set; } = new List<ShiftMaster>();
 }
