@@ -9,6 +9,7 @@ using KalaERP.HR.Core.Validation.DesignationMaster;
 using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request;
 using KalaGenset.ERP.HR.Core.Request.ActivityDetails;
+using KalaGenset.ERP.HR.Core.Request.ActivityMaster;
 using KalaGenset.ERP.HR.Core.Request.AuthoritieMaster;
 using KalaGenset.ERP.HR.Core.Request.City;
 using KalaGenset.ERP.HR.Core.Request.ClassOfTravel;
@@ -26,10 +27,12 @@ using KalaGenset.ERP.HR.Core.Request.KPAMaster;
 using KalaGenset.ERP.HR.Core.Request.LocationRequest;
 using KalaGenset.ERP.HR.Core.Request.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Core.Request.QualificationRequest;
+using KalaGenset.ERP.HR.Core.Request.RecruitmentAttributeMaster;
 using KalaGenset.ERP.HR.Core.Request.ResposibilitiesMaster;
 using KalaGenset.ERP.HR.Core.Request.StateRequest;
 using KalaGenset.ERP.HR.Core.Request.Workstation;
 using KalaGenset.ERP.HR.Core.Services;
+using KalaGenset.ERP.HR.Core.Validation.ActivityMaster;
 using KalaGenset.ERP.HR.Core.Validation.AuthoritieMaster;
 using KalaGenset.ERP.HR.Core.Validation.CityMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.ClassOfTravelValidation;
@@ -51,6 +54,7 @@ using KalaGenset.ERP.HR.Core.Validation.PetrolAllowanceMaster;
 using KalaGenset.ERP.HR.Core.Validation.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Core.Validation.QualificationTypeMaster;
 using KalaGenset.ERP.HR.Core.Validation.QualificationValidator;
+using KalaGenset.ERP.HR.Core.Validation.RecruitmentAttributeMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.StateValidator;
 using KalaGenset.ERP.HR.Core.Validation.WorkstationMasterValidation;
 using KalaGenset.ERP.HR.Data.DbContexts;
@@ -99,6 +103,11 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertDivisionRequestValida
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateDivisionRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertHolidayMasterRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateHolidayMasterRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertActivityMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateActivityMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertRecruitmentAttributeMasterRequest>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateRecruitmentAttributeMasterRequest>();
+
 //registering service
 builder.Services.AddScoped<ICountryMaster, CountryMasterService>();
 builder.Services.AddScoped<IValidator<InsertCountryRequest>, InsertCountryRequestValidator>();
@@ -179,6 +188,14 @@ builder.Services.AddScoped<IDivisionMaster, DivisionMasterService>();
 builder.Services.AddScoped<IHolidayMaster, HolidayMasterService>();
 builder.Services.AddScoped<IValidator<InsertHolidayMasterRequest>, InsertHolidayMasterRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateHolidayMasterRequest>, UpdateHolidayMasterRequestValidator>();
+builder.Services.AddScoped<IActivityMaster, ActivityMasterServices>();
+builder.Services.AddScoped<IValidator<InsertActivityMasterRequest>, InsertActivityMasterValidator>();
+builder.Services.AddScoped<IValidator<UpdateActivityMasterRequest>, UpdateActivityMasterValidator>();
+builder.Services.AddScoped<IActivityDetails, ActivityDetailsServices>();
+builder.Services.AddScoped<IValidator<InsertRecruitmentAttributeMasterRequest>, InsertRecruitmentAttributeMasterValidator>();
+builder.Services.AddScoped<IValidator<UpdateRecruitmentAttributeMasterRequest>, UpdateRecruitmentAttributeMasterValidator>();
+builder.Services.AddScoped<IRecruitmentAttributeMaster, RecruitmentAttributeMasterService>();
+
 
 builder.Services.AddCors(options =>
 {
