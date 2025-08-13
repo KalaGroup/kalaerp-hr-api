@@ -22,6 +22,7 @@ using KalaGenset.ERP.HR.Core.Request.DivisionMaster;
 using KalaGenset.ERP.HR.Core.Request.EmployeeTypeMaster;
 using KalaGenset.ERP.HR.Core.Request.Facility;
 using KalaGenset.ERP.HR.Core.Request.Grade;
+using KalaGenset.ERP.HR.Core.Request.HolidayMaster;
 using KalaGenset.ERP.HR.Core.Request.KPAMaster;
 using KalaGenset.ERP.HR.Core.Request.LocationRequest;
 using KalaGenset.ERP.HR.Core.Request.ProfitcenterMaster;
@@ -46,6 +47,7 @@ using KalaGenset.ERP.HR.Core.Validation.DivisionMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.EmployeeTypeMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.FacilityMaster;
 using KalaGenset.ERP.HR.Core.Validation.GradeValidation;
+using KalaGenset.ERP.HR.Core.Validation.HolidayMaster;
 using KalaGenset.ERP.HR.Core.Validation.KPAMaster;
 using KalaGenset.ERP.HR.Core.Validation.LocationValidator;
 using KalaGenset.ERP.HR.Core.Validation.PetrolAllowanceMaster;
@@ -99,10 +101,13 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertCTCRequestValidator>(
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateCTCRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertDivisionRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateDivisionRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertHolidayMasterRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateHolidayMasterRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertActivityMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateActivityMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertRecruitmentAttributeMasterRequest>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateRecruitmentAttributeMasterRequest>();
+
 //registering service
 builder.Services.AddScoped<ICountryMaster, CountryMasterService>();
 builder.Services.AddScoped<IValidator<InsertCountryRequest>, InsertCountryRequestValidator>();
@@ -180,6 +185,9 @@ builder.Services.AddScoped<IValidator<UpdateCTCStructureMasterRequest>, UpdateCT
 builder.Services.AddScoped<IValidator<InsertDivisionMasterRequest>, InsertDivisionRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateDivisionMasterRequest>, UpdateDivisionRequestValidator>();
 builder.Services.AddScoped<IDivisionMaster, DivisionMasterService>();
+builder.Services.AddScoped<IHolidayMaster, HolidayMasterService>();
+builder.Services.AddScoped<IValidator<InsertHolidayMasterRequest>, InsertHolidayMasterRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateHolidayMasterRequest>, UpdateHolidayMasterRequestValidator>();
 builder.Services.AddScoped<IActivityMaster, ActivityMasterServices>();
 builder.Services.AddScoped<IValidator<InsertActivityMasterRequest>, InsertActivityMasterValidator>();
 builder.Services.AddScoped<IValidator<UpdateActivityMasterRequest>, UpdateActivityMasterValidator>();
@@ -187,6 +195,7 @@ builder.Services.AddScoped<IActivityDetails, ActivityDetailsServices>();
 builder.Services.AddScoped<IValidator<InsertRecruitmentAttributeMasterRequest>, InsertRecruitmentAttributeMasterValidator>();
 builder.Services.AddScoped<IValidator<UpdateRecruitmentAttributeMasterRequest>, UpdateRecruitmentAttributeMasterValidator>();
 builder.Services.AddScoped<IRecruitmentAttributeMaster, RecruitmentAttributeMasterService>();
+
 
 builder.Services.AddCors(options =>
 {
