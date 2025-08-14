@@ -36,8 +36,8 @@ namespace KalaGenset.ERP.HR.Core.Services
                     CountryShortName = request.CountryShortName,
                     CountryCurrencyId = request.CountryCurrencyId,
                     IsActive = request.IsActive,
-                    CreatedBy = request.CreatedBy,
-                    CreatedDate = request.CreatedDate
+                    CreatedBy = 1,
+                    CreatedDate = DateTime.Now
                 };
                 _context.CountryMasters.Add(country);
                 await _context.SaveChangesAsync();
@@ -68,8 +68,8 @@ namespace KalaGenset.ERP.HR.Core.Services
                 country.CountryShortName = request.CountryShortName;
                 country.CountryCurrencyId = request.CountryCurrencyId;
                 country.IsActive = request.IsActive;
-                country.CreatedBy = request.CreatedBy;
-                country.CreatedDate = request.CreatedDate;
+                country.CreatedBy = 1;
+                country.CreatedDate = DateTime.Now;
 
                 _context.CountryMasters.Update(country);
                 await _context.SaveChangesAsync();
@@ -85,10 +85,29 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// Retrieves all active countries from the database.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<CountryMaster>> GetCountryDetailsAsync()
+        //public async Task<IEnumerable<CountryMaster>> GetCountryDetailsAsync()
+        //{
+        //    return await _context.CountryMasters.OrderBy(c => c.CountryId).ToListAsync();
+        //}
+
+        public async Task<IEnumerable<CountryDetailResponseDto>> GetCountryDetailsAsync()
         {
-            return await _context.CountryMasters.OrderBy(c => c.CountryId).ToListAsync();
+            return await _context.CountryMasters
+                .Where(c => c.IsActive)
+                .Include(c => c.CountryCurrency)
+                .OrderBy(c => c.CountryId)
+                .Select(c => new CountryDetailResponseDto
+                {
+                    CountryId = c.CountryId,
+                    CountryCode = c.CountryCode,
+                    CountryName = c.CountryName,
+                    CountryShortName = c.CountryShortName,
+                    IsActive = c.IsActive,
+                    CurrencyName = c.CountryCurrency.CurrencyName
+                })
+                .ToListAsync();
         }
+
 
         // Get By ID Code
         /// <summary>

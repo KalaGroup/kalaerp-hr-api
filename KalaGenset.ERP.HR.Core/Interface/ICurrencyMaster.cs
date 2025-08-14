@@ -21,7 +21,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// 
         /// GetCurrencyMstsAsync method.
         /// </summary>
-        public Task<IEnumerable<CurrencyMaster>> GetCurrencyMstsAsync();
+        public Task<IEnumerable<CurrencyResponseDto>> GetCurrencyMstsAsync();
         /// <summary>
         /// update Currency in this interface.
         /// 
@@ -39,6 +39,10 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// DeleteCurrencyAsync
         /// </summary>
         public Task DeleteCurrencyAsync(int id);
-    
+        /// <summary>
+        /// Get all currency details from this interface.
+        /// </summary>
+        /// <returns></returns>
+        public Task<IEnumerable<CurrencyMaster>> GetAllCurrencyDetails();
     }
 }

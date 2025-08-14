@@ -41,7 +41,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _countryMaster.AddCountryAsync(request);
-                return Ok("Country added successfully.");
+                return Ok(new { message = "Country added successfully." });
             }
             catch (Exception ex)
             {
@@ -64,7 +64,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try 
             {
                 await _countryMaster.UpdateCountryAsync(request);
-                return Ok("Country updated successfully.");
+                return Ok(new { message = "Country updated successfully." });
             }
             catch (Exception ex)
             {
@@ -103,7 +103,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _countryMaster.DeleteCountryAsync(CountryId);
-                return Ok("Country soft-deleted successfully (CountryIsActive = false).");
+                return Ok(new { message = "Country deleted successfully." });
             }
             catch (Exception ex)
             {

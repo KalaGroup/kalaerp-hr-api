@@ -115,6 +115,20 @@ namespace KalaGenset.ERP.HR.API.Controllers
             }
         }
 
+        [HttpGet("getallcurrencydetails")]
+        public async Task<IActionResult> GetAllCurrencyDetails()
+        {
+            try
+            {
+                var result = await currencyMaster.GetAllCurrencyDetails();
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while fetching all currency details.");
+            }
+        }
+
     }
 
 }

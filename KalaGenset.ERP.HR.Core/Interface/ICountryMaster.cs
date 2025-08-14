@@ -28,7 +28,9 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// Retrieves all countries from the database.
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<CountryMaster>> GetCountryDetailsAsync();
+       // public Task<IEnumerable<CountryMaster>> GetCountryDetailsAsync();
+
+        public Task<IEnumerable<CountryDetailResponseDto>> GetCountryDetailsAsync();
         /// <summary>
         /// Retrieves a country by its ID from the database.
         /// </summary>
