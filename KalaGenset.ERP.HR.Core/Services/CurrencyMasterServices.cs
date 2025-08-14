@@ -68,10 +68,23 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             return await context.CurrencyMasters.FirstOrDefaultAsync(c => c.CurrencyId == id);
         }
-        public async Task<IEnumerable<CurrencyMaster>> GetCurrencyMstsAsync()
+        public async Task<IEnumerable<CurrencyResponseDto>> GetCurrencyMstsAsync()
         {
-            return await context.CurrencyMasters.ToListAsync();
+            // return await context.CurrencyMasters.ToListAsync();
+            return await context.CurrencyMasters.Where(c => c.CurrencyIsActive)
+                        .Select(c => new CurrencyResponseDto
+                        {
+                             CurrencyId = c.CurrencyId,
+                              CurrencyName = c.CurrencyName
+                        })
+                       .ToListAsync();
         }
+
+        public async Task<IEnumerable<CurrencyMaster>> GetAllCurrencyDetails()
+        { 
+           return await context.CurrencyMasters.ToListAsync();  
+        }
+
         /// <summary>
         /// Update Currency Method
         /// </summary>
