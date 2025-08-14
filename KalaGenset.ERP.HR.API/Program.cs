@@ -59,6 +59,7 @@ using KalaGenset.ERP.HR.Core.Validation.QualificationTypeMaster;
 using KalaGenset.ERP.HR.Core.Validation.QualificationValidator;
 using KalaGenset.ERP.HR.Core.Validation.RecruitmentAttributeMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.RecruitmentStageStatusMaster;
+using KalaGenset.ERP.HR.Core.Validation.RolesMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.StateValidator;
 using KalaGenset.ERP.HR.Core.Validation.WorkstationMasterValidation;
 using KalaGenset.ERP.HR.Data.DbContexts;
@@ -115,6 +116,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertEmployeeMasterUpdatio
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateEmployeeMasterUpdationForMasterRequest>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertRecruitmentStageStatusMasterValidetor>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateRecruitmentStageStatusMasterValidetor>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertRolesMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateRolesMasterValidator>();
 
 //registering service
 builder.Services.AddScoped<ICountryMaster, CountryMasterService>();
@@ -209,6 +212,11 @@ builder.Services.AddScoped<IValidator<UpdateEmployeeMasterUpdationForMasterReque
 builder.Services.AddScoped<IRecruitmentStageStatusMaster, RecruitmentStageStatusMasterServices>();
 builder.Services.AddScoped<IValidator<InsertRecruitmentStageStatusMasterRequest>, InsertRecruitmentStageStatusMasterValidetor>();
 builder.Services.AddScoped<IValidator<UpdateRecruitmentStageStatusMasterRequest>, UpdateRecruitmentStageStatusMasterValidetor>();
+builder.Services.AddScoped<InsertRolesMasterValidator>();
+builder.Services.AddScoped<UpdateRolesMasterValidator>();
+builder.Services.AddScoped<IRolesMaster, RolesMasterService>();
+builder.Services.AddScoped<IRoleDetails, RoleDetailsService>();
+
 
 builder.Services.AddCors(options =>
 {
