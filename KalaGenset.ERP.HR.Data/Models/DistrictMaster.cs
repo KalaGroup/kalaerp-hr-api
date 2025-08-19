@@ -27,6 +27,10 @@ public partial class DistrictMaster
 
     public virtual ICollection<CityMaster> CityMasters { get; set; } = new List<CityMaster>();
 
+    public virtual ICollection<CompanyMaster> CompanyMasterCorporateDistricts { get; set; } = new List<CompanyMaster>();
+
+    public virtual ICollection<CompanyMaster> CompanyMasterRegisteredDistricts { get; set; } = new List<CompanyMaster>();
+
     public virtual CountryMaster Country { get; set; } = null!;
 
     public virtual StateMaster State { get; set; } = null!;

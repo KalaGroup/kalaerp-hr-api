@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KalaGenset.ERP.HR.Core
+namespace KalaGenset.ERP.HR.Core.ResponseDTO.Currency
 {
     public class CurrencyResponseDto
     {

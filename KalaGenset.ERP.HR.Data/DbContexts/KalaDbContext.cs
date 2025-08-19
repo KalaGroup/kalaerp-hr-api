@@ -92,8 +92,8 @@ public partial class KalaDbContext : DbContext
 
     public virtual DbSet<WorkStationMaster> WorkStationMasters { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Name=KalaDbContext");
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //    => optionsBuilder.UseSqlServer("Name=KalaDbContext");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -385,6 +385,7 @@ public partial class KalaDbContext : DbContext
             entity.Property(e => e.CompanyRemark)
                 .HasMaxLength(200)
                 .HasDefaultValue("Nil");
+            entity.Property(e => e.CompanyRemark2).HasMaxLength(200);
             entity.Property(e => e.CorporateAddress).HasMaxLength(500);
             entity.Property(e => e.CorporateCityId).HasColumnName("CorporateCityID");
             entity.Property(e => e.CorporateCountryId).HasColumnName("CorporateCountryID");
@@ -422,6 +423,55 @@ public partial class KalaDbContext : DbContext
             entity.Property(e => e.SocialMedialink).HasMaxLength(200);
             entity.Property(e => e.TalentAccessibilityScore).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.Website).HasMaxLength(200);
+
+            entity.HasOne(d => d.CompanyCurrency).WithMany(p => p.CompanyMasters)
+                .HasForeignKey(d => d.CompanyCurrencyId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_CompanyID_CompanyCurrencyID");
+
+            entity.HasOne(d => d.CompanyMasterEntityType).WithMany(p => p.CompanyMasters)
+                .HasForeignKey(d => d.CompanyMasterEntityTypeId)
+                .HasConstraintName("FK_CompanyMaster_CompanyMasterEntityTypeID");
+
+            entity.HasOne(d => d.CorporateCity).WithMany(p => p.CompanyMasterCorporateCities)
+                .HasForeignKey(d => d.CorporateCityId)
+                .HasConstraintName("FK_CompanyID_CorporateCityID");
+
+            entity.HasOne(d => d.CorporateCountry).WithMany(p => p.CompanyMasterCorporateCountries)
+                .HasForeignKey(d => d.CorporateCountryId)
+                .HasConstraintName("FK_CompanyId_CorporateCountryID");
+
+            entity.HasOne(d => d.CorporateDistrict).WithMany(p => p.CompanyMasterCorporateDistricts)
+                .HasForeignKey(d => d.CorporateDistrictId)
+                .HasConstraintName("FK_CompanyID_CorporateDistrictID");
+
+            entity.HasOne(d => d.CorporateState).WithMany(p => p.CompanyMasterCorporateStates)
+                .HasForeignKey(d => d.CorporateStateId)
+                .HasConstraintName("FK_CompanyID_CorporateStateID");
+
+            entity.HasOne(d => d.ParentCompany).WithMany(p => p.InverseParentCompany)
+                .HasForeignKey(d => d.ParentCompanyId)
+                .HasConstraintName("FK_CompanyId_ParentCompanyID");
+
+            entity.HasOne(d => d.RegisteredCity).WithMany(p => p.CompanyMasterRegisteredCities)
+                .HasForeignKey(d => d.RegisteredCityId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_CompanyID_RegisteredCityID");
+
+            entity.HasOne(d => d.RegisteredCountry).WithMany(p => p.CompanyMasterRegisteredCountries)
+                .HasForeignKey(d => d.RegisteredCountryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_CompanyMaster_RegisteredCountryID");
+
+            entity.HasOne(d => d.RegisteredDistrict).WithMany(p => p.CompanyMasterRegisteredDistricts)
+                .HasForeignKey(d => d.RegisteredDistrictId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_CompanyID_RegisteredDistrictID");
+
+            entity.HasOne(d => d.RegisteredState).WithMany(p => p.CompanyMasterRegisteredStates)
+                .HasForeignKey(d => d.RegisteredStateId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_CompanyID_RegisteredStateID");
         });
 
         modelBuilder.Entity<CountryMaster>(entity =>

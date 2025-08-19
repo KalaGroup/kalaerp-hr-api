@@ -1,12 +1,7 @@
 ﻿using FluentValidation;
 using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.City;
-using KalaGenset.ERP.HR.Core.Validation.CityMasterValidation;
-using KalaGenset.ERP.HR.Data.DbContexts;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Query.Internal;
-using System.ComponentModel.Design;
 
 namespace KalaGenset.ERP.HR.API.Controllers
 {

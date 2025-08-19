@@ -57,7 +57,7 @@ namespace KalaERP.HR.API.Controllers
         {
             try
             {
-                var companies = await companyMaster.GetCompanyAsync();
+                var companies = await companyMaster.GetCompanyDetailsAsync();
                 if (companies == null || !companies.Any())                          
                 {
                     return NotFound("No companies found.");
