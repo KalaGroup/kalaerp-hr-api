@@ -1,11 +1,6 @@
 ﻿using FluentValidation;
 using KalaGenset.ERP.HR.Core.Request.ActivityMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KalaGenset.ERP.HR.Core.Validation.ActivityMaster
 {

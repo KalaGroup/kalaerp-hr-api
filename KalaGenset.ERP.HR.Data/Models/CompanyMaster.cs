@@ -89,9 +89,35 @@ public partial class CompanyMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public string? CompanyRemark2 { get; set; }
+
+    public virtual CurrencyMaster CompanyCurrency { get; set; } = null!;
+
+    public virtual CompanyEntityTypeMaster? CompanyMasterEntityType { get; set; }
+
+    public virtual CityMaster? CorporateCity { get; set; }
+
+    public virtual CountryMaster? CorporateCountry { get; set; }
+
+    public virtual DistrictMaster? CorporateDistrict { get; set; }
+
+    public virtual StateMaster? CorporateState { get; set; }
+
     public virtual ICollection<HolidayMaster> HolidayMasters { get; set; } = new List<HolidayMaster>();
 
+    public virtual ICollection<CompanyMaster> InverseParentCompany { get; set; } = new List<CompanyMaster>();
+
+    public virtual CompanyMaster? ParentCompany { get; set; }
+
     public virtual ICollection<ProfitcenterMaster> ProfitcenterMasters { get; set; } = new List<ProfitcenterMaster>();
+
+    public virtual CityMaster RegisteredCity { get; set; } = null!;
+
+    public virtual CountryMaster RegisteredCountry { get; set; } = null!;
+
+    public virtual DistrictMaster RegisteredDistrict { get; set; } = null!;
+
+    public virtual StateMaster RegisteredState { get; set; } = null!;
 
     public virtual ICollection<ShiftMaster> ShiftMasters { get; set; } = new List<ShiftMaster>();
 }

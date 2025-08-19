@@ -99,7 +99,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         /// <returns></returns>
         [HttpDelete("deletecountry/{CountryId}")]
         public async Task<IActionResult> DeleteCountry(int CountryId)
-        {
+         {
             try
             {
                 await _countryMaster.DeleteCountryAsync(CountryId);

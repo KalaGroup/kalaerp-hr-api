@@ -23,6 +23,10 @@ public partial class CountryMaster
 
     public virtual ICollection<CityMaster> CityMasters { get; set; } = new List<CityMaster>();
 
+    public virtual ICollection<CompanyMaster> CompanyMasterCorporateCountries { get; set; } = new List<CompanyMaster>();
+
+    public virtual ICollection<CompanyMaster> CompanyMasterRegisteredCountries { get; set; } = new List<CompanyMaster>();
+
     public virtual CurrencyMaster CountryCurrency { get; set; } = null!;
 
     public virtual ICollection<DistrictMaster> DistrictMasters { get; set; } = new List<DistrictMaster>();

@@ -1,4 +1,5 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.Currency;
+using KalaGenset.ERP.HR.Core.ResponseDTO.Currency;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;

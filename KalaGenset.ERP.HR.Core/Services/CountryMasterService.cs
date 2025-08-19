@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.Country;
+using KalaGenset.ERP.HR.Core.ResponseDTO.Country;
+
 //using KalaGenset.ERP.HR.Core.ResponseDTO;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;

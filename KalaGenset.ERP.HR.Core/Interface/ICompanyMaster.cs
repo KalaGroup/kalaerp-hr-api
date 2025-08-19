@@ -1,5 +1,5 @@
 ﻿using KalaERP.HR.Core.Request.CompanyMaster;
-
+using KalaGenset.ERP.HR.Core.ResponseDTO.Company;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,8 @@ namespace KalaERP.HR.Core.Interface
         /// gets a list of all companies in the system.
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<CompanyMaster>> GetCompanyAsync();
+        //public Task<IEnumerable<CompanyMaster>> GetCompanyAsync();
+        public Task<List<CompanyDetailsResponseDTO>> GetCompanyDetailsAsync();
         /// <summary>
         /// get by id of company
         /// </summary>

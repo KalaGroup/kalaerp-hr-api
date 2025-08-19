@@ -2,6 +2,7 @@
 using KalaERP.HR.Core.Request.CompanyMaster;
 using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.Currency;
+using KalaGenset.ERP.HR.Core.ResponseDTO.Company;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -103,10 +104,93 @@ namespace KalaERP.HR.Core.Services
         /// fetches all records from the CompanyMasters table and returns them as a list of CompanyMaster objects.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<CompanyMaster>> GetCompanyAsync()
+        //public async Task<IEnumerable<CompanyMaster>> GetCompanyAsync()
+        //{
+        //    return await context.CompanyMasters.Where(c=>c.CompanyIsActive==true).ToListAsync();
+        //}
+
+        public async Task<List<CompanyDetailsResponseDTO>> GetCompanyDetailsAsync()
         {
-            return await context.CompanyMasters.Where(c=>c.CompanyIsActive==true).ToListAsync();
+            var result = await context.CompanyMasters
+                .Where(c => c.CompanyIsActive && !c.CompanyIsDiscard)
+                .Include(c => c.RegisteredCountry)
+                .Include(c => c.RegisteredState)
+                .Include(c => c.RegisteredDistrict)
+                .Include(c => c.RegisteredCity)
+                .Include(c => c.CorporateCountry)
+                .Include(c => c.CorporateState)
+                .Include(c => c.CorporateDistrict)
+                .Include(c => c.CorporateCity)
+                .Include(c => c.CompanyMasterEntityType)
+                .Include(c => c.ParentCompany)
+                .Include(c => c.CompanyCurrency)
+                .Select(c => new CompanyDetailsResponseDTO
+                {
+                    CompanyId = c.CompanyId,
+                    CompanyCode = c.CompanyCode,
+                    CompanyName = c.CompanyName,
+                    ShortName = c.ShortName,
+
+                    // Registered
+                    RegisteredAddress = c.RegisteredAddress,
+                    RegisteredCountryName = c.RegisteredCountry.CountryName,
+                    RegisteredStateName = c.RegisteredState.StateName,
+                    RegisteredDistrictName = c.RegisteredDistrict.DistrictName,
+                    RegisteredCityName = c.RegisteredCity.CityName,
+                    RegisteredPinCode = c.RegisteredPinCode,
+
+                    // Corporate
+                    CorporateAddress = c.CorporateAddress,
+                    CorporateCountryName = c.CorporateCountry.CountryName,
+                    CorporateStateName = c.CorporateState.StateName,
+                    CorporateDistrictName = c.CorporateDistrict.DistrictName,
+                    CorporateCityName = c.CorporateCity.CityName,
+                    CorporatePinCode = c.CorporatePinCode,
+
+                    // Contact
+                    PhoneNumber = c.PhoneNumber,
+                    EmailId = c.EmailId,
+                    Website = c.Website,
+                    SocialMedialink = c.SocialMedialink,
+
+                    // Legal
+                    Pan = c.Pan,
+                    Gst = c.Gst,
+                    Cin = c.Cin,
+
+                    // Other details
+                    EstablishedDate = c.EstablishedDate,
+                    CompanyMasterEntityTypeName = c.CompanyMasterEntityType.CompanyEntityTypeName,
+                    ParentCompanyName = c.ParentCompany.CompanyName,
+                    OwnershipPercentage = c.OwnershipPercentage,
+                    CompanyCurrencyName = c.CompanyCurrency.CurrencyName,
+                    FiscalYearStart = c.FiscalYearStart,
+
+                    // Features
+                    Logo = c.Logo,
+                    AiinsightsEnabled = c.AiinsightsEnabled,
+                    PredictiveAnalyticsLevel = c.PredictiveAnalyticsLevel,
+                    InterCompanyTransactions = c.InterCompanyTransactions,
+
+                    // Performance
+                    LocationAdvantageScore = c.LocationAdvantageScore,
+                    TalentAccessibilityScore = c.TalentAccessibilityScore,
+                    CostEfficiencyRating = c.CostEfficiencyRating,
+
+                    // Misc
+                    CompanyRemark = c.CompanyRemark,
+                    CompanyIsAuth = c.CompanyIsAuth,
+                    CompanyIsDiscard = c.CompanyIsDiscard,
+                    CompanyIsActive = c.CompanyIsActive,
+                    CreatedBy = c.CreatedBy,
+                    CreatedDate = c.CreatedDate
+                })
+                .ToListAsync();
+
+            return result;
         }
+
+
         /// <summary>
         /// gets a company by its ID.
         /// </summary>

@@ -1,10 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.ActivityDetails;
-using KalaGenset.ERP.HR.Core.Request.ActivityMaster;
-using KalaGenset.ERP.HR.Data.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace KalaGenset.ERP.HR.API.Controllers
 {

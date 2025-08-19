@@ -22,4 +22,6 @@ public partial class CompanyEntityTypeMaster
     public int CreatedBy { get; set; }
 
     public DateTime CreatedDate { get; set; }
+
+    public virtual ICollection<CompanyMaster> CompanyMasters { get; set; } = new List<CompanyMaster>();
 }
