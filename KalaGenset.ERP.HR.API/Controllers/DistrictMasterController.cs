@@ -14,7 +14,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         private readonly IDistrictMaster _districtmaster;
         private readonly IValidator<InsertDistrictRequest> _insertvalidator;
         private readonly IValidator<UpdateDistrictRequest> _updatevalidator;
-        public DistrictMasterController(IDistrictMaster districtmaster, 
+        public DistrictMasterController(IDistrictMaster districtmaster,
             IValidator<InsertDistrictRequest> insertvalidator,
             IValidator<UpdateDistrictRequest> updatevalidator)
         {
@@ -56,7 +56,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         public async Task<IActionResult> GetAllDistrict()
         {
             var district = await _districtmaster.GetDistrictMasterDetailsAsync();
-            return Ok(district); 
+            return Ok(district);
         }
         /// <summary>
         /// GetDistrictById
@@ -112,6 +112,20 @@ namespace KalaGenset.ERP.HR.API.Controllers
             {
 
                 throw;
+            }
+        }
+
+        [HttpGet("getdistrictdetailsbycountryid/{stateid}")]
+        public async Task<IActionResult> GetDistrictDetailsByCountryId(int stateid)
+        {
+            try
+            {
+                var district = await _districtmaster.GetDistrictDetailsByStateIdAsync(stateid);
+                return Ok(district);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching district details: {ex.Message}");
             }
         }
     }

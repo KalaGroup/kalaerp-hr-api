@@ -25,6 +25,12 @@ public partial class DistrictMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public string DistrictMasterRemark { get; set; } = null!;
+
+    public string DistrictMasterAuthRemark { get; set; } = null!;
+
+    public bool DistrictMasterAuth { get; set; }
+
     public virtual ICollection<CityMaster> CityMasters { get; set; } = new List<CityMaster>();
 
     public virtual ICollection<CompanyMaster> CompanyMasterCorporateDistricts { get; set; } = new List<CompanyMaster>();

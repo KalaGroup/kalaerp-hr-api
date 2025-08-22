@@ -1,4 +1,5 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.StateRequest;
+using KalaGenset.ERP.HR.Core.ResponseDTO.StateMaster;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -44,5 +45,12 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// <param name="sid"></param>
         /// <returns></returns>
         public Task DeleteStateAsync(int sid);
+
+        /// <summary>
+        /// Get State Details By Country ID
+        /// </summary>
+        /// <param name="countryId"></param>
+        /// <returns></returns>
+        public Task<IEnumerable<StateDetailsByCountryIdDTO>> GetStateDetailsByCountryId(int countryId);
     }
 }

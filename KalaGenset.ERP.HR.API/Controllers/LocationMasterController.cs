@@ -52,7 +52,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        [HttpPut("UpdateState")]
+        [HttpPut("UpdateLocation")]
         public async Task<IActionResult> UpdateLocation([FromBody] UpdateLocationRequest request)
         {
             var validationResult = await _updateLocationValidator.ValidateAsync(request);

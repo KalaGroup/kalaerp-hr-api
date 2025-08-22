@@ -81,7 +81,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("getcomanyEntitytypegetall")]
+        [HttpGet("getallcompanyentitytype")]
         public async Task<IActionResult> GetCompanyEntityTypeAll()
         {
             var result = await _companyEntityTypeMaster.GetCompanyEntityTypeAll();
