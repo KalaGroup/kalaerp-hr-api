@@ -1,4 +1,5 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.District;
+using KalaGenset.ERP.HR.Core.ResponseDTO.DistrictMaster;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,11 @@ namespace KalaGenset.ERP.HR.Core.Interface
         public Task<IEnumerable<DistrictMaster>> GetDistrictMasterDetailsAsync();
         public Task<DistrictMaster?> GetDistrictMasterById(int DistrictId);
         public Task DeleteDistrictMasterAsync(int DistrictId);
+        /// <summary>
+        /// Get District Details By State ID
+        /// </summary>
+        /// <param name="StateId"></param>
+        /// <returns></returns>
+        public Task<IEnumerable<DistrictDetailsByStateIdDTO>> GetDistrictDetailsByStateIdAsync(int StateId);
     }
 }

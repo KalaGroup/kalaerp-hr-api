@@ -92,8 +92,8 @@ public partial class KalaDbContext : DbContext
 
     public virtual DbSet<WorkStationMaster> WorkStationMasters { get; set; }
 
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //    => optionsBuilder.UseSqlServer("Name=KalaDbContext");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer("Name=KalaDbContext");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -684,6 +684,13 @@ public partial class KalaDbContext : DbContext
             entity.Property(e => e.DistrictId).HasColumnName("DistrictID");
             entity.Property(e => e.CountryId).HasColumnName("CountryID");
             entity.Property(e => e.DistrictCode).HasMaxLength(10);
+            entity.Property(e => e.DistrictMasterAuth).HasDefaultValue(true);
+            entity.Property(e => e.DistrictMasterAuthRemark)
+                .HasMaxLength(500)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.DistrictMasterRemark)
+                .HasMaxLength(500)
+                .HasDefaultValue("Nil");
             entity.Property(e => e.DistrictName).HasMaxLength(100);
             entity.Property(e => e.ShortName).HasMaxLength(50);
             entity.Property(e => e.StateId).HasColumnName("StateID");

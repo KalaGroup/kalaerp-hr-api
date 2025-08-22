@@ -1,13 +1,9 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.StateRequest;
+using KalaGenset.ERP.HR.Core.ResponseDTO.StateMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KalaGenset.ERP.HR.Core.Services
 {
@@ -126,6 +122,32 @@ namespace KalaGenset.ERP.HR.Core.Services
 
                 _context.StateMasters.Update(state);
                 await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get State Details By Country ID
+        /// </summary>
+        /// <param name="countryId"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<StateDetailsByCountryIdDTO>> GetStateDetailsByCountryId(int countryId)
+        {
+            try
+            {
+                var states = await _context.StateMasters
+                    .Where(s => s.CountryId == countryId && s.IsActive)
+                    .Select(s => new StateDetailsByCountryIdDTO
+                    {
+                        StateId = s.StateId,
+                        StateName = s.StateName,                        
+                    })
+                    .ToListAsync();
+
+                return states;
             }
             catch (Exception ex)
             {

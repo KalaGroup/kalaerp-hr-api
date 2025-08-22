@@ -1,10 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.City;
+using KalaGenset.ERP.HR.Core.ResponseDTO.CityMaster;
 using KalaGenset.ERP.HR.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KalaGenset.ERP.HR.Core.Interface
 {
@@ -58,6 +54,12 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// integer.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
         public Task DeleteCompanyAsync(int CityId);
+        /// <summary>
+        /// Retrieves city details based on the specified district identifier.
+        /// </summary>
+        /// <param name="DistrictId"></param>
+        /// <returns></returns>
+        public Task<IEnumerable<CityDetailsByDistictIdDTO>> GetCityDetailsByDistrictIdAsync(int DistrictId);
 
     }
 }

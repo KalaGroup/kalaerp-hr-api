@@ -1,16 +1,9 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.City;
+using KalaGenset.ERP.HR.Core.ResponseDTO.CityMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace KalaGenset.ERP.HR.Core.Services
 {
@@ -34,7 +27,7 @@ namespace KalaGenset.ERP.HR.Core.Services
         public async Task AddCityAsync(InsertCityRequest request)
         {
             try
-            {        
+            {
                 var City = new CityMaster
                 {
                     CityCountryId = request.CityCountryId,
@@ -52,7 +45,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                 };
 
                 _dbContext.CityMasters.Add(City);
-                await _dbContext.SaveChangesAsync();               
+                await _dbContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -91,7 +84,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                 city.CreatedDate = request.CreatedDate;
                 _dbContext.Entry(city).State = EntityState.Modified;
                 await _dbContext.SaveChangesAsync();
-                
+
             }
             catch (Exception ex)
             {
@@ -121,7 +114,7 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             try
             {
-                 return await _dbContext.CityMasters.FirstOrDefaultAsync(c => c.CityId == CityId);                
+                return await _dbContext.CityMasters.FirstOrDefaultAsync(c => c.CityId == CityId);
             }
             catch (Exception)
             {
@@ -146,6 +139,30 @@ namespace KalaGenset.ERP.HR.Core.Services
                 company.CityIsActive = false;
                 _dbContext.CityMasters.Update(company);
                 await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+        /// <summary>
+        /// Retrieves a list of city details based on the specified district identifier.
+        /// </summary>
+        /// <param name="DistrictId"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<CityDetailsByDistictIdDTO>> GetCityDetailsByDistrictIdAsync(int DistrictId)
+        {
+            try
+            {
+                var cities = await _dbContext.CityMasters
+                    .Where(c => c.CityDistrictId == DistrictId && c.CityIsActive == true)
+                    .Select(c => new CityDetailsByDistictIdDTO
+                    {
+                        CityId = c.CityId,
+                        CityName = c.CityName
+                    })
+                    .ToListAsync();
+                return cities;
             }
             catch (Exception ex)
             {

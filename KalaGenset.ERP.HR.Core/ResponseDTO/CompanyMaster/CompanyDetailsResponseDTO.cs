@@ -56,13 +56,13 @@ namespace KalaGenset.ERP.HR.Core.ResponseDTO.Company
 
         public DateOnly? EstablishedDate { get; set; }
 
-        public string? CompanyMasterEntityTypeName { get; set; } 
+        public string? CompanyEntityTypeName { get; set; } 
 
         public string? ParentCompanyName { get; set; } 
 
         public decimal OwnershipPercentage { get; set; }
 
-        public string CompanyCurrencyName { get; set; } = null!;
+        public string CurrencyName { get; set; } = null!;
 
         public DateOnly FiscalYearStart { get; set; }
 
@@ -81,6 +81,8 @@ namespace KalaGenset.ERP.HR.Core.ResponseDTO.Company
         public decimal? CostEfficiencyRating { get; set; }
 
         public string CompanyRemark { get; set; } = null!;
+
+        public string? CompanyRemark2 { get; set; }
 
         public bool CompanyIsAuth { get; set; }
 

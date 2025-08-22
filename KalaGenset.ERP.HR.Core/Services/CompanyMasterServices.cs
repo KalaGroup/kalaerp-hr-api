@@ -160,10 +160,10 @@ namespace KalaERP.HR.Core.Services
 
                     // Other details
                     EstablishedDate = c.EstablishedDate,
-                    CompanyMasterEntityTypeName = c.CompanyMasterEntityType.CompanyEntityTypeName,
+                    CompanyEntityTypeName = c.CompanyMasterEntityType.CompanyEntityTypeName,
                     ParentCompanyName = c.ParentCompany.CompanyName,
                     OwnershipPercentage = c.OwnershipPercentage,
-                    CompanyCurrencyName = c.CompanyCurrency.CurrencyName,
+                    CurrencyName = c.CompanyCurrency.CurrencyName,
                     FiscalYearStart = c.FiscalYearStart,
 
                     // Features
@@ -179,6 +179,7 @@ namespace KalaERP.HR.Core.Services
 
                     // Misc
                     CompanyRemark = c.CompanyRemark,
+                    CompanyRemark2 = c.CompanyRemark2,
                     CompanyIsAuth = c.CompanyIsAuth,
                     CompanyIsDiscard = c.CompanyIsDiscard,
                     CompanyIsActive = c.CompanyIsActive,

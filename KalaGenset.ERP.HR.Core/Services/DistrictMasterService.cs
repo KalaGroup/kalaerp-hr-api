@@ -1,5 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.District;
+using KalaGenset.ERP.HR.Core.ResponseDTO.DistrictMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -14,11 +15,11 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace KalaGenset.ERP.HR.Core.Services
 {
-    public class DistrictMasterService:IDistrictMaster
+    public class DistrictMasterService : IDistrictMaster
     {
         private readonly KalaDbContext _context;
 
-        public DistrictMasterService(KalaDbContext context  )
+        public DistrictMasterService(KalaDbContext context)
         {
             _context = context;
         }
@@ -40,7 +41,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                     DistrictCode = request.DistrictCode,
                     DistrictName = request.DistrictName,
                     ShortName = request.ShortName,
-                    CreatedBy = request.CreatedBy,                  
+                    CreatedBy = request.CreatedBy,
                     IsDiscard = request.IsDiscard,
                     IsActive = request.IsActive,
                     CreatedDate = request.CreatedDate,
@@ -51,7 +52,7 @@ namespace KalaGenset.ERP.HR.Core.Services
             }
             catch
             {
-                throw; 
+                throw;
             }
         }
         /// <summary>
@@ -60,8 +61,8 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// <returns></returns>
 
         public async Task<IEnumerable<DistrictMaster>> GetDistrictMasterDetailsAsync()
-        {          
-           return await _context.DistrictMasters.Where(c => c.IsActive == true && c.IsDiscard == true).ToListAsync();       
+        {
+            return await _context.DistrictMasters.Where(c => c.IsActive == true && c.IsDiscard == true).ToListAsync();
         }
 
         /// <summary>
@@ -103,7 +104,7 @@ namespace KalaGenset.ERP.HR.Core.Services
             }
             catch
             {
-                throw; 
+                throw;
             }
         }
         /// <summary>
@@ -125,7 +126,30 @@ namespace KalaGenset.ERP.HR.Core.Services
                 district.IsDiscard = false;
                 _context.DistrictMasters.Update(district);
                 await _context.SaveChangesAsync();
-      
+
+            }
+            catch
+            {
+                throw; // Let the controller handle the error
+            }
+        }
+        /// <summary>
+        /// GetDistrictByStateIdAsync
+        /// </summary>
+        /// <param name="StateId"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<DistrictDetailsByStateIdDTO>> GetDistrictDetailsByStateIdAsync(int StateId)
+        {
+            try
+            {
+                return await _context.DistrictMasters
+                    .Where(c => c.StateId == StateId && c.IsActive == true)
+                    .Select(c => new DistrictDetailsByStateIdDTO
+                    {
+                        DistrictId = c.DistrictId,
+                        DistrictName = c.DistrictName,
+                    })
+                    .ToListAsync();
             }
             catch
             {

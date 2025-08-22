@@ -120,5 +120,20 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(500, $"Id is Invalid : {ex.Message}");
             }
         }
+
+        [HttpGet("getstatebycountryid/{countryid}")]
+
+        public async Task<IActionResult> GetStateByCountryId(int countryid)
+        {
+            try
+            {
+                var states = await _stateMaster.GetStateDetailsByCountryId(countryid);
+                return Ok(states);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching states by country ID: {ex.Message}");
+            }
+        }
     }
 }

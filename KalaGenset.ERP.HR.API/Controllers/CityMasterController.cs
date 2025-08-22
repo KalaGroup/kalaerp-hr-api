@@ -108,14 +108,14 @@ namespace KalaGenset.ERP.HR.API.Controllers
         {
             try
             {
-                var result= await _CityMaster.GetCityByID(CityId);
+                var result = await _CityMaster.GetCityByID(CityId);
                 return Ok(result);
             }
             catch (Exception ex)
             {
                 return StatusCode(500, $" ID Is Invalid: {ex.Message}");
             }
-            
+
         }
 
         /// <summary>
@@ -138,7 +138,25 @@ namespace KalaGenset.ERP.HR.API.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, $"An error occurred while deleting city: {ex.Message}");
-            }   
+            }
+        }
+        /// <summary>
+        /// Retrieves city details based on the specified district identifier.
+        /// </summary>
+        /// <param name="districtid"></param>
+        /// <returns></returns>
+        [HttpGet("getcitydetailsbydistrictid/{districtid}")]
+        public async Task<IActionResult> GetCityDetailsByDistrictId(int districtid)
+        {
+            try
+            {
+                var cities = await _CityMaster.GetCityDetailsByDistrictIdAsync(districtid);
+                return Ok(cities);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching city details by district ID: {ex.Message}");
+            }
         }
     }
 }
