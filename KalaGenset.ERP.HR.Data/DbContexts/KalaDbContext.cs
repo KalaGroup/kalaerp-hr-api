@@ -649,7 +649,6 @@ public partial class KalaDbContext : DbContext
             entity.Property(e => e.DesignationRemark)
                 .HasMaxLength(100)
                 .HasDefaultValue("Nil");
-            entity.Property(e => e.ExperiencedRemark).HasMaxLength(100);
             entity.Property(e => e.GradeQualificationRemark).HasMaxLength(100);
             entity.Property(e => e.RequiredSkills).HasMaxLength(100);
 
@@ -870,6 +869,9 @@ public partial class KalaDbContext : DbContext
 
             entity.Property(e => e.GradeId).HasColumnName("GradeID");
             entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.ExperiencedRemark)
+                .HasMaxLength(100)
+                .HasDefaultValue("Nil");
             entity.Property(e => e.GradeAuth).HasDefaultValue(true);
             entity.Property(e => e.GradeCode).HasMaxLength(10);
             entity.Property(e => e.GradeDescription).HasMaxLength(100);
