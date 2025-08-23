@@ -19,10 +19,6 @@ public partial class DesignationMaster
 
     public string GradeQualificationRemark { get; set; } = null!;
 
-    public int? ExperiencedRequired { get; set; }
-
-    public string ExperiencedRemark { get; set; } = null!;
-
     public string RequiredSkills { get; set; } = null!;
 
     public string DesignationRemark { get; set; } = null!;
