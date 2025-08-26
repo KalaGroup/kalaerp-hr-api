@@ -1,5 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.LocationRequest;
+using KalaGenset.ERP.HR.Core.ResponseDTO.Location;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -88,9 +89,28 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// get location
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<LocationMaster>> GetLocationDetailsAsync()
+        public async Task<IEnumerable<insertlocationmasterDTO>> GetLocationDetailsAsync()
         {
-            return await _context.LocationMasters.ToListAsync();
+            return await _context.LocationMasters
+                .Where(c => c.LocationIsActive)
+                .Include(c => c.ProfitcenterLocation)
+                .OrderBy(c => c.LocationId)
+                .Select(c => new insertlocationmasterDTO
+                {
+                    LocationId = c.LocationId,
+                    LocationCode = c.LocationCode,
+                    LocationName = c.LocationName,
+                    ProfitCenterName = c.ProfitcenterLocation.ProfitCenterName,
+                    LocationRemark = c.LocationRemark,
+                    LocationType = c.LocationType,
+                    LocationAuthRemark = c.LocationAuthRemark,
+                    LocationAuth = c.LocationAuth,
+                    LocationIsDiscard = c.LocationIsDiscard,
+                    LocationIsActive = c.LocationIsActive,
+
+
+                })
+                .ToListAsync();
         }
 
         /// <summary>
