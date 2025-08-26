@@ -39,7 +39,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _Divisionmaster.AddDivisionAsync(request);
-                return Ok("Division Added successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _Divisionmaster.UpdateDivisionAsync(request);
-                return Ok("Division Updated Sucessfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -100,7 +100,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _Divisionmaster.DeleteDivisionAsync(Id);
-                return Ok("Deleted Sucessfully");
+                return Ok();
             }
             catch (Exception ex)
             {

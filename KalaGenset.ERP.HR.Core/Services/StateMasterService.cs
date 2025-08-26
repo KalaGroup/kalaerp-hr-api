@@ -21,11 +21,8 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-
         public async Task AddStateAsync(InsertStateRequest request)
         {
-            using var transaction = await _context.Database.BeginTransactionAsync();
-
             try
             {
                 var state = new StateMaster
@@ -34,16 +31,16 @@ namespace KalaGenset.ERP.HR.Core.Services
                     StateCode = request.StateCode,
                     StateName = request.StateName,
                     ShortName = request.ShortName,
-                    IsDiscard = request.IsDiscard,
-                    IsActive = request.IsActive,
-                    CreatedBy = request.CreatedBy,
-                    CreatedDate = request.CreatedDate,
+                    IsDiscard = true,
+                    IsActive = true,
+                    CreatedBy = "1", // Hardcoded as string
+                    CreatedDate = DateTime.Now,
                 };
 
                 _context.StateMasters.Add(state);
                 await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -52,12 +49,30 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// Get State details
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<StateMaster>> GetStateDetailsAsync()
+        /// 
+
+        public async Task<IEnumerable<StateMasterResponseDTO>> GetStateDetailsAsync()
         {
-            return await _context.StateMasters.ToListAsync();
-            // return await _context.Companies.Where(c => c.IsActive == true).ToListAsync();
-            //return await _context.StateMsts.OrderByDescending(c => c.StateId).ToListAsync();
+            var result = await (from state in _context.StateMasters
+                                join country in _context.CountryMasters
+                                on state.CountryId equals country.CountryId
+                                select new StateMasterResponseDTO
+                                {
+                                    StateId = state.StateId,
+                                    StateCode = state.StateCode,
+                                    StateName = state.StateName,
+                                    ShortName = state.ShortName,
+                                    CountryName = country.CountryName,
+                                    CountryId = state.CountryId,
+                                    IsActive = state.IsActive,
+                                    IsDiscard = state.IsDiscard,
+                                    CreatedBy = state.CreatedBy,
+                                    CreatedDate = state.CreatedDate
+                                }).ToListAsync();
+
+            return result;
         }
+
         /// <summary>
         /// Update state details
         /// </summary>
@@ -65,7 +80,6 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// <returns></returns>
         public async Task UpdateStateAsync(UpdateStateRequest request)
         {
-            using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
                 var state = await _context.StateMasters.FindAsync(request.StateId);
@@ -77,8 +91,6 @@ namespace KalaGenset.ERP.HR.Core.Services
                 state.ShortName = request.ShortName;
                 state.IsDiscard = request.IsDiscard;
                 state.IsActive = request.IsActive;
-                state.CreatedBy = request.CreatedBy;
-                state.CreatedDate = request.CreatedDate;
                 _context.Entry(state).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }

@@ -39,7 +39,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _stateMaster.AddStateAsync(request);
-                return Ok("State Added successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -93,7 +93,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _stateMaster.DeleteStateAsync(StateId);
-                return Ok("Deleted Sucessfully");
+                return Ok();
             }
             catch (Exception ex)
             {

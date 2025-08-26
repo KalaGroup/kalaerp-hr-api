@@ -17,14 +17,10 @@ namespace KalaGenset.ERP.HR.Core.Validation.StateValidator
         {
             _context = context;
 
-            //RuleFor(x => x.CountryId)
-            //    .NotEmpty().WithMessage("Country ID is required.")
-            //    .MaximumLength(10)
-            //    .Matches("^[a-zA-Z0-9]*$").WithMessage("Country ID must not contain special characters.");
-
             RuleFor(x => x.StateCode)
                 .NotEmpty().WithMessage("State Code is required.")
                 .MaximumLength(10)
+                .MustAsync(BeUniqueStateCode).WithMessage("State Code Already Exists.")
                 .Matches("^[a-zA-Z0-9]*$").WithMessage("State Code must not contain special characters.");
 
             RuleFor(x => x.StateName)
@@ -38,8 +34,8 @@ namespace KalaGenset.ERP.HR.Core.Validation.StateValidator
                 .Matches("^[a-zA-Z0-9]*$").WithMessage("State short name must not contain special characters.")
                 .MaximumLength(10);
 
-            RuleFor(x => x.CreatedBy)
-                .NotEmpty().WithMessage("CreatedBy is required.");
+            //RuleFor(x => x.CreatedBy)
+            //    .NotEmpty().WithMessage("CreatedBy is required.");
 
             RuleFor(x => x.CreatedDate)
                 .LessThanOrEqualTo(DateTime.Now).WithMessage("Created date can't be in the future.");
@@ -49,6 +45,12 @@ namespace KalaGenset.ERP.HR.Core.Validation.StateValidator
         {
             return !await _context.StateMasters
                 .AnyAsync(c => EF.Functions.Like(c.StateName, stateName), cancellationToken);
+        }
+
+        private async Task<bool> BeUniqueStateCode (string stateCode, CancellationToken cancellationtoken)
+        {
+            return !await _context.StateMasters
+                .AnyAsync(c => EF.Functions.Like(c.StateCode, stateCode), cancellationtoken);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// Get State Details
         /// </summary>
         /// <returns></returns>
-       public Task<IEnumerable<StateMaster>> GetStateDetailsAsync();
+       public Task<IEnumerable<StateMasterResponseDTO>> GetStateDetailsAsync();
 
         /// <summary>
         /// Update State Request

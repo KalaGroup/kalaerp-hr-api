@@ -48,7 +48,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                 _context.DivisionMasters.Add(Division);
                 await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
