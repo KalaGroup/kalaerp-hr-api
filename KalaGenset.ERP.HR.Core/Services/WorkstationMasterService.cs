@@ -38,7 +38,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                     WorkStationShortName = request.WorkStationShortName,
                     WorkStationProfitcenterId = request.WorkStationProfitcenterId,
                     WorkStationRemark = request.WorkStationRemark,
-                    WorkStationType = request.WorkStationType,
+                    //WorkStationType = request.WorkStationType,
                     WorkStationAuthRemark = request.WorkStationAuthRemark,
                     WorkStationAuth = request.WorkStationAuth,
                     WorkStationIsDiscard = request.WorkStationIsDiscard,
@@ -119,7 +119,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                 WorkStation.WorkStationShortName = request.WorkStationShortName;
                 WorkStation.WorkStationProfitcenterId = request.WorkStationProfitcenterId;
                 WorkStation.WorkStationRemark = request.WorkStationRemark;
-                WorkStation.WorkStationType = request.WorkStationType;
+                //WorkStation.WorkStationType = request.WorkStationType;
                 WorkStation.WorkStationAuthRemark = request.WorkStationAuthRemark;
                 WorkStation.WorkStationAuth = request.WorkStationAuth;
                 WorkStation.WorkStationIsDiscard = request.WorkStationIsDiscard;

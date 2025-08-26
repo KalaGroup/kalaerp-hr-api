@@ -1523,7 +1523,6 @@ public partial class KalaDbContext : DbContext
                 .HasMaxLength(200)
                 .HasDefaultValue("Nil");
             entity.Property(e => e.WorkStationShortName).HasMaxLength(100);
-            entity.Property(e => e.WorkStationType).HasMaxLength(200);
 
             entity.HasOne(d => d.WorkStationProfitcenter).WithMany(p => p.WorkStationMasters)
                 .HasForeignKey(d => d.WorkStationProfitcenterId)
