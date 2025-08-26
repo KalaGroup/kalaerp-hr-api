@@ -13,7 +13,7 @@ public partial class ProfitcenterMaster
 
     public int ProfitCenterCompanyId { get; set; }
 
-    public int ParentProfitCenterId { get; set; }
+    public int? ParentProfitCenterId { get; set; }
 
     public string ProfitCenterRemark { get; set; } = null!;
 
@@ -35,7 +35,7 @@ public partial class ProfitcenterMaster
 
     public virtual ICollection<LocationMaster> LocationMasters { get; set; } = new List<LocationMaster>();
 
-    public virtual ProfitcenterMaster ParentProfitCenter { get; set; } = null!;
+    public virtual ProfitcenterMaster? ParentProfitCenter { get; set; }
 
     public virtual CompanyMaster ProfitCenterCompany { get; set; } = null!;
 
