@@ -37,8 +37,8 @@ namespace KalaERP.HR.Core.Services
                     DesignationGradeId = request.DesignationGradeId,
                     DesignationQualificationId = request.DesignationQualificationId,
                     DesignationRemark = request.DesignationRemark,
-                    ExperiencedRequired = request.ExperiencedRequired,
-                    ExperiencedRemark = request.ExperiencedRemark,
+                   // ExperiencedRequired = request.ExperiencedRequired,
+                   // ExperiencedRemark = request.ExperiencedRemark,
                     GradeQualificationRemark = request.GradeQualificationRemark,
                     RequiredSkills = request.RequiredSkills,
 
@@ -116,8 +116,8 @@ namespace KalaERP.HR.Core.Services
                 designation.DesignationGradeId = request.DesignationGradeId;
                 designation.DesignationQualificationId = request.DesignationQualificationId;
                 designation.DesignationRemark = request.DesignationRemark;
-                designation.ExperiencedRequired = request.ExperiencedRequired;
-                designation.ExperiencedRemark = request.ExperiencedRemark;
+               // designation.ExperiencedRequired = request.ExperiencedRequired;
+              //  designation.ExperiencedRemark = request.ExperiencedRemark;
                 designation.GradeQualificationRemark = request.GradeQualificationRemark;
                 designation.RequiredSkills = request.RequiredSkills;
 

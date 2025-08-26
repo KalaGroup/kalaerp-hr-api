@@ -1124,7 +1124,6 @@ public partial class KalaDbContext : DbContext
 
             entity.HasOne(d => d.ParentProfitCenter).WithMany(p => p.InverseParentProfitCenter)
                 .HasForeignKey(d => d.ParentProfitCenterId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ProfitCenterId_ParentProfitCenterID");
 
             entity.HasOne(d => d.ProfitCenterCompany).WithMany(p => p.ProfitcenterMasters)

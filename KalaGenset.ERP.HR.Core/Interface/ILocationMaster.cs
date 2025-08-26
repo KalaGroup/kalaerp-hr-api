@@ -1,5 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.LocationRequest;
 using KalaGenset.ERP.HR.Core.Request.QualificationRequest;
+using KalaGenset.ERP.HR.Core.ResponseDTO.Location;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// get location
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<LocationMaster>> GetLocationDetailsAsync();
+        public Task<IEnumerable<insertlocationmasterDTO>> GetLocationDetailsAsync();
         /// <summary>
         /// get location
         /// </summary>
