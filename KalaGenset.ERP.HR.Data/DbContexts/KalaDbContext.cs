@@ -1124,7 +1124,6 @@ public partial class KalaDbContext : DbContext
 
             entity.HasOne(d => d.ParentProfitCenter).WithMany(p => p.InverseParentProfitCenter)
                 .HasForeignKey(d => d.ParentProfitCenterId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ProfitCenterId_ParentProfitCenterID");
 
             entity.HasOne(d => d.ProfitCenterCompany).WithMany(p => p.ProfitcenterMasters)
@@ -1524,7 +1523,6 @@ public partial class KalaDbContext : DbContext
                 .HasMaxLength(200)
                 .HasDefaultValue("Nil");
             entity.Property(e => e.WorkStationShortName).HasMaxLength(100);
-            entity.Property(e => e.WorkStationType).HasMaxLength(200);
 
             entity.HasOne(d => d.WorkStationProfitcenter).WithMany(p => p.WorkStationMasters)
                 .HasForeignKey(d => d.WorkStationProfitcenterId)
