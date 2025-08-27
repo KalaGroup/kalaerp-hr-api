@@ -1,11 +1,12 @@
-﻿using System;
+﻿using KalaGenset.ERP.HR.Core.Request.ClassOfTravel;
+using KalaGenset.ERP.HR.Core.Request.Grade;
+using KalaGenset.ERP.HR.Core.ResponseDTO.classof_travel;
+using KalaGenset.ERP.HR.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using KalaGenset.ERP.HR.Data.Models;
-using KalaGenset.ERP.HR.Core.Request.ClassOfTravel;
-using KalaGenset.ERP.HR.Core.Request.Grade;
 
 
 namespace KalaGenset.ERP.HR.Core.Interface
@@ -28,7 +29,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// Retrieves all ClassOfTravels from the database.
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<ClassOfTravelMaster>> GetClassOfTravelDetailsAsync();
+        public Task<IEnumerable<classoftravelResponseDTO>> GetClassOfTravelDetailsAsync();
         /// <summary>
         /// Retrieves a ClassOfTravel by its ID from the database.
         /// </summary>

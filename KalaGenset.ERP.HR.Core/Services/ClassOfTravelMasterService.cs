@@ -1,15 +1,16 @@
-﻿using System;
+﻿using KalaGenset.ERP.HR.Core.Interface;
+using KalaGenset.ERP.HR.Core.Request.ClassOfTravel;
+using KalaGenset.ERP.HR.Core.Request.Grade;
+using KalaGenset.ERP.HR.Core.ResponseDTO.classof_travel;
+using KalaGenset.ERP.HR.Data.DbContexts;
+using KalaGenset.ERP.HR.Data.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using KalaGenset.ERP.HR.Data.DbContexts;
-using KalaGenset.ERP.HR.Data.Models;
-using KalaGenset.ERP.HR.Core.Interface;
-using KalaGenset.ERP.HR.Core.Request.ClassOfTravel;
-using KalaGenset.ERP.HR.Core.Request.Grade;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
 
 namespace KalaGenset.ERP.HR.Core.Services
 {
@@ -88,9 +89,26 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// Retrieves all classOfTravel from the database.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<ClassOfTravelMaster>> GetClassOfTravelDetailsAsync()
+        public async Task<IEnumerable<classoftravelResponseDTO>> GetClassOfTravelDetailsAsync()
         {
-            return await _context.ClassOfTravelMasters.OrderBy(c => c.ClassOfTravelId).ToListAsync();
+            return await _context.ClassOfTravelMasters
+                .Where(c => c.ClassOfTravelIsActive)
+                .Include(c => c.ClassOfTravelGrade)
+                .OrderBy(c => c.ClassOfTravelId)
+                .Select(c => new classoftravelResponseDTO
+                {
+
+                    ClassOfTravelId = c.ClassOfTravelId,
+                    ClassOfTravelName = c.ClassOfTravelName,
+                    ClassOfTravelCode = c.ClassOfTravelCode,
+                    DafoodAllowancePerday = c.DafoodAllowancePerday,
+                    ClassOfTravelTierType = c.ClassOfTravelTierType,
+                    ClassOfTravelRemark = c.ClassOfTravelRemark,
+                    ClassOfTravelIsAuth = c.ClassOfTravelIsAuth,
+                    ClassOfTravelIsDiscard = c.ClassOfTravelIsDiscard,
+                    GradeName = c.ClassOfTravelGrade.GradeName,
+                })
+                .ToListAsync();
         }
         // Get By ID Code
         /// <summary>

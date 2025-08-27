@@ -1,5 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.QualificationRequest;
+using KalaGenset.ERP.HR.Core.ResponseDTO.QualificationMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -81,10 +82,29 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// get qual
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<QualificationMaster>> GetQualificationDetailsAsync()
+        public async Task<IEnumerable<QualificationMasterResponseDTO>> GetQualificationDetailsAsync()
         {
-            return await _context.QualificationMasters.ToListAsync();
+
+
+            return await _context.QualificationMasters
+                .Where(c => c.QualificationIsActive)
+                .Include(c => c.MasterQualificationType)
+                .OrderBy(c => c.QualificationId)
+                .Select(c => new QualificationMasterResponseDTO
+                {
+                    QualificationId = c.QualificationId,
+                    QualificationCode = c.QualificationCode,
+                    QualificationName = c.QualificationName,
+                    QualificationIsDiscard = c.QualificationIsDiscard,
+                    QualificationAuth = c.QualificationAuth,
+                    QualificationIsActive = c.QualificationIsActive,
+                    QualificationRemark = c.QualificationRemark,
+                    QualificationTypeName = c.MasterQualificationType.QualificationTypeName,
+                })
+                .ToListAsync();
+
         }
+
 
         /// <summary>
         /// This is Update Code

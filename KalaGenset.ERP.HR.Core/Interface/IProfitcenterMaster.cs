@@ -1,4 +1,5 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.ProfitcenterMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.Company;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
 
         public Task UpdateProfitCenterAsync(UpdateProfitcenterRequest updateProfitCenterMaster);
 
-        public Task<IEnumerable<ProfitcenterMaster>> GetAllProfitCenterAsync();
+        public Task<IEnumerable<profitcenterResponseDTO>> GetAllProfitCenterAsync();
 
         public Task<ProfitcenterMaster?> GetProfitCenterByIdAsync(int profitCenterId);
 
