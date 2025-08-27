@@ -1,4 +1,5 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.QualificationRequest;
+using KalaGenset.ERP.HR.Core.ResponseDTO.QualificationMaster;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// get qual
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<QualificationMaster>> GetQualificationDetailsAsync();
+        public Task<IEnumerable<QualificationMasterResponseDTO>> GetQualificationDetailsAsync();
         /// <summary>
         /// get qual by id
         /// </summary>

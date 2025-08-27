@@ -1,6 +1,7 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.Facility;
 using KalaGenset.ERP.HR.Core.Request.ProfitcenterMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.Company;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -71,10 +72,28 @@ namespace KalaGenset.ERP.HR.Core.Services
             }
         }
 
-        public async Task<IEnumerable<ProfitcenterMaster>> GetAllProfitCenterAsync()
+        public async Task<IEnumerable<profitcenterResponseDTO>> GetAllProfitCenterAsync()
         {
-            return await _context.ProfitcenterMasters.ToListAsync();
+            return await _context.ProfitcenterMasters
+                .Where(pc => pc.ProfitCenterIsActive)
+                .Include(pc => pc.ProfitCenterCompany)
+                .OrderBy(pc => pc.ProfitCenterId)
+                .Select(pc => new profitcenterResponseDTO
+                {
+                    ProfitCenterId = pc.ProfitCenterId,
+                    ProfitCenterCode = pc.ProfitCenterCode,
+                    ProfitCenterName = pc.ProfitCenterName,
+                    CompanyName = pc.ProfitCenterCompany.CompanyName,
+                    ParentProfitCenterId = pc.ParentProfitCenterId??0,
+                    ProfitCenterRemark = pc.ProfitCenterRemark,
+                    ProfitCenterAuthRemark = pc.ProfitCenterAuthRemark,
+                    ProfitCenterAuth = pc.ProfitCenterAuth,
+                    ProfitCenterIsDiscard = pc.ProfitCenterIsDiscard,
+                    ProfitCenterIsActive = pc.ProfitCenterIsActive
+                })
+                .ToListAsync();
         }
+
 
         public async Task<ProfitcenterMaster?> GetProfitCenterByIdAsync(int profitCenterId)
         {
