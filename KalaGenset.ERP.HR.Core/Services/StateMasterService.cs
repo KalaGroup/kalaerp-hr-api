@@ -56,6 +56,7 @@ namespace KalaGenset.ERP.HR.Core.Services
             var result = await (from state in _context.StateMasters
                                 join country in _context.CountryMasters
                                 on state.CountryId equals country.CountryId
+                                where state.IsActive == true   // 👈 filter only active states
                                 select new StateMasterResponseDTO
                                 {
                                     StateId = state.StateId,
@@ -72,6 +73,7 @@ namespace KalaGenset.ERP.HR.Core.Services
 
             return result;
         }
+
 
         /// <summary>
         /// Update state details
