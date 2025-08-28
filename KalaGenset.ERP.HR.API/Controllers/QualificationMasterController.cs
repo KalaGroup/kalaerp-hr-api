@@ -51,7 +51,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        [HttpPut("UpdateState")]
+        [HttpPut("updatequalification")]
         public async Task<IActionResult> UpdateQualification([FromBody] UpdateQualificationRequest request)
         {
             var validationResult = await _updateQualificationValidator.ValidateAsync(request);
