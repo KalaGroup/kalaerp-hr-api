@@ -1,5 +1,6 @@
 ﻿using KalaERP.HR.Core.Request.CompanyMaster;
 using KalaGenset.ERP.HR.Core.ResponseDTO.Company;
+using KalaGenset.ERP.HR.Core.ResponseDTO.CompanyMaster;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -41,5 +42,7 @@ namespace KalaERP.HR.Core.Interface
         /// <param name="id"></param>
         /// <returns></returns>
         public Task DeleteCompanyAsync(int id);
+        //Fetch CompanyId and CompanyName
+        public Task<List<GetComanyIdAndNameResponseDTO>> GetCompanyIdAndNameAsync();
     }
 }

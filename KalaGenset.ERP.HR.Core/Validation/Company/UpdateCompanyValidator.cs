@@ -22,18 +22,17 @@ namespace KalaERP.HR.Core.Validation.Company
             RuleFor(x => x.CompanyId)
                 .GreaterThan(0).WithMessage("Company ID must be greater than 0.");
 
-            RuleFor(x => x.CompanyCode)
-                .NotEmpty().WithMessage("Company Code is required.")
-                .MaximumLength(20).WithMessage("Company Code cannot exceed 20 characters.")
-                .MustAsync(BeUniqueCompanyCode).WithMessage("Company Code must be unique.");
+            //RuleFor(x => x.CompanyCode)
+            //    .NotEmpty().WithMessage("Company Code is required.")
+            //    .MaximumLength(20).WithMessage("Company Code cannot exceed 20 characters.")
+            //    .MustAsync(BeUniqueCompanyCode).WithMessage("Company Code must be unique.");
 
             RuleFor(x => x.CompanyName)
                 .NotEmpty().WithMessage("Company Name is required.")
                 .MaximumLength(200).WithMessage("Company Name cannot exceed 200 characters.");
 
             RuleFor(x => x.ShortName)
-                .MaximumLength(50).WithMessage("Short Name cannot exceed 50 characters.")
-                .Matches(@"^[a-zA-Z0-9\s]*$").WithMessage("Short Name must not contain special characters or spaces.");
+                .MaximumLength(50).WithMessage("Short Name cannot exceed 50 characters.");
 
             RuleFor(x => x.EmailId)
                 .NotEmpty().WithMessage("Email ID is required.")

@@ -3,6 +3,7 @@ using KalaERP.HR.Core.Request.CompanyMaster;
 using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.Currency;
 using KalaGenset.ERP.HR.Core.ResponseDTO.Company;
+using KalaGenset.ERP.HR.Core.ResponseDTO.CompanyMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -27,9 +28,15 @@ namespace KalaERP.HR.Core.Services
         {
             try
             {
+                byte[]? logoBytes = null;
+                if (!string.IsNullOrEmpty(request.Logo))
+                {
+                    logoBytes = Convert.FromBase64String(request.Logo);
+                }
+
                 var company = new CompanyMaster()
                 {
-                    CompanyCode = request.CompanyCode,
+                    CompanyCode = "COMP002",
                     CompanyName = request.CompanyName,
                     ShortName = request.ShortName,
                     RegisteredAddress = request.RegisteredAddress,
@@ -55,9 +62,9 @@ namespace KalaERP.HR.Core.Services
                     CompanyMasterEntityTypeId = request.CompanyMasterEntityTypeId,
                     ParentCompanyId = request.ParentCompanyId,
                     OwnershipPercentage = request.OwnershipPercentage,
-                    CompanyCurrencyId = request.CompanyCurrencyId,     
+                    CompanyCurrencyId = request.CompanyCurrencyId,
                     FiscalYearStart = request.FiscalYearStart,
-                    Logo = request.Logo,
+                    Logo = logoBytes,
                     AiinsightsEnabled = request.AiinsightsEnabled,
                     PredictiveAnalyticsLevel = request.PredictiveAnalyticsLevel,
                     InterCompanyTransactions = request.InterCompanyTransactions,
@@ -66,10 +73,11 @@ namespace KalaERP.HR.Core.Services
                     CostEfficiencyRating = request.CostEfficiencyRating,
                     CompanyIsAuth = request.CompanyIsAuth,
                     CompanyRemark = request.CompanyRemark,
+                    CompanyRemark2 = request.CompanyRemark2,
                     CompanyIsDiscard = request.CompanyIsDiscard,
                     CompanyIsActive = request.CompanyIsActive,
-                    CreatedBy = request.CreatedBy,
-                    CreatedDate = request.CreatedDate,
+                    CreatedBy = 1,
+                    CreatedDate = DateTime.Now,
                 };
                 context.CompanyMasters.Add(company);
                 await context.SaveChangesAsync();
@@ -212,6 +220,12 @@ namespace KalaERP.HR.Core.Services
         {
             try
             {
+                byte[]? logoBytes = null;
+                if (!string.IsNullOrEmpty(request.Logo))
+                {
+                    logoBytes = Convert.FromBase64String(request.Logo);
+                } 
+
                 var company = await context.CompanyMasters.FirstOrDefaultAsync(c => c.CompanyId == request.CompanyId);
                 company.CompanyCode = request.CompanyCode;
                 company.CompanyName = request.CompanyName;
@@ -241,7 +255,7 @@ namespace KalaERP.HR.Core.Services
                 company.OwnershipPercentage = request.OwnershipPercentage;
                 company.CompanyCurrencyId = request.CompanyCurrencyId;
                 company.FiscalYearStart = request.FiscalYearStart;
-                company.Logo = request.Logo;
+                company.Logo = logoBytes;
                 company.AiinsightsEnabled = request.AiinsightsEnabled;
                 company.PredictiveAnalyticsLevel = request.PredictiveAnalyticsLevel;
                 company.InterCompanyTransactions = request.InterCompanyTransactions;
@@ -250,10 +264,11 @@ namespace KalaERP.HR.Core.Services
                 company.CostEfficiencyRating = request.CostEfficiencyRating;
                 company.CompanyIsAuth = request.CompanyIsAuth;
                 company.CompanyRemark = request.CompanyRemark;
+                company.CompanyRemark2 = request.CompanyRemark2;
                 company.CompanyIsDiscard = request.CompanyIsDiscard;
                 company.CompanyIsActive = request.CompanyIsActive;
-                company.CreatedBy = request.CreatedBy;
-                company.CreatedDate = request.CreatedDate;
+                company.CreatedBy = 1;
+                company.CreatedDate = DateTime.Now;
                 context.CompanyMasters.Update(company);
                 await context.SaveChangesAsync();
             }
@@ -261,6 +276,20 @@ namespace KalaERP.HR.Core.Services
             {
                 throw;  //Handle Error
             }
+        }
+
+        //Fetch CompanyId and CompanyName
+        public async Task<List<GetComanyIdAndNameResponseDTO>> GetCompanyIdAndNameAsync()
+        {
+            var companies = await context.CompanyMasters
+                .Where(c => c.CompanyIsActive)
+                .Select(c => new GetComanyIdAndNameResponseDTO
+                {
+                    ParentCompanyId = c.CompanyId,
+                    ParentCompanyName = c.CompanyName
+                })
+                .ToListAsync();
+            return companies;
         }
     }
 }
