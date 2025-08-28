@@ -1,11 +1,14 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.DivisionMaster;
 using KalaGenset.ERP.HR.Core.Request.Workstation;
+using KalaGenset.ERP.HR.Core.ResponseDTO.DivisionMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.StateMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -91,13 +94,16 @@ namespace KalaGenset.ERP.HR.Core.Services
         }
 
         /// <summary>
-        /// This is Get Code for All Workstation Details
+        /// This is Get Code for All Division Details
         /// </summary>
         /// <returns></returns>
         public async Task<IEnumerable<DivisionMaster>> GetDivisionDetailsAsync()
         {
-            return await _context.DivisionMasters.ToListAsync();
+            return await _context.DivisionMasters
+                                 .Where(d => d.DivisionIsActive == true) // Filter only active Divisions
+                                 .ToListAsync();
         }
+
 
 
         /// <summary>
