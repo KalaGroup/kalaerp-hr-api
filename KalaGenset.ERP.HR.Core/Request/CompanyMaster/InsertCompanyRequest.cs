@@ -8,7 +8,7 @@ namespace KalaERP.HR.Core.Request.CompanyMaster
 {
     public class InsertCompanyRequest
     {
-        public string CompanyCode { get; set; } = null!;
+       // public string CompanyCode { get; set; } = null!;
 
         public string CompanyName { get; set; } = null!;
 
@@ -64,7 +64,8 @@ namespace KalaERP.HR.Core.Request.CompanyMaster
 
         public DateOnly FiscalYearStart { get; set; }
 
-        public byte[]? Logo { get; set; }
+        // public byte[]? Logo { get; set; }
+        public string? Logo { get; set; }
 
         public bool AiinsightsEnabled { get; set; }
 
@@ -82,12 +83,14 @@ namespace KalaERP.HR.Core.Request.CompanyMaster
 
         public string CompanyRemark { get; set; } = null!;
 
+        public string CompanyRemark2 { get; set; } = null!;
+
         public bool CompanyIsDiscard { get; set; }
 
         public bool CompanyIsActive { get; set; }
 
-        public int CreatedBy { get; set; }
+        //public int CreatedBy { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        //public DateTime CreatedDate { get; set; }
     }
 }

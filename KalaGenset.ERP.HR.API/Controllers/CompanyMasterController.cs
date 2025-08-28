@@ -33,10 +33,10 @@ namespace KalaERP.HR.API.Controllers
                 return BadRequest("Invalid request data.");
             }
             var validationResult = await _validator.ValidateAsync(request);   
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(validationResult.Errors);     
-            }
+            //if (!validationResult.IsValid)
+            //{
+            //    return BadRequest(validationResult.Errors);     
+            //}
             try
             {
                 await companyMaster.AddCompanyAsync(request);
@@ -70,6 +70,26 @@ namespace KalaERP.HR.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpGet("getparentcompanyidandname")]
+        public async Task<IActionResult> GetParentCompanyIdAndNameAsync()
+        {
+            try
+            {
+                var companies = await companyMaster.GetCompanyIdAndNameAsync();
+                if (companies == null || !companies.Any())
+                {
+                    return NotFound("No companies found.");
+                }
+                return Ok(companies);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (not implemented here)
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Internal server error: {ex.Message}");
+            }
+        }
+
         /// <summary>
         /// gets a specific company by its ID.
         /// </summary>

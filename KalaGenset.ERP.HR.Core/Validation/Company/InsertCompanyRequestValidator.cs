@@ -21,10 +21,10 @@ namespace KalaERP.HR.Core.Validation.Company
         {
             this.context = context;
 
-            RuleFor(x => x.CompanyCode)
-                .NotEmpty().WithMessage("Company Code is required.")
-                .MaximumLength(20).WithMessage("Company Code cannot exceed 20 characters.")
-                .MustAsync(BeUniqueCompanyCode).WithMessage("Company Code must be unique.");
+            //RuleFor(x => x.CompanyCode)
+            //    .NotEmpty().WithMessage("Company Code is required.")
+            //    .MaximumLength(20).WithMessage("Company Code cannot exceed 20 characters.")
+            //    .MustAsync(BeUniqueCompanyCode).WithMessage("Company Code must be unique.");
 
             RuleFor(x => x.CompanyName)
                 .NotEmpty().WithMessage("Company Name is required.")
@@ -46,8 +46,7 @@ namespace KalaERP.HR.Core.Validation.Company
                 .MaximumLength(500).WithMessage("Registered Address cannot exceed 100 characters.");
 
             RuleFor(x => x.ShortName)
-                .MaximumLength(50).WithMessage("Short Name cannot exceed 50 characters.")
-                .Matches(@"^[a-zA-Z0-9\s]*$").WithMessage("Short Name must not contain special characters or spaces.");
+                .MaximumLength(50).WithMessage("Short Name cannot exceed 50 characters.");
            
             RuleFor(x => x.Website)
                 .MaximumLength(100).WithMessage("Website cannot exceed 100 characters.")
@@ -55,11 +54,10 @@ namespace KalaERP.HR.Core.Validation.Company
 
             RuleFor(x => x.SocialMedialink)
                 .MaximumLength(100).WithMessage("Social Media link cannot exceed 100 characters.");
-                //.Matches(@"^(https?://)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*/?$").WithMessage("Invalid Social Media link format.");
         }
         private async Task<bool> BeUniqueCompanyCode(string companyCode, CancellationToken token)
         {
-            return !await context.CompanyMasters
+            return !await context.CompanyMasters        
                 .AnyAsync(c => c.CompanyCode == companyCode, token);
         }
         private async Task<bool> BeUniqueEmailId(string emailId, CancellationToken token)
