@@ -31,8 +31,8 @@ namespace KalaGenset.ERP.HR.Core.Services
                     StateCode = request.StateCode,
                     StateName = request.StateName,
                     ShortName = request.ShortName,
-                    IsDiscard = true,
-                    IsActive = true,
+                    IsDiscard = request.IsDiscard,
+                    IsActive = request.IsActive,
                     CreatedBy = "1", // Hardcoded as string
                     CreatedDate = DateTime.Now,
                 };

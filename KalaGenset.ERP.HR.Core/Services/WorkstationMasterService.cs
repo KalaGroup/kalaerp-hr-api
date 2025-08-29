@@ -41,8 +41,8 @@ namespace KalaGenset.ERP.HR.Core.Services
                     WorkStationRemark = request.WorkStationRemark,
                     WorkStationAuthRemark = request.WorkStationAuthRemark,
                     WorkStationAuth = request.WorkStationAuth,
-                    WorkStationIsDiscard = true,
-                    WorkStationIsActive = true,
+                    WorkStationIsDiscard = request.WorkStationIsDiscard,
+                    WorkStationIsActive = request.WorkStationIsActive,
                     CreatedBy = 1,
                     CreatedDate = DateTime.Now,
                 };
