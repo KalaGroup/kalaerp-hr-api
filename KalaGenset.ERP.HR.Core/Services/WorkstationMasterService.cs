@@ -1,6 +1,7 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.LocationRequest;
 using KalaGenset.ERP.HR.Core.Request.Workstation;
+using KalaGenset.ERP.HR.Core.ResponseDTO.WorkstationMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -38,13 +39,12 @@ namespace KalaGenset.ERP.HR.Core.Services
                     WorkStationShortName = request.WorkStationShortName,
                     WorkStationProfitcenterId = request.WorkStationProfitcenterId,
                     WorkStationRemark = request.WorkStationRemark,
-                    //WorkStationType = request.WorkStationType,
                     WorkStationAuthRemark = request.WorkStationAuthRemark,
                     WorkStationAuth = request.WorkStationAuth,
-                    WorkStationIsDiscard = request.WorkStationIsDiscard,
-                    WorkStationIsActive = request.WorkStationIsActive,
-                    CreatedBy = request.CreatedBy,
-                    CreatedDate = request.CreatedDate,
+                    WorkStationIsDiscard = true,
+                    WorkStationIsActive = true,
+                    CreatedBy = 1,
+                    CreatedDate = DateTime.Now,
                 };
 
                 _context.WorkStationMasters.Add(WorkStation);
@@ -96,10 +96,32 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// This is Get Code for All Workstation Details
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<WorkStationMaster>> GetWorkStationDetailsAsync()
+        public async Task<IEnumerable<WorkstationMasterResponseDTO>> GetWorkStationDetailsAsync()
         {
-            return await _context.WorkStationMasters.ToListAsync();
+            var result = await (from ws in _context.WorkStationMasters
+                                join pc in _context.ProfitcenterMasters
+                                on ws.WorkStationProfitcenterId equals pc.ProfitCenterId
+                                where ws.WorkStationIsActive == true   // ✅ Only active records
+                                select new WorkstationMasterResponseDTO
+                                {
+                                    WorkStationId = ws.WorkStationId,
+                                    WorkStationCode = ws.WorkStationCode,
+                                    WorkStationName = ws.WorkStationName,
+                                    WorkStationShortName = ws.WorkStationShortName,
+                                    WorkStationProfitcenterId = ws.WorkStationProfitcenterId,
+                                    ProfitCenterName = pc.ProfitCenterName,
+                                    WorkStationIsDiscard = ws.WorkStationIsDiscard,
+                                    WorkStationRemark = ws.WorkStationRemark,
+                                    WorkStationAuthRemark = ws.WorkStationAuthRemark,
+                                    WorkStationIsActive = ws.WorkStationIsActive,
+                                    CreatedBy = ws.CreatedBy,
+                                    CreatedDate = ws.CreatedDate
+                                }).ToListAsync();
+
+            return result;
         }
+
+
 
 
         /// <summary>
@@ -119,7 +141,6 @@ namespace KalaGenset.ERP.HR.Core.Services
                 WorkStation.WorkStationShortName = request.WorkStationShortName;
                 WorkStation.WorkStationProfitcenterId = request.WorkStationProfitcenterId;
                 WorkStation.WorkStationRemark = request.WorkStationRemark;
-                //WorkStation.WorkStationType = request.WorkStationType;
                 WorkStation.WorkStationAuthRemark = request.WorkStationAuthRemark;
                 WorkStation.WorkStationAuth = request.WorkStationAuth;
                 WorkStation.WorkStationIsDiscard = request.WorkStationIsDiscard;

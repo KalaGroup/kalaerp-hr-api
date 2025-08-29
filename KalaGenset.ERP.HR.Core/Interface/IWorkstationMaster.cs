@@ -1,5 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.LocationRequest;
 using KalaGenset.ERP.HR.Core.Request.Workstation;
+using KalaGenset.ERP.HR.Core.ResponseDTO.WorkstationMaster;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// Get the details of all workstations in the system.
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<WorkStationMaster>> GetWorkStationDetailsAsync();
+        public Task<IEnumerable<WorkstationMasterResponseDTO>> GetWorkStationDetailsAsync();
 
         /// <summary>
         /// Update the details of an existing workstation.

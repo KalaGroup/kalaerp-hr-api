@@ -37,12 +37,6 @@ namespace KalaGenset.ERP.HR.Core.Validation.WorkstationMasterValidation
             RuleFor(x => x.WorkStationProfitcenterId)
             .NotEmpty().WithMessage("WorkStationName name is required.");
 
-            RuleFor(x => x.WorkStationType)
-                .NotEmpty().WithMessage("WorkStationName name is required.")
-                 .MustAsync(BeUniqueWorkStationNameName).WithMessage("WorkStationName name already exists.")
-                .Matches("^[a-zA-Z0-9 ]*$").WithMessage("WorkStationName name must not contain special characters.")
-                .MaximumLength(100);
-
             RuleFor(x => x.CreatedBy)
                     .NotEmpty().WithMessage("CreatedBy is required.");
 

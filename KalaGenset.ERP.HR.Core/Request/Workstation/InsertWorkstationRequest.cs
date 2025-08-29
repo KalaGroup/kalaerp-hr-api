@@ -18,8 +18,6 @@ namespace KalaGenset.ERP.HR.Core.Request.Workstation
 
         public string WorkStationRemark { get; set; } = null!;
 
-        public string WorkStationType { get; set; } = null!;
-
         public string WorkStationAuthRemark { get; set; } = null!;
 
         public bool WorkStationAuth { get; set; }

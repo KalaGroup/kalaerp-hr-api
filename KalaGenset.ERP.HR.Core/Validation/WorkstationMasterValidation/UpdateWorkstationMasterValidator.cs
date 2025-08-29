@@ -30,10 +30,6 @@ namespace KalaGenset.ERP.HR.Core.Validation.WorkstationMasterValidation
                  .NotEmpty().WithMessage("WorkStation Code is required.")
                 .MaximumLength(10).WithMessage("WorkStation Code cannot exceed 10 characters.");
 
-            RuleFor(x => x.WorkStationType)
-                .NotEmpty().WithMessage("State short name is required.")
-                .MaximumLength(10).WithMessage("Short name cannot exceed 10 characters.");
-
             RuleFor(x => x.CreatedBy)
                 .NotEmpty().WithMessage("CreatedBy is required.");
 
