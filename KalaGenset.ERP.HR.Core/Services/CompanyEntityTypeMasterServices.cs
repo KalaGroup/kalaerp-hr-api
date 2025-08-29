@@ -39,7 +39,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                     CompanyEntityTypeIsDiscard = insertCompanyEntityTypeMasterRequest.CompanyEntityTypeIsDiscard,
                     CompanyEntityTypeIsActive = insertCompanyEntityTypeMasterRequest.CompanyEntityTypeIsActive,
                     CreatedBy = insertCompanyEntityTypeMasterRequest.CreatedBy,
-                    CreatedDate = insertCompanyEntityTypeMasterRequest.CreatedDate
+                    CreatedDate = DateTime.Now
                 };
                 _context.CompanyEntityTypeMasters.Add(companyEntity);
                 await _context.SaveChangesAsync();
@@ -68,6 +68,9 @@ namespace KalaGenset.ERP.HR.Core.Services
                 companyEntityType.CompanyEntityTypeName = updateCompanyEntityTypeMasterRequest.CompanyEntityTypeName;
                 companyEntityType.CompanyEntityTypeShortName = updateCompanyEntityTypeMasterRequest.CompanyEntityTypeShortName;
                 companyEntityType.CompanyEntityTypeRemark = updateCompanyEntityTypeMasterRequest.CompanyEntityTypeRemark;
+                companyEntityType.CompanyEntityTypeIsActive = updateCompanyEntityTypeMasterRequest.CompanyEntityTypeIsActive;
+                companyEntityType.CompanyEntityTypeIsDiscard = updateCompanyEntityTypeMasterRequest.CompanyEntityTypeIsDiscard;
+
                 _context.CompanyEntityTypeMasters.Update(companyEntityType);
                 await _context.SaveChangesAsync();
             }
@@ -115,13 +118,15 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             try
             {
-                return await _context.CompanyEntityTypeMasters.ToListAsync();
-
+                return await _context.CompanyEntityTypeMasters
+                                     .Where(c => c.CompanyEntityTypeIsActive == true)
+                                     .ToListAsync();
             }
             catch
             {
                 throw;
             }
         }
+
     }
-    }
+}

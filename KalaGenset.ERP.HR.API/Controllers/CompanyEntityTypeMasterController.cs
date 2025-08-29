@@ -34,7 +34,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _companyEntityTypeMaster.InsertCompanyEntityTypeMaster(insertCompanyEntityTypeMasterRequest);
-                return Ok("Company Entity Type Created Successfully ");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -53,7 +53,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _companyEntityTypeMaster.UpdateCompanyEntityMaster(updateCompanyEntityTypeMasterRequest);
-                return Ok("Company Entity Type Updated Successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -66,7 +66,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _companyEntityTypeMaster.DeleteCompanyAsync(companyId);
-                return Ok("Company Entity Type Deactivated Successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
