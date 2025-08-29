@@ -28,7 +28,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("CreateWorkstation")]
-        public async Task<IActionResult> CreateLocation([FromBody] InsertWorkstationRequest request)
+        public async Task<IActionResult> CreateWorkstation([FromBody] InsertWorkstationRequest request)
         {
             var validationResult = await _insertWorkstationValidator.ValidateAsync(request);
             if (!validationResult.IsValid)
@@ -39,7 +39,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _workstationmaster.AddWorkStationAsync(request);
-                return Ok("Workstation Added successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _workstationmaster.UpdateWorkStationAsync(request);
-                return Ok("Workstation Updated Sucessfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -100,7 +100,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _workstationmaster.DeleteWorkStationAsync(Id);
-                return Ok("Deleted Sucessfully");
+                return Ok();
             }
             catch (Exception ex)
             {

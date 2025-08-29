@@ -41,9 +41,9 @@ namespace KalaGenset.ERP.HR.Core.Services
                     DivisionMailId = request.DivisionMailId,
                     DivisionRemark = request.DivisionRemark,
                     DivisionAuthRemark = request.DivisionAuthRemark,
-                    DivisionAuth = request.DivisionAuth,
-                    DivisionIsDiscard = request.DivisionIsDiscard,
-                    DivisionIsActive = request.DivisionIsActive,
+                    DivisionAuth = true,
+                    DivisionIsDiscard = true,
+                    DivisionIsActive = true,
                     CreatedBy = request.CreatedBy,
                     CreatedDate = request.CreatedDate,
                 };
