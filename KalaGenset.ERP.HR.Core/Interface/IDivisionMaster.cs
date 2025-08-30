@@ -1,4 +1,5 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.DivisionMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.DivisionMaster;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,9 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// <param name="wid"></param>
         /// <returns></returns>
         public Task DeleteDivisionAsync(int did);
+
+        // Get Division Id and Name
+        public Task<List<DivisionIdAndNameResponseDTO>> GetDivisionIdAndNameFromDB();
     }
 }
 

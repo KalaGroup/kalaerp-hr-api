@@ -1,5 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.ResposibilitiesMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.ResponsibilitiesMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -32,16 +33,16 @@ namespace KalaGenset.ERP.HR.Core.Services
                 var resposibility = new ResponsibilitiesMaster
                 {
                     ResponsibilitiesGradeId = request.ResposibilitiesGradeId,
-                         
+
                     ResponsibilitiesRemark = request.ResposibilitiesRemark,
                     ResponsibilitiesType = request.ResposibilitiesType,
                     ResponsibilitiesDesignationId = request.ResposibilitiesDesignationId,
                     ResponsibilitiesAuthRemark = request.ResposibilitiesAuthRemark,
-                    ResponsibilitiesDivisionId=request.ResponsibilitiesDivisionId,
+                    ResponsibilitiesDivisionId = request.ResponsibilitiesDivisionId,
                     ResponsibilitiesAuth = request.ResposibilitiesAuth,
                     ResponsibilitiesIsDiscard = request.ResposibilitiesIsDiscard,
                     ResponsibilitiesIsActive = request.ResposibilitiesIsActive,
-                    CreatedBy = request.CreatedBy,
+                    CreatedBy = 1,
                     CreatedDate = DateTime.Now,
                 };
                 context.ResponsibilitiesMasters.Add(resposibility);
@@ -83,6 +84,29 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             return await context.ResponsibilitiesMasters.ToListAsync();
         }
+
+        public async Task<List<ResponsibilitiesResponseDTO>> GetResponsibilitiesDetails()
+        {
+            var responsibilities = await (from r in context.ResponsibilitiesMasters
+                                          join g in context.GradeMasters on r.ResponsibilitiesGradeId equals g.GradeId
+                                          join d in context.DesignationMasters on r.ResponsibilitiesDesignationId equals d.DesignationId
+                                          join div in context.DivisionMasters on r.ResponsibilitiesDivisionId equals div.DivisionId
+                                          select new ResponsibilitiesResponseDTO
+                                          {
+                                              ResponsibilitiesId = r.ResponsibilitiesId,
+                                              ResponsibilitiesGradeName = g.GradeName,
+                                              ResponsibilitiesDesignationName = d.DesignationName,
+                                              ResponsibilitiesDivisionName = div.DivisionName,
+                                              ResponsibilitiesRemark = r.ResponsibilitiesRemark,
+                                              ResponsibilitiesType = r.ResponsibilitiesType,
+                                              ResponsibilitiesAuthRemark = r.ResponsibilitiesAuthRemark,
+                                              ResponsibilitiesAuth = r.ResponsibilitiesAuth,
+                                              ResponsibilitiesIsDiscard = r.ResponsibilitiesIsDiscard,
+                                              ResponsibilitiesIsActive = r.ResponsibilitiesIsActive
+                                          }).ToListAsync();
+            return responsibilities;
+        }
+
         /// <summary>
         /// gets a responsibility by its ID.
         /// </summary>
@@ -114,8 +138,8 @@ namespace KalaGenset.ERP.HR.Core.Services
                 resposibility.ResponsibilitiesAuth = request.ResposibilitiesAuth;
                 resposibility.ResponsibilitiesIsDiscard = request.ResposibilitiesIsDiscard;
                 resposibility.ResponsibilitiesIsActive = request.ResposibilitiesIsActive;
-                resposibility.CreatedBy = request.CreatedBy;
-                resposibility.CreatedDate = request.CreatedDate;
+                resposibility.CreatedBy = 1;
+                resposibility.CreatedDate = DateTime.Now;
                 context.ResponsibilitiesMasters.Update(resposibility);
                 return context.SaveChangesAsync();
             }

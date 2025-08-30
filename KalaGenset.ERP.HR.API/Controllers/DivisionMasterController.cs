@@ -126,5 +126,19 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(500, $"Id is Invalid : {ex.Message}");
             }
         }
+
+        [HttpGet("getdivisionidandname")]
+        public async Task<IActionResult> GetDivisionIdAndName()
+        {
+            try
+            {
+                var result = await _Divisionmaster.GetDivisionIdAndNameFromDB();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while retrieving Division ID and Name: {ex.Message}");
+            }
+        }
     }
 }

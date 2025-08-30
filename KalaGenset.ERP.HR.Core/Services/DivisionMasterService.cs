@@ -137,5 +137,27 @@ namespace KalaGenset.ERP.HR.Core.Services
                 throw;
             }
         }
+
+        //get DivisionId and DivisionName from DivisionMaster table
+        public async Task<List<DivisionIdAndNameResponseDTO>> GetDivisionIdAndNameFromDB()
+        {
+            try
+            {
+                var divisions = await _context.DivisionMasters
+                    .Where(d => d.DivisionIsActive) // Only include active divisions
+                    .Select(d => new DivisionIdAndNameResponseDTO
+                    {
+                        DivisionId = d.DivisionId,
+                        DivisionName = d.DivisionName
+                    })
+                    .ToListAsync();
+                return divisions;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
     }
 }

@@ -10,6 +10,7 @@ using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.Grade;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using KalaGenset.ERP.HR.Core.ResponseDTO.GradeMaster;
 
 namespace KalaGenset.ERP.HR.Core.Services
 {
@@ -138,5 +139,30 @@ namespace KalaGenset.ERP.HR.Core.Services
                 throw;
             }
         }
+
+        //get GradeId and GradeName from GradeMaster table
+        public async Task<List<GradeIdAndNameResponseDTO>> GetGradeIdAndNameFromDB()
+        {
+            try
+            {
+                var grades = await _context.GradeMasters
+                    .Where(g => g.GradeIsActive) // Only include active grades
+                    .Select(g => new GradeIdAndNameResponseDTO
+                    {
+                        GradeId = g.GradeId,
+                        GradeName = g.GradeName
+                    })
+                    .ToListAsync();
+                return grades;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (you can use any logging framework you prefer)
+                Debug.WriteLine($"An error occurred while fetching grade IDs and names: {ex.Message}");
+                throw; // Re-throw the exception to be handled by the calling code if necessary
+            }
+        }
+
+
     }
 }

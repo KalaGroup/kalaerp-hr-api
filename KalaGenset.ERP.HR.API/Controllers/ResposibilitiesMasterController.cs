@@ -50,7 +50,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await resposibilitiesMaster.AddResposibilitiesAsync(request);
-                return Ok("Responsibility added successfully.");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -86,7 +86,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await resposibilitiesMaster.DeleteResposibilitiesAsync(id);
-                return Ok("Resposibility deleted successfully.");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -135,11 +135,29 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await resposibilitiesMaster.UpdateResposibilitiesAsync(request);
-                return Ok("Resposibility updated successfully.");
+                return Ok();
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error updating resposibility: {ex.Message}");
+            }
+        }
+
+        [HttpGet("getallresponsibilities")]
+        public async Task<IActionResult> GetResponsibilitiesDetails()
+        {
+            try
+            {
+                var responsibilities = await resposibilitiesMaster.GetResponsibilitiesDetails();
+                if (responsibilities == null || !responsibilities.Any())
+                {
+                    return NotFound("No responsibilities found.");
+                }
+                return Ok(responsibilities);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error retrieving responsibilities: {ex.Message}");
             }
         }
     }
