@@ -105,5 +105,22 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(500, $"An error occurred while Soft-Deleting grade: {ex.Message}");
             }
         }
+        /// <summary>
+        /// Retrieves a list of active grades with only their IDs and Names.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("getgradeidandname")]
+        public async Task<IActionResult> GetGradeIdAndName()
+        {
+            try
+            {
+                var grades = await _gradeMaster.GetGradeIdAndNameFromDB();
+                return Ok(grades);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching grade IDs and names: {ex.Message}");
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using KalaERP.HR.Core.Request.CompanyMaster;
 using KalaERP.HR.Core.Request.DesignationMaster;
-
+using KalaGenset.ERP.HR.Core.ResponseDTO.DesignationMaster;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -41,5 +41,8 @@ namespace KalaERP.HR.Core.Interface
         /// <param name="id"></param>
         /// <returns></returns>
         public Task DeleteDesignationAsync(int id);
+
+        //Get Designation Id and Name
+        public Task<List<DesignationIdAndNameResponseDTO>> GetDesignationIdAndNameFromDB();
     }
 }

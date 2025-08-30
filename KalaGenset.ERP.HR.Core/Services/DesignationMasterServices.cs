@@ -1,6 +1,7 @@
 ﻿using KalaERP.HR.Core.Interface;
 using KalaERP.HR.Core.Request.CompanyMaster;
 using KalaERP.HR.Core.Request.DesignationMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.DesignationMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -122,6 +123,25 @@ namespace KalaERP.HR.Core.Services
             {
                 // Handle exception (log it, rethrow it, etc.)
                 throw new Exception("Error updating designation", ex);
+            }
+        }
+
+        public async Task<List<DesignationIdAndNameResponseDTO>>GetDesignationIdAndNameFromDB()
+        {
+            try
+            {
+                var designations = await context.DesignationMasters
+                    .Select(d => new DesignationIdAndNameResponseDTO
+                    {
+                        DesignationId = d.DesignationId,
+                        DesignationName = d.DesignationName
+                    })
+                    .ToListAsync();
+                return designations;
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }

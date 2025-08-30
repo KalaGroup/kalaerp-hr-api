@@ -27,9 +27,9 @@ namespace KalaGenset.ERP.HR.Core.Request.ResposibilitiesMaster
 
         public bool ResposibilitiesIsActive { get; set; }
 
-        public int CreatedBy { get; set; }
+        //public int CreatedBy { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        //public DateTime CreatedDate { get; set; }
     
     }
 }

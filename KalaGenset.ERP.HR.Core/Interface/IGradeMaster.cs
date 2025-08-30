@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using KalaGenset.ERP.HR.Data.Models;
 using KalaGenset.ERP.HR.Core.Request.Grade;
+using KalaGenset.ERP.HR.Core.ResponseDTO.GradeMaster;
 
 namespace KalaGenset.ERP.HR.Core.Interface
 {
@@ -39,5 +40,8 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// <param name="gid"></param>
         /// <returns></returns>
         public Task DeleteGradeAsync(int gid);
+
+        //Get Grade Id and Name
+        public Task<List<GradeIdAndNameResponseDTO>> GetGradeIdAndNameFromDB();
     }
 }
