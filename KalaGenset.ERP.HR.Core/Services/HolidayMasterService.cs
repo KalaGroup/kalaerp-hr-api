@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using KalaGenset.ERP.HR.Core.Interface;
-using KalaGenset.ERP.HR.Core.Request;
+﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.HolidayMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.HolidayMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 
 namespace KalaGenset.ERP.HR.Core.Services
 {
@@ -18,7 +12,7 @@ namespace KalaGenset.ERP.HR.Core.Services
         private readonly KalaDbContext _context;
         public HolidayMasterService(KalaDbContext context)
         {
-            _context = context ;
+            _context = context;
         }
         /// <summary>
         /// Insert Holiday Master
@@ -57,10 +51,39 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// Get All Holiday Masters
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<HolidayMaster>> GetAllHolidayMasters()
+        /// 
+
+
+        public async Task<IEnumerable<HolidayMasterResponseDTO>> GetHolidayDetailsAsync()
         {
-            return await _context.HolidayMasters.ToListAsync();
+            var result = await (from holiday in _context.HolidayMasters
+                                join company in _context.CompanyMasters
+                                on holiday.HolidayCompanyId equals company.CompanyId
+                                where holiday.HolidayIsActive == true   // 👈 only active holidays
+                                select new HolidayMasterResponseDTO
+                                {
+                                    HolidayId = holiday.HolidayId,
+                                    HolidayFy = holiday.HolidayFy,
+                                    HolidayDate = holiday.HolidayDate,
+                                    HolidayFor = holiday.HolidayFor,
+                                    HolidayCompanyId = holiday.HolidayCompanyId,
+                                    CompanyName = company.CompanyName,   // 👈 pulled from CompanyMasters
+                                    HolidayRemark = holiday.HolidayRemark,
+                                    HolidayAuthRemark = holiday.HolidayAuthRemark,
+                                    HolidayAuth = holiday.HolidayAuth,
+                                    HolidayIsDiscard = holiday.HolidayIsDiscard,
+                                    HolidayIsActive = holiday.HolidayIsActive,
+                                    CreatedBy = holiday.CreatedBy,
+                                    CreatedDate = holiday.CreatedDate
+                                }).ToListAsync();
+
+            return result;
         }
+
+
+
+
+
         /// <summary>
         /// Get Holiday Master By Id
         /// </summary>
@@ -101,7 +124,7 @@ namespace KalaGenset.ERP.HR.Core.Services
             catch (Exception ex)
             {
                 throw;
-            }  
+            }
         }
         /// <summary>
         /// Delete Holiday By Id (Soft Delete)
@@ -130,5 +153,6 @@ namespace KalaGenset.ERP.HR.Core.Services
 
                 throw;
             }
-    }   }
+        }
+    }
 }

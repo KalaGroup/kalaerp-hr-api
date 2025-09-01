@@ -37,7 +37,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _holidayMaster.HolidayMasterAsync(insertHolidayMasterRequest);
-                return Ok("Holiday Master Inserted Successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -54,7 +54,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         {
             try
             {
-                var holidayMasters = await _holidayMaster.GetAllHolidayMasters();
+                var holidayMasters = await _holidayMaster.GetHolidayDetailsAsync();
                 return Ok(holidayMasters);
             }
             catch (Exception ex)
@@ -101,7 +101,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _holidayMaster.UpdateHolidayMasterAsync(updateHolidayMasterRequest);
-                return Ok("Holiday type Updated Successfully");
+                return Ok();
 
             }
             catch (Exception ex)
@@ -114,21 +114,21 @@ namespace KalaGenset.ERP.HR.API.Controllers
         /// </summary>
         /// <param name="holidayId"></param>
         /// <returns></returns>
-        [HttpDelete("DeleteHoliday")]
+        [HttpDelete("DeleteHoliday/{holidayId}")]
         public async Task<IActionResult> DeleteHolidayDetails(int holidayId)
         {
-                try
-                {
-                    await _holidayMaster.DeleteHolidayById(holidayId);
-                    return Ok("Record deleted successfully");
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(500, $"An error occured while deleting Holiday:{ex.Message}");
-                }
-
+            try
+            {
+                await _holidayMaster.DeleteHolidayById(holidayId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occured while deleting Holiday:{ex.Message}");
             }
 
         }
-    
+
+    }
+
 }
