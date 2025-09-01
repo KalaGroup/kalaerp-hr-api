@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using KalaGenset.ERP.HR.Core.Request.HolidayMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.HolidayMaster;
 using KalaGenset.ERP.HR.Data.Models;
 
 namespace KalaGenset.ERP.HR.Core.Interface
@@ -20,7 +21,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// Get All Holiday Masters
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<HolidayMaster>> GetAllHolidayMasters();
+        public Task<IEnumerable<HolidayMasterResponseDTO>> GetHolidayDetailsAsync();
         /// <summary>
         /// Get Holiday Master By Id
         /// </summary>
