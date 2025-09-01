@@ -41,8 +41,8 @@ namespace KalaGenset.ERP.HR.Core.Validation.LocationValidator
                 .MaximumLength(100).WithMessage("Location Type cannot exceed 100 characters.")
                 .Matches("^[a-zA-Z0-9 -]*$").WithMessage("Location Type must not contain special characters.");
 
-            RuleFor(x => x.CreatedBy)
-                .NotEmpty().WithMessage("CreatedBy is required.");
+            //RuleFor(x => x.CreatedBy)
+            //    .NotEmpty().WithMessage("CreatedBy is required.");
         }
 
 

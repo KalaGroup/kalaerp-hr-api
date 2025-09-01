@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KalaGenset.ERP.HR.Core.ResponseDTO.Location
 {
-    public class insertlocationmasterDTO
+    public class InsertLocationMasterDTO
     {
         public int LocationId { get; set; }
 

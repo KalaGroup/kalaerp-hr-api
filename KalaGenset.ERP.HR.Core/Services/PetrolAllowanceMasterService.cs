@@ -87,11 +87,11 @@ namespace KalaGenset.ERP.HR.Core.Services
 
 
         }
-        public async Task DeletePetrolAllowanceById(int petrolallowanceId)
+        public async Task DeletePetrolAllowanceById(int Id)
         {
             try
             {
-                var PetrolAllowance = await _context.PetrolAllowanceMasters.FirstOrDefaultAsync(c => c.PetrolAllowanceId == petrolallowanceId);
+                var PetrolAllowance = await _context.PetrolAllowanceMasters.FirstOrDefaultAsync(c => c.PetrolAllowanceId == Id);
                 if (PetrolAllowance == null)
                 {
                     throw new Exception("PetrolAllowance ID Not Found");

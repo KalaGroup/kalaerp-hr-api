@@ -1,5 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.ActivityMaster;
 using KalaGenset.ERP.HR.Core.Request.AuthoritieMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.ActivityMaster;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,6 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// Get All Activity Master Async
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<ActivityMaster>> GetAllActivityMasterAsync();
+        public Task<IEnumerable<InsertActivityMasterDTO>> GetAllActivityMasterAsync();
     }
 }
