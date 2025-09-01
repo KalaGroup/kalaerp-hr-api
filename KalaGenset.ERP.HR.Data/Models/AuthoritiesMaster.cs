@@ -15,8 +15,6 @@ public partial class AuthoritiesMaster
 
     public string AuthoritiesRemark { get; set; } = null!;
 
-    public string AuthoritiesType { get; set; } = null!;
-
     public string AuthoritiesAuthRemark { get; set; } = null!;
 
     public bool AuthoritiesAuth { get; set; }

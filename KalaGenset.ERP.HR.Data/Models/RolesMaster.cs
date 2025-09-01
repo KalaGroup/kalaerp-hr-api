@@ -15,8 +15,6 @@ public partial class RolesMaster
 
     public string RolesRemark { get; set; } = null!;
 
-    public string RolesType { get; set; } = null!;
-
     public string RolesAuthRemark { get; set; } = null!;
 
     public bool RolesAuth { get; set; }

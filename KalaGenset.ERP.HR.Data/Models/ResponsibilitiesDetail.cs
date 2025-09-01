@@ -12,4 +12,6 @@ public partial class ResponsibilitiesDetail
     public int SrNo { get; set; }
 
     public string ResponsibilitiesDetailsDescription { get; set; } = null!;
+
+    public virtual ResponsibilitiesMaster DetailsResposibilities { get; set; } = null!;
 }

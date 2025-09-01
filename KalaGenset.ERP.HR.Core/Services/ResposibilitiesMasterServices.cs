@@ -35,7 +35,6 @@ namespace KalaGenset.ERP.HR.Core.Services
                     ResponsibilitiesGradeId = request.ResposibilitiesGradeId,
 
                     ResponsibilitiesRemark = request.ResposibilitiesRemark,
-                    ResponsibilitiesType = request.ResposibilitiesType,
                     ResponsibilitiesDesignationId = request.ResposibilitiesDesignationId,
                     ResponsibilitiesAuthRemark = request.ResposibilitiesAuthRemark,
                     ResponsibilitiesDivisionId = request.ResponsibilitiesDivisionId,
@@ -98,7 +97,6 @@ namespace KalaGenset.ERP.HR.Core.Services
                                               ResponsibilitiesDesignationName = d.DesignationName,
                                               ResponsibilitiesDivisionName = div.DivisionName,
                                               ResponsibilitiesRemark = r.ResponsibilitiesRemark,
-                                              ResponsibilitiesType = r.ResponsibilitiesType,
                                               ResponsibilitiesAuthRemark = r.ResponsibilitiesAuthRemark,
                                               ResponsibilitiesAuth = r.ResponsibilitiesAuth,
                                               ResponsibilitiesIsDiscard = r.ResponsibilitiesIsDiscard,
@@ -132,7 +130,6 @@ namespace KalaGenset.ERP.HR.Core.Services
                resposibility.ResponsibilitiesGradeId = request.ResposibilitiesGradeId;
                 resposibility.ResponsibilitiesDesignationId = request.ResposibilitiesDesignationId;
                 resposibility.ResponsibilitiesRemark = request.ResposibilitiesRemark;
-                resposibility.ResponsibilitiesType = request.ResposibilitiesType;
                 resposibility.ResponsibilitiesAuthRemark = request.ResposibilitiesAuthRemark;
                 resposibility.ResponsibilitiesDivisionId=request.ResponsibilitiesDivisionId;
                 resposibility.ResponsibilitiesAuth = request.ResposibilitiesAuth;

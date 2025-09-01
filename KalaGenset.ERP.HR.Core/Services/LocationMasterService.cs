@@ -82,7 +82,6 @@ namespace KalaGenset.ERP.HR.Core.Services
         public async Task<LocationMaster?> GetLocationByID(int Id)
         {
             return await _context.LocationMasters.FirstOrDefaultAsync(c => c.LocationId == Id);
-
         }
 
         /// <summary>
@@ -107,8 +106,6 @@ namespace KalaGenset.ERP.HR.Core.Services
                     LocationAuth = c.LocationAuth,
                     LocationIsDiscard = c.LocationIsDiscard,
                     LocationIsActive = c.LocationIsActive,
-
-
                 })
                 .ToListAsync();
         }

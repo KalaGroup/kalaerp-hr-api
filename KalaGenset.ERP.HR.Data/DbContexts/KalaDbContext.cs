@@ -148,7 +148,6 @@ public partial class KalaDbContext : DbContext
             entity.Property(e => e.ActivityRemark)
                 .HasMaxLength(200)
                 .HasDefaultValue("Nil");
-            entity.Property(e => e.ActivityType).HasMaxLength(200);
             entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
 
             entity.HasOne(d => d.ActivityDesignation).WithMany(p => p.ActivityMasters)
@@ -218,7 +217,6 @@ public partial class KalaDbContext : DbContext
             entity.Property(e => e.AuthoritiesRemark)
                 .HasMaxLength(200)
                 .HasDefaultValue("Nil");
-            entity.Property(e => e.AuthoritiesType).HasMaxLength(200);
             entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
 
             entity.HasOne(d => d.AuthoritiesDesignation).WithMany(p => p.AuthoritiesMasters)
@@ -998,9 +996,6 @@ public partial class KalaDbContext : DbContext
                 .HasMaxLength(200)
                 .HasDefaultValue("Nil")
                 .HasColumnName("KPARemark");
-            entity.Property(e => e.Kpatype)
-                .HasMaxLength(200)
-                .HasColumnName("KPAType");
 
             entity.HasOne(d => d.Kpadesignation).WithMany(p => p.Kpamasters)
                 .HasForeignKey(d => d.KpadesignationId)
@@ -1292,7 +1287,7 @@ public partial class KalaDbContext : DbContext
 
             entity.ToTable(tb => tb.IsTemporal(ttb =>
                     {
-                        ttb.UseHistoryTable("ResponsibilitiesDetailsHistory", "dbo");
+                        ttb.UseHistoryTable("MSSQL_TemporalHistoryFor_439672614", "dbo");
                         ttb
                             .HasPeriodStart("SysStartTime")
                             .HasColumnName("SysStartTime");
@@ -1304,6 +1299,11 @@ public partial class KalaDbContext : DbContext
             entity.Property(e => e.ResponsibilitiesDetailsDescription)
                 .HasMaxLength(500)
                 .HasDefaultValue("Nil");
+
+            entity.HasOne(d => d.DetailsResposibilities).WithMany(p => p.ResponsibilitiesDetails)
+                .HasForeignKey(d => d.DetailsResposibilitiesId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ResponsibilitiesDetailsId_DetailsResposibilitiesId");
         });
 
         modelBuilder.Entity<ResponsibilitiesMaster>(entity =>
@@ -1333,7 +1333,6 @@ public partial class KalaDbContext : DbContext
             entity.Property(e => e.ResponsibilitiesRemark)
                 .HasMaxLength(200)
                 .HasDefaultValue("Nil");
-            entity.Property(e => e.ResponsibilitiesType).HasMaxLength(200);
 
             entity.HasOne(d => d.ResponsibilitiesDesignation).WithMany(p => p.ResponsibilitiesMasters)
                 .HasForeignKey(d => d.ResponsibilitiesDesignationId)
@@ -1403,7 +1402,6 @@ public partial class KalaDbContext : DbContext
             entity.Property(e => e.RolesRemark)
                 .HasMaxLength(200)
                 .HasDefaultValue("Nil");
-            entity.Property(e => e.RolesType).HasMaxLength(200);
 
             entity.HasOne(d => d.RolesDesignation).WithMany(p => p.RolesMasters)
                 .HasForeignKey(d => d.RolesDesignationId)

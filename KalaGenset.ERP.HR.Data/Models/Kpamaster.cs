@@ -15,8 +15,6 @@ public partial class Kpamaster
 
     public string Kparemark { get; set; } = null!;
 
-    public string Kpatype { get; set; } = null!;
-
     public string KpaauthRemark { get; set; } = null!;
 
     public bool Kpaauth { get; set; }

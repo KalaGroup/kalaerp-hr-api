@@ -36,7 +36,6 @@ namespace KalaGenset.ERP.HR.Core.Services
                     RolesDesignationId = request.RolesDesignationId,
                     RolesDivisionId = request.RolesDivisionId,
                     RolesRemark = request.RolesRemark,
-                    RolesType = request.RolesType,
                     RolesAuthRemark = request.RolesAuthRemark,
                     RolesAuth = request.RolesAuth,
                     RolesIsDiscard = request.RolesIsDiscard,
@@ -67,7 +66,6 @@ namespace KalaGenset.ERP.HR.Core.Services
                 roles.RolesDesignationId = request.RolesDesignationId;
                 roles.RolesDivisionId = request.RolesDivisionId;
                 roles.RolesRemark = request.RolesRemark;
-                roles.RolesType = request.RolesType;
                 roles.RolesAuthRemark = request.RolesAuthRemark;
                 roles.RolesAuth = request.RolesAuth;
                 roles.RolesIsDiscard = request.RolesIsDiscard;

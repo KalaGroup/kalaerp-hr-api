@@ -22,8 +22,8 @@ public partial class DivisionMaster
     public bool DivisionAuth { get; set; }
 
     public bool DivisionIsDiscard { get; set; }
-    public bool DivisionIsActive { get; set; }
 
+    public bool DivisionIsActive { get; set; }
 
     public int CreatedBy { get; set; }
 

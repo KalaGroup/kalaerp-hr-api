@@ -36,7 +36,6 @@ namespace KalaGenset.ERP.HR.Core.Services
                     KpagradeId = request.KpagradeId,
                     KpadesignationId = request.KpadesignationId,
                     Kparemark = request.Kparemark,
-                    Kpatype = request.Kpatype,
                     KpaauthRemark = request.KpaauthRemark,
                     KpadivisionId = request.KpadivisionId,
                     Kpaauth = request.Kpaauth,
@@ -88,7 +87,6 @@ namespace KalaGenset.ERP.HR.Core.Services
                     kpaMaster.KpagradeId = request.KpagradeId;
                     kpaMaster.KpadesignationId = request.KpadesignationId;
                     kpaMaster.Kparemark = request.Kparemark;
-                    kpaMaster.Kpatype = request.Kpatype;
                     kpaMaster.KpaauthRemark = request.KpaauthRemark;
                     kpaMaster.KpadivisionId = request.KpadivisionId;
                     kpaMaster.Kpaauth = request.Kpaauth;
