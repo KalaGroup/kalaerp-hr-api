@@ -16,7 +16,7 @@ namespace KalaGenset.ERP.HR.Core.Request.EmployeeTypeMaster
 
         public string EmployeeTypeRemark { get; set; } = null!;
 
-        public string EmployeeTypeAuthRemark { get; set; } = null!;
+       // public string EmployeeTypeAuthRemark { get; set; } = null!;
 
         public bool EmployeeTypeAuth { get; set; }
 
@@ -24,9 +24,9 @@ namespace KalaGenset.ERP.HR.Core.Request.EmployeeTypeMaster
 
         public bool EmployeeTypeIsActive { get; set; }
 
-        public int CreatedBy { get; set; }
+        //public int CreatedBy { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        //public DateTime CreatedDate { get; set; }
     }
 
 }

@@ -45,7 +45,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _employeeTypeMaster.AddEmployeetype(resquest);
-                return Ok("Employee Type Created Successfully ");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -92,7 +92,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _employeeTypeMaster.UpdateEmployeeTypeMasterAsync(updateEmployeeTypeRequest);
-                return Ok("Employee type Updated Successfully");
+                return Ok();
 
             }
             catch (Exception ex)
@@ -106,13 +106,13 @@ namespace KalaGenset.ERP.HR.API.Controllers
         /// </summary>
         /// <param name="EmployeeTypeId"></param>
         /// <returns></returns>
-        [HttpDelete("DeleteEmployeeTypeById")]
+        [HttpDelete("DeleteEmployeeTypeById/{EmployeeTypeId}")]
         public async Task<IActionResult> DeleteEmplyeeTypeDetails(int EmployeeTypeId)
         {
             try
             {
                 await _employeeTypeMaster.DeleteEmployeeTypeById(EmployeeTypeId);
-                return Ok("Record deleted successfully");
+                return Ok();
             }
             catch (Exception ex)
             {

@@ -29,8 +29,8 @@ namespace KalaGenset.ERP.HR.Core.Validation.EmployeeTypeMasterValidation
                 .ApplyAlphaNumeric("EmployeeType name", 100, allowSpaces: true)
                 .MustAsync(BeUniqueEmployeeTypeName).WithMessage("EmployeeType name already exists.");
 
-            RuleFor(x => x.CreatedBy)
-               .MustBePresentWhenNew("CreatedBy");
+            //RuleFor(x => x.CreatedBy)
+            //   .MustBePresentWhenNew("CreatedBy");
 
         }
         private async Task<bool> BeUniqueEmployeeTypeCode(string EmployeeTypeCode, CancellationToken cancellationToken)
