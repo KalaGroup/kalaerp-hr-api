@@ -22,29 +22,66 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// <returns></returns>
         public async Task AddActivityAsync(InsertActivityMasterRequest request)
         {
-            try
+            //try
+            //{
+            //    var activity = new ActivityMaster
+            //    {
+            //        ActivityDesignationId = request.ActivityDesignationId,
+            //        ActivityDivisionId = request.ActivityDivisionId,
+            //        ActivityGradeId = request.ActivityGradeId,
+            //        ActivityAuthRemark = request.ActivityAuthRemark,
+            //        ActivityIsActive = request.ActivityIsActive,
+            //        ActivityIsDiscard = request.ActivityIsDiscard,
+            //        ActivityType = request.ActivityType,
+            //        ActivityRemark = request.ActivityRemark,
+            //        CreatedBy = request.CreatedBy,
+            //        CreatedDate = request.CreatedDate,
+            //        ActivityAuth = request.ActivityAuth,
+            //    };
+            //     context.ActivityMasters.Add(activity);
+            //    await context.SaveChangesAsync();
+
+            //    var details = new ActivityDetail
+            //    {
+            //        ActivityDetailsDescription = request.ActivityDetailsDescription,
+            //        DetailsActivityId = request.DetailsActivityId,
+            //        SrNo = request.SrNo,
+            //    };
+            //    context.ActivityDetails.Add(details);
+            //    await context.SaveChangesAsync();
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw;
+            //}
+
+            var activity = new ActivityMaster
             {
-                var activity = new ActivityMaster
+                ActivityDesignationId = request.ActivityDesignationId,
+                ActivityDivisionId = request.ActivityDivisionId,
+                ActivityGradeId = request.ActivityGradeId,
+                ActivityAuthRemark = request.ActivityAuthRemark,
+                ActivityIsActive = request.ActivityIsActive,
+                ActivityIsDiscard = request.ActivityIsDiscard,
+                ActivityType = request.ActivityType,
+                ActivityRemark = request.ActivityRemark,
+                CreatedBy = request.CreatedBy,
+                CreatedDate = request.CreatedDate,
+                ActivityAuth = request.ActivityAuth,
+
+                ActivityDetails = new List<ActivityDetail>
                 {
-                    ActivityDesignationId = request.ActivityDesignationId,
-                    ActivityDivisionId = request.ActivityDivisionId,
-                    ActivityGradeId = request.ActivityGradeId,
-                    ActivityAuthRemark = request.ActivityAuthRemark,
-                    ActivityIsActive = request.ActivityIsActive,
-                    ActivityIsDiscard = request.ActivityIsDiscard,
-                    ActivityType = request.ActivityType,
-                    ActivityRemark = request.ActivityRemark,
-                    CreatedBy = request.CreatedBy,
-                    CreatedDate = request.CreatedDate,
-                    ActivityAuth = request.ActivityAuth,
-                };
-                 context.ActivityMasters.Add(activity);
-                await context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+                  new ActivityDetail
+                  {
+                    ActivityDetailsDescription = request.ActivityDetailsDescription,
+                     SrNo = request.SrNo
+                }
+                  }
+            };
+
+            context.ActivityMasters.Add(activity);
+            await context.SaveChangesAsync(); // saves both Master + Details
+
         }
         /// <summary>
         /// Delete Activity Async

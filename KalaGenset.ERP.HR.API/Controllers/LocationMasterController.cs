@@ -39,7 +39,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _locationMaster.AddLocationAsync(request);
-                return Ok("Location Added successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _locationMaster.UpdateLocationAsync(request);
-                return Ok("Location Updated Sucessfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -101,7 +101,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _locationMaster.DeleteLocationAsync(Id);
-                return Ok("Deleted Sucessfully");
+                return Ok();
             }
             catch (Exception ex)
             {

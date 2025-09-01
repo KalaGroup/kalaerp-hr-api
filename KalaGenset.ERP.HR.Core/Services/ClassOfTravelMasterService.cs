@@ -96,7 +96,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                 .Include(c => c.ClassOfTravelGrade)
                 .OrderBy(c => c.ClassOfTravelId)
                 .Select(c => new classoftravelResponseDTO
-                {
+                { 
 
                     ClassOfTravelId = c.ClassOfTravelId,
                     ClassOfTravelName = c.ClassOfTravelName,
@@ -107,6 +107,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                     ClassOfTravelIsAuth = c.ClassOfTravelIsAuth,
                     ClassOfTravelIsDiscard = c.ClassOfTravelIsDiscard,
                     GradeName = c.ClassOfTravelGrade.GradeName,
+                    ClassOfTravelIsActive=c.ClassOfTravelIsActive
                 })
                 .ToListAsync();
         }
