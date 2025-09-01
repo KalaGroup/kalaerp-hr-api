@@ -18,7 +18,7 @@ namespace KalaGenset.ERP.HR.Core.Request.EmployeeTypeMaster
 
         public string EmployeeTypeRemark { get; set; } = null!;
 
-        public string EmployeeTypeAuthRemark { get; set; } = null!;
+        //public string EmployeeTypeAuthRemark { get; set; } = null!;
 
         public bool EmployeeTypeAuth { get; set; }
 

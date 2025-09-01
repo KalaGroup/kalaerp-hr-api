@@ -38,12 +38,12 @@ namespace KalaGenset.ERP.HR.Core.Services
                     EmployeeTypeName = insertEmployeeTypeRequest.EmployeeTypeName,
                     EmployeeTypeDescription = insertEmployeeTypeRequest.EmployeeTypeDescription,
                     EmployeeTypeRemark = insertEmployeeTypeRequest.EmployeeTypeRemark,
-                    EmployeeTypeAuthRemark = insertEmployeeTypeRequest.EmployeeTypeAuthRemark,
+                   // EmployeeTypeAuthRemark = insertEmployeeTypeRequest.EmployeeTypeAuthRemark,
                     EmployeeTypeAuth = insertEmployeeTypeRequest.EmployeeTypeAuth,
                     EmployeeTypeIsDiscard = insertEmployeeTypeRequest.EmployeeTypeIsDiscard,
                     EmployeeTypeIsActive = insertEmployeeTypeRequest.EmployeeTypeIsActive,
-                    CreatedBy = insertEmployeeTypeRequest.CreatedBy,
-                    CreatedDate = insertEmployeeTypeRequest.CreatedDate,
+                    CreatedBy = 1,
+                    CreatedDate = DateTime.Now,
                 };
                 _Context.EmployeeTypeMasters.Add(EmployeeTypeMaster);
                 return _Context.SaveChangesAsync();
@@ -60,7 +60,11 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// <returns></returns>
         public async Task<IEnumerable<EmployeeTypeMaster>> GetAllEmployeeType()
         {
-            return await _Context.EmployeeTypeMasters.ToListAsync();
+            // return await _Context.EmployeeTypeMasters.EmployeeTypeIsActive()== true.ToListAsync();
+            return await _Context.EmployeeTypeMasters
+                      .Where(e => e.EmployeeTypeIsActive == true)
+                      .ToListAsync();
+
 
         }
         /// <summary>
@@ -89,10 +93,12 @@ namespace KalaGenset.ERP.HR.Core.Services
                 EmployeeType.EmployeeTypeName = UpdateEmployeeTypeRequest.EmployeeTypeName;
                 EmployeeType.EmployeeTypeDescription = UpdateEmployeeTypeRequest.EmployeeTypeDescription;
                 EmployeeType.EmployeeTypeRemark = UpdateEmployeeTypeRequest.EmployeeTypeRemark;
-                EmployeeType.EmployeeTypeAuthRemark = UpdateEmployeeTypeRequest.EmployeeTypeAuthRemark;
+               // EmployeeType.EmployeeTypeAuthRemark = UpdateEmployeeTypeRequest.EmployeeTypeAuthRemark;
                 EmployeeType.EmployeeTypeAuth = UpdateEmployeeTypeRequest.EmployeeTypeAuth;
                 EmployeeType.EmployeeTypeIsDiscard = UpdateEmployeeTypeRequest.EmployeeTypeIsDiscard;
                 EmployeeType.EmployeeTypeIsActive = UpdateEmployeeTypeRequest.EmployeeTypeIsActive;
+                EmployeeType.CreatedBy = 1;
+                EmployeeType.CreatedDate = DateTime.Now;
 
                 _Context.EmployeeTypeMasters.Update(EmployeeType);
                 await _Context.SaveChangesAsync();
