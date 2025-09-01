@@ -25,14 +25,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.FacilityMaster
                 .ApplyAlphaNumeric("Facility Name", 100, allowSpaces: true)
                .MustAsync(BeUniqueFacilityName).WithMessage("Facility Name already exists.");
 
-            RuleFor(x => x.FacilityRemark)
-               .ApplyAlphaNumeric("Remark should not be blank. Remark", 100, allowSpaces: true);
 
-            RuleFor(x => x.CreatedBy)
-               .MustBePresentWhenNew("CreatedBy");
-
-            RuleFor(x => x.CreatedDate)
-                .MustBePastOrNowWhenNew("Created date");
         }
 
         private async Task<bool> BeUniqueFacilityName(string facilityName, CancellationToken cancellationToken)

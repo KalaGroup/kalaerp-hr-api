@@ -14,7 +14,6 @@ namespace KalaGenset.ERP.HR.Core.ResponseDTO.Company
 
         public string ProfitCenterName { get; set; } = null!;
 
-        //  public int ProfitCenterCompanyId { get; set; }
         public string CompanyName { get; set; } = null!;
 
 

@@ -22,67 +22,33 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// <returns></returns>
         public async Task AddActivityAsync(InsertActivityMasterRequest request)
         {
-            //try
-            //{
-            //    var activity = new ActivityMaster
-            //    {
-            //        ActivityDesignationId = request.ActivityDesignationId,
-            //        ActivityDivisionId = request.ActivityDivisionId,
-            //        ActivityGradeId = request.ActivityGradeId,
-            //        ActivityAuthRemark = request.ActivityAuthRemark,
-            //        ActivityIsActive = request.ActivityIsActive,
-            //        ActivityIsDiscard = request.ActivityIsDiscard,
-            //        ActivityType = request.ActivityType,
-            //        ActivityRemark = request.ActivityRemark,
-            //        CreatedBy = request.CreatedBy,
-            //        CreatedDate = request.CreatedDate,
-            //        ActivityAuth = request.ActivityAuth,
-            //    };
-            //     context.ActivityMasters.Add(activity);
-            //    await context.SaveChangesAsync();
-
-            //    var details = new ActivityDetail
-            //    {
-            //        ActivityDetailsDescription = request.ActivityDetailsDescription,
-            //        DetailsActivityId = request.DetailsActivityId,
-            //        SrNo = request.SrNo,
-            //    };
-            //    context.ActivityDetails.Add(details);
-            //    await context.SaveChangesAsync();
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw;
-            //}
-
-            var activity = new ActivityMaster
+            try
             {
-                ActivityDesignationId = request.ActivityDesignationId,
-                ActivityDivisionId = request.ActivityDivisionId,
-                ActivityGradeId = request.ActivityGradeId,
-                ActivityAuthRemark = request.ActivityAuthRemark,
-                ActivityIsActive = request.ActivityIsActive,
-                ActivityIsDiscard = request.ActivityIsDiscard,
-                ActivityType = request.ActivityType,
-                ActivityRemark = request.ActivityRemark,
-                CreatedBy = request.CreatedBy,
-                CreatedDate = request.CreatedDate,
-                ActivityAuth = request.ActivityAuth,
-
-                ActivityDetails = new List<ActivityDetail>
+                var activity = new ActivityMaster
                 {
-                  new ActivityDetail
-                  {
-                    ActivityDetailsDescription = request.ActivityDetailsDescription,
-                     SrNo = request.SrNo
-                }
-                  }
-            };
+                    ActivityDesignationId = request.ActivityDesignationId,
+                    ActivityDivisionId = request.ActivityDivisionId,
+                    ActivityGradeId = request.ActivityGradeId,
+                    ActivityAuthRemark = request.ActivityAuthRemark,
+                    ActivityIsActive = request.ActivityIsActive,
+                    ActivityIsDiscard = request.ActivityIsDiscard,
+                    ActivityRemark = request.ActivityRemark,
+                    CreatedBy = request.CreatedBy,
+                    CreatedDate = request.CreatedDate,
+                    ActivityAuth = request.ActivityAuth,
+                };
+                context.ActivityMasters.Add(activity);
+                await context.SaveChangesAsync();
 
-            context.ActivityMasters.Add(activity);
-            await context.SaveChangesAsync(); // saves both Master + Details
 
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
+
+
         /// <summary>
         /// Delete Activity Async
         /// </summary>
@@ -132,7 +98,6 @@ namespace KalaGenset.ERP.HR.Core.Services
                     DesignationName = c.ActivityDesignation.DesignationName,
                     DivisionName = c.ActivityDivision.DivisionName,
                     ActivityRemark = c.ActivityRemark,
-                    ActivityType = c.ActivityType,
                     ActivityAuthRemark = c.ActivityAuthRemark,
                     ActivityAuth = c.ActivityAuth,
                     ActivityIsDiscard = c.ActivityIsDiscard,
@@ -157,7 +122,6 @@ namespace KalaGenset.ERP.HR.Core.Services
                     activity.ActivityAuthRemark = request.ActivityAuthRemark;
                     activity.ActivityIsActive = request.ActivityIsActive;
                     activity.ActivityIsDiscard = request.ActivityIsDiscard;
-                    activity.ActivityType = request.ActivityType;
                     activity.ActivityRemark = request.ActivityRemark;
                     activity.CreatedBy = request.CreatedBy;
                     activity.CreatedDate = request.CreatedDate;

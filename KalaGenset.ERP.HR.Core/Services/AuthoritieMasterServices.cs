@@ -38,7 +38,6 @@ namespace KalaGenset.ERP.HR.Core.Services
                     AuthoritiesGradeId = request.AuthoritiesGradeId,
                     AuthoritiesDesignationId = request.AuthoritiesDesignationId,
                     AuthoritiesRemark = request.AuthoritiesRemark,
-                    AuthoritiesType = request.AuthoritiesType,
                     AuthoritiesDivisionId = request.AuthoritiesDivisionId,
                     AuthoritiesAuthRemark = request.AuthoritiesAuthRemark,
                     AuthoritiesAuth = request.AuthoritiesAuth,
@@ -114,7 +113,6 @@ namespace KalaGenset.ERP.HR.Core.Services
                 authoritie.AuthoritiesIsActive = request.AuthoritiesIsActive;
                 authoritie.AuthoritiesIsDiscard = request.AuthoritiesIsDiscard;
                 authoritie.AuthoritiesRemark = request.AuthoritiesRemark;
-                authoritie.AuthoritiesType = request.AuthoritiesType;
                 authoritie.CreatedBy = request.CreatedBy;
                 authoritie.CreatedDate = request.CreatedDate;
                 _context.AuthoritiesMasters.Update(authoritie);

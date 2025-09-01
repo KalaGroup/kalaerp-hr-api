@@ -30,13 +30,7 @@ namespace KalaGenset.ERP.HR.Core.Request.ActivityMaster
 
         public DateTime CreatedDate { get; set; }
 
-        //public int ActivityDetailsId { get; set; }
-
-        public int DetailsActivityId { get; set; }
-
-        public int SrNo { get; set; }
-
-        public string ActivityDetailsDescription { get; set; } = null!;
+        
 
 
     }

@@ -14,7 +14,6 @@ namespace KalaGenset.ERP.HR.Core.ResponseDTO.Location
 
         public string LocationName { get; set; } = null!;
 
-        //public int ProfitcenterLocationId { get; set; }
         public string ProfitCenterName { get; set; } = null!;
 
         public string LocationRemark { get; set; } = null!;

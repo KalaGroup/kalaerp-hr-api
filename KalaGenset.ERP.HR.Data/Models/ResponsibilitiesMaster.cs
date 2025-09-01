@@ -15,8 +15,6 @@ public partial class ResponsibilitiesMaster
 
     public string ResponsibilitiesRemark { get; set; } = null!;
 
-    public string ResponsibilitiesType { get; set; } = null!;
-
     public string ResponsibilitiesAuthRemark { get; set; } = null!;
 
     public bool ResponsibilitiesAuth { get; set; }
@@ -30,6 +28,8 @@ public partial class ResponsibilitiesMaster
     public DateTime CreatedDate { get; set; }
 
     public virtual DesignationMaster ResponsibilitiesDesignation { get; set; } = null!;
+
+    public virtual ICollection<ResponsibilitiesDetail> ResponsibilitiesDetails { get; set; } = new List<ResponsibilitiesDetail>();
 
     public virtual DivisionMaster ResponsibilitiesDivision { get; set; } = null!;
 
