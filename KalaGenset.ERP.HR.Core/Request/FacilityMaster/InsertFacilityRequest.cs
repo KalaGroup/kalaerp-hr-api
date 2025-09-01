@@ -8,11 +8,12 @@ namespace KalaGenset.ERP.HR.Core.Request.Facility
 {
     public class InsertFacilityRequest
     {
-        public string FaciltyCode { get; set; }
 
-        public string FacilityName { get; set; }
+        public string FaciltyCode { get; set; } = null!;
 
-        public string FacilityRemark { get; set; }
+        public string FacilityName { get; set; } = null!;
+
+        public string FacilityRemark { get; set; } = null!;
 
         public bool FacilityAuth { get; set; }
 
