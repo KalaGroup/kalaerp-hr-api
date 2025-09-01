@@ -19,7 +19,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         public QualificationTypeMasterController(IQualificationTypeMaster qualificationtypeMaster, IValidator<InsertQualificationTypeMasterRequest> validator, IValidator<UpdateQualificationTypeMasterRequest> updateValidator)
         {
             _qualificationtypeMaster = qualificationtypeMaster;
-   
+
             _validator = validator;
             _updateValidator = updateValidator;
         }
@@ -30,18 +30,18 @@ namespace KalaGenset.ERP.HR.API.Controllers
         /// <param name="insertQualificationTypeMasterRequest"></param>
         /// <returns></returns>
         [HttpPost("insertqualificationtype")]
-        public async Task <IActionResult> InsertQualificationType(InsertQualificationTypeMasterRequest insertQualificationTypeMasterRequest)
+        public async Task<IActionResult> InsertQualificationType(InsertQualificationTypeMasterRequest insertQualificationTypeMasterRequest)
         {
             var validationResult = await _validator.ValidateAsync(insertQualificationTypeMasterRequest);
             if (!validationResult.IsValid)
-               
+
             {
                 return BadRequest(validationResult.Errors);
             }
             try
             {
                 await _qualificationtypeMaster.AddQualificationTypeMasterAsync(insertQualificationTypeMasterRequest);
-                return Ok("QualificationType Inserted Successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -65,40 +65,39 @@ namespace KalaGenset.ERP.HR.API.Controllers
 
         [HttpPut("UpdateQualificationtype")]
         public async Task<IActionResult> UpdateQualifiationType(UpdateQualificationTypeMasterRequest updateQualificationTypeMasterRequest)
-        { 
+        {
             var validationResult = await _updateValidator.ValidateAsync(updateQualificationTypeMasterRequest);
-                 if (!validationResult.IsValid)
-                 {                
-                    return BadRequest(validationResult.Errors);
-                 }
-                try
-                {
-                    await _qualificationtypeMaster.UpdateQualificationTypeMasterAsync(updateQualificationTypeMasterRequest);
-                    return Ok("Qualification type Updated Successfully");
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors);
+            }
+            try
+            {
+                await _qualificationtypeMaster.UpdateQualificationTypeMasterAsync(updateQualificationTypeMasterRequest);
+                return Ok();
 
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(500, $"An error occured while updating QualificationType:{ex.Message}");
-                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occured while updating QualificationType:{ex.Message}");
+            }
 
-            
+
         }
 
-            [HttpDelete("DeleteQualificationType")]
-            public async Task<IActionResult> DeleteQualificationTypeDetails(int QualificationTypeId)
+        [HttpDelete("DeleteQualificationType/{QualificationTypeId}")]
+        public async Task<IActionResult> DeleteQualificationTypeDetails(int QualificationTypeId)
+        {
+            try
             {
+                await _qualificationtypeMaster.DeleteQualificationTypeById(QualificationTypeId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occured while deleting QualificationType:{ex.Message}");
+            }
 
-                try
-                {
-                    await _qualificationtypeMaster.DeleteQualificationTypeById(QualificationTypeId);
-                    return Ok("Record deleted successfully");
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(500, $"An error occured while deleting QualificationType:{ex.Message}");
-                }
-
-            }    
+        }
     }
 }
