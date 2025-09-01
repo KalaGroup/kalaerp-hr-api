@@ -37,7 +37,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _classOfTravelMaster.AddClassOfTravelAsync(request);
-                return Ok("ClassOfTravel added successfully.");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -60,7 +60,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _classOfTravelMaster.UpdateClassOfTravelAsync(request);
-                return Ok("ClassOfTravel updated successfully.");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -99,7 +99,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _classOfTravelMaster.DeleteClassOfTravelAsync(ClassOfTravelId);
-                return Ok("ClassOfTravel soft-deleted successfully (ClassOfTravelIsActive = false).");
+                return Ok();
             }
             catch (Exception ex)
             {
