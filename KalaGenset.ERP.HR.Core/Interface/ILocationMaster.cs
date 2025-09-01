@@ -29,7 +29,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// get location
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<insertlocationmasterDTO>> GetLocationDetailsAsync();
+        public Task<IEnumerable<InsertLocationMasterDTO>> GetLocationDetailsAsync();
         /// <summary>
         /// get location
         /// </summary>

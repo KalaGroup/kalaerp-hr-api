@@ -89,13 +89,13 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// get location
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<insertlocationmasterDTO>> GetLocationDetailsAsync()
+        public async Task<IEnumerable<InsertLocationMasterDTO>> GetLocationDetailsAsync()
         {
             return await _context.LocationMasters
                 .Where(c => c.LocationIsActive)
                 .Include(c => c.ProfitcenterLocation)
                 .OrderBy(c => c.LocationId)
-                .Select(c => new insertlocationmasterDTO
+                .Select(c => new InsertLocationMasterDTO
                 {
                     LocationId = c.LocationId,
                     LocationCode = c.LocationCode,

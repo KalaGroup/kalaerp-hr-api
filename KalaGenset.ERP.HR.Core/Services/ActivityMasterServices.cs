@@ -1,5 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.ActivityMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.ActivityMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -78,10 +79,31 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// get all ActivityMaster
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<ActivityMaster>> GetAllActivityMasterAsync()
+       
+        public async Task<IEnumerable<InsertActivityMasterDTO>> GetAllActivityMasterAsync()
         {
-            return await context.ActivityMasters.ToListAsync();
+            return await context.ActivityMasters
+         .Where(c => c.ActivityIsActive)
+         .Include(c => c.ActivityGrade)
+         .Include(c => c.ActivityDesignation)
+         .Include(c => c.ActivityDivision)
+         .OrderBy(c => c.ActivityId)
+                 .Select(c => new InsertActivityMasterDTO  // Project to DTO
+                {
+                    ActivityId = c.ActivityId,
+                    GradeName = c.ActivityGrade.GradeName,
+                    DesignationName = c.ActivityDesignation.DesignationName,
+                    DivisionName = c.ActivityDivision.DivisionName,
+                    ActivityRemark = c.ActivityRemark,
+                    ActivityType = c.ActivityType,
+                    ActivityAuthRemark = c.ActivityAuthRemark,
+                    ActivityAuth = c.ActivityAuth,
+                    ActivityIsDiscard = c.ActivityIsDiscard,
+                    ActivityIsActive = c.ActivityIsActive
+                })
+                .ToListAsync();  // Return as a list of DTOs
         }
+
         /// <summary>
         /// update code 
         /// </summary>

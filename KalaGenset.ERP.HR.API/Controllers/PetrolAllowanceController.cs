@@ -79,14 +79,14 @@ namespace KalaGenset.ERP.HR.API.Controllers
             }
 
 
-        }
-        [HttpDelete("DeletePetrolAllowance")]
-        public async Task<IActionResult> DeletePertrolAllowanceDetails(int PetrolAllowanceId)
+        } 
+        [HttpDelete("DeletePetrolAllowance/{Id}")]
+        public async Task<IActionResult> DeletePertrolAllowanceDetails(int Id)
         {
 
             try
             {
-                await _petrolAllowancemaster.DeletePetrolAllowanceById(PetrolAllowanceId);
+                await _petrolAllowancemaster.DeletePetrolAllowanceById(Id);
                 return Ok("Record deleted successfully");
             }
             catch (Exception ex)
