@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using KalaGenset.ERP.HR.Core.Request.Country;
 using KalaGenset.ERP.HR.Core.Request.Department;
+using KalaGenset.ERP.HR.Core.ResponseDTO.DepartmentMaster;
 using KalaGenset.ERP.HR.Data.Models;
 
 namespace KalaGenset.ERP.HR.Core.Interface
@@ -27,7 +28,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// Retrieves all Departments from the database.
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<DepartmentMaster>> GetDepartmentDetailsAsync();
+        public Task<IEnumerable<DepartmentMasterResponseDTO>> GetDepartmentDetailsAsync();
         /// <summary>
         /// Retrieves a Department by its ID from the database.
         /// </summary>

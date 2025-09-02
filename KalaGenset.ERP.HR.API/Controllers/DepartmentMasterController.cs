@@ -38,13 +38,16 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _departmentMaster.AddDepartmentAsync(request);
-                return Ok("Department added successfully.");
+                return Ok();
             }
             catch (Exception ex)
             {
                 return StatusCode(500, $"An error occurred while adding department: {ex.Message}");
             }
         }
+
+
+
         /// <summary>
         /// Updates an existing Department in the system.
         /// </summary>
@@ -61,13 +64,16 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _departmentMaster.UpdateDepartmentAsync(request);
-                return Ok("Department updated successfully.");
+                return Ok();
             }
             catch (Exception ex)
             {
                 return StatusCode(500, $"An error occurred while updating department: {ex.Message}");
             }
         }
+
+
+
         /// <summary>
         /// Retrieves all Departments from the system.
         /// </summary>
@@ -78,6 +84,9 @@ namespace KalaGenset.ERP.HR.API.Controllers
             var departments = await _departmentMaster.GetDepartmentDetailsAsync();
             return Ok(departments);
         }
+
+
+
         /// <summary>
         /// Retrieves details of a specific Department by its ID.
         /// </summary>
@@ -89,6 +98,9 @@ namespace KalaGenset.ERP.HR.API.Controllers
             var result = await _departmentMaster.GetDepartmentById(DepartmentId);
             return Ok(result);
         }
+
+
+
         /// <summary>
         /// Soft-deletes a Department by setting its IsActive flag to false.
         /// </summary>
@@ -100,7 +112,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _departmentMaster.DeleteDepartmentAsync(DepartmentId);
-                return Ok("Department soft-deleted successfully (DepartmentIsActive = false).");
+                return Ok();
             }
             catch (Exception ex)
             {
