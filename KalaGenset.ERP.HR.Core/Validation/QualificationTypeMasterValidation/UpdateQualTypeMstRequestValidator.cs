@@ -21,8 +21,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.QualificationTypeMaster
                 .GreaterThan(0).WithMessage("Qualification ID must be greater than 0.");
 
             RuleFor(x => x.QualificationTypeCode)
-                .NotEmpty().WithMessage("QualificationType code is required.")
-                .Length(3).WithMessage("QualificationTypeCode must be exactly 3 characters long.");
+                .NotEmpty().WithMessage("QualificationType code is required.");
 
             RuleFor(x => x.QualificationTypeName)
                 .NotEmpty().WithMessage("QualificationTypeName name is required.")
