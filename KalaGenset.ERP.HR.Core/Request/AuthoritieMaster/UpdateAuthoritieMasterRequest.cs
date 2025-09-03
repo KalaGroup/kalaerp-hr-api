@@ -17,7 +17,7 @@ namespace KalaGenset.ERP.HR.Core.Request.AuthoritieMaster
 
         public string AuthoritiesRemark { get; set; } = null!;
 
-        public string AuthoritiesType { get; set; } = null!;
+ 
         public int AuthoritiesDivisionId { get; set; }
         public string AuthoritiesAuthRemark { get; set; } = null!;
 

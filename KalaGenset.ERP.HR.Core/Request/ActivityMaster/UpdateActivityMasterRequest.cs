@@ -18,7 +18,6 @@ namespace KalaGenset.ERP.HR.Core.Request.ActivityMaster
 
         public string ActivityRemark { get; set; } = null!;
 
-        public string ActivityType { get; set; } = null!;
 
         public string ActivityAuthRemark { get; set; } = null!;
 

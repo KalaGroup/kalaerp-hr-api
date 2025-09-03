@@ -28,9 +28,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.AuthoritieMaster
                 .GreaterThan(0).WithMessage("Authorities Grade ID must be greater than 0.");
             RuleFor(x => x.AuthoritiesDesignationId)
                 .GreaterThan(0).WithMessage("Authorities Designation ID must be greater than 0.");
-            RuleFor(x => x.AuthoritiesType)
-                .NotEmpty().WithMessage("Authorities Type is required.")
-                .MaximumLength(50).WithMessage("Authorities Type cannot exceed 50 characters.");
+           
         }
     }
 }

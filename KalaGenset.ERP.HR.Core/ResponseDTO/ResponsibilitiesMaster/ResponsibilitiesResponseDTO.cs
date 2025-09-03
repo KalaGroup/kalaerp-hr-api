@@ -13,7 +13,7 @@ namespace KalaGenset.ERP.HR.Core.ResponseDTO.ResponsibilitiesMaster
         public string ResponsibilitiesDesignationName { get; set; } = string.Empty;
         public string ResponsibilitiesDivisionName { get; set; } = string.Empty;
         public string? ResponsibilitiesRemark { get; set; }
-        public string? ResponsibilitiesType { get; set; }
+      
         public string? ResponsibilitiesAuthRemark { get; set; }
         public bool ResponsibilitiesAuth { get; set; }
         public bool ResponsibilitiesIsDiscard { get; set; }
