@@ -38,7 +38,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _rolesMaster.AddRolesAsync(request);
-                return Ok("Role added successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -62,7 +62,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _rolesMaster.UpdateRolesAsync(request);
-                return Ok("Role Updated Sucessfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -114,7 +114,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _rolesMaster.DeleteRoleAsync(RolesId);
-                return Ok("Role Deleted Sucessfully");
+                return Ok();
             }
             catch (Exception ex)
             {

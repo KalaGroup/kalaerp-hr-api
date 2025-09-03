@@ -45,7 +45,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await authoritieMaster.AddAuthoritieAsync(request);
-                return Ok("Authoritie Added successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {              
                 await authoritieMaster.DeleteAuthoritieAsync(id);
-                return Ok("Authoritie deleted successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -125,7 +125,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await authoritieMaster.UpdateAuthoritieAsync(request);
-                return Ok("Authoritie updated successfully");
+                return Ok();
             }
             catch (Exception ex)
             {

@@ -45,7 +45,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await activityMaster.AddActivityAsync(request);
-                return Ok("Activity added successfully.");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -97,7 +97,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await activityMaster.DeleteActivityAsync(Id);
-                return Ok("activity soft-deleted successfully ");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -120,7 +120,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await activityMaster.updateActivityAsync(request);
-                return Ok("Activity updated successfully.");
+                return Ok();
             }
             catch (Exception ex)
             {

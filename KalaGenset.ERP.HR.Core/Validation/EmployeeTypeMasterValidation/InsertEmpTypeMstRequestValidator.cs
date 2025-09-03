@@ -18,12 +18,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.EmployeeTypeMasterValidation
         {
             _context = context;
 
-            RuleFor(x => x.EmployeeTypeCode)
-              .NotEmpty().WithMessage("Employee Type code is required.")
-              .MaximumLength(10).WithMessage("Employee Type code must be less than 10 characters.")
-              .Matches("^[0-9]*$").WithMessage("Employee Type code must be numeric digits (e.g., '001', '002') & must not contain special characters.")
-              .MustAsync(BeUniqueEmployeeTypeCode).WithMessage("Grade code already exists.");
-
+           
 
             RuleFor(x => x.EmployeeTypeName)
                 .ApplyAlphaNumeric("EmployeeType name", 100, allowSpaces: true)
@@ -33,11 +28,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.EmployeeTypeMasterValidation
             //   .MustBePresentWhenNew("CreatedBy");
 
         }
-        private async Task<bool> BeUniqueEmployeeTypeCode(string EmployeeTypeCode, CancellationToken cancellationToken)
-        {
-            return !await _context.EmployeeTypeMasters
-                .AnyAsync(c => EF.Functions.Like(c.EmployeeTypeCode, EmployeeTypeCode), cancellationToken);
-        }
+      
         private async Task<bool> BeUniqueEmployeeTypeName(string EmployeeTypeName, CancellationToken cancellationToken)
         {
             return !await _context.EmployeeTypeMasters
