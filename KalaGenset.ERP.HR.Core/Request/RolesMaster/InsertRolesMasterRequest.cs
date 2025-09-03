@@ -12,7 +12,7 @@ namespace KalaGenset.ERP.HR.Core.Request.RolesMaster
         public int RolesDesignationId { get; set; }
         public int RolesDivisionId { get; set; }
         public string RolesRemark { get; set; }
-        public string RolesType { get; set; }
+
         public string RolesAuthRemark { get; set; }
         public bool RolesAuth { get; set; } = false;
         public bool RolesIsDiscard { get; set; }

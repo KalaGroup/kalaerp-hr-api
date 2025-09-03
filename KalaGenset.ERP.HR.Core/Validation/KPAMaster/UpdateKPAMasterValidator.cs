@@ -25,9 +25,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.KPAMaster
                 .GreaterThan(0).WithMessage("KPA Grade ID must be greater than 0.");
             RuleFor(x => x.KpadesignationId)
                 .GreaterThan(0).WithMessage("KPA Designation ID must be greater than 0.");
-            RuleFor(x => x.Kpatype)
-                .NotEmpty().WithMessage("KPA Type is required.")
-                .MaximumLength(50).WithMessage("KPA Type cannot exceed 50 characters.");
+           
 
         }
     }
