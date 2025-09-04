@@ -39,7 +39,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _qualificationMaster.AddQualificationAsync(request);
-                return Ok("Qualification Added successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -62,7 +62,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _qualificationMaster.UpdateQualificationAsync(request);
-                return Ok("Qualification Updated Sucessfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -93,7 +93,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _qualificationMaster.DeleteQualificationAsync(Id);
-                return Ok("Deleted Sucessfully");
+                return Ok();
             }
             catch (Exception ex)
             {

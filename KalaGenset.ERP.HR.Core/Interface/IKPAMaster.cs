@@ -1,4 +1,5 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.KPAMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.KPA;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// gets all KPA masters from the system.
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<Kpamaster>> GetAllKPAMasterAsync();
+        public Task<IEnumerable<KPAmasterResponseDTO>> GetAllKPAMasterAsync();
         /// <summary>
         /// gets a KPA master by its unique identifier.
         /// </summary>

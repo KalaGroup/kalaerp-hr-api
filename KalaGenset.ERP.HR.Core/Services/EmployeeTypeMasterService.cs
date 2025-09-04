@@ -34,7 +34,6 @@ namespace KalaGenset.ERP.HR.Core.Services
                 var EmployeeTypeMaster = new EmployeeTypeMaster
                 {
                     //EmployeeTypeId = insertEmployeeTypeRequest.EmployeeTypeId,
-                    EmployeeTypeCode = insertEmployeeTypeRequest.EmployeeTypeCode,
                     EmployeeTypeName = insertEmployeeTypeRequest.EmployeeTypeName,
                     EmployeeTypeDescription = insertEmployeeTypeRequest.EmployeeTypeDescription,
                     EmployeeTypeRemark = insertEmployeeTypeRequest.EmployeeTypeRemark,
@@ -89,7 +88,6 @@ namespace KalaGenset.ERP.HR.Core.Services
                 var EmployeeType = await _Context.EmployeeTypeMasters.FirstOrDefaultAsync(c => c.EmployeeTypeId == UpdateEmployeeTypeRequest.EmployeeTypeId);
 
                 EmployeeType.EmployeeTypeId = UpdateEmployeeTypeRequest.EmployeeTypeId;
-                EmployeeType.EmployeeTypeCode = UpdateEmployeeTypeRequest.EmployeeTypeCode;
                 EmployeeType.EmployeeTypeName = UpdateEmployeeTypeRequest.EmployeeTypeName;
                 EmployeeType.EmployeeTypeDescription = UpdateEmployeeTypeRequest.EmployeeTypeDescription;
                 EmployeeType.EmployeeTypeRemark = UpdateEmployeeTypeRequest.EmployeeTypeRemark;

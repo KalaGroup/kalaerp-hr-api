@@ -48,7 +48,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _kpaMasterService.InsertKPAMasterAsync(request);
-                return Ok("KPA Master Added successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -87,7 +87,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 {
                     return NotFound($"KPA Master with ID {id} not found.");
                 }
-                return Ok(kpaMaster);
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -110,7 +110,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _kpaMasterService.UpdateKPAMasterAsync(request);
-                return Ok("KPA Master Updated successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -128,7 +128,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _kpaMasterService.DeleteKPAMasterAsync(id);
-                return Ok("KPA Master Deleted successfully");
+                return Ok();
             }
             catch (Exception ex)
             {

@@ -36,7 +36,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _iProfitCenter.AddProfitCenterAsync(insertProfitCenterReq);
-                return Ok("Profit Center added successfully.");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -55,7 +55,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _iProfitCenter.UpdateProfitCenterAsync(updateProfitCenterRequest);
-                return Ok("Profit Center updated successfully.");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -84,7 +84,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _iProfitCenter.DeleteProfitCenterAsync(profitCenterId);
-                return Ok("Profit Center Id Softly Deleted");
+                return Ok();
             }
             catch (Exception ex)
             {

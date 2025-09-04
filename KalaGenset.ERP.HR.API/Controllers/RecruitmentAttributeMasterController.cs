@@ -40,7 +40,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _RecruitmentAttributeMastermaster.AddRecruitmentAttributeMasterAsync(request);
-                return Ok("RecruitmentAttributeMaster Added successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -64,7 +64,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _RecruitmentAttributeMastermaster.UpdateRecruitmentAttributeMasterAsync(request);
-                return Ok("RecruitmentAttributeMaster Updated Sucessfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -101,7 +101,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _RecruitmentAttributeMastermaster.DeleteRecruitmentAttributeMasterAsync(Id);
-                return Ok("Deleted Sucessfully");
+                return Ok();
             }
             catch (Exception ex)
             {

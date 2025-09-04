@@ -10,7 +10,6 @@ namespace KalaGenset.ERP.HR.Core.Request.EmployeeTypeMaster
     {
         public int EmployeeTypeId { get; set; }
 
-        public string EmployeeTypeCode { get; set; } = null!;
 
         public string EmployeeTypeName { get; set; } = null!;
 
