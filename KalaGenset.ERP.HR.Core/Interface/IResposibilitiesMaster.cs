@@ -43,5 +43,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
 
         //Get Responsibilities Details
         public Task<List<ResponsibilitiesResponseDTO>> GetResponsibilitiesDetails();
+
+        public Task<IEnumerable<GetResponsibilityDetailsById>> GetResponsibilityDetailsByMsaterId(int masterId);
     }
 }

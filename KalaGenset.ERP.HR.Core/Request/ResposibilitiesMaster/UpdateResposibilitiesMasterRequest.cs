@@ -18,7 +18,7 @@ namespace KalaGenset.ERP.HR.Core.Request.ResposibilitiesMaster
         public string ResposibilitiesRemark { get; set; } = null!;
         public int ResponsibilitiesDivisionId { get; set; }
 
-        public string ResposibilitiesType { get; set; } = null!;
+       // public string ResposibilitiesType { get; set; } = null!;
 
         public string ResposibilitiesAuthRemark { get; set; } = null!;
 
@@ -28,10 +28,12 @@ namespace KalaGenset.ERP.HR.Core.Request.ResposibilitiesMaster
 
         public bool ResposibilitiesIsActive { get; set; }
 
+        public List<Responsibilities> descriptions { get; set; }
+
         //public int CreatedBy { get; set; }
 
         //public DateTime CreatedDate { get; set; }
 
-       // public virtual DesignationMaster ResposibilitiesDesignation { get; set; } = null!;
+        // public virtual DesignationMaster ResposibilitiesDesignation { get; set; } = null!;
     }
 }

@@ -160,5 +160,23 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error retrieving responsibilities: {ex.Message}");
             }
         }
+
+        [HttpGet("getallresponsibilitiesdetailsbymasterid/{responsibilityMstId}")]
+        public async Task<IActionResult> GetResposibilitiesdetails(int responsibilityMstId)
+        {
+            try
+            {
+                var resposibility = await resposibilitiesMaster.GetResponsibilityDetailsByMsaterId(responsibilityMstId);
+                if (resposibility == null)
+                {
+                    return NotFound("Resposibility not found.");
+                }
+                return Ok(resposibility);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error retrieving resposibility: {ex.Message}");
+            }
+        }
     }
 }
