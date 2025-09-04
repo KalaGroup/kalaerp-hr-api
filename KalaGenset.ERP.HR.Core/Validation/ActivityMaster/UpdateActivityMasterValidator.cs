@@ -26,9 +26,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.ActivityMaster
               .GreaterThan(0).WithMessage("Activity Grade ID must be greater than 0.");
             RuleFor(x => x.ActivityDesignationId)
                 .GreaterThan(0).WithMessage("Activity Designation ID must be greater than 0.");
-            RuleFor(x => x.ActivityType)
-                .NotEmpty().WithMessage("Authorities Type is required.")
-                .MaximumLength(50).WithMessage("Activity Type cannot exceed 50 characters.");
+           
             RuleFor(x => x.ActivityDivisionId)
                  .GreaterThan(0).WithMessage("Activity Grade ID must be greater than 0.");
         }

@@ -20,8 +20,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.EmployeeTypeMasterValidation
             RuleFor(x => x.EmployeeTypeId)
                 .GreaterThan(0).WithMessage("Employee ID must be greater than 0.");
 
-            RuleFor(x => x.EmployeeTypeCode)
-                .NotEmpty().WithMessage("EmployeeType code is required.");
+         
 
             RuleFor(x => x.EmployeeTypeName)
                 .NotEmpty().WithMessage("EmployeeTypeName name is required.")

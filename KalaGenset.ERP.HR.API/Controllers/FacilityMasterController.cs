@@ -37,7 +37,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _facilityMaster.AddFacilityAsync(insertfacilityrequest);
-                return Ok("Facility added successfully.");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -61,7 +61,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _facilityMaster.UpdateFacilityAsync(updateFacilityRequest);
-                return Ok("Facility updated successfully.");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -97,13 +97,13 @@ namespace KalaGenset.ERP.HR.API.Controllers
         /// </summary>
         /// <param name="FacilityId"></param>
         /// <returns></returns>
-        [HttpDelete("deletefacility")]
-        public async Task<IActionResult> DeleteFacility(int FacilityId)
+        [HttpDelete("deletefacility/{Id}")]
+        public async Task<IActionResult> DeleteFacility(int Id)
         {
             try
             {
-                await _facilityMaster.DeleteFacilityAsync(FacilityId);
-                return Ok("Facility Id Softly Deleted");
+                await _facilityMaster.DeleteFacilityAsync(Id);
+                return Ok();
             }
             catch (Exception ex)
             {

@@ -34,7 +34,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _petrolAllowancemaster.AddPetrolAllowanceMasterAsync(insertPetrolAllowanceMasterRequest);
-                return Ok("Petrol Allowance Inserted Successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -47,7 +47,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         public async Task<IActionResult> GetPetrolAllowance()
         {
             var result = await _petrolAllowancemaster.GetPetrolAllowance();
-            return Ok(result);
+            return Ok();
 
         }
 
@@ -56,7 +56,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         public async Task<IActionResult> GetPetrolAllowance(int PetrolAllowanceId)
         {
             var result = await _petrolAllowancemaster.GetPetrolAllowanceTypeById(PetrolAllowanceId);
-            return Ok(result);
+            return Ok();
         }
 
         [HttpPut("updatePetrolAllowance")]
@@ -70,7 +70,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _petrolAllowancemaster.UpdatePetrolAllowanceMasterService(updatePetrolAllowanceMasterRequest);
-                return Ok("Petrol Allowance Updated Successfully");
+                return Ok();
 
             }
             catch (Exception ex)
@@ -87,7 +87,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _petrolAllowancemaster.DeletePetrolAllowanceById(Id);
-                return Ok("Record deleted successfully");
+                return Ok();
             }
             catch (Exception ex)
             {

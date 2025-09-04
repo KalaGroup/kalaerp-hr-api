@@ -7,8 +7,6 @@ public partial class EmployeeTypeMaster
 {
     public int EmployeeTypeId { get; set; }
 
-    public string EmployeeTypeCode { get; set; } = null!;
-
     public string EmployeeTypeName { get; set; } = null!;
 
     public string EmployeeTypeDescription { get; set; } = null!;

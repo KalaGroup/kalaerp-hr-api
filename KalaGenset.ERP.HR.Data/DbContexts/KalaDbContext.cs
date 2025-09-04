@@ -760,13 +760,13 @@ public partial class KalaDbContext : DbContext
 
         modelBuilder.Entity<EmployeeTypeMaster>(entity =>
         {
-            entity.HasKey(e => e.EmployeeTypeId).HasName("PK__Employee__1F1B6AB4BB4FA5F6");
+            entity.HasKey(e => e.EmployeeTypeId).HasName("PK__Employee__1F1B6AB4D8C90F02");
 
             entity
                 .ToTable("EmployeeTypeMaster")
                 .ToTable(tb => tb.IsTemporal(ttb =>
                     {
-                        ttb.UseHistoryTable("EmployeeTypeHistory", "dbo");
+                        ttb.UseHistoryTable("EmployeeTypeMasterHistory", "dbo");
                         ttb
                             .HasPeriodStart("SysStartTime")
                             .HasColumnName("SysStartTime");
@@ -781,11 +781,12 @@ public partial class KalaDbContext : DbContext
             entity.Property(e => e.EmployeeTypeAuthRemark)
                 .HasMaxLength(100)
                 .HasDefaultValue("Nil");
-            entity.Property(e => e.EmployeeTypeCode).HasMaxLength(10);
             entity.Property(e => e.EmployeeTypeDescription).HasMaxLength(100);
             entity.Property(e => e.EmployeeTypeIsActive).HasDefaultValue(true);
             entity.Property(e => e.EmployeeTypeIsDiscard).HasDefaultValue(true);
-            entity.Property(e => e.EmployeeTypeName).HasMaxLength(100);
+            entity.Property(e => e.EmployeeTypeName)
+                .HasMaxLength(100)
+                .HasDefaultValue("Kala Employee");
             entity.Property(e => e.EmployeeTypeRemark)
                 .HasMaxLength(100)
                 .HasDefaultValue("Nil");
@@ -1421,7 +1422,7 @@ public partial class KalaDbContext : DbContext
 
         modelBuilder.Entity<ShiftMaster>(entity =>
         {
-            entity.HasKey(e => e.ShiftMasterId).HasName("PK__ShiftMas__2F438FEA79E8DBEC");
+            entity.HasKey(e => e.ShiftMasterId).HasName("PK__ShiftMas__2F438FEA3C5D1AC1");
 
             entity
                 .ToTable("ShiftMaster")

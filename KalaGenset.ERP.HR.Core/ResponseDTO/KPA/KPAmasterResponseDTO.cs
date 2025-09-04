@@ -4,20 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KalaGenset.ERP.HR.Core.Request.KPAMaster
+namespace KalaGenset.ERP.HR.Core.ResponseDTO.KPA
 {
-    public class UpdateKPAMasterRequest
+    public class KPAmasterResponseDTO
     {
-        public int Kpaid { get; set; }
-
-        public int KpagradeId { get; set; }
-
-        public int KpadesignationId { get; set; }
-
+        public int Kpaid { get; set; }        
+        public string GradeName { get; set; } = null!;
+        public string DesignationName { get; set; } = null!;
+        public string DivisionName { get; set; } = null!;
         public string Kparemark { get; set; } = null!;
-        public int KpadivisionId { get; set; }
-
-
 
         public string KpaauthRemark { get; set; } = null!;
 
@@ -27,9 +22,7 @@ namespace KalaGenset.ERP.HR.Core.Request.KPAMaster
 
         public bool KpaisActive { get; set; }
 
-        public int CreatedBy { get; set; }
-
-        public DateTime CreatedDate { get; set; }
+    
 
     }
 }

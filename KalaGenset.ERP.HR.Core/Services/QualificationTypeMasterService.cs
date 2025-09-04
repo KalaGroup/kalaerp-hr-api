@@ -51,10 +51,23 @@ namespace KalaGenset.ERP.HR.Core.Services
 
         public async Task<IEnumerable<QualificationTypeMaster>> GetAllQualificationType()
         {
-            return await _context.QualificationTypeMasters.ToListAsync();
+            var result = await (from q in _context.QualificationTypeMasters
+                                where q.QualificationTypeIsActive == true   // ✅ Only active records
+                                select new QualificationTypeMaster
+                                {
+                                    QualificationTypeId = q.QualificationTypeId,
+                                    QualificationTypeCode = q.QualificationTypeCode,
+                                    QualificationTypeName = q.QualificationTypeName,
+                                    QualificationTypeRemark = q.QualificationTypeRemark,
+                                    QualificationTypeAuth = q.QualificationTypeAuth,
+                                    QualificationTypeIsDiscard = q.QualificationTypeIsDiscard,
+                                    QualificationTypeIsActive = q.QualificationTypeIsActive,
+                                    CreatedBy = q.CreatedBy,
+                                    CreatedDate = q.CreatedDate
+                                }).ToListAsync();
 
+            return result;
         }
-
 
         public async Task<QualificationTypeMaster?> GetQualificationTypeById(int QualificationTypeId)
         {

@@ -88,7 +88,9 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// <returns></returns>
         public async Task<IEnumerable<FacilityMaster>> GetFacilityAsync()
         {
-            return await _context.FacilityMasters.ToListAsync();
+            return await _context.FacilityMasters
+                     .Where(e => e.FacilityIsActive == true)
+                     .ToListAsync();
         }
 
         /// <summary>

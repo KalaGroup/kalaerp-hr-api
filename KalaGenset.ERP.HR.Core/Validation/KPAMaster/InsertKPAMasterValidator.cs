@@ -30,9 +30,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.KPAMaster
             RuleFor(x => x.Kparemark)
                 .NotEmpty().WithMessage("KPA Remark is required.")
                 .MaximumLength(500).WithMessage("KPA Remark cannot exceed 500 characters.");
-            RuleFor(x => x.Kpatype)
-                .NotEmpty().WithMessage("KPA Type is required.")
-                .MaximumLength(50).WithMessage("KPA Type cannot exceed 50 characters.");
+           
             RuleFor(x => x.KpaauthRemark)
                 .NotEmpty().WithMessage("KPA Auth Remark is required.")
                 .MaximumLength(500).WithMessage("KPA Auth Remark cannot exceed 500 characters.");

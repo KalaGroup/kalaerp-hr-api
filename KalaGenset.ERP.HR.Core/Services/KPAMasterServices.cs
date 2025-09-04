@@ -1,5 +1,7 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.KPAMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.KPA;
+using KalaGenset.ERP.HR.Core.ResponseDTO.Location;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -67,9 +69,29 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// get  GetAllKPAMaster 
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<Kpamaster>> GetAllKPAMasterAsync()
+        public async Task<IEnumerable<KPAmasterResponseDTO>> GetAllKPAMasterAsync()
         {
-              return await dbContext.Kpamasters.ToListAsync();
+            return await dbContext.Kpamasters
+               .Where(c => c.KpaisActive)
+               .Include(c => c.Kpadesignation)
+               .Include(c => c.Kpagrade)
+               .Include(c => c.Kpadivision)
+               .OrderBy(c => c.Kpaid)
+               .Select(c => new KPAmasterResponseDTO
+               {
+                  Kpaid = c.Kpaid,
+                  KpaauthRemark = c.KpaauthRemark,
+                  KpaisActive = c.KpaisActive,
+                  Kpaauth=c.Kpaauth,
+                  KpaisDiscard = c.KpaisDiscard,
+                  Kparemark = c.Kparemark,
+                  DesignationName= c.Kpadesignation.DesignationName,
+                  GradeName=c.Kpagrade.GradeName,
+                  DivisionName=c.Kpadivision.DivisionName,
+                  
+                  
+               })
+               .ToListAsync();
         }
         /// <summary>
         /// update KPA master recode 

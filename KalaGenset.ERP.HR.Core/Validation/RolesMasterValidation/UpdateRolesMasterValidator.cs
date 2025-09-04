@@ -22,9 +22,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.RolesMasterValidation
             RuleFor(x => x.RolesRemark)
                 .NotEmpty().WithMessage("Roles Remark is required.")
                 .MaximumLength(500).WithMessage("Roles Remark cannot exceed 500 characters.");
-            RuleFor(x => x.RolesType)
-                .NotEmpty().WithMessage("Roles Type is required.")
-                .MaximumLength(50).WithMessage("Roles Type cannot exceed 50 characters.");
+          
             RuleFor(x => x.RolesAuthRemark)
                 .NotEmpty().WithMessage("Roles Auth Remark is required.")
                 .MaximumLength(500).WithMessage("Roles Auth Remark cannot exceed 500 characters.");
