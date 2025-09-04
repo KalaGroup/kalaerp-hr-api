@@ -34,8 +34,6 @@ namespace KalaGenset.ERP.HR.Core.Validation.DepartmentValidation
                 .NotEmpty().WithMessage("Short name is required.")
                 .MaximumLength(50).WithMessage("Short name cannot exceed 50 characters.")
                 .Matches("^[A-Z0-9 ]*$").WithMessage("Department short name must be uppercase and must not contain special characters.");
-            RuleFor(x => x.ParentDepartmentId)
-                .GreaterThan(0).WithMessage("ParentDepartment ID must be valid.");
             RuleFor(x => x.DepartmentProfitcenterId)
                 .GreaterThan(0).WithMessage("Profit center ID must be valid.");
             RuleFor(x => x.DepartmentRemark)

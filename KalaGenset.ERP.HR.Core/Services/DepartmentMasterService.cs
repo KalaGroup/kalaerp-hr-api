@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.Country;
 using KalaGenset.ERP.HR.Core.Request.Department;
+using KalaGenset.ERP.HR.Core.ResponseDTO.DepartmentMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -98,10 +99,54 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// Retrieves all active Departments from the database.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<DepartmentMaster>> GetDepartmentDetailsAsync()
+
+        public async Task<IEnumerable<DepartmentMasterResponseDTO>> GetDepartmentDetailsAsync()
         {
-            return await _context.DepartmentMasters.OrderBy(c => c.DepartmentId).ToListAsync();
+            var result = await (
+                from dept in _context.DepartmentMasters
+                join div in _context.DivisionMasters
+                    on dept.DepartmentDivisionId equals div.DivisionId into divisionGroup
+                from division in divisionGroup.DefaultIfEmpty()  // LEFT JOIN
+                join parentDept in _context.DepartmentMasters
+                    on dept.ParentDepartmentId equals parentDept.DepartmentId into parentGroup
+                from parent in parentGroup.DefaultIfEmpty()      // LEFT JOIN
+                join pc in _context.ProfitcenterMasters
+                    on dept.DepartmentProfitcenterId equals pc.ProfitCenterId into pcGroup
+                from profitcenter in pcGroup.DefaultIfEmpty()    // LEFT JOIN
+                where dept.DepartmentIsActive == true            // ✅ only active departments
+                orderby dept.DepartmentId
+                select new DepartmentMasterResponseDTO
+                {
+                    DepartmentId = dept.DepartmentId,
+                    DepartmentCode = dept.DepartmentCode,
+                    DepartmentName = dept.DepartmentName,
+                    DepartmentShortName = dept.DepartmentShortName,
+                    DepartmentDivisionId = dept.DepartmentDivisionId,
+                    DepartmentDivisionName = division != null ? division.DivisionName : null,
+                    ParentDepartmentId = dept.ParentDepartmentId,
+                    ParentDepartmentName = parent != null ? parent.DepartmentName : null,
+                    DepartmentProfitcenterId = dept.DepartmentProfitcenterId,
+                    DepartmentProfitcenterName = profitcenter != null ? profitcenter.ProfitCenterName : null,
+                    DepartmentRemark = dept.DepartmentRemark,
+                    DepartmentType = dept.DepartmentType,
+                    DepartmentAuthRemark = dept.DepartmentAuthRemark,
+                    DepartmentAuth = dept.DepartmentAuth,
+                    DepartmentIsDiscard = dept.DepartmentIsDiscard,
+                    DepartmentIsActive = dept.DepartmentIsActive,
+                    CreatedBy = dept.CreatedBy,
+                    CreatedDate = dept.CreatedDate
+                }
+            ).ToListAsync();
+
+            return result;
         }
+
+
+
+
+
+
+
 
         // Get By ID Code
         /// <summary>
