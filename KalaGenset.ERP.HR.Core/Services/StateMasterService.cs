@@ -6,7 +6,7 @@ using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace KalaGenset.ERP.HR.Core.Services
-{
+{  
     public class StateMasterService : IStateMaster
     {
         private readonly KalaDbContext _context;
@@ -74,6 +74,12 @@ namespace KalaGenset.ERP.HR.Core.Services
             return result;
         }
 
+        public async Task<IEnumerable<StateMaster>> GetStateDetailsByCountryAsync(int countryId)
+        {
+            return await _context.StateMasters
+                                 .Where(s => s.CountryId == countryId)
+                                 .ToListAsync();
+        }
 
         /// <summary>
         /// Update state details

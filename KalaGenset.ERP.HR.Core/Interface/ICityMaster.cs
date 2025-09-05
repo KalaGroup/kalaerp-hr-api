@@ -34,7 +34,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// available.</remarks>
         /// <returns>A task that represents the asynchronous operation. The task result contains an <see cref="IEnumerable{T}"/>
         /// of <see cref="CityMaster"/> objects.</returns>
-        public Task<IEnumerable<CityMaster>> GetAllCompanyDetailsAsync();
+        public Task<IEnumerable<CityMasterResponseDTO>> GetAllCityAsync();
 
         /// <summary>
         /// Retrieves the details of a city based on its unique identifier.
@@ -53,7 +53,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// <param name="CityId">The unique identifier of the city whose associated company is to be deleted. Must be a valid, non-negative
         /// integer.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        public Task DeleteCompanyAsync(int CityId);
+        public Task DeleteCityAsync(int CityId);
         /// <summary>
         /// Retrieves city details based on the specified district identifier.
         /// </summary>

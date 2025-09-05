@@ -45,6 +45,9 @@ namespace KalaGenset.ERP.HR.Core.Services
                     IsDiscard = request.IsDiscard,
                     IsActive = request.IsActive,
                     CreatedDate = request.CreatedDate,
+                    DistrictMasterRemark = request.DistrictMasterRemark,
+                    DistrictMasterAuthRemark = request.DistrictMasterAuthRemark,
+                    DistrictMasterAuth = request.DistrictMasterAuth
                 };
 
                 _context.DistrictMasters.Add(district);
@@ -99,6 +102,9 @@ namespace KalaGenset.ERP.HR.Core.Services
                 district.IsDiscard = request.IsDiscard;
                 district.IsActive = request.IsActive;
                 district.CreatedDate = request.CreatedDate;
+                district.DistrictMasterRemark= request.DistrictMasterRemark;
+                district.DistrictMasterAuthRemark= request.DistrictMasterAuthRemark;
+                district.DistrictMasterAuth= request.DistrictMasterAuth;
                 _context.DistrictMasters.Update(district);
                 await _context.SaveChangesAsync();
             }
@@ -156,5 +162,13 @@ namespace KalaGenset.ERP.HR.Core.Services
                 throw; // Let the controller handle the error
             }
         }
+
+        public async Task<IEnumerable<DistrictMaster>> GetDistrictsByStateAsync(int StateID)
+        {
+            return await _context.DistrictMasters
+                                  .Where(s => s.StateId == StateID)
+                                  .ToListAsync();
+        }
+
     }
 }
