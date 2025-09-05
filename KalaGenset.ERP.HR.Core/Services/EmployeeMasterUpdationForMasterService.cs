@@ -127,8 +127,11 @@ namespace KalaGenset.ERP.HR.Core.Services
 
         public async Task<IEnumerable<EmployeeMasterUpdationForMaster>> GetEmployeeMasterUpdationForAsync()
         {
-           return await _context.EmployeeMasterUpdationForMasters.ToListAsync();    
+            return await _context.EmployeeMasterUpdationForMasters
+                                 .Where(x => x.EmployeeMasterUpdationForIsActive)
+                                 .ToListAsync();
         }
+
 
         public async Task<EmployeeMasterUpdationForMaster> GetEmployeeMasterUpdationForById(int id)
         {

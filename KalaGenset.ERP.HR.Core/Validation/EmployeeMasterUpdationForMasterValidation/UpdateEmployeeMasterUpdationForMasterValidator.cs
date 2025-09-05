@@ -36,9 +36,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.EmployeeMasterUpdationForMasterValid
             RuleFor(x => x.CreatedBy)
                 .NotEmpty().WithMessage("Created By is required.")
                 .GreaterThan(0).WithMessage("Created By must be a positive integer.");
-            RuleFor(x => x.CreatedDate)
-                .NotEmpty().WithMessage("Created Date is required.")
-                .LessThanOrEqualTo(DateTime.Now).WithMessage("Created Date cannot be in the future.");
+
             RuleFor(x => x.EmployeeMasterUpdationForId)
                 .NotEmpty().WithMessage("Employee Master Updation For ID is required.")
                 .GreaterThan(0).WithMessage("Employee Master Updation For ID must be a positive integer.")
