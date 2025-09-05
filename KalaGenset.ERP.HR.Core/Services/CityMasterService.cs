@@ -99,10 +99,40 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// them as a collection.</remarks>
         /// <returns>A task that represents the asynchronous operation. The task result contains an  IEnumerable{T} of CityMaster
         /// objects representing the company details.</returns>
-        public async Task<IEnumerable<CityMaster>> GetAllCompanyDetailsAsync()
+        public async Task<IEnumerable<CityMasterResponseDTO>> GetAllCityAsync()
         {
-            return await _dbContext.CityMasters.ToListAsync();
+            var result = await (from city in _dbContext.CityMasters
+                                join country in _dbContext.CountryMasters
+                                    on city.CityCountryId equals country.CountryId
+                                join state in _dbContext.StateMasters
+                                    on city.CityStateId equals state.StateId
+                                join district in _dbContext.DistrictMasters
+                                    on city.CityDistrictId equals district.DistrictId
+                                select new CityMasterResponseDTO
+                                {
+                                    CityId = city.CityId,
+                                    CityName = city.CityName,
+                                    CityShortName = city.CityShortName,
+                                    CountryName = country.CountryName,
+                                    StateName = state.StateName,
+                                    DistrictName = district.DistrictName,
+                                    CityCode = city.CityCode,
+                                    CityLatitude = city.CityLatitude,
+                                    CityLongitude = city.CityLongitude,
+                                    CityTierTypeId = city.CityTierTypeId,
+                                    CityRemark = city.CityRemark,
+                                    CityAuth = city.CityAuth,
+                                    CityIsDiscard = city.CityIsDiscard,
+                                    CityIsActive = city.CityIsActive,
+                                    CreatedBy = city.CreatedBy,
+                                    CreatedDate = city.CreatedDate
+                                }).ToListAsync();
+
+            return result;
         }
+
+
+
 
         /// <summary>
         /// Retrieves a city record by its unique identifier.
@@ -130,7 +160,7 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// asynchronously.</remarks>
         /// <param name="CityId">The unique identifier of the city associated with the company to be marked as inactive.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        public async Task DeleteCompanyAsync(int CityId)
+        public async Task DeleteCityAsync(int CityId)
         {
             try
             {

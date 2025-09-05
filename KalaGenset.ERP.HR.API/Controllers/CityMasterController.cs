@@ -45,7 +45,8 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _CityMaster.AddCityAsync(request);
-                return Ok("City Added successfully");
+                //return Ok("City Added successfully");
+                return Ok(new {  message = "City added successfully" });
             }
             catch (Exception ex)
             {
@@ -76,7 +77,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _CityMaster.UpdateCityAsync(request);
-                return Ok("City Updated Sucessfully");
+                return Ok(new { message = "City Updated successfully" });
             }
             catch (Exception ex)
             {
@@ -94,7 +95,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         [HttpGet("GetAllCity")]
         public async Task<IActionResult> GetAllCity()
         {
-            var result = await _CityMaster.GetAllCompanyDetailsAsync();
+            var result = await _CityMaster.GetAllCityAsync();
             return Ok(result);
         }
         /// <summary>
@@ -132,8 +133,8 @@ namespace KalaGenset.ERP.HR.API.Controllers
         {
             try
             {
-                await _CityMaster.DeleteCompanyAsync(CityId);
-                return Ok("Deleted Sucessfully");
+                await _CityMaster.DeleteCityAsync(CityId);
+                return Ok(new { message = "City Deleted Sucessfully" });
             }
             catch (Exception ex)
             {

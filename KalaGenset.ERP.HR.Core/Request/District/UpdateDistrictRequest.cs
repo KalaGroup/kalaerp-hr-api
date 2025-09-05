@@ -28,5 +28,9 @@ namespace KalaGenset.ERP.HR.Core.Request.District
         public int CreatedBy { get; set; }
 
         public DateTime CreatedDate { get; set; }
+        public string? DistrictMasterRemark { get; set; }
+        public string? DistrictMasterAuthRemark { get; set; }
+        public Boolean DistrictMasterAuth { get; set; } = true;
+
     }
 }

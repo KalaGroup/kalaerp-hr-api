@@ -50,12 +50,22 @@ namespace KalaGenset.ERP.HR.API.Controllers
         /// get State 
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetAllState")]
-        public async Task<IActionResult> GetAllState()
+        //[HttpGet("GetAllState")]
+        //public async Task<IActionResult> GetAllState()
+        //{
+        //    var states = await _stateMaster.GetStateDetailsAsync();
+        //    return Ok(states);
+        //}
+
+        [HttpGet("GetAllState/{countryId}")]
+        public async Task<IActionResult> GetAllState(int countryId)
         {
-            var states = await _stateMaster.GetStateDetailsAsync();
+            var states = await _stateMaster.GetStateDetailsByCountryId(countryId);
             return Ok(states);
         }
+
+
+
         /// <summary>
         /// update state
         /// </summary>

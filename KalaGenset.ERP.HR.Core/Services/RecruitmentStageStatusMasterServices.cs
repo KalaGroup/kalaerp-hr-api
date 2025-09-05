@@ -75,7 +75,9 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// <returns></returns>      
         public async Task<IEnumerable<RecruitmentStageStatusMaster>> GetAllRecruitmentStageAsync()
         {
-            return await context.RecruitmentStageStatusMasters.ToListAsync();
+            return await context.RecruitmentStageStatusMasters
+                        .Where(x => x.RecruitmentStageStatusIsActive == true)
+                        .ToListAsync();
         }
         /// <summary>
         /// Get By Id RecruitmentStage

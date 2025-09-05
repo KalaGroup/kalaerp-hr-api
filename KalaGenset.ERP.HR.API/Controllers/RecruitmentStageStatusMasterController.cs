@@ -37,12 +37,17 @@ namespace KalaGenset.ERP.HR.API.Controllers
             var validationResult = await validator.ValidateAsync(request);
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);
+                var errors = validationResult.Errors
+                .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
+                .FirstOrDefault();
+
+                return BadRequest(errors);
             }
             try
             {
                 await recruitmentStage.AddRecruitmentStageAsync(request);
-                return Ok("Recruitment added successfully.");
+                return Ok(new { message = "Recruitment added successfully." });
+
             }
             catch (Exception ex)
             {
@@ -94,7 +99,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await recruitmentStage.DeleteRecruitmentStageAsync(Id);
-                return Ok("Recruitment soft-deleted successfully ");
+                return Ok(new { message = "Recruitment soft-deleted successfully" });
             }
             catch (Exception ex)
             {
@@ -112,12 +117,18 @@ namespace KalaGenset.ERP.HR.API.Controllers
             var validationResult = await updateValidator.ValidateAsync(request);
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);
+
+                var errors = validationResult.Errors
+    .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
+    .FirstOrDefault();
+
+                return BadRequest(errors);
             }
             try
             {
                 await recruitmentStage.updateRecruitmentStageAsync(request);
-                return Ok("Recruitment updated successfully.");
+                return Ok(new { message = "Recruitment updated successfully." });
+
             }
             catch (Exception ex)
             {
