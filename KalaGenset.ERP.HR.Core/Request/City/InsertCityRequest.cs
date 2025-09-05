@@ -31,11 +31,11 @@ namespace KalaGenset.ERP.HR.Core.Request.City
 
         public string CityRemark { get; set; } 
 
-        public bool CityAuth { get; set; }=false;
+        public bool CityAuth { get; set; }
 
         public bool CityIsDiscard { get; set; }
 
-        public bool CityIsActive { get; set; } = true;
+        public bool CityIsActive { get; set; }
 
         public int CreatedBy { get; set; }
 
