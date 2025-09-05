@@ -42,7 +42,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _employeeMasterUpdationForMaster.AddEmployeeMasterUpdationForAsync(request);
-                return Ok("Employee Master Updation For Added successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -66,7 +66,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _employeeMasterUpdationForMaster.UpdateEmployeeMasterUpdationForAsync(request);
-                return Ok("Employee Master Updation For Updated successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -119,7 +119,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _employeeMasterUpdationForMaster.DeleteEmployeeMasterUpdationForAsync(EmployeeMasterUpdationForId);
-                return Ok("Employee Master Updation For deleted successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
