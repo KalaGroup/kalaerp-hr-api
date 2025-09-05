@@ -46,7 +46,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await recruitmentStage.AddRecruitmentStageAsync(request);
-                return Ok(new { message = "Recruitment added successfully." });
+                return Ok();
 
             }
             catch (Exception ex)
@@ -99,7 +99,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await recruitmentStage.DeleteRecruitmentStageAsync(Id);
-                return Ok(new { message = "Recruitment soft-deleted successfully" });
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -119,15 +119,15 @@ namespace KalaGenset.ERP.HR.API.Controllers
             {
 
                 var errors = validationResult.Errors
-    .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
-    .FirstOrDefault();
+                    .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
+                    .FirstOrDefault();
 
                 return BadRequest(errors);
             }
             try
             {
                 await recruitmentStage.updateRecruitmentStageAsync(request);
-                return Ok(new { message = "Recruitment updated successfully." });
+                return Ok();
 
             }
             catch (Exception ex)

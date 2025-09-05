@@ -46,7 +46,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             {
                 await _CityMaster.AddCityAsync(request);
                 //return Ok("City Added successfully");
-                return Ok(new {  message = "City added successfully" });
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -77,7 +77,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _CityMaster.UpdateCityAsync(request);
-                return Ok(new { message = "City Updated successfully" });
+                return Ok();
             }
             catch (Exception ex)
             {
