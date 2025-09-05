@@ -1,4 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.RolesMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.AuthoritiesMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.RoleMaster;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -28,7 +30,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// Get All RolesMaster table.
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<RolesMaster>> GetAllRolesAsync();
+        public Task<IEnumerable<RoleMasterResponseDTO>> GetAllRolesAsync();
         /// <summary>
         /// Get Role by ID from RolesMaster table.
         /// </summary>
@@ -42,5 +44,9 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// <param name="RolesId"></param>
         /// <returns></returns>
         public Task DeleteRoleAsync(int RolesId);
+
+
+        public Task<IEnumerable<GetRoleDetailsById>> GetroleDetailsByMsaterId(int masterId);
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.AuthoritieMaster;
+using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 namespace KalaGenset.ERP.HR.API.Controllers
@@ -21,9 +22,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         /// <param name="authoritieMaster"></param>
         /// <param name="insertAuthoritieValidator"></param>
         /// <param name="updateAuthoritieValidator"></param>
-        public AuthoritieMasterController(IAuthoritieMaster authoritieMaster,
-                                          IValidator<InsertAuthoritieMasterRequest> insertAuthoritieValidator,
-                                          IValidator<UpdateAuthoritieMasterRequest> updateAuthoritieValidator)
+        public AuthoritieMasterController(IAuthoritieMaster authoritieMaster,IValidator<InsertAuthoritieMasterRequest> insertAuthoritieValidator,IValidator<UpdateAuthoritieMasterRequest> updateAuthoritieValidator)
         {
             this.authoritieMaster = authoritieMaster;
             this.insertAuthoritieValidator = insertAuthoritieValidator;
@@ -130,6 +129,24 @@ namespace KalaGenset.ERP.HR.API.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, $"An error occurred while updating authoritie: {ex.Message}");
+            }
+        }
+
+        [HttpGet("getallauthoritiesdetailsbymasterid/{authoritiesMstId}")]
+        public async Task<IActionResult> GetAuthoritiesDetails(int authoritiesMstId)
+        {
+            try
+            {
+                var authorities = await authoritieMaster.GetAuthoritiesDetailsByMsaterId(authoritiesMstId);
+                if (authorities == null)
+                {
+                    return NotFound("Authorities not found.");
+                }
+                return Ok(authorities);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error retrieving Authorities: {ex.Message}");
             }
         }
     }
