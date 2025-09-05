@@ -19,16 +19,16 @@ namespace KalaGenset.ERP.HR.Core.Validation.ActivityMaster
         /// 
         public UpdateActivityMasterValidator(KalaDbContext context)
         {
-            this.context = context;
-            RuleFor(x => x.ActivityId)
-             .GreaterThan(0).WithMessage("Activity Grade ID must be greater than 0.");
-            RuleFor(x => x.ActivityGradeId)
-              .GreaterThan(0).WithMessage("Activity Grade ID must be greater than 0.");
-            RuleFor(x => x.ActivityDesignationId)
-                .GreaterThan(0).WithMessage("Activity Designation ID must be greater than 0.");
+            //this.context = context;
+            //RuleFor(x => x.ActivityId)
+            // .GreaterThan(0).WithMessage("Activity Grade ID must be greater than 0.");
+            //RuleFor(x => x.ActivityGradeId)
+            //  .GreaterThan(0).WithMessage("Activity Grade ID must be greater than 0.");
+            //RuleFor(x => x.ActivityDesignationId)
+            //    .GreaterThan(0).WithMessage("Activity Designation ID must be greater than 0.");
            
-            RuleFor(x => x.ActivityDivisionId)
-                 .GreaterThan(0).WithMessage("Activity Grade ID must be greater than 0.");
+            //RuleFor(x => x.ActivityDivisionId)
+            //     .GreaterThan(0).WithMessage("Activity Grade ID must be greater than 0.");
         }
     }
 }

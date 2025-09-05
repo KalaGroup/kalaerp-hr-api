@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static KalaGenset.ERP.HR.Core.Request.ActivityMaster.InsertActivityMasterRequest;
+using static KalaGenset.ERP.HR.Core.Request.KPAMaster.InsertKPAMasterRequest;
 
 namespace KalaGenset.ERP.HR.Core.Request.ActivityMaster
 {
@@ -29,7 +32,9 @@ namespace KalaGenset.ERP.HR.Core.Request.ActivityMaster
 
         public int CreatedBy { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        //public DateTime CreatedDate { get; set; }
+
+        public List<activity> descriptions { get; set; }
 
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using KalaGenset.ERP.HR.Core.Request.ResposibilitiesMaster;
+using KalaGenset.ERP.HR.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +30,14 @@ namespace KalaGenset.ERP.HR.Core.Request.KPAMaster
         public int CreatedBy { get; set; }
 
         public DateTime CreatedDate { get; set; }
+        public List<KPA> descriptions { get; set; }
+
+        public class KPA
+        {
+            public int srno { get; set; }
+
+            public string desc { get; set; }
+        }
 
     }
 }

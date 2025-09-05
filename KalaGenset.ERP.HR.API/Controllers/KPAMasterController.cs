@@ -3,6 +3,7 @@ using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.KPAMaster;
 using KalaGenset.ERP.HR.Core.Validation.KPAMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
+using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,6 +39,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("addkpamaster")]
+
         public async Task<IActionResult> AddKPAMaster([FromBody] InsertKPAMasterRequest request)
         {
             var validationResult = await _insertKPAValidator.ValidateAsync(request);
@@ -45,33 +47,45 @@ namespace KalaGenset.ERP.HR.API.Controllers
             {
                 return BadRequest(validationResult.Errors);
             }
+
             try
             {
                 await _kpaMasterService.InsertKPAMasterAsync(request);
-                return Ok();
+                return Ok(new { message = "KPA Master added successfully" });
             }
             catch (Exception ex)
             {
+                // You could also log ex here
                 return StatusCode(500, $"An error occurred while adding KPA Master: {ex.Message}");
             }
         }
+
         /// <summary>
         /// get all KPA Masters
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of KPA Masters</returns>
         [HttpGet("getallkpamaster")]
         public async Task<IActionResult> GetAllKPAMaster()
         {
             try
             {
-                var kpaMasters = await _kpaMasterService.GetAllKPAMasterAsync();
-                return Ok(kpaMasters);
+                var kpa = await _kpaMasterService.GetAllKPAMasterAsync();
+
+                if (kpa == null || !kpa.Any())
+                {
+                    return NotFound("No KPA found.");
+                }
+
+                return Ok(kpa);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"An error occurred while retrieving KPA Masters: {ex.Message}");
+                // Ideally log the exception with ILogger here
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Internal server error: {ex.Message}");
             }
         }
+
         /// <summary>
         /// get KPA Master by ID
         /// </summary>
@@ -135,6 +149,26 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(500, $"An error occurred while deleting KPA Master: {ex.Message}");
             }
         }
+
+        [HttpGet("getkpadetailbymasterid/{KpaMstId}")]
+        public async Task<IActionResult>GetKpadetail(int kpaMstId)
+        {
+            try
+            {
+                var KPA = await _kpaMasterService.GetKpaDetailsByMsaterId(kpaMstId);
+                if (KPA == null)
+                {
+                    return NotFound("KPA not found.");
+                }
+                return Ok(KPA);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error retrieving KPA: {ex.Message}");
+            }
+        }
+        }
+
     }
-           
-}
+
+     

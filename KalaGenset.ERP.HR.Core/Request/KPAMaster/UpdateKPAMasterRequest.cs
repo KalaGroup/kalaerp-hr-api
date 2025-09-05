@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static KalaGenset.ERP.HR.Core.Request.KPAMaster.InsertKPAMasterRequest;
 
 namespace KalaGenset.ERP.HR.Core.Request.KPAMaster
 {
@@ -30,6 +31,7 @@ namespace KalaGenset.ERP.HR.Core.Request.KPAMaster
         public int CreatedBy { get; set; }
 
         public DateTime CreatedDate { get; set; }
+        public List<KPA> descriptions { get; set; }
 
     }
 }

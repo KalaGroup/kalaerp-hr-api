@@ -62,7 +62,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         {
             try
             {
-                var activities = await activityMaster.GetAllActivityMasterAsync();
+                var activities = await activityMaster.GetActivityDetails();
                 if (activities == null || !activities.Any())
                 {
                     return NotFound("No activities found.");
@@ -83,7 +83,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         [HttpGet("getactivitybyid/{Id}")]
         public async Task<IActionResult> getbyid(int Id)
         {
-            var result = await activityMaster.GetActivityByID(Id);
+            var result = await activityMaster.GetActivityByIdAsync(Id);
             return Ok(result);
         }
         /// <summary>
@@ -119,7 +119,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             }
             try
             {
-                await activityMaster.updateActivityAsync(request);
+                await activityMaster.UpdateActivityAsync(request);
                 return Ok();
             }
             catch (Exception ex)
@@ -127,5 +127,29 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(500, $"An error occurred while updating : {ex.Message}");
             }
         }
+
+
+        [HttpGet("getallactivitysdetailsbymasterid/{activityMstId}")]
+        public async Task<IActionResult> GetAllActivitydetails(int activityMstId)
+        {
+            try
+            {
+                var activity = await activityMaster.GetActivityDetailsByMsaterId(activityMstId);
+                if (activity == null)
+                {
+                    return NotFound("Resposibility not found.");
+                }
+                return Ok(activity);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error retrieving resposibility: {ex.Message}");
+            }
+        }
+
+
+       
+
+
     }
 }
