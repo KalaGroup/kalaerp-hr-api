@@ -1,5 +1,7 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.KPAMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.ActivityMaster;
 using KalaGenset.ERP.HR.Core.ResponseDTO.KPA;
+using KalaGenset.ERP.HR.Core.ResponseDTO.ResponsibilitiesMaster;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -40,6 +42,8 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// <param name="id"></param>
         /// <returns></returns>
         public Task<Kpamaster> GetKPAMasterByID(int id);
+
+        public Task<IEnumerable<GetKPADeatilsById>> GetKpaDetailsByMsaterId(int kpaMstId);
 
 
     }
