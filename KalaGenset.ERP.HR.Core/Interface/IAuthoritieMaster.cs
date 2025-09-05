@@ -1,4 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.AuthoritieMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.AuthoritiesMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.ResponsibilitiesMaster;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -29,7 +31,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// gets all authoritie details from the system.
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<AuthoritiesMaster>> GetAllAuthoritieDetailsAsync();
+        public Task<IEnumerable<AuthoritiesMasterResponseDTO>> GetAllAuthoritieDetailsAsync();
         /// <summary>
         /// gets an authoritie by its unique identifier.
         /// </summary>
@@ -42,5 +44,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// <param name="id"></param>
         /// <returns></returns>
         public Task DeleteAuthoritieAsync(int id);
+
+        public Task<IEnumerable<GetAuthoritiesDetailsById>> GetAuthoritiesDetailsByMsaterId(int masterId);
     }
 }

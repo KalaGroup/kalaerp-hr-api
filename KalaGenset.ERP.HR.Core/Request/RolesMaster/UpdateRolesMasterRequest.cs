@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KalaGenset.ERP.HR.Core.Request.AuthoritieMaster;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace KalaGenset.ERP.HR.Core.Request.RolesMaster
 {
     public class UpdateRolesMasterRequest
     {
-        public int? RolesId { get; set; }
+        public int RolesId { get; set; }
         public int RolesGradeId { get; set; }
         public int RolesDesignationId { get; set; }
         public int RolesDivisionId { get; set; }
@@ -20,5 +21,8 @@ namespace KalaGenset.ERP.HR.Core.Request.RolesMaster
         public bool RolesIsActive { get; set; } = true;
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
+        public List<Roles> descriptions { get; set; }
+
+
     }
 }

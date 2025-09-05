@@ -122,5 +122,22 @@ namespace KalaGenset.ERP.HR.API.Controllers
             }
         }
 
+        [HttpGet("getallroledetailsbymasterid/{roleMstId}")]
+        public async Task<IActionResult> GetroleDetails(int roleMstId)
+        {
+            try
+            {
+                var role = await _rolesMaster.GetroleDetailsByMsaterId(roleMstId);
+                if (role == null)
+                {
+                    return NotFound("Role not found.");
+                }
+                return Ok(role);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error retrieving Role: {ex.Message}");
+            }
+        }
     }
 }

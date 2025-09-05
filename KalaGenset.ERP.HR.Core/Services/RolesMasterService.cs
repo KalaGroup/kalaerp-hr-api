@@ -1,5 +1,7 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.RolesMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.AuthoritiesMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.RoleMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -30,7 +32,8 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             try
             {
-                var roles = new RolesMaster
+                // ✅ Insert into master table
+                var role = new RolesMaster
                 {
                     RolesGradeId = request.RolesGradeId,
                     RolesDesignationId = request.RolesDesignationId,
@@ -43,14 +46,33 @@ namespace KalaGenset.ERP.HR.Core.Services
                     CreatedBy = request.CreatedBy,
                     CreatedDate = request.CreatedDate
                 };
-                await _dbContext.RolesMasters.AddAsync(roles);
+
+                await _dbContext.RolesMasters.AddAsync(role);
                 await _dbContext.SaveChangesAsync();
+
+                // ✅ Retrieve auto-generated master ID
+                int roleMstId = role.RolesId;
+
+                // ✅ Insert child details (if any)
+                if (request.descriptions != null && request.descriptions.Any())
+                {
+                    var details = request.descriptions.Select(item => new RolesDetail
+                    {
+                        DetailsRolesId = roleMstId, // FK to master
+                        SrNo = item.srno,
+                        RolesDetailsDescription = item.desc
+                    }).ToList();
+
+                    await _dbContext.RolesDetails.AddRangeAsync(details);
+                    await _dbContext.SaveChangesAsync();
+                }
             }
             catch (Exception ex)
             {
-                throw new Exception("An error occurred while adding the role.", ex);
+                throw new Exception("Error adding role", ex);
             }
         }
+
         /// <summary>
         /// update a new role into the RolesMaster table.
         /// </summary>
@@ -60,35 +82,92 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             try
             {
-                var roles = await _dbContext.RolesMasters.FindAsync(request.RolesId);
+                var role = await _dbContext.RolesMasters
+                    .FirstOrDefaultAsync(r => r.RolesId == request.RolesId);
 
-                roles.RolesGradeId = request.RolesGradeId;
-                roles.RolesDesignationId = request.RolesDesignationId;
-                roles.RolesDivisionId = request.RolesDivisionId;
-                roles.RolesRemark = request.RolesRemark;
-                roles.RolesAuthRemark = request.RolesAuthRemark;
-                roles.RolesAuth = request.RolesAuth;
-                roles.RolesIsDiscard = request.RolesIsDiscard;
-                roles.RolesIsActive = request.RolesIsActive;
-                roles.CreatedBy = request.CreatedBy;
-                roles.CreatedDate = request.CreatedDate;
-                _dbContext.Entry(roles).State = EntityState.Modified;
+                if (role == null)
+                    throw new Exception("Role not found");
+
+                // ✅ Update master
+                role.RolesGradeId = request.RolesGradeId;
+                role.RolesDesignationId = request.RolesDesignationId;
+                role.RolesDivisionId = request.RolesDivisionId;
+                role.RolesRemark = request.RolesRemark;
+                role.RolesAuthRemark = request.RolesAuthRemark;
+                role.RolesAuth = request.RolesAuth;
+                role.RolesIsDiscard = request.RolesIsDiscard;
+                role.RolesIsActive = request.RolesIsActive;
+                role.CreatedBy = request.CreatedBy;
+                role.CreatedDate = request.CreatedDate;
+
+                _dbContext.RolesMasters.Update(role);
+
+                // ✅ Delete old details
+                var existingDetails = await _dbContext.RolesDetails
+                    .Where(d => d.DetailsRolesId == request.RolesId)
+                    .ToListAsync();
+
+                if (existingDetails.Any())
+                {
+                    _dbContext.RolesDetails.RemoveRange(existingDetails);
+                }
+
+                // ✅ Insert new details
+                if (request.descriptions != null && request.descriptions.Any())
+                {
+                    var newDetails = request.descriptions.Select(item => new RolesDetail
+                    {
+                        DetailsRolesId = request.RolesId,
+                        SrNo = item.srno,
+                        RolesDetailsDescription = item.desc
+                    });
+
+                    await _dbContext.RolesDetails.AddRangeAsync(newDetails);
+                }
+
                 await _dbContext.SaveChangesAsync();
-
             }
             catch (Exception ex)
             {
-                throw;
+                throw new Exception("Error updating role", ex);
             }
         }
+
         /// <summary>
         /// get All RolesMaster table.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<RolesMaster>> GetAllRolesAsync()
+        public async Task<IEnumerable<RoleMasterResponseDTO>> GetAllRolesAsync()
         {
-            return await _dbContext.RolesMasters.ToListAsync();
+            var result = await (from r in _dbContext.RolesMasters
+                                join g in _dbContext.GradeMasters
+                                    on r.RolesGradeId equals g.GradeId
+                                join d in _dbContext.DesignationMasters
+                                    on r.RolesDesignationId equals d.DesignationId
+                                join div in _dbContext.DivisionMasters
+                                    on r.RolesDivisionId equals div.DivisionId
+                                where r.RolesIsActive == true   // ✅ Only active records
+                                select new RoleMasterResponseDTO
+                                {
+                                    RolesId = r.RolesId,
+                                    RolesGradeId = r.RolesGradeId,
+                                    GradeName = g.GradeName,
+                                    RolesDesignationId = r.RolesDesignationId,
+                                    DesignationName = d.DesignationName,
+                                    RolesDivisionId = r.RolesDivisionId,
+                                    DivisionName = div.DivisionName,
+                                    RolesRemark = r.RolesRemark,
+                                    RolesAuthRemark = r.RolesAuthRemark,
+                                    RolesAuth = r.RolesAuth,
+                                    RolesIsDiscard = r.RolesIsDiscard,
+                                    RolesIsActive = r.RolesIsActive,
+                                    CreatedBy = r.CreatedBy,
+                                    CreatedDate = r.CreatedDate
+                                }).ToListAsync();
+
+            return result;
         }
+
         /// <summary>
         /// get Role by ID from RolesMaster table.
         /// </summary>
@@ -112,21 +191,53 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// </summary>
         /// <param name="RolesId"></param>
         /// <returns></returns>
-        public async Task DeleteRoleAsync(int RolesId)
+        public async Task DeleteRoleAsync(int id)
         {
             try
             {
-                var roles = await _dbContext.RolesMasters.FirstOrDefaultAsync(c => c.RolesId == RolesId);
+                var role = await _dbContext.RolesMasters
+                    .FirstOrDefaultAsync(c => c.RolesId == id);
 
-                roles.RolesIsActive = false;
-                //company.ci = DateTime.Now;
-                _dbContext.RolesMasters.Update(roles);
+                if (role == null)
+                    throw new Exception("Role not found");
+
+                // ✅ Get child details
+                var details = await _dbContext.RolesDetails
+                    .Where(d => d.DetailsRolesId == id)
+                    .ToListAsync();
+
+                // ✅ Remove child details
+                if (details.Any())
+                {
+                    _dbContext.RolesDetails.RemoveRange(details);
+                }
+
+                // ✅ Soft delete master
+                role.RolesIsActive = false;
+                role.RolesIsDiscard = false; // keep consistent with Authorities
+
+                _dbContext.RolesMasters.Update(role);
                 await _dbContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {
-                throw;
+                throw new Exception("Error deleting role", ex);
             }
+        }
+
+
+        public async Task<IEnumerable<GetRoleDetailsById>> GetroleDetailsByMsaterId(int masterId)
+        {
+            return await _dbContext.RolesDetails
+                .Where(r => r.DetailsRolesId == masterId)   // filter by ID
+                .Select(r => new GetRoleDetailsById
+                {
+                    RolesDetailsId = r.RolesDetailsId,
+                    DetailsRolesId = r.DetailsRolesId,
+                    SrNo = r.SrNo,
+                    RolesDetailsDescription = r.RolesDetailsDescription
+                })
+                .ToListAsync();
         }
 
     }

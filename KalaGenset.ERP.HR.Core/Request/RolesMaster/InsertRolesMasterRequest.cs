@@ -19,5 +19,15 @@ namespace KalaGenset.ERP.HR.Core.Request.RolesMaster
         public bool RolesIsActive { get; set; } = true;
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
+        public List<Roles> descriptions { get; set; }
+
+
+    }
+
+    public class Roles
+    {
+        public int srno { get; set; }
+
+        public string desc { get; set; }
     }
 }

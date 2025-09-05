@@ -1,4 +1,5 @@
-﻿using KalaGenset.ERP.HR.Data.Models;
+﻿using KalaGenset.ERP.HR.Core.Request.ResposibilitiesMaster;
+using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,15 @@ namespace KalaGenset.ERP.HR.Core.Request.AuthoritieMaster
 
         public DateTime CreatedDate { get; set; }
 
-       
+        public List<Authorities> descriptions { get; set; }
+
+
+    }
+
+    public class Authorities
+    {
+        public int srno { get; set; }
+
+        public string desc { get; set; }
     }
 }
