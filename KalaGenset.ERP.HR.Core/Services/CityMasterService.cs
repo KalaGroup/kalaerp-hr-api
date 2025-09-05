@@ -41,7 +41,10 @@ namespace KalaGenset.ERP.HR.Core.Services
                     CityTierTypeId = request.CityTierTypeId,
                     CityRemark = request.CityRemark,
                     CreatedBy = request.CreatedBy,
-                    CreatedDate = request.CreatedDate
+                    CreatedDate = request.CreatedDate,
+                    CityAuth = request.CityAuth,
+                    CityIsDiscard = request.CityIsDiscard,
+                    CityIsActive = request.CityIsActive
                 };
 
                 _dbContext.CityMasters.Add(City);
@@ -82,6 +85,9 @@ namespace KalaGenset.ERP.HR.Core.Services
                 city.CityRemark = request.CityRemark;
                 city.CreatedBy = request.CreatedBy;
                 city.CreatedDate = request.CreatedDate;
+                city.CityAuth = request.CityAuth;
+                city.CityIsDiscard = request.CityIsDiscard;
+                city.CityIsActive = request.CityIsActive;
                 _dbContext.Entry(city).State = EntityState.Modified;
                 await _dbContext.SaveChangesAsync();
 
@@ -108,6 +114,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                                     on city.CityStateId equals state.StateId
                                 join district in _dbContext.DistrictMasters
                                     on city.CityDistrictId equals district.DistrictId
+                                where city.CityIsActive == true
                                 select new CityMasterResponseDTO
                                 {
                                     CityId = city.CityId,
