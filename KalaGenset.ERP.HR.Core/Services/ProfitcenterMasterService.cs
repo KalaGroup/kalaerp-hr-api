@@ -104,11 +104,11 @@ namespace KalaGenset.ERP.HR.Core.Services
             return await _context.ProfitcenterMasters.FirstOrDefaultAsync(f => f.ProfitCenterId == profitCenterId);
         }
         
-        public async Task DeleteProfitCenterAsync(int profitCenterId)
+        public async Task DeleteProfitCenterAsync(int ProfitCenterId)
         {
             try
             {
-                var profitcenter = await _context.ProfitcenterMasters.FirstOrDefaultAsync(f => f.ProfitCenterId == profitCenterId);
+                var profitcenter = await _context.ProfitcenterMasters.FirstOrDefaultAsync(f => f.ProfitCenterId == ProfitCenterId);
 
                 if (profitcenter == null)
                 {

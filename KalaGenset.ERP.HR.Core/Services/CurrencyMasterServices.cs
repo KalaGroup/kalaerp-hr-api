@@ -27,7 +27,7 @@ namespace KalaGenset.ERP.HR.Core.Services
             try
             {
                 var currency = new CurrencyMaster
-                {
+                { 
                     CurrencyName = request.CurrencyName,
                     CurrencySymbol = request.CurrencySymbol,
                     CurrencyIsActive = request.CurrencyIsActive,
@@ -48,11 +48,11 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// <summary>
         /// Delete Currency Method
         /// </summary>
-        public async Task DeleteCurrencyAsync(int id)
+        public async Task DeleteCurrencyAsync(int CurrencyId)
         {
             try
             {
-                var currency = await context.CurrencyMasters.FirstOrDefaultAsync(c => c.CurrencyId == id);
+                var currency = await context.CurrencyMasters.FirstOrDefaultAsync(c => c.CurrencyId == CurrencyId);
                 currency.CurrencyIsActive = false;
                 context.CurrencyMasters.Update(currency);
                 await context.SaveChangesAsync();

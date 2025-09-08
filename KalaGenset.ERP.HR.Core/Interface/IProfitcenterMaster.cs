@@ -20,6 +20,6 @@ namespace KalaGenset.ERP.HR.Core.Interface
 
         public Task<ProfitcenterMaster?> GetProfitCenterByIdAsync(int profitCenterId);
 
-        public Task DeleteProfitCenterAsync(int facilityId);
+        public Task DeleteProfitCenterAsync(int profitCenterId);
     }
 }
