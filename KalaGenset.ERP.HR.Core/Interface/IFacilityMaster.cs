@@ -1,4 +1,5 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.Facility;
+using KalaGenset.ERP.HR.Core.ResponseDTO.FacilityMaster;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,10 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// <returns></returns>
         public Task DeleteFacilityAsync(int facilityId);
 
-
+        /// <summary>
+        /// Fetch Facility Id and name 
+        /// </summary>
+        /// <returns></returns>
+        public Task<IEnumerable<GetFacilityIdAndNameResponseDTO>> GetFacilityIdAndNameFromDB();
     }
 }

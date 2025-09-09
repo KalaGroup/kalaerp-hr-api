@@ -1,5 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.Facility;
+using KalaGenset.ERP.HR.Core.ResponseDTO.FacilityMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -132,6 +133,21 @@ namespace KalaGenset.ERP.HR.Core.Services
                 throw;
             }
         }
+
+        //Fetch Facility Id and Name
+        public async Task<IEnumerable<GetFacilityIdAndNameResponseDTO>> GetFacilityIdAndNameFromDB()
+        {
+            var result = await _context.FacilityMasters
+            .Select(f => new GetFacilityIdAndNameResponseDTO
+            {
+                FacilityId = f.FacilityId,
+                FacilityName = f.FacilityName
+            })
+            .ToListAsync();
+
+            return result;
+        }
+
 
     }
 }

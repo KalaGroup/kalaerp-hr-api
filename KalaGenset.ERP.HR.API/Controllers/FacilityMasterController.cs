@@ -110,7 +110,24 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(500, $"An error occurred while updating Facility: {ex.Message}");
             }
         }
+        /// <summary>
+        /// Get Facility Id and Name
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("getallfacilityidandname")]
+        public async Task<IActionResult> GetAllFacilityAllFacilityAndName()
+        {
+            try
+            {
+                var facility = await _facilityMaster.GetFacilityIdAndNameFromDB();
+                return Ok(facility);
+            }
+            catch (Exception ex)
+            {
 
+                return StatusCode(500, $"An error occurred while updating Facility: {ex.Message}");
+            }
+        }
 
     }
 }

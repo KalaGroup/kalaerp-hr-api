@@ -42,5 +42,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// <param name="qid"></param>
         /// <returns></returns>
         public Task DeleteQualificationAsync(int qid);
+        //Getting Qualification Id and Name 
+        public Task<IEnumerable<QualifiactionIdAndNameResponseDTO>> GetQualificationIdAndNameFromDB();
     }
 }

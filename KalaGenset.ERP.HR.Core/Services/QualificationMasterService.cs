@@ -135,5 +135,19 @@ namespace KalaGenset.ERP.HR.Core.Services
                 throw;
             }
         }
+
+        public async Task<IEnumerable<QualifiactionIdAndNameResponseDTO>> GetQualificationIdAndNameFromDB()
+        {
+            return await _context.QualificationMasters
+                .Where(c => c.QualificationIsActive)
+                .Include(c => c.MasterQualificationType)
+                .OrderBy(c => c.QualificationId)
+                .Select(c => new QualifiactionIdAndNameResponseDTO
+                {
+                    QualificationId = c.QualificationId,     
+                    QualificationName = c.QualificationName,
+                })
+                .ToListAsync();
+        }
     }
 }

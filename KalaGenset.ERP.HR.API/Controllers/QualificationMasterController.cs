@@ -100,7 +100,11 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(500, $"An error occurred while deleting Qualification: {ex.Message}");
             }
         }
-
+        /// <summary>
+        /// Get qualification by id
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         [HttpGet("GetQualificationByID/{Id}")]
 
         public async Task<IActionResult> GetQualificationByID(int Id)
@@ -114,6 +118,16 @@ namespace KalaGenset.ERP.HR.API.Controllers
             {
                 return StatusCode(500, $"Id is Invalid : {ex.Message}");
             }
+        }
+        /// <summary>
+        /// GetQualification Id And Name
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("getallqualificationidandname")]
+        public async Task<IActionResult> GetAllQualificationIdAndName()
+        {
+            var qualifications = await _qualificationMaster.GetQualificationIdAndNameFromDB();
+            return Ok(qualifications);
         }
     }
 }
