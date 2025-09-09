@@ -51,7 +51,7 @@ namespace KalaGenset.ERP.HR.Core.Services
 
         public async Task<IEnumerable<PetrolAllowanceMaster>> GetPetrolAllowance()
         {
-            return await _context.PetrolAllowanceMasters.ToListAsync();
+            return await _context.PetrolAllowanceMasters.Where(e => e.PetrolAllowanceIsActive == true).ToListAsync();
         }
 
         public async Task<PetrolAllowanceMaster> GetPetrolAllowanceTypeById(int PetrolAllowanceId)

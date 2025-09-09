@@ -47,7 +47,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         public async Task<IActionResult> GetPetrolAllowance()
         {
             var result = await _petrolAllowancemaster.GetPetrolAllowance();
-            return Ok();
+            return Ok(result);
 
         }
 

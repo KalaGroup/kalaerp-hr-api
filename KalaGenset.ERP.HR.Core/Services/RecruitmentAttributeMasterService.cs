@@ -87,7 +87,7 @@ namespace KalaGenset.ERP.HR.Core.Services
 
         public async Task<IEnumerable<RecruitmentAttributeMaster>> GetRecruitmentAttributeMasterDetailsAsync()
         {
-            return await _context.RecruitmentAttributeMasters.ToListAsync();
+            return await _context.RecruitmentAttributeMasters.Where(e => e.RecruitmentAttributeIsActive == true).ToListAsync();
         }
 
         /// <summary>

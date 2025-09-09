@@ -1,5 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.ActivityDetails;
 using KalaGenset.ERP.HR.Core.Request.Currency;
+using KalaGenset.ERP.HR.Core.ResponseDTO.CTC;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// Get All CTC
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<CtcstructureMaster>> GetCTCStructureAsync();
+        public Task<IEnumerable<CTCStructureMasterResponseDTO>> GetCTCStructureAsync();
         /// <summary>
         /// Get By Id CtC
         /// </summary>

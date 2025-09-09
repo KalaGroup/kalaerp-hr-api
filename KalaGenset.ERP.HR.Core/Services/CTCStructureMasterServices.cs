@@ -1,5 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.ActivityDetails;
+using KalaGenset.ERP.HR.Core.ResponseDTO.CTC;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -82,9 +83,41 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// get all ctc
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<CtcstructureMaster>> GetCTCStructureAsync()
+        public async Task<IEnumerable<CTCStructureMasterResponseDTO>> GetCTCStructureAsync()
         {
-            return await context.CtcstructureMasters.ToListAsync();
+            var result = await (from ctc in context.CtcstructureMasters
+                                join grade in context.GradeMasters
+                                    on ctc.CtcmasterGradeId equals grade.GradeId into gradeJoin
+                                from grade in gradeJoin.DefaultIfEmpty()   // left join, in case no grade
+                                select new CTCStructureMasterResponseDTO
+                                {
+                                    CtcstructureId = ctc.CtcstructureId,
+                                    CtcmasterGradeId = ctc.CtcmasterGradeId,
+                                    GradeName = grade != null ? grade.GradeName : null,   // 👈 fetch name
+                                    CtcmasterBasic = ctc.CtcmasterBasic,
+                                    CtcmasterDa = ctc.CtcmasterDa,
+                                    CtcmasterHra = ctc.CtcmasterHra,
+                                    CtcmasterConvAllowance = ctc.CtcmasterConvAllowance,
+                                    CtcmasterCityCompensatoryAlowance = ctc.CtcmasterCityCompensatoryAlowance,
+                                    CtcmasterLeaveTravelAllowance = ctc.CtcmasterLeaveTravelAllowance,
+                                    CtcmasterCarAllowance = ctc.CtcmasterCarAllowance,
+                                    CtcmasterFuelAllowance = ctc.CtcmasterFuelAllowance,
+                                    CtcmasterDriverAllowance = ctc.CtcmasterDriverAllowance,
+                                    CtcmasterMiscAllowance = ctc.CtcmasterMiscAllowance,
+                                    CtcmasterGross = ctc.CtcmasterGross,
+                                    CtcmasterPfemployee = ctc.CtcmasterPfemployee,
+                                    CtcmasterPt = ctc.CtcmasterPt,
+                                    CtcmasterEsic = ctc.CtcmasterEsic,
+                                    CtcmasterPfemployer = ctc.CtcmasterPfemployer,
+                                    CtcmasterMedicalInsurance = ctc.CtcmasterMedicalInsurance,
+                                    CtcmasterPerformanceKpa = ctc.CtcmasterPerformanceKpa,
+                                    CtcmasterGraduity = ctc.CtcmasterGraduity,
+                                    CtcmasterBonus = ctc.CtcmasterBonus,
+                                    CtcmasterMlwf = ctc.CtcmasterMlwf
+                                }).ToListAsync();
+
+            return result;
+
         }
         /// <summary>
         /// get by id ctc

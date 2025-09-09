@@ -89,8 +89,8 @@ namespace KalaGenset.ERP.HR.Core.Services
         public async Task<IEnumerable<FacilityMaster>> GetFacilityAsync()
         {
             return await _context.FacilityMasters
-                     .Where(e => e.FacilityIsActive == true)
-                     .ToListAsync();
+            .Where(e => e.FacilityIsActive == true)
+            .ToListAsync();
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                 }
 
                 var facility = await _context.FacilityMasters.FirstOrDefaultAsync(f => f.FacilityId == facilityId);
-                facility.FacilityIsActive = false;
+                facility.FacilityIsActive = true;
                 _context.FacilityMasters.Update(facility);
                 await _context.SaveChangesAsync();
             }
