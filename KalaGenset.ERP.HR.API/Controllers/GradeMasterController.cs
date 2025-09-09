@@ -35,8 +35,8 @@ namespace KalaGenset.ERP.HR.API.Controllers
             }
             try
             {
-                await _gradeMaster.AddGradeAsync(request);
-                return Ok("Grade added successfully.");
+                await _gradeMaster.AddGradeDetailsAsync(request);
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -59,7 +59,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _gradeMaster.UpdateGradeAsync(request);
-                return Ok("Grade updated successfully.");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -122,5 +122,21 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(500, $"An error occurred while fetching grade IDs and names: {ex.Message}");
             }
         }
+
+        [HttpGet("getgradedesignationandfacility")]
+        public async Task<IActionResult> GetGradeDesignationAndFacility()
+        {
+            try
+            {
+                var gradeDesignationAndFacility = await _gradeMaster.GetAllGradesWithDetailsAsync();
+                return Ok(gradeDesignationAndFacility);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, $"An error occurred while fetching grade IDs and names: {ex.Message}");
+            }
+        }
+
     }
 }
