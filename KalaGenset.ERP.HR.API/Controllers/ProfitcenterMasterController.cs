@@ -78,7 +78,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             return Ok(profitcenter);
         }
 
-        [HttpDelete("deleteprofitcenter/{Id}")]
+        [HttpDelete("deleteprofitcenter/{ProfitCenterId}")]
         public async Task<IActionResult> DeletProfitCenter(int profitCenterId)
         {
             try

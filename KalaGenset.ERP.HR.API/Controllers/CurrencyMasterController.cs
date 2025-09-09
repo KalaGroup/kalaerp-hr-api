@@ -44,7 +44,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await currencyMaster.AddCurrencyAsync(request);
-                return Ok("Currency added successfully.");
+                return Ok();
             }
             catch (Exception )
             {
@@ -79,7 +79,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await currencyMaster.UpdateCurrencyAsync(request);
-                return Ok("Currency updated successfully.");
+                return Ok();
             }
             catch (Exception)
             {
@@ -102,12 +102,12 @@ namespace KalaGenset.ERP.HR.API.Controllers
         /// <param name="Id"></param>
         /// <returns></returns>
         [HttpDelete("deletecurrency/{CurrencyId}")]
-        public async Task<IActionResult> DeleteCurrency(int Id)
+        public async Task<IActionResult> DeleteCurrency(int CurrencyId)
         {
             try
             {
-                await currencyMaster.DeleteCurrencyAsync(Id);
-                return Ok("Currency deleted successfully.");
+                await currencyMaster.DeleteCurrencyAsync(CurrencyId);
+                return Ok();
             }
             catch (Exception)
             {

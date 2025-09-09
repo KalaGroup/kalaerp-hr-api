@@ -39,7 +39,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// 
         /// DeleteCurrencyAsync
         /// </summary>
-        public Task DeleteCurrencyAsync(int id);
+        public Task DeleteCurrencyAsync(int CurrencyId);
         /// <summary>
         /// Get all currency details from this interface.
         /// </summary>

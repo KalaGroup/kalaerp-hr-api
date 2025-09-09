@@ -20,9 +20,9 @@ public class UpdateCurrencyRequestValidator : AbstractValidator<UpdateCurrencyRe
             .MustAsync(BeUniqueCurrencyName).WithMessage("Currency name already exists.");
 
         RuleFor(x => x.CurrencySymbol)
-       .NotEmpty().WithMessage("Currency symbol is required.")
-       .Matches(@"^[\p{Sc}]$").WithMessage("Invalid currency symbol.")
-       .MaximumLength(1).WithMessage("Currency symbol must be a single character.");
+       .NotEmpty().WithMessage("Currency symbol is required.");
+       //.Matches(@"^[\p{Sc}]$").WithMessage("Invalid currency symbol.")
+       //.MaximumLength(1).WithMessage("Currency symbol must be a single character.");
 
 
         RuleFor(x => x.CreatedBy)
