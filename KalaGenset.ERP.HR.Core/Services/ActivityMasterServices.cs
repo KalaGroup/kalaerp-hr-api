@@ -95,7 +95,7 @@ namespace KalaGenset.ERP.HR.Core.Services
 
         public async Task<IEnumerable<ActivityMaster>> GetActivityAsync()
         {
-            return await context.ActivityMasters.ToListAsync();
+            return await context.ActivityMasters.Where(e => e.ActivityIsActive == true).ToListAsync();
         }
 
         public async Task<ActivityMaster> GetActivityByIdAsync(int id)

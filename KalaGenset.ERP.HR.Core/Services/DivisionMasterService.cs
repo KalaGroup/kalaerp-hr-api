@@ -64,11 +64,11 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// </summary>
         /// <param name="wid"></param>
         /// <returns></returns>
-        public async Task DeleteDivisionAsync(int did)
+        public async Task DeleteDivisionAsync(int DivisionId)
         {
             try
             {
-                var Division = await _context.DivisionMasters.FirstOrDefaultAsync(c => c.DivisionId == did);
+                var Division = await _context.DivisionMasters.FirstOrDefaultAsync(c => c.DivisionId == DivisionId);
 
                 Division.DivisionIsActive = false;
 

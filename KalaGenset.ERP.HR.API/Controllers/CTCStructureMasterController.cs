@@ -43,7 +43,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await cTC.AddCTCStructureAsync(request);
-                return Ok("CTC Added successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -90,7 +90,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await cTC.DeleteCTCStructureAsync(id);
-                return Ok("Deleted Sucessfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -113,7 +113,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await cTC.UpdateCTCStructureAsync(request);
-                return Ok("ctc Updated successfully");
+                return Ok();
             }
             catch (Exception ex)
             {

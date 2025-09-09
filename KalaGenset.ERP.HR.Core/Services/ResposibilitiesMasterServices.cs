@@ -148,7 +148,7 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// <returns></returns>
         public async Task<IEnumerable<ResponsibilitiesMaster>> GetResposibilitiesAsync()
         {
-            return await context.ResponsibilitiesMasters.ToListAsync();
+            return await context.ResponsibilitiesMasters.Where(e => e.ResponsibilitiesIsActive == true).ToListAsync();
         }
 
         public async Task<List<ResponsibilitiesResponseDTO>> GetResponsibilitiesDetails()
