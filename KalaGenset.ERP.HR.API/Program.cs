@@ -29,6 +29,7 @@ using KalaGenset.ERP.HR.Core.Request.LocationRequest;
 using KalaGenset.ERP.HR.Core.Request.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Core.Request.QualificationRequest;
 using KalaGenset.ERP.HR.Core.Request.RecruitmentAttributeMaster;
+using KalaGenset.ERP.HR.Core.Request.RecruitmentReferenceMaster;
 using KalaGenset.ERP.HR.Core.Request.RecruitmentStageStatusMaster;
 using KalaGenset.ERP.HR.Core.Request.ResposibilitiesMaster;
 using KalaGenset.ERP.HR.Core.Request.StateRequest;
@@ -58,6 +59,7 @@ using KalaGenset.ERP.HR.Core.Validation.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Core.Validation.QualificationTypeMaster;
 using KalaGenset.ERP.HR.Core.Validation.QualificationValidator;
 using KalaGenset.ERP.HR.Core.Validation.RecruitmentAttributeMasterValidation;
+using KalaGenset.ERP.HR.Core.Validation.RecruitmentReferenceMaster;
 using KalaGenset.ERP.HR.Core.Validation.RecruitmentStageStatusMaster;
 using KalaGenset.ERP.HR.Core.Validation.RolesMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.StateValidator;
@@ -118,6 +120,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertRecruitmentStageStatu
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateRecruitmentStageStatusMasterValidetor>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertRolesMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateRolesMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertRecruitmentReferenceMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateRecruitmentReferenceMasterValidator>();
 
 //registering service
 builder.Services.AddScoped<ICountryMaster, CountryMasterService>();
@@ -216,6 +220,11 @@ builder.Services.AddScoped<InsertRolesMasterValidator>();
 builder.Services.AddScoped<UpdateRolesMasterValidator>();
 builder.Services.AddScoped<IRolesMaster, RolesMasterService>();
 builder.Services.AddScoped<IRoleDetails, RoleDetailsService>();
+builder.Services.AddScoped<IRecruitmentReferenceMaster, RecruitmentReferenceMasterServices>();
+builder.Services.AddScoped<IValidator<InsertRecruitmentReferenceMasterRequest>, InsertRecruitmentReferenceMasterValidator>();
+builder.Services.AddScoped<IValidator<UpdateRecruitmentReferenceMasterRequest>, UpdateRecruitmentReferenceMasterValidator>();
+
+
 
 
 builder.Services.AddCors(options =>
