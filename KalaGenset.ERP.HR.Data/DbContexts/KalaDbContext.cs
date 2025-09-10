@@ -46,6 +46,8 @@ public partial class KalaDbContext : DbContext
 
     public virtual DbSet<DivisionMaster> DivisionMasters { get; set; }
 
+    public virtual DbSet<EmployeeMasterPersonalDetail> EmployeeMasterPersonalDetails { get; set; }
+
     public virtual DbSet<EmployeeMasterUpdationForMaster> EmployeeMasterUpdationForMasters { get; set; }
 
     public virtual DbSet<EmployeeTypeMaster> EmployeeTypeMasters { get; set; }
@@ -89,6 +91,8 @@ public partial class KalaDbContext : DbContext
     public virtual DbSet<ShiftMaster> ShiftMasters { get; set; }
 
     public virtual DbSet<StateMaster> StateMasters { get; set; }
+
+    public virtual DbSet<UserLogin> UserLogins { get; set; }
 
     public virtual DbSet<WorkStationMaster> WorkStationMasters { get; set; }
 
@@ -726,6 +730,48 @@ public partial class KalaDbContext : DbContext
             entity.Property(e => e.DivisionName).HasMaxLength(100);
             entity.Property(e => e.DivisionRemark).HasMaxLength(200);
             entity.Property(e => e.DivisionShortName).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<EmployeeMasterPersonalDetail>(entity =>
+        {
+            entity.HasKey(e => e.EmployeeMasterId).HasName("PK__Employee__EE32E139BB7BFF48");
+
+            entity.ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("EmployeeMasterPersonalDetailsHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.EmployeeMasterAuth).HasDefaultValue(true);
+            entity.Property(e => e.EmployeeMasterAuthRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.EmployeeMasterBloodGroup).HasMaxLength(10);
+            entity.Property(e => e.EmployeeMasterCode).HasMaxLength(10);
+            entity.Property(e => e.EmployeeMasterFirstName).HasMaxLength(100);
+            entity.Property(e => e.EmployeeMasterFullName).HasMaxLength(100);
+            entity.Property(e => e.EmployeeMasterGender).HasMaxLength(10);
+            entity.Property(e => e.EmployeeMasterIsActive).HasDefaultValue(true);
+            entity.Property(e => e.EmployeeMasterIsDiscard).HasDefaultValue(true);
+            entity.Property(e => e.EmployeeMasterLastName).HasMaxLength(100);
+            entity.Property(e => e.EmployeeMasterMiddleName).HasMaxLength(100);
+            entity.Property(e => e.EmployeeMasterPhotoAttachment).HasMaxLength(500);
+            entity.Property(e => e.EmployeeMasterReligion).HasMaxLength(100);
+            entity.Property(e => e.EmployeeMasterReligionCategory).HasMaxLength(100);
+            entity.Property(e => e.EmployeeMasterRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+
+            entity.HasOne(d => d.EmployeeMasterNationalityCountry).WithMany(p => p.EmployeeMasterPersonalDetails)
+                .HasForeignKey(d => d.EmployeeMasterNationalityCountryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterId_EmployeeMasterNationalityCountryId");
         });
 
         modelBuilder.Entity<EmployeeMasterUpdationForMaster>(entity =>
@@ -1489,6 +1535,81 @@ public partial class KalaDbContext : DbContext
                 .HasForeignKey(d => d.CountryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_StateId_CountryId");
+        });
+
+        modelBuilder.Entity<UserLogin>(entity =>
+        {
+            entity.HasKey(e => e.UserId).HasName("PK__UserLogi__1788CCAC9E4AB0BF");
+
+            entity
+                .ToTable("UserLogin")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("UserLoginHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.HasIndex(e => e.EmailVerificationToken, "IX_UserLogin_EmailVerificationToken");
+
+            entity.HasIndex(e => e.PasswordResetToken, "IX_UserLogin_PasswordResetToken");
+
+            entity.HasIndex(e => e.UserGuid, "IX_UserLogin_UserGUID").IsUnique();
+
+            entity.HasIndex(e => e.UserLoginEmployeeId, "IX_UserLogin_UserLoginEmployeeId");
+
+            entity.Property(e => e.UserId).HasColumnName("UserID");
+            entity.Property(e => e.Bio).HasMaxLength(1000);
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.DateFormat)
+                .HasMaxLength(20)
+                .HasDefaultValue("MM/dd/yyyy");
+            entity.Property(e => e.EmailVerificationToken).HasMaxLength(255);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.Language)
+                .HasMaxLength(10)
+                .HasDefaultValue("en-US");
+            entity.Property(e => e.LastLoginIp)
+                .HasMaxLength(45)
+                .HasColumnName("LastLoginIP");
+            entity.Property(e => e.LastLoginLocation).HasMaxLength(200);
+            entity.Property(e => e.LastLoginUserAgent).HasMaxLength(500);
+            entity.Property(e => e.LastPasswordChange).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.MaxFailedAttempts).HasDefaultValue(5);
+            entity.Property(e => e.PasswordAlgorithm)
+                .HasMaxLength(20)
+                .HasDefaultValue("SHA256");
+            entity.Property(e => e.PasswordHash).HasMaxLength(255);
+            entity.Property(e => e.PasswordResetToken).HasMaxLength(255);
+            entity.Property(e => e.PasswordSalt).HasMaxLength(100);
+            entity.Property(e => e.PhoneNumber).HasMaxLength(20);
+            entity.Property(e => e.ProfilePictureUrl)
+                .HasMaxLength(500)
+                .HasColumnName("ProfilePictureURL");
+            entity.Property(e => e.SecurityAnswer1Hash).HasMaxLength(255);
+            entity.Property(e => e.SecurityAnswer2Hash).HasMaxLength(255);
+            entity.Property(e => e.SecurityQuestion1).HasMaxLength(200);
+            entity.Property(e => e.SecurityQuestion2).HasMaxLength(200);
+            entity.Property(e => e.Theme)
+                .HasMaxLength(20)
+                .HasDefaultValue("default");
+            entity.Property(e => e.TimeZone)
+                .HasMaxLength(50)
+                .HasDefaultValue("UTC");
+            entity.Property(e => e.TwoFactorBackupCodes).HasMaxLength(500);
+            entity.Property(e => e.TwoFactorSecret).HasMaxLength(100);
+            entity.Property(e => e.UserGuid)
+                .HasDefaultValueSql("(newid())")
+                .HasColumnName("UserGUID");
+
+            entity.HasOne(d => d.UserLoginEmployee).WithMany(p => p.UserLogins)
+                .HasForeignKey(d => d.UserLoginEmployeeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserLogin_UserLoginEmployeeId");
         });
 
         modelBuilder.Entity<WorkStationMaster>(entity =>

@@ -83,7 +83,7 @@ namespace KalaGenset.ERP.HR.Core.Services
 
         public async Task<IEnumerable<CurrencyMaster>> GetAllCurrencyDetails()
         { 
-           return await context.CurrencyMasters.ToListAsync();  
+           return await context.CurrencyMasters.Where(e => e.CurrencyIsActive == true).ToListAsync();  
         }
 
         /// <summary>
