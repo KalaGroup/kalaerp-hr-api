@@ -124,6 +124,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertRecruitmentReferenceM
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateRecruitmentReferenceMasterValidator>();
 
 //registering service
+builder.Services.AddScoped<IUserLogin, UserLoginServices>();
 builder.Services.AddScoped<ICountryMaster, CountryMasterService>();
 builder.Services.AddScoped<IValidator<InsertCountryRequest>, InsertCountryRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateCountryRequest>, UpdateCountryRequestValidator>();
