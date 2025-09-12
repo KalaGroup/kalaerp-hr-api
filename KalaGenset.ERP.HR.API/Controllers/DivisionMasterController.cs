@@ -94,7 +94,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpDelete("DeleteDivision/{Id}")]
+        [HttpDelete("DeleteDivision/{DivisionId}")]
         public async Task<IActionResult> DeleteDivision(int DivisionId)
         {
             try
