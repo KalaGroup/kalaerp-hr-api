@@ -34,4 +34,6 @@ public partial class AuthoritiesMaster
     public virtual DivisionMaster AuthoritiesDivision { get; set; } = null!;
 
     public virtual GradeMaster AuthoritiesGrade { get; set; } = null!;
+
+    public virtual ICollection<PositionMaster> PositionMasters { get; set; } = new List<PositionMaster>();
 }

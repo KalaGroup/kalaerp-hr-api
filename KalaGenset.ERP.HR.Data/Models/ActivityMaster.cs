@@ -34,4 +34,6 @@ public partial class ActivityMaster
     public virtual DivisionMaster ActivityDivision { get; set; } = null!;
 
     public virtual GradeMaster ActivityGrade { get; set; } = null!;
+
+    public virtual ICollection<PositionMaster> PositionMasters { get; set; } = new List<PositionMaster>();
 }

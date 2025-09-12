@@ -37,6 +37,8 @@ public partial class ProfitcenterMaster
 
     public virtual ProfitcenterMaster? ParentProfitCenter { get; set; }
 
+    public virtual ICollection<PositionMaster> PositionMasters { get; set; } = new List<PositionMaster>();
+
     public virtual CompanyMaster ProfitCenterCompany { get; set; } = null!;
 
     public virtual ICollection<WorkStationMaster> WorkStationMasters { get; set; } = new List<WorkStationMaster>();

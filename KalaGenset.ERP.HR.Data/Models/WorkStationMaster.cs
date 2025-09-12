@@ -29,5 +29,7 @@ public partial class WorkStationMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public virtual ICollection<PositionMaster> PositionMasters { get; set; } = new List<PositionMaster>();
+
     public virtual ProfitcenterMaster WorkStationProfitcenter { get; set; } = null!;
 }

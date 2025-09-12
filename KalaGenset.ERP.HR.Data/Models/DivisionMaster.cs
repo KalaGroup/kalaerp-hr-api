@@ -37,6 +37,8 @@ public partial class DivisionMaster
 
     public virtual ICollection<Kpamaster> Kpamasters { get; set; } = new List<Kpamaster>();
 
+    public virtual ICollection<PositionMaster> PositionMasters { get; set; } = new List<PositionMaster>();
+
     public virtual ICollection<ResponsibilitiesMaster> ResponsibilitiesMasters { get; set; } = new List<ResponsibilitiesMaster>();
 
     public virtual ICollection<RolesMaster> RolesMasters { get; set; } = new List<RolesMaster>();

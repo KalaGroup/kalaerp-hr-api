@@ -68,6 +68,10 @@ public partial class KalaDbContext : DbContext
 
     public virtual DbSet<PetrolAllowanceMaster> PetrolAllowanceMasters { get; set; }
 
+    public virtual DbSet<PositionMaster> PositionMasters { get; set; }
+
+    public virtual DbSet<PositionMasterQualificationDetail> PositionMasterQualificationDetails { get; set; }
+
     public virtual DbSet<ProfitcenterMaster> ProfitcenterMasters { get; set; }
 
     public virtual DbSet<QualificationMaster> QualificationMasters { get; set; }
@@ -75,6 +79,10 @@ public partial class KalaDbContext : DbContext
     public virtual DbSet<QualificationTypeMaster> QualificationTypeMasters { get; set; }
 
     public virtual DbSet<RecruitmentAttributeMaster> RecruitmentAttributeMasters { get; set; }
+
+    public virtual DbSet<RecruitmentDetail> RecruitmentDetails { get; set; }
+
+    public virtual DbSet<RecruitmentMaster> RecruitmentMasters { get; set; }
 
     public virtual DbSet<RecruitmentReferenceMaster> RecruitmentReferenceMasters { get; set; }
 
@@ -1133,6 +1141,128 @@ public partial class KalaDbContext : DbContext
                 .HasColumnName("TwoWheelerPerKM");
         });
 
+        modelBuilder.Entity<PositionMaster>(entity =>
+        {
+            entity.HasKey(e => e.PositionMasterId).HasName("PK__Position__7F6D9146AE0F08EC");
+
+            entity
+                .ToTable("PositionMaster")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("PositionMasterHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.PositionMasterAuth).HasDefaultValue(true);
+            entity.Property(e => e.PositionMasterAuthRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.PositionMasterCode).HasMaxLength(50);
+            entity.Property(e => e.PositionMasterIsActive).HasDefaultValue(true);
+            entity.Property(e => e.PositionMasterIsDiscard).HasDefaultValue(true);
+            entity.Property(e => e.PositionMasterKpaid).HasColumnName("PositionMasterKPAId");
+            entity.Property(e => e.PositionMasterName).HasMaxLength(50);
+            entity.Property(e => e.PositionMasterRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+
+            entity.HasOne(d => d.PositionMasterActivity).WithMany(p => p.PositionMasters)
+                .HasForeignKey(d => d.PositionMasterActivityId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PositionMasterId_PositionMasterActivityId");
+
+            entity.HasOne(d => d.PositionMasterAuthorities).WithMany(p => p.PositionMasters)
+                .HasForeignKey(d => d.PositionMasterAuthoritiesId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PositionMasterId_PositionMasterAuthoritiesId");
+
+            entity.HasOne(d => d.PositionMasterCompany).WithMany(p => p.PositionMasters)
+                .HasForeignKey(d => d.PositionMasterCompanyId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PositionMasterId_PositionMasterCompanyID");
+
+            entity.HasOne(d => d.PositionMasterDesignation).WithMany(p => p.PositionMasters)
+                .HasForeignKey(d => d.PositionMasterDesignationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PositionMasterId_PositionMasterDesignationId");
+
+            entity.HasOne(d => d.PositionMasterDivision).WithMany(p => p.PositionMasters)
+                .HasForeignKey(d => d.PositionMasterDivisionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PositionMasterId_PositionMasterDivisionId");
+
+            entity.HasOne(d => d.PositionMasterEmployeeType).WithMany(p => p.PositionMasters)
+                .HasForeignKey(d => d.PositionMasterEmployeeTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PositionMasterId_PositionMasterEmployeeTypeId");
+
+            entity.HasOne(d => d.PositionMasterGrade).WithMany(p => p.PositionMasters)
+                .HasForeignKey(d => d.PositionMasterGradeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PositionMasterId_PositionMasterGradeId");
+
+            entity.HasOne(d => d.PositionMasterKpa).WithMany(p => p.PositionMasters)
+                .HasForeignKey(d => d.PositionMasterKpaid)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PositionMasterId_PositionMasterKPAId");
+
+            entity.HasOne(d => d.PositionMasterProfitcenter).WithMany(p => p.PositionMasters)
+                .HasForeignKey(d => d.PositionMasterProfitcenterId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PositionMasterId_PositionMasterProfitcenterId");
+
+            entity.HasOne(d => d.PositionMasterResponsibilities).WithMany(p => p.PositionMasters)
+                .HasForeignKey(d => d.PositionMasterResponsibilitiesId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PositionMasterId_PositionMasterResponsibilitiesId");
+
+            entity.HasOne(d => d.PositionMasterRoles).WithMany(p => p.PositionMasters)
+                .HasForeignKey(d => d.PositionMasterRolesId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PositionMasterId_PositionMasterRolesId");
+
+            entity.HasOne(d => d.PositionMasterWorkStation).WithMany(p => p.PositionMasters)
+                .HasForeignKey(d => d.PositionMasterWorkStationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PositionMasterId_PositionMasterWorkStationId");
+        });
+
+        modelBuilder.Entity<PositionMasterQualificationDetail>(entity =>
+        {
+            entity.HasKey(e => e.PositionQualificationDetailsId).HasName("PK__Position__F86A6ECD9BE3C6C9");
+
+            entity.ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("PositionMasterQualificationDetailsHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.PositionMasterQualificationDetailsDescription)
+                .HasMaxLength(500)
+                .HasDefaultValue("Nil");
+
+            entity.HasOne(d => d.DetailsPositionMaster).WithMany(p => p.PositionMasterQualificationDetails)
+                .HasForeignKey(d => d.DetailsPositionMasterId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PositionQualificationDetailsId_DetailsPositionMasterId");
+
+            entity.HasOne(d => d.PositionQualification).WithMany(p => p.PositionMasterQualificationDetails)
+                .HasForeignKey(d => d.PositionQualificationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PositionQualificationDetailsId_PositionQualificationId");
+        });
+
         modelBuilder.Entity<ProfitcenterMaster>(entity =>
         {
             entity.HasKey(e => e.ProfitCenterId).HasName("PK__Profitce__55D36F09C6F29D23");
@@ -1266,6 +1396,112 @@ public partial class KalaDbContext : DbContext
             entity.Property(e => e.RecruitmentAttributeRemark)
                 .HasMaxLength(200)
                 .HasDefaultValue("Nil");
+        });
+
+        modelBuilder.Entity<RecruitmentDetail>(entity =>
+        {
+            entity.HasKey(e => e.RecruitmentDetailsId).HasName("PK__Recruitm__60BE10A4FABF28D8");
+
+            entity.ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("RecruitmentDetailsHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.HasOne(d => d.DetailsRecruitmentMaster).WithMany(p => p.RecruitmentDetails)
+                .HasForeignKey(d => d.DetailsRecruitmentMasterId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RecruitmentDetailsId_DetailsRecruitmentMasterId");
+
+            entity.HasOne(d => d.RecruitmentDetailsAttribute).WithMany(p => p.RecruitmentDetails)
+                .HasForeignKey(d => d.RecruitmentDetailsAttributeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RecruitmentDetailsId_RecruitmentDetailsAttributeId");
+        });
+
+        modelBuilder.Entity<RecruitmentMaster>(entity =>
+        {
+            entity.HasKey(e => e.RecruitmentMasterId).HasName("PK__Recruitm__CE10C6E04714573A");
+
+            entity
+                .ToTable("RecruitmentMaster")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("RecruitmentMasterHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.RecruitmentMasterAppropriateForJobRole).HasMaxLength(50);
+            entity.Property(e => e.RecruitmentMasterAuth).HasDefaultValue(true);
+            entity.Property(e => e.RecruitmentMasterAuthRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.RecruitmentMasterCandidateContactNumber).HasMaxLength(50);
+            entity.Property(e => e.RecruitmentMasterCandidateEmailId).HasMaxLength(50);
+            entity.Property(e => e.RecruitmentMasterCode).HasMaxLength(50);
+            entity.Property(e => e.RecruitmentMasterCurrentCtcpa).HasColumnName("RecruitmentMasterCurrentCTCPA");
+            entity.Property(e => e.RecruitmentMasterExpectedCtcpa).HasColumnName("RecruitmentMasterExpectedCTCPA");
+            entity.Property(e => e.RecruitmentMasterHrcomment)
+                .HasMaxLength(100)
+                .HasColumnName("RecruitmentMasterHRComment");
+            entity.Property(e => e.RecruitmentMasterInterviewerComment).HasMaxLength(100);
+            entity.Property(e => e.RecruitmentMasterIsActive).HasDefaultValue(true);
+            entity.Property(e => e.RecruitmentMasterIsDiscard).HasDefaultValue(true);
+            entity.Property(e => e.RecruitmentMasterNameOfCandidates).HasMaxLength(100);
+            entity.Property(e => e.RecruitmentMasterOfferLetterStatus).HasMaxLength(10);
+            entity.Property(e => e.RecruitmentMasterRecommendedCtcpa).HasColumnName("RecruitmentMasterRecommendedCTCPA");
+            entity.Property(e => e.RecruitmentMasterRecruitmentStageStatusId).HasColumnName("RecruitmentMasterRecruitmentStageStatusID");
+            entity.Property(e => e.RecruitmentMasterReferenceCode).HasMaxLength(10);
+            entity.Property(e => e.RecruitmentMasterReferenceName).HasMaxLength(100);
+            entity.Property(e => e.RecruitmentMasterRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+
+            entity.HasOne(d => d.RecruitmentMasterCity).WithMany(p => p.RecruitmentMasters)
+                .HasForeignKey(d => d.RecruitmentMasterCityId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RecruitmentMasterId_RecruitmentMasterCityId");
+
+            entity.HasOne(d => d.RecruitmentMasterCompany).WithMany(p => p.RecruitmentMasters)
+                .HasForeignKey(d => d.RecruitmentMasterCompanyId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RecruitmentMasterId_RecruitmentMasterCompanyID");
+
+            entity.HasOne(d => d.RecruitmentMasterDesignation).WithMany(p => p.RecruitmentMasters)
+                .HasForeignKey(d => d.RecruitmentMasterDesignationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RecruitmentMasterId_RecruitmentMasterDesignationId");
+
+            entity.HasOne(d => d.RecruitmentMasterDesignationNavigation).WithMany(p => p.RecruitmentMasters)
+                .HasForeignKey(d => d.RecruitmentMasterDesignationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RecruitmentMasterId_RecruitmentMasterRecruitmentStageStatusID");
+
+            entity.HasOne(d => d.RecruitmentMasterGrade).WithMany(p => p.RecruitmentMasters)
+                .HasForeignKey(d => d.RecruitmentMasterGradeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RecruitmentMasterId_RecruitmentMasterGradeId");
+
+            entity.HasOne(d => d.RecruitmentMasterPosition).WithMany(p => p.RecruitmentMasters)
+                .HasForeignKey(d => d.RecruitmentMasterPositionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RecruitmentMasterId_RecruitmentMasterPositionId");
+
+            entity.HasOne(d => d.RecruitmentMasterReference).WithMany(p => p.RecruitmentMasters)
+                .HasForeignKey(d => d.RecruitmentMasterReferenceId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RecruitmentMasterId_RecruitmentMasterReferenceId");
         });
 
         modelBuilder.Entity<RecruitmentReferenceMaster>(entity =>
