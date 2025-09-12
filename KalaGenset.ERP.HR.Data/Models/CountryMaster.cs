@@ -34,6 +34,4 @@ public partial class CountryMaster
     public virtual ICollection<EmployeeMasterPersonalDetail> EmployeeMasterPersonalDetails { get; set; } = new List<EmployeeMasterPersonalDetail>();
 
     public virtual ICollection<StateMaster> StateMasters { get; set; } = new List<StateMaster>();
-
-
 }

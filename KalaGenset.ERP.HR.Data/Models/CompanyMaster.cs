@@ -109,7 +109,11 @@ public partial class CompanyMaster
 
     public virtual CompanyMaster? ParentCompany { get; set; }
 
+    public virtual ICollection<PositionMaster> PositionMasters { get; set; } = new List<PositionMaster>();
+
     public virtual ICollection<ProfitcenterMaster> ProfitcenterMasters { get; set; } = new List<ProfitcenterMaster>();
+
+    public virtual ICollection<RecruitmentMaster> RecruitmentMasters { get; set; } = new List<RecruitmentMaster>();
 
     public virtual CityMaster RegisteredCity { get; set; } = null!;
 

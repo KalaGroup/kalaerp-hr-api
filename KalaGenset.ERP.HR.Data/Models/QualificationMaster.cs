@@ -28,4 +28,6 @@ public partial class QualificationMaster
     public virtual ICollection<DesignationMaster> DesignationMasters { get; set; } = new List<DesignationMaster>();
 
     public virtual QualificationTypeMaster MasterQualificationType { get; set; } = null!;
+
+    public virtual ICollection<PositionMasterQualificationDetail> PositionMasterQualificationDetails { get; set; } = new List<PositionMasterQualificationDetail>();
 }

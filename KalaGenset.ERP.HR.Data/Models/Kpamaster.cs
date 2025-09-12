@@ -34,4 +34,6 @@ public partial class Kpamaster
     public virtual DivisionMaster Kpadivision { get; set; } = null!;
 
     public virtual GradeMaster Kpagrade { get; set; } = null!;
+
+    public virtual ICollection<PositionMaster> PositionMasters { get; set; } = new List<PositionMaster>();
 }

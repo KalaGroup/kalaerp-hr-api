@@ -27,6 +27,8 @@ public partial class ResponsibilitiesMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public virtual ICollection<PositionMaster> PositionMasters { get; set; } = new List<PositionMaster>();
+
     public virtual DesignationMaster ResponsibilitiesDesignation { get; set; } = null!;
 
     public virtual ICollection<ResponsibilitiesDetail> ResponsibilitiesDetails { get; set; } = new List<ResponsibilitiesDetail>();

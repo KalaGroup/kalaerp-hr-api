@@ -46,4 +46,6 @@ public partial class CityMaster
     public virtual ICollection<CompanyMaster> CompanyMasterCorporateCities { get; set; } = new List<CompanyMaster>();
 
     public virtual ICollection<CompanyMaster> CompanyMasterRegisteredCities { get; set; } = new List<CompanyMaster>();
+
+    public virtual ICollection<RecruitmentMaster> RecruitmentMasters { get; set; } = new List<RecruitmentMaster>();
 }
