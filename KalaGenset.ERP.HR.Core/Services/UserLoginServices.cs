@@ -46,7 +46,7 @@ namespace KalaGenset.ERP.HR.Core.Services
             {
                 AccessToken = token,
                 TokenType = "bearer",
-                ExpiresIn = 300,
+                ExpiresIn = 3600,
                 UserId = user.UserId,  // ⚠️ here you wrote `user.UserID` (capital D) in your paste – check spelling
                 EmployeeId = user.UserLoginEmployeeId,
                 FullName = $"{user.UserLoginEmployee.EmployeeMasterFirstName} {user.UserLoginEmployee.EmployeeMasterLastName}",
@@ -79,8 +79,8 @@ namespace KalaGenset.ERP.HR.Core.Services
                 issuer: issuer,
                 audience: audience,
                 claims: claims,
-                // expires: DateTime.UtcNow.AddHours(1),   // expires in 1 hour
-                expires: DateTime.UtcNow.AddMinutes(5),
+                 expires: DateTime.UtcNow.AddHours(1),   // expires in 1 hour
+               // expires: DateTime.UtcNow.AddMinutes(5),
                 signingCredentials: creds);
 
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);

@@ -11,9 +11,13 @@ public partial class PositionMaster
 
     public string PositionMasterName { get; set; } = null!;
 
+    public int PositionMasterEmployeeTypeId { get; set; }
+
     public int PositionMasterCompanyId { get; set; }
 
     public int PositionMasterDivisionId { get; set; }
+
+    public int PositionMasterDepartmentId { get; set; }
 
     public int PositionMasterProfitcenterId { get; set; }
 
@@ -22,6 +26,8 @@ public partial class PositionMaster
     public int PositionMasterDesignationId { get; set; }
 
     public int PositionMasterWorkStationId { get; set; }
+
+    public int PositionMasterPositionCount { get; set; }
 
     public int PositionMasterRolesId { get; set; }
 
@@ -32,8 +38,6 @@ public partial class PositionMaster
     public int PositionMasterAuthoritiesId { get; set; }
 
     public int PositionMasterKpaid { get; set; }
-
-    public int PositionMasterEmployeeTypeId { get; set; }
 
     public string PositionMasterRemark { get; set; } = null!;
 
@@ -54,6 +58,8 @@ public partial class PositionMaster
     public virtual AuthoritiesMaster PositionMasterAuthorities { get; set; } = null!;
 
     public virtual CompanyMaster PositionMasterCompany { get; set; } = null!;
+
+    public virtual DepartmentMaster PositionMasterDepartment { get; set; } = null!;
 
     public virtual DesignationMaster PositionMasterDesignation { get; set; } = null!;
 

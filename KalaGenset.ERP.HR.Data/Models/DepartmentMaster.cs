@@ -42,4 +42,6 @@ public partial class DepartmentMaster
     public virtual ICollection<DepartmentMaster> InverseParentDepartment { get; set; } = new List<DepartmentMaster>();
 
     public virtual DepartmentMaster? ParentDepartment { get; set; }
+
+    public virtual ICollection<PositionMaster> PositionMasters { get; set; } = new List<PositionMaster>();
 }

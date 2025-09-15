@@ -47,5 +47,7 @@ public partial class EmployeeMasterPersonalDetail
 
     public virtual CountryMaster EmployeeMasterNationalityCountry { get; set; } = null!;
 
+    public virtual ICollection<RecruitmentMaster> RecruitmentMasters { get; set; } = new List<RecruitmentMaster>();
+
     public virtual ICollection<UserLogin> UserLogins { get; set; } = new List<UserLogin>();
 }
