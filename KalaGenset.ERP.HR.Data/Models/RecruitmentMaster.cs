@@ -73,11 +73,13 @@ public partial class RecruitmentMaster
 
     public virtual DesignationMaster RecruitmentMasterDesignation { get; set; } = null!;
 
-    public virtual RecruitmentStageStatusMaster RecruitmentMasterDesignationNavigation { get; set; } = null!;
-
     public virtual GradeMaster RecruitmentMasterGrade { get; set; } = null!;
 
+    public virtual EmployeeMasterPersonalDetail RecruitmentMasterInterviewerEmployee { get; set; } = null!;
+
     public virtual PositionMaster RecruitmentMasterPosition { get; set; } = null!;
+
+    public virtual RecruitmentStageStatusMaster RecruitmentMasterRecruitmentStageStatus { get; set; } = null!;
 
     public virtual RecruitmentReferenceMaster RecruitmentMasterReference { get; set; } = null!;
 }

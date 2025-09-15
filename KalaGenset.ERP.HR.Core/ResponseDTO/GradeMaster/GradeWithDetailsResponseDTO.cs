@@ -26,6 +26,7 @@ namespace KalaGenset.ERP.HR.Core.ResponseDTO.GradeMaster
         public bool GradeIsActive { get; set; }
         public double ExperiencedRequired { get; set; }
         public string ExperiencedRemark { get; set; }
+        public CTCStructureResponse CTCStructure { get; set; }
         public List<DesignationResponse> Designations { get; set; } = new List<DesignationResponse>();
         public List<FacilityResponse> FacilityAssignments { get; set; } = new List<FacilityResponse>();
 
@@ -48,6 +49,31 @@ namespace KalaGenset.ERP.HR.Core.ResponseDTO.GradeMaster
     {
         public int GradeFacilityAssignmentId { get; set; }
         public int AssignmentFacilityId { get; set; }
-        public string FacilityName { get; set; } // Assuming you have a Facilities table with FacilityName
+        public string FacilityName { get; set; } 
+    }
+
+    public class CTCStructureResponse
+    {
+        public int? CTCId { get; set; }
+        public int? CTCMasterBasic { get; set; }
+        public int? CTCMasterBonus { get; set; }
+        public int? CTCMasterCarAllowance { get; set; }
+        public int? CTCMasterCityCompensatoryAlowance { get; set; }
+        public int? CTCMasterConvAllowance { get; set; }
+        public int? CTCMasterDA { get; set; }
+        public int? CTCMasterDriverAllowance { get; set; }
+        public int? CTCMasterEsic { get; set; }
+        public int? CTCMasterFuelAllowance { get; set; }
+        public int? CTCMasterGraduity { get; set; }
+        public int? CTCMasterGross { get; set; }
+        public int? CTCMasterHRA { get; set; }
+        public int? CTCMasterLeaveTravelAllowance { get; set; }
+        public int? CTCMasterMLWF { get; set; }
+        public int? CTCMasterMedicalInsurance { get; set; }
+        public int? CTCMasterMiscAllowance { get; set; }
+        public int? CTCMasterPFEmployee { get; set; }
+        public int? CTCMasterPFEmployer { get; set; }
+        public int? CTCMasterPT { get; set; }
+        public int? CTCMasterPerformanceKPA { get; set; }    
     }
 }

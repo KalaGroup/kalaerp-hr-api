@@ -13,8 +13,8 @@ namespace KalaGenset.ERP.HR.API.Controllers
     {
         private readonly IGradeMaster _gradeMaster;
         private readonly IValidator<InsertGradeRequest> _insertGradeValidator;
-        private readonly IValidator<UpdateGradeRequest> _updateGradeValidator;
-        public GradeMasterController(IGradeMaster GradeMaster, IValidator<InsertGradeRequest> InsertGradeValidator, IValidator<UpdateGradeRequest> UpdateGradeValidator)
+        private readonly IValidator<UpdateGradeDetailsRequest> _updateGradeValidator;
+        public GradeMasterController(IGradeMaster GradeMaster, IValidator<InsertGradeRequest> InsertGradeValidator, IValidator<UpdateGradeDetailsRequest> UpdateGradeValidator)
         {
             _gradeMaster = GradeMaster;
             _insertGradeValidator = InsertGradeValidator;
@@ -49,7 +49,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPut("updategrade")]
-        public async Task<IActionResult> UpdateGrade(UpdateGradeRequest request)
+        public async Task<IActionResult> UpdateGrade(UpdateGradeDetailsRequest request)
         {
             var validationResult = await _updateGradeValidator.ValidateAsync(request);
             if (!validationResult.IsValid)
@@ -58,7 +58,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             }
             try
             {
-                await _gradeMaster.UpdateGradeAsync(request);
+                await _gradeMaster.UpdateGradeDetailsAsync(request);
                 return Ok();
             }
             catch (Exception ex)
@@ -93,12 +93,12 @@ namespace KalaGenset.ERP.HR.API.Controllers
         /// <param name="GradeId"></param>
         /// <returns></returns>
         [HttpDelete("deletegrade/{GradeId}")]
-        public async Task<IActionResult> DeleteGrade(int GradeId)
+        public async Task<IActionResult> DeleteGradeAndDetails(int GradeId)
         {
             try
             {
-                await _gradeMaster.DeleteGradeAsync(GradeId);
-                return Ok("Grade soft-deleted successfully (GradeIsActive = false).");
+                await _gradeMaster.DeleteGradeDetailsAsync(GradeId);
+                return Ok();
             }
             catch (Exception ex)
             {

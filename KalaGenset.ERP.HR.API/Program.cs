@@ -167,7 +167,7 @@ builder.Services.AddScoped<IValidator<InsertDepartmentRequest>, InsertDepartment
 builder.Services.AddScoped<IValidator<UpdateDepartmentRequest>, UpdateDepartmentRequestValidator>();
 builder.Services.AddScoped<IGradeMaster, GradeMasterService>();
 builder.Services.AddScoped<IValidator<InsertGradeRequest>, InsertGradeRequestValidator>();
-builder.Services.AddScoped<IValidator<UpdateGradeRequest>, UpdateGradeRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateGradeDetailsRequest>, UpdateGradeRequestValidator>();
 builder.Services.AddScoped<IClassOfTravelMaster, ClassOfTravelMasterService>();
 builder.Services.AddScoped<IValidator<InsertClassOfTravelRequest>, InsertClassOfTravelRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateClassOfTravelRequest>, UpdateClassOfTravelRequestValidator>();
