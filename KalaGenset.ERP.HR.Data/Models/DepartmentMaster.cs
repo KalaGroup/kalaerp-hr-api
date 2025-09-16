@@ -35,6 +35,8 @@ public partial class DepartmentMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public virtual ICollection<DepartmentBudget> DepartmentBudgets { get; set; } = new List<DepartmentBudget>();
+
     public virtual DivisionMaster? DepartmentDivision { get; set; }
 
     public virtual ProfitcenterMaster DepartmentProfitcenter { get; set; } = null!;
