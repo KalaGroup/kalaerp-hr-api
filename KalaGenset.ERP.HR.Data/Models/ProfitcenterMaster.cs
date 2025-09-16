@@ -41,5 +41,7 @@ public partial class ProfitcenterMaster
 
     public virtual CompanyMaster ProfitCenterCompany { get; set; } = null!;
 
+    public virtual ICollection<ProfitcenterBudget> ProfitcenterBudgets { get; set; } = new List<ProfitcenterBudget>();
+
     public virtual ICollection<WorkStationMaster> WorkStationMasters { get; set; } = new List<WorkStationMaster>();
 }
