@@ -65,15 +65,42 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public async Task<ShiftMaster?> GetShiftByID(int Id)
-        {
-            return await _context.ShiftMasters.FirstOrDefaultAsync(c => c.ShiftMasterId == Id);
+        //  public async Task<ShiftMaster?> GetShiftByID(int Id)
+        //  {
+        //     return await _context.ShiftMasters.FirstOrDefaultAsync(c => c.ShiftMasterId == Id);
 
-        }
+        // }
         /// <summary>
         /// Get All Shift Details
         /// </summary>
         /// <returns></returns>
+        /// 
+        public async Task<ShiftMasterResponseDTO?> GetShiftByIDAsync(int id)
+        {
+            return await _context.ShiftMasters
+                .Where(c => c.ShiftMasterId == id)
+                .Include(c => c.ShiftMasterCompany)
+                .Include(c => c.ShiftMasterEmployeeType)
+                .Select(c => new ShiftMasterResponseDTO
+                {
+                    ShiftMasterId = c.ShiftMasterId,
+                    ShiftMasterName = c.ShiftMasterName,
+                    ShiftMasterAliseName = c.ShiftMasterAliseName,
+                    ShiftMasterStartTime = c.ShiftMasterStartTime,
+                    ShiftMasterEndTime = c.ShiftMasterEndTime,
+                    ShiftMasterLunchStartTime = c.ShiftMasterLunchStartTime,
+                    ShiftMasterLunchEndTime = c.ShiftMasterLunchEndTime,
+                    ShiftMasterRemark = c.ShiftMasterRemark,
+                    ShiftMasterAuthRemark = c.ShiftMasterAuthRemark,
+                    ShiftMasterAuth = c.ShiftMasterAuth,
+                    ShiftMasterIsDiscard = c.ShiftMasterIsDiscard,
+                    ShiftMasterIsActive = c.ShiftMasterIsActive,
+                    CompanyName = c.ShiftMasterCompany.CompanyName,
+                    EmployeeTypeName = c.ShiftMasterEmployeeType.EmployeeTypeName,
+                })
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<ShiftMasterResponseDTO>> GetShiftDetailsAsync()
         {
 

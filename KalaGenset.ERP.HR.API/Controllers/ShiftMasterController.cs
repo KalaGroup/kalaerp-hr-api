@@ -61,7 +61,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         {
             try
             {
-                var result = await _shiftMaster.GetShiftByID(Id);
+                var result = await _shiftMaster.GetShiftByIDAsync(Id);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -87,7 +87,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
 
-        [HttpPut("UpdateLocation")]
+        [HttpPut("UpdateShift")]
         public async Task<IActionResult> UpdateShift([FromBody] UpdateShiftMasterRequest request)
         {
             var validationResult = await _updateshiftValidator.ValidateAsync(request);

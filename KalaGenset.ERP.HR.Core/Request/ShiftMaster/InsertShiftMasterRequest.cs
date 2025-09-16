@@ -8,8 +8,7 @@ namespace KalaGenset.ERP.HR.Core.Request.ShiftMaster
 {
     public class InsertShiftMasterRequest
     {
-        public int ShiftMasterId { get; set; }
-
+        
         public int ShiftMasterCompanyId { get; set; }
 
         public int ShiftMasterEmployeeTypeId { get; set; }

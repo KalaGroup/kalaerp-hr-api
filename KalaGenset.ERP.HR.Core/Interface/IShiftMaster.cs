@@ -23,7 +23,8 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public Task<ShiftMaster?> GetShiftByID(int Id);
+        //  public Task<ShiftMaster?> GetShiftByID(int Id);
+        public  Task<ShiftMasterResponseDTO?> GetShiftByIDAsync(int id);
         /// <summary>
         /// Get All Shift Details
         /// </summary>

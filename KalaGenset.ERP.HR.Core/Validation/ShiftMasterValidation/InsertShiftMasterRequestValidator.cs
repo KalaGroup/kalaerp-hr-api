@@ -28,7 +28,16 @@ namespace KalaGenset.ERP.HR.Core.Validation.ShiftMasterValidation
                 .MaximumLength(10)
                 .Matches("^[a-zA-Z0-9]*$").WithMessage("ShiftMasterAliseName must not contain special characters.");
 
-           
+            RuleFor(x => x.ShiftMasterCompanyId)
+               .GreaterThan(0).WithMessage("Master company ID must be greater than 0.")
+               .NotEmpty().WithMessage("Company ID is required.");
+
+            RuleFor(x => x.ShiftMasterEmployeeTypeId)
+                .GreaterThan(0).WithMessage("Master EmployeeType ID must be greater than 0.")
+                .NotEmpty().WithMessage("Employee ID is required.");
+
+
+
         }
 
         private async Task<bool> BeUniqueShiftName(string ShiftMasterName, CancellationToken cancellationToken)
