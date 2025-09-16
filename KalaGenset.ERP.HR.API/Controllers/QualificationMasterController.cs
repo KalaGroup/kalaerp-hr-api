@@ -129,5 +129,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             var qualifications = await _qualificationMaster.GetQualificationIdAndNameFromDB();
             return Ok(qualifications);
         }
+
+
     }
 }

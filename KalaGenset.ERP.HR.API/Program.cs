@@ -34,6 +34,7 @@ using KalaGenset.ERP.HR.Core.Request.RecruitmentStageStatusMaster;
 using KalaGenset.ERP.HR.Core.Request.ResposibilitiesMaster;
 using KalaGenset.ERP.HR.Core.Request.StateRequest;
 using KalaGenset.ERP.HR.Core.Request.Workstation;
+using KalaGenset.ERP.HR.Core.Request.ShiftMaster;
 using KalaGenset.ERP.HR.Core.Services;
 using KalaGenset.ERP.HR.Core.Validation.ActivityMaster;
 using KalaGenset.ERP.HR.Core.Validation.AuthoritieMaster;
@@ -64,6 +65,7 @@ using KalaGenset.ERP.HR.Core.Validation.RecruitmentStageStatusMaster;
 using KalaGenset.ERP.HR.Core.Validation.RolesMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.StateValidator;
 using KalaGenset.ERP.HR.Core.Validation.WorkstationMasterValidation;
+using KalaGenset.ERP.HR.Core.Validation.ShiftMasterValidation;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -122,6 +124,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertRolesMasterValidator>
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateRolesMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertRecruitmentReferenceMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateRecruitmentReferenceMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertShiftMasterRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateShiftMasterRequestValidator>();
 
 //registering service
 builder.Services.AddScoped<IUserLogin, UserLoginServices>();
@@ -224,6 +228,9 @@ builder.Services.AddScoped<IRoleDetails, RoleDetailsService>();
 builder.Services.AddScoped<IRecruitmentReferenceMaster, RecruitmentReferenceMasterServices>();
 builder.Services.AddScoped<IValidator<InsertRecruitmentReferenceMasterRequest>, InsertRecruitmentReferenceMasterValidator>();
 builder.Services.AddScoped<IValidator<UpdateRecruitmentReferenceMasterRequest>, UpdateRecruitmentReferenceMasterValidator>();
+builder.Services.AddScoped<IShiftMaster, ShiftMasterService>();
+builder.Services.AddScoped<IValidator<InsertShiftMasterRequest>, InsertShiftMasterRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateShiftMasterRequest>, UpdateShiftMasterRequestValidator>();
 
 
 
