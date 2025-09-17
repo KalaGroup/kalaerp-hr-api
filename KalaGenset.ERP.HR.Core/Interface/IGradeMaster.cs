@@ -22,7 +22,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public Task UpdateGradeAsync(UpdateGradeRequest request);
+        public Task UpdateGradeDetailsAsync(UpdateGradeDetailsRequest request);
         /// <summary>
         /// Retrieves all Grades from the database.
         /// </summary>
@@ -46,5 +46,8 @@ namespace KalaGenset.ERP.HR.Core.Interface
 
         //Get Grade Details along with designation and facility
         public Task<List<GradeWithDetailsResponseDTO>> GetAllGradesWithDetailsAsync();
+
+        //Delete Grade and its dependency
+        public Task DeleteGradeDetailsAsync(int gradeId);
     }
 }

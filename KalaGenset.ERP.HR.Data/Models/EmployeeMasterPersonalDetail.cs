@@ -45,7 +45,15 @@ public partial class EmployeeMasterPersonalDetail
 
     public DateTime CreatedDate { get; set; }
 
+    public virtual ICollection<DepartmentBudget> DepartmentBudgets { get; set; } = new List<DepartmentBudget>();
+
     public virtual CountryMaster EmployeeMasterNationalityCountry { get; set; } = null!;
 
+    public virtual ICollection<ProfitcenterBudget> ProfitcenterBudgets { get; set; } = new List<ProfitcenterBudget>();
+
+    public virtual ICollection<RecruitmentMaster> RecruitmentMasters { get; set; } = new List<RecruitmentMaster>();
+
     public virtual ICollection<UserLogin> UserLogins { get; set; } = new List<UserLogin>();
+
+    public virtual ICollection<WorkstationBudget> WorkstationBudgets { get; set; } = new List<WorkstationBudget>();
 }

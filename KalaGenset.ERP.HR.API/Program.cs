@@ -35,6 +35,7 @@ using KalaGenset.ERP.HR.Core.Request.RecruitmentStageStatusMaster;
 using KalaGenset.ERP.HR.Core.Request.ResposibilitiesMaster;
 using KalaGenset.ERP.HR.Core.Request.StateRequest;
 using KalaGenset.ERP.HR.Core.Request.Workstation;
+using KalaGenset.ERP.HR.Core.Request.ShiftMaster;
 using KalaGenset.ERP.HR.Core.Services;
 using KalaGenset.ERP.HR.Core.Validation.ActivityMaster;
 using KalaGenset.ERP.HR.Core.Validation.AuthoritieMaster;
@@ -66,6 +67,7 @@ using KalaGenset.ERP.HR.Core.Validation.RecruitmentStageStatusMaster;
 using KalaGenset.ERP.HR.Core.Validation.RolesMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.StateValidator;
 using KalaGenset.ERP.HR.Core.Validation.WorkstationMasterValidation;
+using KalaGenset.ERP.HR.Core.Validation.ShiftMasterValidation;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -126,6 +128,9 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertRecruitmentReferenceM
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateRecruitmentReferenceMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertRecruitmentMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateRecruitmentReferenceMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertShiftMasterRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateShiftMasterRequestValidator>();
+
 
 //registering service
 builder.Services.AddScoped<IUserLogin, UserLoginServices>();
@@ -171,7 +176,7 @@ builder.Services.AddScoped<IValidator<InsertDepartmentRequest>, InsertDepartment
 builder.Services.AddScoped<IValidator<UpdateDepartmentRequest>, UpdateDepartmentRequestValidator>();
 builder.Services.AddScoped<IGradeMaster, GradeMasterService>();
 builder.Services.AddScoped<IValidator<InsertGradeRequest>, InsertGradeRequestValidator>();
-builder.Services.AddScoped<IValidator<UpdateGradeRequest>, UpdateGradeRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateGradeDetailsRequest>, UpdateGradeRequestValidator>();
 builder.Services.AddScoped<IClassOfTravelMaster, ClassOfTravelMasterService>();
 builder.Services.AddScoped<IValidator<InsertClassOfTravelRequest>, InsertClassOfTravelRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateClassOfTravelRequest>, UpdateClassOfTravelRequestValidator>();
@@ -231,6 +236,10 @@ builder.Services.AddScoped<IValidator<UpdateRecruitmentReferenceMasterRequest>, 
 builder.Services.AddScoped<IRecruitmentMaster, RecruitmentMasterService>();
 builder.Services.AddScoped<IValidator<InsertRecruitmentMasterRequest>, InsertRecruitmentMasterValidator>();
 builder.Services.AddScoped<IValidator<UpdateRecruitmentMasterRequest>, UpdateRecruitmentMasterValidator>();
+builder.Services.AddScoped<IShiftMaster, ShiftMasterService>();
+builder.Services.AddScoped<IValidator<InsertShiftMasterRequest>, InsertShiftMasterRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateShiftMasterRequest>, UpdateShiftMasterRequestValidator>();
+
 
 
 

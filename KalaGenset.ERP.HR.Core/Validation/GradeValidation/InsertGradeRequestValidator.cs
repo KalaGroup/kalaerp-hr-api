@@ -77,79 +77,79 @@ namespace KalaGenset.ERP.HR.Core.Validation.GradeValidation
         {
             _context = context;
 
-            // Validate GradeData
-            RuleFor(x => x.GradeData).NotNull().WithMessage("Grade data is required.");
+            // Validate gradeData
+            RuleFor(x => x.gradeData).NotNull().WithMessage("Grade data is required.");
 
-            When(x => x.GradeData != null, () => {
+            When(x => x.gradeData != null, () => {
                 // Grade Basic Information
-                RuleFor(x => x.GradeData.GradeCode)
+                RuleFor(x => x.gradeData.GradeCode)
                     .NotEmpty().WithMessage("Grade code is required.")
                     .MaximumLength(10).WithMessage("Grade code must be less than 10 characters.")
                     .Matches("^[0-9]*$").WithMessage("Grade code must be numeric digits (e.g., '001', '002') & must not contain special characters.")
                     .MustAsync(BeUniqueGradeCode).WithMessage("Grade code already exists.");
 
-                RuleFor(x => x.GradeData.GradeName)
+                RuleFor(x => x.gradeData.GradeName)
                     .NotEmpty().WithMessage("Grade name is required.")
                     .MaximumLength(100).WithMessage("Grade name cannot exceed 100 characters.")
                     .Matches("^[A-Z0-9 ]*$").WithMessage("Grade name must be uppercase and must not contain special characters.")
                     .MustAsync(BeUniqueGradeName).WithMessage("Grade name already exists.");
 
-                RuleFor(x => x.GradeData.GradeLevel)
+                RuleFor(x => x.gradeData.GradeLevel)
                     .NotEmpty().WithMessage("Grade level is required.")
                     .MaximumLength(100).WithMessage("Grade level cannot exceed 100 characters.");
 
-                RuleFor(x => x.GradeData.GradeDescription)
+                RuleFor(x => x.gradeData.GradeDescription)
                     .NotEmpty().WithMessage("Grade description is required.")
                     .MaximumLength(100).WithMessage("Description cannot exceed 100 characters.");
 
                 // Salary Information
-                RuleFor(x => x.GradeData.MinSalCTC)
+                RuleFor(x => x.gradeData.MinSalCTC)
                     .GreaterThanOrEqualTo(0).WithMessage("Minimum CTC must be non-negative.");
 
-                RuleFor(x => x.GradeData.MaxSalCTC)
-                    .GreaterThanOrEqualTo(x => x.GradeData.MinSalCTC).WithMessage("Maximum CTC must be greater than or equal to Minimum CTC.");
+                RuleFor(x => x.gradeData.MaxSalCTC)
+                    .GreaterThanOrEqualTo(x => x.gradeData.MinSalCTC).WithMessage("Maximum CTC must be greater than or equal to Minimum CTC.");
 
-                RuleFor(x => x.GradeData.GradeCurrencyId)
+                RuleFor(x => x.gradeData.GradeCurrencyId)
                     .GreaterThan(0).WithMessage("Currency ID must be valid.")
                     .MustAsync(CurrencyMustExist).WithMessage("GradeCurrency ID does not exist.");
 
                 // Employment Terms
-                RuleFor(x => x.GradeData.LeaveEntitlementAnnual)
+                RuleFor(x => x.gradeData.LeaveEntitlementAnnual)
                     .GreaterThanOrEqualTo(0).WithMessage("Leave entitlement must be non-negative.")
                     .LessThanOrEqualTo(365).WithMessage("Leave entitlement cannot exceed 365 days.");
 
-                RuleFor(x => x.GradeData.ProbationPeriod)
+                RuleFor(x => x.gradeData.ProbationPeriod)
                     .GreaterThanOrEqualTo(0).WithMessage("Probation period must be non-negative.")
                     .LessThanOrEqualTo(24).WithMessage("Probation period cannot exceed 24 months.");
 
-                RuleFor(x => x.GradeData.NoticePeriod)
+                RuleFor(x => x.gradeData.NoticePeriod)
                     .GreaterThanOrEqualTo(0).WithMessage("Notice period must be non-negative.")
                     .LessThanOrEqualTo(12).WithMessage("Notice period cannot exceed 12 months.");
 
-                RuleFor(x => x.GradeData.ExperiencedRequired)
+                RuleFor(x => x.gradeData.ExperiencedRequired)
                     .GreaterThanOrEqualTo(0).WithMessage("Experience required must be non-negative.")
                     .LessThanOrEqualTo(50).WithMessage("Experience required cannot exceed 50 years.");
 
-                RuleFor(x => x.GradeData.ExperiencedRemark)
+                RuleFor(x => x.gradeData.ExperiencedRemark)
                     .NotEmpty().WithMessage("Experience remark is required.")
                     .MaximumLength(100).WithMessage("Experience remark cannot exceed 100 characters.");
 
-                RuleFor(x => x.GradeData.GradeRemark)
+                RuleFor(x => x.gradeData.GradeRemark)
                     .NotEmpty().WithMessage("Grade remark is required.")
                     .MaximumLength(100).WithMessage("Remark cannot exceed 100 characters.");
 
                 // Status Fields
-                RuleFor(x => x.GradeData.GradeIsActive)
+                RuleFor(x => x.gradeData.GradeIsActive)
                     .NotNull().WithMessage("Active status is required.");
             });
 
-            // Validate Designations Collection
-            RuleFor(x => x.Designations)
-                .NotNull().WithMessage("Designations are required.")
+            // Validate designations Collection
+            RuleFor(x => x.designations)
+                .NotNull().WithMessage("designations are required.")
                 .Must(x => x != null && x.Count > 0).WithMessage("At least one designation is required.");
 
             // Validate Each Designation
-            RuleForEach(x => x.Designations).ChildRules(designation => {
+            RuleForEach(x => x.designations).ChildRules(designation => {
                 designation.RuleFor(d => d.DesignationCode)
                     .NotEmpty().WithMessage("Designation Code is required.")
                     .MaximumLength(10).WithMessage("Designation Code cannot exceed 10 characters.")
@@ -209,12 +209,6 @@ namespace KalaGenset.ERP.HR.Core.Validation.GradeValidation
         private async Task<bool> QualificationMustExist(int qualificationId, CancellationToken cancellationToken)
         {
             return await _context.QualificationMasters.AnyAsync(q => q.QualificationId == qualificationId, cancellationToken);
-        }
-
-        // Facility Validation Methods
-        private async Task<bool> FacilityMustExist(int facilityId, CancellationToken cancellationToken)
-        {
-            return await _context.FacilityMasters.AnyAsync(f => f.FacilityId == facilityId, cancellationToken);
         }
     }
 

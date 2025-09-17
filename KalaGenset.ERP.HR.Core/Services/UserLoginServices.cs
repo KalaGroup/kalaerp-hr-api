@@ -79,6 +79,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                 issuer: issuer,
                 audience: audience,
                 claims: claims,
+
                 // expires: DateTime.UtcNow.AddHours(1),   // expires in 1 hour
                 expires: DateTime.UtcNow.AddMinutes(60),
                 signingCredentials: creds);
