@@ -109,6 +109,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                                   join g in context.GradeMasters on r.ActivityGradeId equals g.GradeId
                                   join d in context.DesignationMasters on r.ActivityDesignationId equals d.DesignationId
                                   join div in context.DivisionMasters on r.ActivityDivisionId equals div.DivisionId
+                                  where r.ActivityIsActive == true
                                   select new InsertActivityMasterDTO
                                   {
                                       ActivityId = r.ActivityId,

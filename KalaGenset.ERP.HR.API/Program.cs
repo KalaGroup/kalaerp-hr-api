@@ -29,6 +29,7 @@ using KalaGenset.ERP.HR.Core.Request.LocationRequest;
 using KalaGenset.ERP.HR.Core.Request.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Core.Request.QualificationRequest;
 using KalaGenset.ERP.HR.Core.Request.RecruitmentAttributeMaster;
+using KalaGenset.ERP.HR.Core.Request.RecruitmentMaster;
 using KalaGenset.ERP.HR.Core.Request.RecruitmentReferenceMaster;
 using KalaGenset.ERP.HR.Core.Request.RecruitmentStageStatusMaster;
 using KalaGenset.ERP.HR.Core.Request.ResposibilitiesMaster;
@@ -60,6 +61,7 @@ using KalaGenset.ERP.HR.Core.Validation.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Core.Validation.QualificationTypeMaster;
 using KalaGenset.ERP.HR.Core.Validation.QualificationValidator;
 using KalaGenset.ERP.HR.Core.Validation.RecruitmentAttributeMasterValidation;
+using KalaGenset.ERP.HR.Core.Validation.RecruitmentMaster;
 using KalaGenset.ERP.HR.Core.Validation.RecruitmentReferenceMaster;
 using KalaGenset.ERP.HR.Core.Validation.RecruitmentStageStatusMaster;
 using KalaGenset.ERP.HR.Core.Validation.RolesMasterValidation;
@@ -124,8 +126,11 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertRolesMasterValidator>
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateRolesMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertRecruitmentReferenceMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateRecruitmentReferenceMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertRecruitmentMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateRecruitmentReferenceMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertShiftMasterRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateShiftMasterRequestValidator>();
+
 
 //registering service
 builder.Services.AddScoped<IUserLogin, UserLoginServices>();
@@ -228,9 +233,13 @@ builder.Services.AddScoped<IRoleDetails, RoleDetailsService>();
 builder.Services.AddScoped<IRecruitmentReferenceMaster, RecruitmentReferenceMasterServices>();
 builder.Services.AddScoped<IValidator<InsertRecruitmentReferenceMasterRequest>, InsertRecruitmentReferenceMasterValidator>();
 builder.Services.AddScoped<IValidator<UpdateRecruitmentReferenceMasterRequest>, UpdateRecruitmentReferenceMasterValidator>();
+builder.Services.AddScoped<IRecruitmentMaster, RecruitmentMasterService>();
+builder.Services.AddScoped<IValidator<InsertRecruitmentMasterRequest>, InsertRecruitmentMasterValidator>();
+builder.Services.AddScoped<IValidator<UpdateRecruitmentMasterRequest>, UpdateRecruitmentMasterValidator>();
 builder.Services.AddScoped<IShiftMaster, ShiftMasterService>();
 builder.Services.AddScoped<IValidator<InsertShiftMasterRequest>, InsertShiftMasterRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateShiftMasterRequest>, UpdateShiftMasterRequestValidator>();
+
 
 
 
