@@ -66,8 +66,10 @@ using KalaGenset.ERP.HR.Core.Validation.RolesMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.StateValidator;
 using KalaGenset.ERP.HR.Core.Validation.WorkstationMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.ShiftMasterValidation;
+using KalaGenset.ERP.HR.Core.Validation.DepartmentBudget;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
+using KalaGenset.ERP.HR.Core.Request.DepartmentBudget;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -126,6 +128,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertRecruitmentReferenceM
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateRecruitmentReferenceMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertShiftMasterRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateShiftMasterRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertDepartmentRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateDepartmentRequestValidator>();
 
 //registering service
 builder.Services.AddScoped<IUserLogin, UserLoginServices>();
@@ -231,6 +235,9 @@ builder.Services.AddScoped<IValidator<UpdateRecruitmentReferenceMasterRequest>, 
 builder.Services.AddScoped<IShiftMaster, ShiftMasterService>();
 builder.Services.AddScoped<IValidator<InsertShiftMasterRequest>, InsertShiftMasterRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateShiftMasterRequest>, UpdateShiftMasterRequestValidator>();
+builder.Services.AddScoped<IDepartmentBudget, DepartmentBudgetService>();
+builder.Services.AddScoped<IValidator<InsertDepartmentBudgetRequest>, InsertDepartmentBudgetRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateDepartmentBudgetRequest>, UpdateDepartmentBudgetRequestValidator>();
 
 
 
