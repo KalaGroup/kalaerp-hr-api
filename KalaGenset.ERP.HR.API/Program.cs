@@ -68,10 +68,12 @@ using KalaGenset.ERP.HR.Core.Validation.RolesMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.StateValidator;
 using KalaGenset.ERP.HR.Core.Validation.WorkstationMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.ShiftMasterValidation;
+using KalaGenset.ERP.HR.Core.Validation.DepartmentBudget;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using KalaGenset.ERP.HR.Core.Request.ProfitcenterBudget;
 using KalaGenset.ERP.HR.Core.Validation.ProfitcenterBudget;
+using KalaGenset.ERP.HR.Core.Request.DepartmentBudget;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -134,6 +136,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertShiftMasterRequestVal
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateShiftMasterRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertProfitcenterBudgetRequest>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateProfitcenterBudgetRequest>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertDepartmentRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateDepartmentRequestValidator>();
 
 
 //registering service
@@ -246,6 +250,8 @@ builder.Services.AddScoped<IValidator<UpdateShiftMasterRequest>, UpdateShiftMast
 builder.Services.AddScoped<IProfitcenterBudget, ProfitcenterBudgetService>();
 builder.Services.AddScoped<IValidator<InsertProfitcenterBudgetRequest>, InsertProfitcenterBudgetRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateProfitcenterBudgetRequest>, UpdateProfitcenterBudgetRequestValidator>();
+builder.Services.AddScoped<IDepartmentBudget, DepartmentBudgetService>();
+builder.Services.AddScoped<IValidator<InsertDepartmentBudgetRequest>, InsertDepartmentBudgetRequestValidator>();
 
 
 
