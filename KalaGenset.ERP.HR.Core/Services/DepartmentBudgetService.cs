@@ -188,7 +188,5 @@ namespace KalaGenset.ERP.HR.Core.Services
         }
 
     }
-
-    
     
 }
