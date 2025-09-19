@@ -71,6 +71,8 @@ using KalaGenset.ERP.HR.Core.Validation.ShiftMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.DepartmentBudget;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
+using KalaGenset.ERP.HR.Core.Request.ProfitcenterBudget;
+using KalaGenset.ERP.HR.Core.Validation.ProfitcenterBudget;
 using KalaGenset.ERP.HR.Core.Request.DepartmentBudget;
 using KalaGenset.ERP.HR.Core.Request.WorkstationBudget;
 using KalaGenset.ERP.HR.Core.Validation.WorkstationBudgetValidation;
@@ -134,6 +136,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertRecruitmentMasterVali
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateRecruitmentReferenceMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertShiftMasterRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateShiftMasterRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertProfitcenterBudgetRequest>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateProfitcenterBudgetRequest>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertDepartmentRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateDepartmentRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertWorkstationBudgetRequestValidator>();
@@ -246,6 +250,9 @@ builder.Services.AddScoped<IValidator<UpdateRecruitmentMasterRequest>, UpdateRec
 builder.Services.AddScoped<IShiftMaster, ShiftMasterService>();
 builder.Services.AddScoped<IValidator<InsertShiftMasterRequest>, InsertShiftMasterRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateShiftMasterRequest>, UpdateShiftMasterRequestValidator>();
+builder.Services.AddScoped<IProfitcenterBudget, ProfitcenterBudgetService>();
+builder.Services.AddScoped<IValidator<InsertProfitcenterBudgetRequest>, InsertProfitcenterBudgetRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateProfitcenterBudgetRequest>, UpdateProfitcenterBudgetRequestValidator>();
 builder.Services.AddScoped<IDepartmentBudget, DepartmentBudgetService>();
 builder.Services.AddScoped<IValidator<InsertDepartmentBudgetRequest>, InsertDepartmentBudgetRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateDepartmentBudgetRequest>, UpdateDepartmentBudgetRequestValidator>();
