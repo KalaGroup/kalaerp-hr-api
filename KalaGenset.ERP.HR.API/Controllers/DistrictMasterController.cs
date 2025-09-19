@@ -4,6 +4,7 @@ using KalaGenset.ERP.HR.Core.Request.District;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace KalaGenset.ERP.HR.API.Controllers
 {
@@ -32,19 +33,29 @@ namespace KalaGenset.ERP.HR.API.Controllers
         [HttpPost("CreatedDistrict")]
         public async Task<IActionResult> CreatedDistrict([FromBody] InsertDistrictRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data.");
+            }
             var validationResult = await _insertvalidator.ValidateAsync(request);
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);
+                var errors = validationResult.Errors
+                .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
+                .FirstOrDefault();
+
+                return BadRequest(errors);
             }
             try
             {
                 await _districtmaster.AddDistrictMasterAsync(request);
-                return Ok("District Added Successfully.");
+                return Ok();
+
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"An error occurred while adding District: {ex.Message}");
+                // Log the exception (not implemented here)
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Internal server error: {ex.Message}");
             }
         }
 
@@ -88,7 +99,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _districtmaster.UpdateDistrictMasterAsync(request);
-                return Ok("District updated successfully.");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -107,7 +118,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
             try
             {
                 await _districtmaster.DeleteDistrictMasterAsync(DistrictId);
-                return Ok("District Deleted Successfully.");
+                return Ok();
             }
             catch (Exception)
             {

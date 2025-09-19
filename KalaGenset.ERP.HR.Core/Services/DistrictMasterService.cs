@@ -63,10 +63,36 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// </summary>
         /// <returns></returns>
 
-        public async Task<IEnumerable<DistrictMaster>> GetDistrictMasterDetailsAsync()
+        public async Task<IEnumerable<DistrictMasterDTO>> GetDistrictMasterDetailsAsync()
         {
-            return await _context.DistrictMasters.Where(c => c.IsActive == true && c.IsDiscard == true).ToListAsync();
+            var result = await (
+                from d in _context.DistrictMasters
+                join c in _context.CountryMasters on d.CountryId equals c.CountryId
+                join s in _context.StateMasters on d.StateId equals s.StateId
+                where d.IsActive == true
+                select new DistrictMasterDTO
+                {
+                    DistrictId = d.DistrictId,
+                    CountryName = c.CountryName,
+                    StateName = s.StateName,
+                    DistrictCode = d.DistrictCode,
+                    DistrictName = d.DistrictName,
+                    ShortName = d.ShortName,
+                    IsDiscard = d.IsDiscard,
+                    IsActive = d.IsActive,
+                    CreatedBy = d.CreatedBy,
+                    CreatedDate = d.CreatedDate,
+                    DistrictMasterRemark = d.DistrictMasterRemark,
+                    DistrictMasterAuthRemark = d.DistrictMasterAuthRemark,
+                    DistrictMasterAuth = d.DistrictMasterAuth
+
+                }
+            ).ToListAsync();
+
+            return result;
         }
+
+
 
         /// <summary>
         /// GetDistrictMasterById

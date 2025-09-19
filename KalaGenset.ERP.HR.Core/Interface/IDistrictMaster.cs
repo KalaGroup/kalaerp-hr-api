@@ -14,7 +14,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
 
         public Task AddDistrictMasterAsync(InsertDistrictRequest request); 
         public Task UpdateDistrictMasterAsync(UpdateDistrictRequest request);
-        public Task<IEnumerable<DistrictMaster>> GetDistrictMasterDetailsAsync();
+        public Task<IEnumerable<DistrictMasterDTO>> GetDistrictMasterDetailsAsync();
         public Task<DistrictMaster?> GetDistrictMasterById(int DistrictId);
         public Task DeleteDistrictMasterAsync(int DistrictId);
         /// <summary>
