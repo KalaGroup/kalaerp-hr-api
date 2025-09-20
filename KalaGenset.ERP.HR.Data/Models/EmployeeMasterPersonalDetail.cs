@@ -47,6 +47,8 @@ public partial class EmployeeMasterPersonalDetail
 
     public virtual ICollection<DepartmentBudget> DepartmentBudgets { get; set; } = new List<DepartmentBudget>();
 
+    public virtual ICollection<EmployeeLeaveBalance> EmployeeLeaveBalances { get; set; } = new List<EmployeeLeaveBalance>();
+
     public virtual CountryMaster EmployeeMasterNationalityCountry { get; set; } = null!;
 
     public virtual ICollection<ProfitcenterBudget> ProfitcenterBudgets { get; set; } = new List<ProfitcenterBudget>();

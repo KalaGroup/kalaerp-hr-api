@@ -40,4 +40,4 @@ public partial class DistrictMaster
     public virtual CountryMaster Country { get; set; } = null!;
 
     public virtual StateMaster State { get; set; } = null!;
-} 
+}
