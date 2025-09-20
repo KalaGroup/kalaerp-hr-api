@@ -105,5 +105,9 @@ public partial class UserLogin
 
     public int? DeletedBy { get; set; }
 
+    public virtual ICollection<EmployeeLeaveBalance> EmployeeLeaveBalanceCreatedByNavigations { get; set; } = new List<EmployeeLeaveBalance>();
+
+    public virtual ICollection<EmployeeLeaveBalance> EmployeeLeaveBalanceUpdatedByNavigations { get; set; } = new List<EmployeeLeaveBalance>();
+
     public virtual EmployeeMasterPersonalDetail UserLoginEmployee { get; set; } = null!;
 }

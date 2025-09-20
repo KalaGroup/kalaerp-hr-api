@@ -65,6 +65,8 @@ public partial class RecruitmentMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public virtual ICollection<OfferLetter> OfferLetters { get; set; } = new List<OfferLetter>();
+
     public virtual ICollection<RecruitmentDetail> RecruitmentDetails { get; set; } = new List<RecruitmentDetail>();
 
     public virtual CityMaster RecruitmentMasterCity { get; set; } = null!;

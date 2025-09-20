@@ -48,6 +48,8 @@ public partial class KalaDbContext : DbContext
 
     public virtual DbSet<DivisionMaster> DivisionMasters { get; set; }
 
+    public virtual DbSet<EmployeeLeaveBalance> EmployeeLeaveBalances { get; set; }
+
     public virtual DbSet<EmployeeMasterPersonalDetail> EmployeeMasterPersonalDetails { get; set; }
 
     public virtual DbSet<EmployeeMasterUpdationForMaster> EmployeeMasterUpdationForMasters { get; set; }
@@ -66,7 +68,13 @@ public partial class KalaDbContext : DbContext
 
     public virtual DbSet<Kpamaster> Kpamasters { get; set; }
 
+    public virtual DbSet<LeaveTypeMaster> LeaveTypeMasters { get; set; }
+
     public virtual DbSet<LocationMaster> LocationMasters { get; set; }
+
+    public virtual DbSet<OfferLetter> OfferLetters { get; set; }
+
+    public virtual DbSet<OfferLetterCtc> OfferLetterCtcs { get; set; }
 
     public virtual DbSet<PetrolAllowanceMaster> PetrolAllowanceMasters { get; set; }
 
@@ -790,6 +798,55 @@ public partial class KalaDbContext : DbContext
             entity.Property(e => e.DivisionShortName).HasMaxLength(100);
         });
 
+        modelBuilder.Entity<EmployeeLeaveBalance>(entity =>
+        {
+            entity.HasKey(e => e.LeaveBalancesId).HasName("PK__Employee__12E9A314C3345F34");
+
+            entity.ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("EmployeeLeaveBalancesHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.LeaveBalancesId).HasColumnName("LeaveBalancesID");
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.LeaveBalancesAuth).HasDefaultValue(true);
+            entity.Property(e => e.LeaveBalancesAuthRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.LeaveBalancesIsActive).HasDefaultValue(true);
+            entity.Property(e => e.LeaveBalancesIsDiscard).HasDefaultValue(true);
+            entity.Property(e => e.LeaveBalancesRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.UpdatedDate).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.EmployeeLeaveBalanceCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_LeaveBalancesId_CreatedBy");
+
+            entity.HasOne(d => d.LeaveBalancesEmployee).WithMany(p => p.EmployeeLeaveBalances)
+                .HasForeignKey(d => d.LeaveBalancesEmployeeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_LeaveBalancesId_LeaveBalancesEmployeeId");
+
+            entity.HasOne(d => d.LeaveBalancesType).WithMany(p => p.EmployeeLeaveBalances)
+                .HasForeignKey(d => d.LeaveBalancesTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_LeaveBalancesId_LeaveBalancesTypeId");
+
+            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.EmployeeLeaveBalanceUpdatedByNavigations)
+                .HasForeignKey(d => d.UpdatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_LeaveBalancesId_UpdatedBy");
+        });
+
         modelBuilder.Entity<EmployeeMasterPersonalDetail>(entity =>
         {
             entity.HasKey(e => e.EmployeeMasterId).HasName("PK__Employee__EE32E139BB7BFF48");
@@ -1118,6 +1175,41 @@ public partial class KalaDbContext : DbContext
                 .HasConstraintName("FK_KPAId_KPAGradeId");
         });
 
+        modelBuilder.Entity<LeaveTypeMaster>(entity =>
+        {
+            entity.HasKey(e => e.LeaveTypeMasterId).HasName("PK__LeaveTyp__8C7B9B207ADB3208");
+
+            entity
+                .ToTable("LeaveTypeMaster")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("LeaveTypeMasterHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.LeaveTypeMasterId).HasColumnName("LeaveTypeMasterID");
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.LeaveTypeMasterAuth)
+                .HasMaxLength(200)
+                .HasDefaultValueSql("((1))");
+            entity.Property(e => e.LeaveTypeMasterAuthRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.LeaveTypeMasterCode).HasMaxLength(50);
+            entity.Property(e => e.LeaveTypeMasterIsActive).HasDefaultValue(true);
+            entity.Property(e => e.LeaveTypeMasterIsDiscard).HasDefaultValue(true);
+            entity.Property(e => e.LeaveTypeMasterLeaveTypeRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.LeaveTypeMasterName).HasMaxLength(50);
+            entity.Property(e => e.UpdatedDate).HasDefaultValueSql("(getdate())");
+        });
+
         modelBuilder.Entity<LocationMaster>(entity =>
         {
             entity.HasKey(e => e.LocationId).HasName("PK__Location__E7FEA497C008A149");
@@ -1154,6 +1246,84 @@ public partial class KalaDbContext : DbContext
                 .HasForeignKey(d => d.ProfitcenterLocationId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_LocationId_ProfitcenterLocationID");
+        });
+
+        modelBuilder.Entity<OfferLetter>(entity =>
+        {
+            entity.HasKey(e => e.OfferLetterId).HasName("PK__OfferLet__94C850474AC1ED29");
+
+            entity
+                .ToTable("OfferLetter")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("OfferLetterHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.OfferLetterAuth1Remark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.OfferLetterAuth2Remark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.OfferLetterAuth3Remark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.OfferLetterIsActive).HasDefaultValue(true);
+            entity.Property(e => e.OfferLetterIsDiscard).HasDefaultValue(true);
+            entity.Property(e => e.OfferLetterRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.UpdatedDate).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.OfferLetterPosition).WithMany(p => p.OfferLetters)
+                .HasForeignKey(d => d.OfferLetterPositionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_OfferLetterId_OfferLetterPositionId");
+
+            entity.HasOne(d => d.OfferLetterRecruitment).WithMany(p => p.OfferLetters)
+                .HasForeignKey(d => d.OfferLetterRecruitmentId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_OfferLetterId_OfferLetterRecruitmentId");
+        });
+
+        modelBuilder.Entity<OfferLetterCtc>(entity =>
+        {
+            entity.HasKey(e => e.OfferLetterCtcid).HasName("PK__OfferLet__B657EDD3A448CEF6");
+
+            entity
+                .ToTable("OfferLetterCTC")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("OfferLetterCTCHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.OfferLetterCtcid).HasColumnName("OfferLetterCTCId");
+            entity.Property(e => e.OfferLetterCtcofferLetterId).HasColumnName("OfferLetterCTCOfferLetterId");
+            entity.Property(e => e.OfferLetterDa).HasColumnName("OfferLetterDA");
+            entity.Property(e => e.OfferLetterHra).HasColumnName("OfferLetterHRA");
+            entity.Property(e => e.OfferLetterMlwf).HasColumnName("OfferLetterMLWF");
+            entity.Property(e => e.OfferLetterPerformanceKpa).HasColumnName("OfferLetterPerformanceKPA");
+            entity.Property(e => e.OfferLetterPfemployee).HasColumnName("OfferLetterPFEmployee");
+            entity.Property(e => e.OfferLetterPfemployer).HasColumnName("OfferLetterPFEmployer");
+            entity.Property(e => e.OfferLetterPt).HasColumnName("OfferLetterPT");
+
+            entity.HasOne(d => d.OfferLetterCtcofferLetter).WithMany(p => p.OfferLetterCtcs)
+                .HasForeignKey(d => d.OfferLetterCtcofferLetterId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_OfferLetterCTCId_OfferLetterCTCOfferLetterId");
         });
 
         modelBuilder.Entity<PetrolAllowanceMaster>(entity =>
