@@ -24,15 +24,15 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             try
             {
-                // 🔹 First check if the same FinancialYear + ProfitCenter already exists
-                bool exists = await context.ProfitcenterBudgets
-                    .AnyAsync(x => x.ProfitcenterFy == request.ProfitcenterFy &&
-                                   x.ProfitcenterBudgetProfitcenterId == request.ProfitcenterBudgetProfitcenterId);
+                //// 🔹 First check if the same FinancialYear + ProfitCenter already exists
+                //bool exists = await context.ProfitcenterBudgets
+                //    .AnyAsync(x => x.ProfitcenterFy == request.ProfitcenterFy &&
+                //                   x.ProfitcenterBudgetProfitcenterId == request.ProfitcenterBudgetProfitcenterId);
 
-                if (exists)
-                {
-                    throw new InvalidOperationException();
-                }
+                //if (exists)
+                //{
+                //    throw new InvalidOperationException();
+                //}
 
                 // 🔹 If not exists, create new entry
                 var budget = new ProfitcenterBudget

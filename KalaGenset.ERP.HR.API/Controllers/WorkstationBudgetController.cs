@@ -1,9 +1,11 @@
-﻿using FluentValidation;
+﻿using Azure.Core;
+using FluentValidation;
 using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.DepartmentBudget;
 using KalaGenset.ERP.HR.Core.Request.WorkstationBudget;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace KalaGenset.ERP.HR.API.Controllers
 {
@@ -29,19 +31,29 @@ namespace KalaGenset.ERP.HR.API.Controllers
         [HttpPost("InsertworkstationBudget")]
         public async Task<IActionResult> InsertWorkstaionBudget(InsertWorkstationBudgetRequest InsertWorkstationBudgetRequest)
         {
+            if (InsertWorkstationBudgetRequest == null)
+            {
+                return BadRequest("Invalid request data.");
+            }
+
             var validationResult = await _insertworkstaionbudgetValidator.ValidateAsync(InsertWorkstationBudgetRequest);
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);
+                var errors = validationResult.Errors
+                .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
+                .FirstOrDefault();
+
+                return BadRequest(errors);
             }
+
             try
             {
                 await _WorkstationBudget.AddWorkstationBudgetAsync(InsertWorkstationBudgetRequest);
                 return Ok();
             }
-            catch (Exception ex)
+            catch (InvalidOperationException ex)
             {
-                return StatusCode(500, $"An error occurred while adding workstation Budget: {ex.Message}");
+                return Conflict(); // 409 Conflict
             }
         }
         /// <summary>

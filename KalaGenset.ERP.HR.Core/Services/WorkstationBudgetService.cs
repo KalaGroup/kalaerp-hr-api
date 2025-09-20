@@ -31,6 +31,15 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             try
             {
+                //// 🔹 First check if the same FinancialYear + ProfitCenter already exists
+                //bool exists = await _context.WorkstationBudgets
+                //    .AnyAsync(x => x.WorkstationFy == request.WorkstationFy &&
+                //                   x.WorkstationBudgetWorkstationId == request.WorkstationBudgetWorkstationId);
+
+                //if (exists)
+                //{
+                //    throw new InvalidOperationException();
+                //}
                 var workstationbudget = new WorkstationBudget
                 {
                     WorkstationBudgetWorkstationId = request.WorkstationBudgetWorkstationId,
@@ -53,9 +62,14 @@ namespace KalaGenset.ERP.HR.Core.Services
                 _context.WorkstationBudgets.Add(workstationbudget);
                 await _context.SaveChangesAsync();
             }
+            catch (InvalidOperationException)
+            {
+                // rethrow so controller can send 409 Conflict
+                throw;
+            }
             catch (Exception ex)
             {
-                throw;
+                throw new Exception();
             }
         }
 
