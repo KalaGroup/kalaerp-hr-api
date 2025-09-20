@@ -76,6 +76,8 @@ using KalaGenset.ERP.HR.Core.Validation.ProfitcenterBudget;
 using KalaGenset.ERP.HR.Core.Request.DepartmentBudget;
 using KalaGenset.ERP.HR.Core.Request.WorkstationBudget;
 using KalaGenset.ERP.HR.Core.Validation.WorkstationBudgetValidation;
+using KalaGenset.ERP.HR.Core.Request.LeaveTypeMaster;
+using KalaGenset.ERP.HR.Core.Validation.LeaveTypeMasterValidation;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -141,6 +143,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<UpdateProfitcenterBudgetReq
 builder.Services.AddValidatorsFromAssemblyContaining<InsertDepartmentRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateDepartmentRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertWorkstationBudgetRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertLeaveTypeMasterRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateLeaveTypeMasterRequestValidator>();
 
 
 //registering service
@@ -258,6 +262,9 @@ builder.Services.AddScoped<IValidator<InsertDepartmentBudgetRequest>, InsertDepa
 builder.Services.AddScoped<IValidator<UpdateDepartmentBudgetRequest>, UpdateDepartmentBudgetRequestValidator>();
 builder.Services.AddScoped<IWorkstationBudget, WorkstationBudgetService>();
 builder.Services.AddScoped<IValidator<InsertWorkstationBudgetRequest>, InsertWorkstationBudgetRequestValidator>();
+builder.Services.AddScoped<ILeaveTypeMaster, LeaveTypeMasterService>();
+builder.Services.AddScoped<IValidator<InsertleaveTypeMasterRequest>,InsertLeaveTypeMasterRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateLeaveTypeMasterRequest>, UpdateLeaveTypeMasterRequestValidator>();
 
 
 
