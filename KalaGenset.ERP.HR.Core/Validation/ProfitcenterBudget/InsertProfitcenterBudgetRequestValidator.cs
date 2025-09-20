@@ -2,6 +2,7 @@
 using KalaGenset.ERP.HR.Core.Request.ProfitcenterBudget;
 using KalaGenset.ERP.HR.Core.Request.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,15 @@ namespace KalaGenset.ERP.HR.Core.Validation.ProfitcenterBudget
 
             RuleFor(x => x.ProfitCenterBudgetHeadId)
                 .GreaterThan(0).WithMessage("Budget Head is required.");
+
+            RuleFor(x => x)
+               .MustAsync(async (request, cancellation) =>
+               {
+                   return !await context.ProfitcenterBudgets
+                       .AnyAsync(b => b.ProfitcenterFy == request.ProfitcenterFy &&
+                                      b.ProfitcenterBudgetProfitcenterId == request.ProfitcenterBudgetProfitcenterId);
+               })
+               .WithMessage("A budget for this Financial Year and Workstation already exists.");
 
         }
     }

@@ -1,12 +1,13 @@
-﻿using System;
+﻿using FluentValidation;
+using KalaGenset.ERP.HR.Core.Request.DepartmentBudget;
+using KalaGenset.ERP.HR.Core.Request.WorkstationBudget;
+using KalaGenset.ERP.HR.Data.DbContexts;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FluentValidation;
-using KalaGenset.ERP.HR.Core.Request.DepartmentBudget;
-using KalaGenset.ERP.HR.Core.Request.WorkstationBudget;
-using KalaGenset.ERP.HR.Data.DbContexts;
 
 namespace KalaGenset.ERP.HR.Core.Validation.WorkstationBudgetValidation
 {
@@ -17,9 +18,13 @@ namespace KalaGenset.ERP.HR.Core.Validation.WorkstationBudgetValidation
         {
             _context = context;
 
-            RuleFor(x => x.WorkstationBudgetAmt)
+ RuleFor(x => x.WorkstationBudgetAmt)
                .GreaterThan(0).WithMessage("WorkstationBudgetAmt Amount must be greater than 0.")
                .NotEmpty().WithMessage("WorkstationBudgetAmt Amount is required.");
+
+            RuleFor(x => x.WorkstationFy)
+           .NotEmpty().WithMessage("Financial Year is required.");
+           
 
             RuleFor(x => x.WorkstationBudgetWorkstationId)
                .GreaterThan(0).WithMessage("WorkstationBudget ID must be greater than 0.")
@@ -28,6 +33,16 @@ namespace KalaGenset.ERP.HR.Core.Validation.WorkstationBudgetValidation
             RuleFor(x => x.WorkstationBudgetHeadId)
                 .GreaterThan(0).WithMessage("WorkstationBudgetHead ID must be greater than 0.")
                 .NotEmpty().WithMessage("WorkstationBudgetHead ID is required.");
+
+            // ✅ Custom uniqueness rule
+            RuleFor(x => x)
+                .MustAsync(async (request, cancellation) =>
+                {
+                    return !await _context.WorkstationBudgets
+                        .AnyAsync(b => b.WorkstationFy == request.WorkstationFy &&
+                                       b.WorkstationBudgetWorkstationId == request.WorkstationBudgetWorkstationId);
+                })
+                .WithMessage("A budget for this Financial Year and Workstation already exists.");
         }
     }
 }
