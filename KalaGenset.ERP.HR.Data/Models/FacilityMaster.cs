@@ -23,5 +23,9 @@ public partial class FacilityMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public int UpdatedBy { get; set; }
+
+    public DateTime UpdatedDate { get; set; }
+
     public virtual ICollection<GradeFacilityAssignment> GradeFacilityAssignments { get; set; } = new List<GradeFacilityAssignment>();
 }

@@ -19,5 +19,8 @@ namespace KalaGenset.ERP.HR.Core.Request.ClassOfTravel
         public bool ClassOfTravelIsActive { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
+        public int UpdatedBy { get; set; }
+
+        public DateTime UpdatedDate { get; set; }
     }
 }

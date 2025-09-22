@@ -27,6 +27,10 @@ public partial class RolesMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public int UpdatedBy { get; set; }
+
+    public DateTime UpdatedDate { get; set; }
+
     public virtual ICollection<PositionMaster> PositionMasters { get; set; } = new List<PositionMaster>();
 
     public virtual DesignationMaster RolesDesignation { get; set; } = null!;

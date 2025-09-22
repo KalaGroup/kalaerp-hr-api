@@ -29,5 +29,9 @@ public partial class HolidayMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public int UpdatedBy { get; set; }
+
+    public DateTime UpdatedDate { get; set; }
+
     public virtual CompanyMaster HolidayCompany { get; set; } = null!;
 }

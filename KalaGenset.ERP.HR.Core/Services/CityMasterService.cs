@@ -44,7 +44,10 @@ namespace KalaGenset.ERP.HR.Core.Services
                     CreatedDate = request.CreatedDate,
                     CityAuth = request.CityAuth,
                     CityIsDiscard = request.CityIsDiscard,
-                    CityIsActive = request.CityIsActive
+                    CityIsActive = request.CityIsActive,
+                    UpdatedBy = request.UpdatedBy,
+                    UpdatedDate = request.UpdatedDate,
+                    
                 };
 
                 _dbContext.CityMasters.Add(City);
@@ -85,6 +88,8 @@ namespace KalaGenset.ERP.HR.Core.Services
                 city.CityRemark = request.CityRemark;
                 city.CreatedBy = request.CreatedBy;
                 city.CreatedDate = request.CreatedDate;
+                city.UpdatedBy = request.UpdatedBy;
+                city.UpdatedDate = request.UpdatedDate;
                 city.CityAuth = request.CityAuth;
                 city.CityIsDiscard = request.CityIsDiscard;
                 city.CityIsActive = request.CityIsActive;

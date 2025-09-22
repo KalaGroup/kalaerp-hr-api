@@ -31,6 +31,10 @@ public partial class DistrictMaster
 
     public bool DistrictMasterAuth { get; set; }
 
+    public int UpdatedBy { get; set; }
+
+    public DateTime UpdatedDate { get; set; }
+
     public virtual ICollection<CityMaster> CityMasters { get; set; } = new List<CityMaster>();
 
     public virtual ICollection<CompanyMaster> CompanyMasterCorporateDistricts { get; set; } = new List<CompanyMaster>();

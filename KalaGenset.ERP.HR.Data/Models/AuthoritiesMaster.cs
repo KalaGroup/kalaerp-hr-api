@@ -27,6 +27,10 @@ public partial class AuthoritiesMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public int UpdatedBy { get; set; }
+
+    public DateTime UpdatedDate { get; set; }
+
     public virtual DesignationMaster AuthoritiesDesignation { get; set; } = null!;
 
     public virtual ICollection<AuthoritiesDetail> AuthoritiesDetails { get; set; } = new List<AuthoritiesDetail>();

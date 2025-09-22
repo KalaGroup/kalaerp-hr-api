@@ -23,6 +23,10 @@ public partial class CurrencyMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public int UpdatedBy { get; set; }
+
+    public DateTime UpdatedDate { get; set; }
+
     public virtual ICollection<CompanyMaster> CompanyMasters { get; set; } = new List<CompanyMaster>();
 
     public virtual ICollection<CountryMaster> CountryMasters { get; set; } = new List<CountryMaster>();
