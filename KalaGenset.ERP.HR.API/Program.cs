@@ -260,8 +260,11 @@ builder.Services.AddScoped<IWorkstationBudget, WorkstationBudgetService>();
 builder.Services.AddScoped<IValidator<InsertWorkstationBudgetRequest>, InsertWorkstationBudgetRequestValidator>();
 
 
+var jsonBuilder = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.Development.json", optional: false, reloadOnChange: true);
 
-
+IConfiguration config = jsonBuilder.Build();
 
 builder.Services.AddCors(options =>
 {
@@ -269,9 +272,10 @@ builder.Services.AddCors(options =>
         builder =>
         {
             builder
-                .AllowAnyOrigin()
+                .WithOrigins(config["CORSOrigin"])
                 .AllowAnyHeader()
-                .AllowAnyMethod();
+                .AllowAnyMethod()
+                .AllowCredentials();
         });
 });
 // Add services to the container.
