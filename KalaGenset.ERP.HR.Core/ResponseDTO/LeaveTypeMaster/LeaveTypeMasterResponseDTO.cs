@@ -18,17 +18,17 @@ namespace KalaGenset.ERP.HR.Core.ResponseDTO.LeaveTypeMaster
 
         public int LeaveTypeMasterContinuosDaysPerYear { get; set; }
 
-        public int LeaveTypeMasterCanCarryForward { get; set; }
+        public bool LeaveTypeMasterCanCarryForward { get; set; }
 
         public bool LeaveTypeMasterCanEnCash { get; set; }
 
-        public bool LeaveTypeMasterRequiredServiceMonths { get; set; }
+        public int LeaveTypeMasterRequiredServiceMonths { get; set; }
 
         public string LeaveTypeMasterLeaveTypeRemark { get; set; } = null!;
 
         public string LeaveTypeMasterAuthRemark { get; set; } = null!;
 
-        public string LeaveTypeMasterAuth { get; set; } = null!;
+        public bool LeaveTypeMasterAuth { get; set; }
 
         public bool LeaveTypeMasterIsDiscard { get; set; }
 

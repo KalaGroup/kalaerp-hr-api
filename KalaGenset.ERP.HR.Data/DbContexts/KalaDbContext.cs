@@ -800,7 +800,7 @@ public partial class KalaDbContext : DbContext
 
         modelBuilder.Entity<EmployeeLeaveBalance>(entity =>
         {
-            entity.HasKey(e => e.LeaveBalancesId).HasName("PK__Employee__12E9A314C3345F34");
+            entity.HasKey(e => e.LeaveBalancesId).HasName("PK__Employee__12E9A31476882650");
 
             entity.ToTable(tb => tb.IsTemporal(ttb =>
                     {
@@ -1177,7 +1177,7 @@ public partial class KalaDbContext : DbContext
 
         modelBuilder.Entity<LeaveTypeMaster>(entity =>
         {
-            entity.HasKey(e => e.LeaveTypeMasterId).HasName("PK__LeaveTyp__8C7B9B207ADB3208");
+            entity.HasKey(e => e.LeaveTypeMasterId).HasName("PK__LeaveTyp__8C7B9B206718126E");
 
             entity
                 .ToTable("LeaveTypeMaster")
@@ -1194,9 +1194,7 @@ public partial class KalaDbContext : DbContext
 
             entity.Property(e => e.LeaveTypeMasterId).HasColumnName("LeaveTypeMasterID");
             entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.LeaveTypeMasterAuth)
-                .HasMaxLength(200)
-                .HasDefaultValueSql("((1))");
+            entity.Property(e => e.LeaveTypeMasterAuth).HasDefaultValue(true);
             entity.Property(e => e.LeaveTypeMasterAuthRemark)
                 .HasMaxLength(200)
                 .HasDefaultValue("Nil");
