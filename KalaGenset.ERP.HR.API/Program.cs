@@ -267,8 +267,11 @@ builder.Services.AddScoped<IValidator<InsertleaveTypeMasterRequest>,InsertLeaveT
 builder.Services.AddScoped<IValidator<UpdateLeaveTypeMasterRequest>, UpdateLeaveTypeMasterRequestValidator>();
 
 
+var jsonBuilder = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.Development.json", optional: false, reloadOnChange: true);
 
-
+IConfiguration config = jsonBuilder.Build();
 
 builder.Services.AddCors(options =>
 {
@@ -276,9 +279,10 @@ builder.Services.AddCors(options =>
         builder =>
         {
             builder
-                .AllowAnyOrigin()
+                .WithOrigins(config["CORSOrigin"])
                 .AllowAnyHeader()
-                .AllowAnyMethod();
+                .AllowAnyMethod()
+                .AllowCredentials();
         });
 });
 // Add services to the container.
