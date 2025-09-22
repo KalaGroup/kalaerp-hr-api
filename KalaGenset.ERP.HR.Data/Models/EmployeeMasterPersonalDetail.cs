@@ -45,11 +45,19 @@ public partial class EmployeeMasterPersonalDetail
 
     public DateTime CreatedDate { get; set; }
 
+    public int UpdatedBy { get; set; }
+
+    public DateTime UpdatedDate { get; set; }
+
+    public virtual ICollection<DailyAttendance> DailyAttendances { get; set; } = new List<DailyAttendance>();
+
     public virtual ICollection<DepartmentBudget> DepartmentBudgets { get; set; } = new List<DepartmentBudget>();
 
     public virtual ICollection<EmployeeLeaveBalance> EmployeeLeaveBalances { get; set; } = new List<EmployeeLeaveBalance>();
 
     public virtual CountryMaster EmployeeMasterNationalityCountry { get; set; } = null!;
+
+    public virtual ICollection<LeaveApplication> LeaveApplications { get; set; } = new List<LeaveApplication>();
 
     public virtual ICollection<ProfitcenterBudget> ProfitcenterBudgets { get; set; } = new List<ProfitcenterBudget>();
 

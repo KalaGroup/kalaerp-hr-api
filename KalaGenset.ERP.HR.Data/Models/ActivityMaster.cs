@@ -27,6 +27,10 @@ public partial class ActivityMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public int UpdatedBy { get; set; }
+
+    public DateTime UpdatedDate { get; set; }
+
     public virtual DesignationMaster ActivityDesignation { get; set; } = null!;
 
     public virtual ICollection<ActivityDetail> ActivityDetails { get; set; } = new List<ActivityDetail>();

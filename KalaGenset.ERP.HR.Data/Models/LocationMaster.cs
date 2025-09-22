@@ -29,5 +29,9 @@ public partial class LocationMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public int UpdatedBy { get; set; }
+
+    public DateTime UpdatedDate { get; set; }
+
     public virtual ProfitcenterMaster ProfitcenterLocation { get; set; } = null!;
 }

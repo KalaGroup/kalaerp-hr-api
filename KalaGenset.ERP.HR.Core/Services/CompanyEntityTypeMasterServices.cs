@@ -39,7 +39,10 @@ namespace KalaGenset.ERP.HR.Core.Services
                     CompanyEntityTypeIsDiscard = insertCompanyEntityTypeMasterRequest.CompanyEntityTypeIsDiscard,
                     CompanyEntityTypeIsActive = insertCompanyEntityTypeMasterRequest.CompanyEntityTypeIsActive,
                     CreatedBy = insertCompanyEntityTypeMasterRequest.CreatedBy,
-                    CreatedDate = DateTime.Now
+                    CreatedDate = DateTime.Now,
+                    UpdatedDate = DateTime.Now,
+                    UpdatedBy = insertCompanyEntityTypeMasterRequest.UpdatedBy,
+                    
                 };
                 _context.CompanyEntityTypeMasters.Add(companyEntity);
                 await _context.SaveChangesAsync();
@@ -70,6 +73,8 @@ namespace KalaGenset.ERP.HR.Core.Services
                 companyEntityType.CompanyEntityTypeRemark = updateCompanyEntityTypeMasterRequest.CompanyEntityTypeRemark;
                 companyEntityType.CompanyEntityTypeIsActive = updateCompanyEntityTypeMasterRequest.CompanyEntityTypeIsActive;
                 companyEntityType.CompanyEntityTypeIsDiscard = updateCompanyEntityTypeMasterRequest.CompanyEntityTypeIsDiscard;
+                companyEntityType.UpdatedBy = updateCompanyEntityTypeMasterRequest.UpdatedBy;
+                companyEntityType.UpdatedDate = updateCompanyEntityTypeMasterRequest.UpdatedDate;
 
                 _context.CompanyEntityTypeMasters.Update(companyEntityType);
                 await _context.SaveChangesAsync();

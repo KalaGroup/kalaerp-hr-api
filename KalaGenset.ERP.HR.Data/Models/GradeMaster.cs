@@ -43,6 +43,10 @@ public partial class GradeMaster
 
     public string ExperiencedRemark { get; set; } = null!;
 
+    public int UpdatedBy { get; set; }
+
+    public DateTime UpdatedDate { get; set; }
+
     public virtual ICollection<ActivityMaster> ActivityMasters { get; set; } = new List<ActivityMaster>();
 
     public virtual ICollection<AuthoritiesMaster> AuthoritiesMasters { get; set; } = new List<AuthoritiesMaster>();

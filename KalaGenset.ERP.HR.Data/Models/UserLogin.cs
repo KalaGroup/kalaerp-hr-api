@@ -105,9 +105,21 @@ public partial class UserLogin
 
     public int? DeletedBy { get; set; }
 
+    public virtual ICollection<DailyAttendance> DailyAttendanceCreatedByNavigations { get; set; } = new List<DailyAttendance>();
+
+    public virtual ICollection<DailyAttendance> DailyAttendanceUpdatedByNavigations { get; set; } = new List<DailyAttendance>();
+
     public virtual ICollection<EmployeeLeaveBalance> EmployeeLeaveBalanceCreatedByNavigations { get; set; } = new List<EmployeeLeaveBalance>();
 
     public virtual ICollection<EmployeeLeaveBalance> EmployeeLeaveBalanceUpdatedByNavigations { get; set; } = new List<EmployeeLeaveBalance>();
+
+    public virtual ICollection<HrauthorisationLog> HrauthorisationLogCreatedByNavigations { get; set; } = new List<HrauthorisationLog>();
+
+    public virtual ICollection<HrauthorisationLog> HrauthorisationLogUpdatedByNavigations { get; set; } = new List<HrauthorisationLog>();
+
+    public virtual ICollection<LeaveApplication> LeaveApplicationCreatedByNavigations { get; set; } = new List<LeaveApplication>();
+
+    public virtual ICollection<LeaveApplication> LeaveApplicationUpdatedByNavigations { get; set; } = new List<LeaveApplication>();
 
     public virtual EmployeeMasterPersonalDetail UserLoginEmployee { get; set; } = null!;
 }

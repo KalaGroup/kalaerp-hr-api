@@ -40,4 +40,6 @@ public partial class LeaveTypeMaster
     public DateTime UpdatedDate { get; set; }
 
     public virtual ICollection<EmployeeLeaveBalance> EmployeeLeaveBalances { get; set; } = new List<EmployeeLeaveBalance>();
+
+    public virtual ICollection<LeaveApplication> LeaveApplications { get; set; } = new List<LeaveApplication>();
 }

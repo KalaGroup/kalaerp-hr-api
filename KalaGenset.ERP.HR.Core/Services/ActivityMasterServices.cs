@@ -33,6 +33,8 @@ namespace KalaGenset.ERP.HR.Core.Services
                     CreatedBy = 1,
                     CreatedDate = DateTime.Now,
                     ActivityAuth = request.ActivityAuth,
+                    UpdatedBy = 1,
+                    UpdatedDate = DateTime.Now,
                 };
                 context.ActivityMasters.Add(activity);
                 await context.SaveChangesAsync();
@@ -162,6 +164,9 @@ namespace KalaGenset.ERP.HR.Core.Services
                 activity.ActivityIsActive = request.ActivityIsActive;
                 activity.CreatedBy = request.CreatedBy;
                 activity.CreatedDate = DateTime.Now;
+                activity.UpdatedBy = request.UpdatedBy;
+                activity.UpdatedDate = DateTime.Now;
+
 
 
                 // ✅ Replace old details
