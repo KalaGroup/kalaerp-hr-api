@@ -1,4 +1,5 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.ResposibilitiesDetail;
+using KalaGenset.ERP.HR.Core.ResponseDTO.ResponsibiltiesDetails;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,10 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Task DeleteResposibilitiesDetailAsync(int id); 
+        public Task DeleteResposibilitiesDetailAsync(int id);
+
+
+        public Task<IEnumerable<ResponsilitiesDetailsResponseDTO>> GetResponsibiltiesDetailsByCombination(int gradeId, int designationId, int divisionId);
 
     }
 }

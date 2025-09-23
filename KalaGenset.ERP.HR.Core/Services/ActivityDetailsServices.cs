@@ -1,5 +1,7 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.ActivityDetails;
+using KalaGenset.ERP.HR.Core.ResponseDTO.ActivityDetails;
+using KalaGenset.ERP.HR.Core.ResponseDTO.RoleDetails;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -100,6 +102,26 @@ namespace KalaGenset.ERP.HR.Core.Services
             {
                 throw;
             }
+        }
+
+        public async Task<IEnumerable<ActivityDetailsResponseDTO>> GetActivityDetailsByCombination(int gradeId, int designationId, int divisionId)
+        {
+            var result = await (from r in context.ActivityMasters
+                                join rd in context.ActivityDetails
+                                on r.ActivityId equals rd.DetailsActivityId
+                                where r.ActivityGradeId == gradeId
+                                      && r.ActivityDesignationId == designationId
+                                      && r.ActivityDivisionId == divisionId
+                                      && r.ActivityIsActive
+                                select new ActivityDetailsResponseDTO
+                                {
+                                    ActivityId = r.ActivityId,
+                                    ActivityDetailsId = rd.ActivityDetailsId,
+                                    SrNo = rd.SrNo,
+                                    ActivityDetailsDescription = rd.ActivityDetailsDescription
+                                }).ToListAsync();
+
+            return result;
         }
     }
 }

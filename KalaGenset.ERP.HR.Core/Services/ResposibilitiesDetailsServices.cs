@@ -1,5 +1,7 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.ResposibilitiesDetail;
+using KalaGenset.ERP.HR.Core.ResponseDTO.ResponsibiltiesDetails;
+using KalaGenset.ERP.HR.Core.ResponseDTO.RoleDetails;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -111,6 +113,26 @@ namespace KalaGenset.ERP.HR.Core.Services
             {
                 throw;  
             }
+        }
+
+        public async Task<IEnumerable<ResponsilitiesDetailsResponseDTO>> GetResponsibiltiesDetailsByCombination(int gradeId, int designationId, int divisionId)
+        {
+            var result = await (from r in context.ResponsibilitiesMasters
+                                join rd in context.ResponsibilitiesDetails
+                                on r.ResponsibilitiesId equals rd.DetailsResposibilitiesId
+                                where r.ResponsibilitiesGradeId == gradeId
+                                      && r.ResponsibilitiesDesignationId == designationId
+                                      && r.ResponsibilitiesDivisionId == divisionId
+                                      && r.ResponsibilitiesIsActive
+                                select new ResponsilitiesDetailsResponseDTO
+                                {
+                                    ResponsibilitiesId = r.ResponsibilitiesId,
+                                    ResponsibilitiesDetailsId = rd.ResponsibilitiesDetailsId,
+                                    SrNo = rd.SrNo,
+                                    ResponsibilitiesDetailsDescription = rd.ResponsibilitiesDetailsDescription
+                                }).ToListAsync();
+
+            return result;
         }
     }
 }

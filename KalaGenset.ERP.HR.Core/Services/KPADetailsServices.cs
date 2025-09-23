@@ -1,5 +1,7 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.KPADetail;
+using KalaGenset.ERP.HR.Core.ResponseDTO.KPADetails;
+using KalaGenset.ERP.HR.Core.ResponseDTO.RoleDetails;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -106,6 +108,27 @@ namespace KalaGenset.ERP.HR.Core.Services
             {
                 throw new Exception($"An error occurred while updating KPADetail: {ex.Message}");
             }
+        }
+
+        public async Task<IEnumerable<KPADetailsResponseDTO>> GetKPADetailsByCombination(int gradeId, int designationId, int divisionId)
+        {
+            var result = await (from r in _context.Kpamasters
+                                join rd in _context.Kpadetails
+                                on r.Kpaid equals rd.DetailsKpaid
+                                where r.KpagradeId == gradeId
+                                      && r.KpadesignationId == designationId
+                                      && r.KpadivisionId == divisionId
+                                      && r.KpaisActive == true
+                                select new KPADetailsResponseDTO
+                                {
+                                    Kpaid = r.Kpaid,
+                                    KpadetailsId = rd.KpadetailsId,
+                                    SrNo = rd.SrNo,
+                                    KpadetailsDescription = rd.KpadetailsDescription,
+                                    Marks = rd.Marks
+                                }).ToListAsync();
+
+            return result;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.RoleDetails;
+using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -107,5 +108,20 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return BadRequest($"Error deleting role details: {ex.Message}");
             }
         }
+
+        [HttpGet("getrolesdetails/{gradeId}/{designationId}/{divisionId}")]
+        public async Task<IActionResult> GetRolesDetailsByCombination(int gradeId, int designationId, int divisionId)
+        {
+            try
+            {
+                var details = await _roleDetailsService.GetRolesDetailsByCombination(gradeId, designationId, divisionId);
+                return Ok(details);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error fetching role details: {ex.Message}");
+            }
+        }
+
     }
 }

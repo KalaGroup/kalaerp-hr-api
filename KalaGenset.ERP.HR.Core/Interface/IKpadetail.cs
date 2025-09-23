@@ -1,4 +1,5 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.KPADetail;
+using KalaGenset.ERP.HR.Core.ResponseDTO.KPADetails;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -39,5 +40,8 @@ namespace KalaGenset.ERP.HR.Core.Interface
             /// <param name="id"></param>
             /// <returns></returns>
         public Task<Kpadetail> GetKPADetailByID(int id);
+
+        public Task<IEnumerable<KPADetailsResponseDTO>> GetKPADetailsByCombination(int gradeId, int designationId, int divisionId);
+
     }
 }

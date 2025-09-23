@@ -1,4 +1,5 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.AuthoritiesDetail;
+using KalaGenset.ERP.HR.Core.ResponseDTO.AuthoritiesDetails;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,9 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// <param name="id"></param>
         /// <returns></returns>
         public Task DeleteAuthoritiesDetailAsync(int id);
+
+        public Task<IEnumerable<AuthoritiesDetailsResponseDTO>> GetAuthoritiesDetailsByCombination(int gradeId, int designationId, int divisionId);
+
 
     }
 }

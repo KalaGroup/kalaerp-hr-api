@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using KalaGenset.ERP.HR.Core.Request.Country;
 using KalaGenset.ERP.HR.Core.Request.Department;
 using KalaGenset.ERP.HR.Core.ResponseDTO.DepartmentMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.StateMaster;
 using KalaGenset.ERP.HR.Data.Models;
 
 namespace KalaGenset.ERP.HR.Core.Interface
@@ -41,5 +42,9 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// <param name="did"></param>
         /// <returns></returns>
         public Task DeleteDepartmentAsync(int did);
+
+
+        public Task<IEnumerable<DepartmentDetailsByProfitcenterIdandDivisionIdDTO>> GetDepartmentsByProfitCenterAndDivision(int profitCenterId, int divisionId);
+
     }
 }

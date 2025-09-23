@@ -1,5 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.RoleDetails;
+using KalaGenset.ERP.HR.Core.ResponseDTO.RoleDetails;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -117,5 +118,28 @@ namespace KalaGenset.ERP.HR.Core.Services
                 throw new Exception("An error occurred while updating the role details.", ex);
             }
         }
+
+
+        public async Task<IEnumerable<RolesDetailsResponseDTO>> GetRolesDetailsByCombination(int gradeId, int designationId, int divisionId)
+        {
+            var result = await (from r in _dbContext.RolesMasters
+                                join rd in _dbContext.RolesDetails
+                                on r.RolesId equals rd.DetailsRolesId
+                                where r.RolesGradeId == gradeId
+                                      && r.RolesDesignationId == designationId
+                                      && r.RolesDivisionId == divisionId
+                                      && r.RolesIsActive
+                                select new RolesDetailsResponseDTO
+                                {
+                                    RolesId = r.RolesId,
+                                    RolesDetailsId = rd.RolesDetailsId,
+                                    SrNo = rd.SrNo,
+                                    RolesDetailsDescription = rd.RolesDetailsDescription
+                                }).ToListAsync();
+
+            return result;
+        }
+
+
     }
 }

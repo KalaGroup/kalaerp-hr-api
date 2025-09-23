@@ -1,5 +1,7 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.RoleDetails;
+using KalaGenset.ERP.HR.Core.ResponseDTO.RoleDetails;
 using KalaGenset.ERP.HR.Data.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,5 +41,9 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// <param name="RolesDetailsId"></param>
         /// <returns></returns>
         public Task DeleteRoleDetailsAsync(int RolesDetailsId);
+
+
+        public Task<IEnumerable<RolesDetailsResponseDTO>> GetRolesDetailsByCombination(int gradeId, int designationId, int divisionId);
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.KPADetail;
+using KalaGenset.ERP.HR.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -112,6 +113,20 @@ namespace KalaGenset.ERP.HR.API.Controllers
             catch (Exception ex) // Catch any exceptions that occur during the update process
             {
                 return StatusCode(500, $"An error occurred while updating KPA Details: {ex.Message}");
+            }
+        }
+
+        [HttpGet("getKPAdetails/{gradeId}/{designationId}/{divisionId}")]
+        public async Task<IActionResult> GetKPADetailsByCombination(int gradeId, int designationId, int divisionId)
+        {
+            try
+            {
+                var details = await _kpaDetailsService.GetKPADetailsByCombination(gradeId, designationId, divisionId);
+                return Ok(details);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error fetching KPA details: {ex.Message}");
             }
         }
     }

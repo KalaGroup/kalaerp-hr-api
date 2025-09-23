@@ -26,6 +26,7 @@ using KalaGenset.ERP.HR.Core.Request.Grade;
 using KalaGenset.ERP.HR.Core.Request.HolidayMaster;
 using KalaGenset.ERP.HR.Core.Request.KPAMaster;
 using KalaGenset.ERP.HR.Core.Request.LocationRequest;
+using KalaGenset.ERP.HR.Core.Request.PositionMaster;
 using KalaGenset.ERP.HR.Core.Request.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Core.Request.QualificationRequest;
 using KalaGenset.ERP.HR.Core.Request.RecruitmentAttributeMaster;
@@ -55,6 +56,7 @@ using KalaGenset.ERP.HR.Core.Validation.HolidayMaster;
 using KalaGenset.ERP.HR.Core.Validation.KPAMaster;
 using KalaGenset.ERP.HR.Core.Validation.LocationValidator;
 using KalaGenset.ERP.HR.Core.Validation.PetrolAllowanceMaster;
+using KalaGenset.ERP.HR.Core.Validation.PositionMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Core.Validation.QualificationTypeMaster;
 using KalaGenset.ERP.HR.Core.Validation.QualificationValidator;
@@ -122,6 +124,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertRolesMasterValidator>
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateRolesMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertRecruitmentReferenceMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateRecruitmentReferenceMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertPositionMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdatePositionMasterValidator>();
 
 //registering service
 builder.Services.AddScoped<IUserLogin, UserLoginServices>();
@@ -224,8 +228,10 @@ builder.Services.AddScoped<IRoleDetails, RoleDetailsService>();
 builder.Services.AddScoped<IRecruitmentReferenceMaster, RecruitmentReferenceMasterServices>();
 builder.Services.AddScoped<IValidator<InsertRecruitmentReferenceMasterRequest>, InsertRecruitmentReferenceMasterValidator>();
 builder.Services.AddScoped<IValidator<UpdateRecruitmentReferenceMasterRequest>, UpdateRecruitmentReferenceMasterValidator>();
-
-
+builder.Services.AddScoped<IValidator<InsertPositionRequest>, InsertPositionMasterValidator>();
+builder.Services.AddScoped<IValidator<UpdatePositionRequest>, UpdatePositionMasterValidator>();
+builder.Services.AddScoped<IPositionMaster, PositionMasterService>();
+builder.Services.AddScoped<IPositionDetails, PositionDetailService>();
 
 
 builder.Services.AddCors(options =>
