@@ -144,5 +144,27 @@ namespace KalaERP.HR.Core.Services
                 throw;
             }
         }
+
+        public async Task<IEnumerable<DesignationByGradeIdDTO>> GetDesignationsByGradeAsync(int gradeId)
+        {
+            try
+            {
+                var designations = await context.DesignationMasters
+                    .Where(d => d.DesignationGradeId == gradeId)
+                    .Select(d => new DesignationByGradeIdDTO
+                    {
+                        DesignationId = d.DesignationId,
+                        DesignationName = d.DesignationName
+                    })
+                    .ToListAsync();
+
+                return designations;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
     }
 }

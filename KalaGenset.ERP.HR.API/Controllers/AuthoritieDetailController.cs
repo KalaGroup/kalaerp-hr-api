@@ -1,5 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.AuthoritiesDetail;
+using KalaGenset.ERP.HR.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 namespace KalaGenset.ERP.HR.API.Controllers
@@ -107,6 +108,20 @@ namespace KalaGenset.ERP.HR.API.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, $"An error occurred while deleting authorities detail: {ex.Message}");
+            }
+        }
+
+        [HttpGet("getAuthoritiesdetails/{gradeId}/{designationId}/{divisionId}")]
+        public async Task<IActionResult> GetAuthoritiesDetailsByCombination(int gradeId, int designationId, int divisionId)
+        {
+            try
+            {
+                var details = await authoritiesDetailService.GetAuthoritiesDetailsByCombination(gradeId, designationId, divisionId);
+                return Ok(details);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error fetching Authorities details: {ex.Message}");
             }
         }
     }

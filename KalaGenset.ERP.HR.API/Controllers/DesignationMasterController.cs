@@ -2,6 +2,7 @@
 using KalaERP.HR.Core.Interface;
 using KalaERP.HR.Core.Request.CompanyMaster;
 using KalaERP.HR.Core.Request.DesignationMaster;
+using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -154,6 +155,21 @@ namespace KalaERP.HR.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error retrieving designations: {ex.Message}");
             }
         }
+
+        [HttpGet("getdesignations/{gradeId}")]
+        public async Task<IActionResult> GetDesignationsByGradeAsync(int gradeId)
+        {
+            try
+            {
+                var designations = await designationMaster.GetDesignationsByGradeAsync(gradeId);
+                return Ok(designations);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching designations: {ex.Message}");
+            }
+        }
+
 
     }
 }               

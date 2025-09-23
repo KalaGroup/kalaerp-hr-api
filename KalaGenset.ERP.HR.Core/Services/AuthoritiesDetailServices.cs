@@ -1,5 +1,7 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.AuthoritiesDetail;
+using KalaGenset.ERP.HR.Core.ResponseDTO.AuthoritiesDetails;
+using KalaGenset.ERP.HR.Core.ResponseDTO.RoleDetails;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -110,6 +112,26 @@ namespace KalaGenset.ERP.HR.Core.Services
                 // Log the exception or handle it as needed
                 throw new Exception("An error occurred while updating authorities detail.", ex);
             }
+        }
+
+        public async Task<IEnumerable<AuthoritiesDetailsResponseDTO>> GetAuthoritiesDetailsByCombination(int gradeId, int designationId, int divisionId)
+        {
+            var result = await (from r in context.AuthoritiesMasters
+                                join rd in context.AuthoritiesDetails
+                                on r.AuthoritiesId equals rd.DetailsAuthoritiesId
+                                where r.AuthoritiesGradeId == gradeId
+                                      && r.AuthoritiesDesignationId == designationId
+                                      && r.AuthoritiesDivisionId == divisionId
+                                      && r.AuthoritiesIsActive == true
+                                select new AuthoritiesDetailsResponseDTO
+                                {
+                                    AuthoritiesId = r.AuthoritiesId,
+                                    AuthoritiesDetailsId = rd.AuthoritiesDetailsId,
+                                    SrNo = rd.SrNo,
+                                    AuthoritiesDetailsDescription = rd.AuthoritiesDetailsDescription
+                                }).ToListAsync();
+
+            return result;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.ActivityDetails;
+using KalaGenset.ERP.HR.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KalaGenset.ERP.HR.API.Controllers
@@ -101,5 +102,20 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(500, $"An error occurred while updating : {ex.Message}");
             }
         }
+
+        [HttpGet("getActivitydetails/{gradeId}/{designationId}/{divisionId}")]
+        public async Task<IActionResult> GetActivityDetailsByCombination(int gradeId, int designationId, int divisionId)
+        {
+            try
+            {
+                var details = await activityDetails.GetActivityDetailsByCombination(gradeId, designationId, divisionId);
+                return Ok(details);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error fetching Activity details: {ex.Message}");
+            }
+        }
+
     }
 }

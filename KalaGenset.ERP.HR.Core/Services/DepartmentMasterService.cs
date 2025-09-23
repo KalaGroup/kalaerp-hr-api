@@ -7,6 +7,7 @@ using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.Country;
 using KalaGenset.ERP.HR.Core.Request.Department;
 using KalaGenset.ERP.HR.Core.ResponseDTO.DepartmentMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.StateMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -192,5 +193,27 @@ namespace KalaGenset.ERP.HR.Core.Services
             }
         }
 
+        public async Task<IEnumerable<DepartmentDetailsByProfitcenterIdandDivisionIdDTO>> GetDepartmentsByProfitCenterAndDivision(int profitCenterId, int divisionId)
+        {
+            try
+            {
+                var departments = await _context.DepartmentMasters
+                    .Where(d => d.DepartmentProfitcenterId == profitCenterId
+                                && d.DepartmentDivisionId == divisionId
+                                && d.DepartmentIsActive)
+                    .Select(d => new DepartmentDetailsByProfitcenterIdandDivisionIdDTO
+                    {
+                        DepartmentId = d.DepartmentId,
+                        DepartmentName = d.DepartmentName
+                    })
+                    .ToListAsync();
+
+                return departments;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

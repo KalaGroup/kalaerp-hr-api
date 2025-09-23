@@ -1,5 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Request.ActivityDetails;
 using KalaGenset.ERP.HR.Core.Request.ActivityMaster;
+using KalaGenset.ERP.HR.Core.ResponseDTO.ActivityDetails;
 using KalaGenset.ERP.HR.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -40,5 +41,8 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// <param name="id"></param>
         /// <returns></returns>
         public Task<ActivityDetail> GetActivityDetailByID(int id);
+
+        public Task<IEnumerable<ActivityDetailsResponseDTO>> GetActivityDetailsByCombination(int gradeId, int designationId, int divisionId);
+
     }
 }

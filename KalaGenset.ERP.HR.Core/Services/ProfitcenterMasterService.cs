@@ -2,6 +2,7 @@
 using KalaGenset.ERP.HR.Core.Request.Facility;
 using KalaGenset.ERP.HR.Core.Request.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Core.ResponseDTO.Company;
+using KalaGenset.ERP.HR.Core.ResponseDTO.StateMaster;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -124,7 +125,5 @@ namespace KalaGenset.ERP.HR.Core.Services
                 throw;
             }
         }
-
-      
     }
 }

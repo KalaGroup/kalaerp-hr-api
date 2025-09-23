@@ -1,5 +1,6 @@
 ﻿using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.ResposibilitiesDetail;
+using KalaGenset.ERP.HR.Core.Services;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -119,6 +120,20 @@ namespace KalaGenset.ERP.HR.API.Controllers
             {
                 // You can log the exception here if needed
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error updating responsibility detail: {ex.Message}");
+            }
+        }
+
+        [HttpGet("getResponsibiltiesdetails/{gradeId}/{designationId}/{divisionId}")]
+        public async Task<IActionResult> GetResponsibiltiesDetailsByCombination(int gradeId, int designationId, int divisionId)
+        {
+            try
+            {
+                var details = await resposibilitiesDetail.GetResponsibiltiesDetailsByCombination(gradeId, designationId, divisionId);
+                return Ok(details);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error fetching Responsibilties details: {ex.Message}");
             }
         }
     }

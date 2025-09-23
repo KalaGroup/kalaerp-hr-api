@@ -119,5 +119,20 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(500, $"An error occurred while Soft-Deleting department: {ex.Message}");
             }
         }
+
+        [HttpGet("getdepartments/{profitCenterId}/{divisionId}")]
+        public async Task<IActionResult> GetDepartmentsByProfitCenterAndDivision(int profitCenterId, int divisionId)
+        {
+            try
+            {
+                var departments = await _departmentMaster.GetDepartmentsByProfitCenterAndDivision(profitCenterId, divisionId);
+                return Ok(departments);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching departments: {ex.Message}");
+            }
+        }
+
     }
 }

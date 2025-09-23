@@ -2,6 +2,7 @@
 using KalaERP.HR.Core.Request.DesignationMaster;
 using KalaGenset.ERP.HR.Core.ResponseDTO.DesignationMaster;
 using KalaGenset.ERP.HR.Data.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,5 +45,8 @@ namespace KalaERP.HR.Core.Interface
 
         //Get Designation Id and Name
         public Task<List<DesignationIdAndNameResponseDTO>> GetDesignationIdAndNameFromDB();
+
+        public Task<IEnumerable<DesignationByGradeIdDTO>> GetDesignationsByGradeAsync(int gradeId);
+
     }
 }
