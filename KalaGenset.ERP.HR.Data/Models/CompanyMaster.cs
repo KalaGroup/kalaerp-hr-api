@@ -91,6 +91,10 @@ public partial class CompanyMaster
 
     public string? CompanyRemark2 { get; set; }
 
+    public int UpdatedBy { get; set; }
+
+    public DateTime UpdatedDate { get; set; }
+
     public virtual CurrencyMaster CompanyCurrency { get; set; } = null!;
 
     public virtual CompanyEntityTypeMaster? CompanyMasterEntityType { get; set; }
@@ -102,6 +106,8 @@ public partial class CompanyMaster
     public virtual DistrictMaster? CorporateDistrict { get; set; }
 
     public virtual StateMaster? CorporateState { get; set; }
+
+    public virtual ICollection<DailyAttendance> DailyAttendances { get; set; } = new List<DailyAttendance>();
 
     public virtual ICollection<HolidayMaster> HolidayMasters { get; set; } = new List<HolidayMaster>();
 

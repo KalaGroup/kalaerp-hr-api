@@ -27,6 +27,10 @@ public partial class Kpamaster
 
     public DateTime CreatedDate { get; set; }
 
+    public int UpdatedBy { get; set; }
+
+    public DateTime UpdatedDate { get; set; }
+
     public virtual DesignationMaster Kpadesignation { get; set; } = null!;
 
     public virtual ICollection<Kpadetail> Kpadetails { get; set; } = new List<Kpadetail>();

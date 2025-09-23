@@ -42,7 +42,9 @@ namespace KalaGenset.ERP.HR.Core.Services
                     ClassOfTravelIsDiscard = request.ClassOfTravelIsDiscard,
                     ClassOfTravelIsActive = request.ClassOfTravelIsActive,
                     CreatedBy = request.CreatedBy,
-                    CreatedDate = request.CreatedDate
+                    CreatedDate = request.CreatedDate,
+                    UpdatedBy = request.UpdatedBy,
+                    UpdatedDate = request.UpdatedDate,
                 };
                 _context.ClassOfTravelMasters.Add(classOfTravel);
                 await _context.SaveChangesAsync();
@@ -77,6 +79,8 @@ namespace KalaGenset.ERP.HR.Core.Services
                 classOfTravel.ClassOfTravelIsDiscard = request.ClassOfTravelIsDiscard;
                 classOfTravel.ClassOfTravelIsActive = request.ClassOfTravelIsActive;
                 classOfTravel.CreatedBy = request.CreatedBy;
+                classOfTravel.UpdatedDate = request.UpdatedDate;
+                classOfTravel.UpdatedBy = request.UpdatedBy;
                 _context.ClassOfTravelMasters.Update(classOfTravel);
                 await _context.SaveChangesAsync();
             }

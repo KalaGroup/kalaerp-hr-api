@@ -30,11 +30,13 @@ using KalaGenset.ERP.HR.Core.Request.PositionMaster;
 using KalaGenset.ERP.HR.Core.Request.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Core.Request.QualificationRequest;
 using KalaGenset.ERP.HR.Core.Request.RecruitmentAttributeMaster;
+using KalaGenset.ERP.HR.Core.Request.RecruitmentMaster;
 using KalaGenset.ERP.HR.Core.Request.RecruitmentReferenceMaster;
 using KalaGenset.ERP.HR.Core.Request.RecruitmentStageStatusMaster;
 using KalaGenset.ERP.HR.Core.Request.ResposibilitiesMaster;
 using KalaGenset.ERP.HR.Core.Request.StateRequest;
 using KalaGenset.ERP.HR.Core.Request.Workstation;
+using KalaGenset.ERP.HR.Core.Request.ShiftMaster;
 using KalaGenset.ERP.HR.Core.Services;
 using KalaGenset.ERP.HR.Core.Validation.ActivityMaster;
 using KalaGenset.ERP.HR.Core.Validation.AuthoritieMaster;
@@ -61,13 +63,23 @@ using KalaGenset.ERP.HR.Core.Validation.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Core.Validation.QualificationTypeMaster;
 using KalaGenset.ERP.HR.Core.Validation.QualificationValidator;
 using KalaGenset.ERP.HR.Core.Validation.RecruitmentAttributeMasterValidation;
+using KalaGenset.ERP.HR.Core.Validation.RecruitmentMaster;
 using KalaGenset.ERP.HR.Core.Validation.RecruitmentReferenceMaster;
 using KalaGenset.ERP.HR.Core.Validation.RecruitmentStageStatusMaster;
 using KalaGenset.ERP.HR.Core.Validation.RolesMasterValidation;
 using KalaGenset.ERP.HR.Core.Validation.StateValidator;
 using KalaGenset.ERP.HR.Core.Validation.WorkstationMasterValidation;
+using KalaGenset.ERP.HR.Core.Validation.ShiftMasterValidation;
+using KalaGenset.ERP.HR.Core.Validation.DepartmentBudget;
 using KalaGenset.ERP.HR.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
+using KalaGenset.ERP.HR.Core.Request.ProfitcenterBudget;
+using KalaGenset.ERP.HR.Core.Validation.ProfitcenterBudget;
+using KalaGenset.ERP.HR.Core.Request.DepartmentBudget;
+using KalaGenset.ERP.HR.Core.Request.WorkstationBudget;
+using KalaGenset.ERP.HR.Core.Validation.WorkstationBudgetValidation;
+using KalaGenset.ERP.HR.Core.Request.LeaveTypeMaster;
+using KalaGenset.ERP.HR.Core.Validation.LeaveTypeMasterValidation;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -126,6 +138,17 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertRecruitmentReferenceM
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateRecruitmentReferenceMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertPositionMasterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdatePositionMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertRecruitmentMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateRecruitmentReferenceMasterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertShiftMasterRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateShiftMasterRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertProfitcenterBudgetRequest>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateProfitcenterBudgetRequest>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertDepartmentRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateDepartmentRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertWorkstationBudgetRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertLeaveTypeMasterRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateLeaveTypeMasterRequestValidator>();
 
 //registering service
 builder.Services.AddScoped<IUserLogin, UserLoginServices>();
@@ -232,7 +255,30 @@ builder.Services.AddScoped<IValidator<InsertPositionRequest>, InsertPositionMast
 builder.Services.AddScoped<IValidator<UpdatePositionRequest>, UpdatePositionMasterValidator>();
 builder.Services.AddScoped<IPositionMaster, PositionMasterService>();
 builder.Services.AddScoped<IPositionDetails, PositionDetailService>();
+builder.Services.AddScoped<IRecruitmentMaster, RecruitmentMasterService>();
+builder.Services.AddScoped<IValidator<InsertRecruitmentMasterRequest>, InsertRecruitmentMasterValidator>();
+builder.Services.AddScoped<IValidator<UpdateRecruitmentMasterRequest>, UpdateRecruitmentMasterValidator>();
+builder.Services.AddScoped<IShiftMaster, ShiftMasterService>();
+builder.Services.AddScoped<IValidator<InsertShiftMasterRequest>, InsertShiftMasterRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateShiftMasterRequest>, UpdateShiftMasterRequestValidator>();
+builder.Services.AddScoped<IProfitcenterBudget, ProfitcenterBudgetService>();
+builder.Services.AddScoped<IValidator<InsertProfitcenterBudgetRequest>, InsertProfitcenterBudgetRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateProfitcenterBudgetRequest>, UpdateProfitcenterBudgetRequestValidator>();
+builder.Services.AddScoped<IDepartmentBudget, DepartmentBudgetService>();
+builder.Services.AddScoped<IValidator<InsertDepartmentBudgetRequest>, InsertDepartmentBudgetRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateDepartmentBudgetRequest>, UpdateDepartmentBudgetRequestValidator>();
+builder.Services.AddScoped<IWorkstationBudget, WorkstationBudgetService>();
+builder.Services.AddScoped<IValidator<InsertWorkstationBudgetRequest>, InsertWorkstationBudgetRequestValidator>();
+builder.Services.AddScoped<ILeaveTypeMaster, LeaveTypeMasterService>();
+builder.Services.AddScoped<IValidator<InsertleaveTypeMasterRequest>,InsertLeaveTypeMasterRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateLeaveTypeMasterRequest>, UpdateLeaveTypeMasterRequestValidator>();
 
+
+var jsonBuilder = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.Development.json", optional: false, reloadOnChange: true);
+
+IConfiguration config = jsonBuilder.Build();
 
 builder.Services.AddCors(options =>
 {
@@ -240,9 +286,10 @@ builder.Services.AddCors(options =>
         builder =>
         {
             builder
-                .AllowAnyOrigin()
+                .WithOrigins(config["CORSOrigin"])
                 .AllowAnyHeader()
-                .AllowAnyMethod();
+                .AllowAnyMethod()
+                .AllowCredentials();
         });
 });
 // Add services to the container.

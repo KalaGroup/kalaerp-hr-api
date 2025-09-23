@@ -29,6 +29,10 @@ public partial class ProfitcenterMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public int UpdatedBy { get; set; }
+
+    public DateTime UpdatedDate { get; set; }
+
     public virtual ICollection<DepartmentMaster> DepartmentMasters { get; set; } = new List<DepartmentMaster>();
 
     public virtual ICollection<ProfitcenterMaster> InverseParentProfitCenter { get; set; } = new List<ProfitcenterMaster>();
@@ -40,6 +44,8 @@ public partial class ProfitcenterMaster
     public virtual ICollection<PositionMaster> PositionMasters { get; set; } = new List<PositionMaster>();
 
     public virtual CompanyMaster ProfitCenterCompany { get; set; } = null!;
+
+    public virtual ICollection<ProfitcenterBudget> ProfitcenterBudgets { get; set; } = new List<ProfitcenterBudget>();
 
     public virtual ICollection<WorkStationMaster> WorkStationMasters { get; set; } = new List<WorkStationMaster>();
 }

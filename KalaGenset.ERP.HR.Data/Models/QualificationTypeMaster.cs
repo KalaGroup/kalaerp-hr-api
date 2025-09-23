@@ -23,5 +23,9 @@ public partial class QualificationTypeMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public int UpdatedBy { get; set; }
+
+    public DateTime UpdatedDate { get; set; }
+
     public virtual ICollection<QualificationMaster> QualificationMasters { get; set; } = new List<QualificationMaster>();
 }

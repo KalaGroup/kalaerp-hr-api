@@ -47,7 +47,9 @@ namespace KalaGenset.ERP.HR.Core.Services
                     AuthoritiesIsDiscard = request.AuthoritiesIsDiscard,
                     AuthoritiesIsActive = request.AuthoritiesIsActive,
                     CreatedBy = request.CreatedBy,
-                    CreatedDate = request.CreatedDate
+                    CreatedDate = request.CreatedDate,
+                    UpdatedBy = request.UpdatedBy,
+                    UpdatedDate = request.UpdatedDate,
                 };
 
                 _context.AuthoritiesMasters.Add(authoritie);
@@ -187,6 +189,8 @@ namespace KalaGenset.ERP.HR.Core.Services
                 authoritie.AuthoritiesIsActive = request.AuthoritiesIsActive;
                 authoritie.CreatedBy = request.CreatedBy;
                 authoritie.CreatedDate = request.CreatedDate;
+                authoritie.UpdatedBy = request.UpdatedBy;
+                authoritie.UpdatedDate = request.UpdatedDate;
 
                 _context.AuthoritiesMasters.Update(authoritie);
 

@@ -16,7 +16,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.RecruitmentAttributeMasterValidation
         private readonly KalaDbContext _context;
         public InsertRecruitmentAttributeMasterValidator(KalaDbContext context)
         {
-            _context = context;
+            _context = context; 
             RuleFor(x => x.RecruitmentAttributeName)
                 .NotEmpty().WithMessage("RecruitmentAttributeName is required.")
                 .MustAsync(BeUniqueRecruitmentAttributeName).WithMessage("RecruitmentAttributeName already exists.")

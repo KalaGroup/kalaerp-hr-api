@@ -21,6 +21,10 @@ public partial class CountryMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public int UpdatedBy { get; set; }
+
+    public DateTime UpdatedDate { get; set; }
+
     public virtual ICollection<CityMaster> CityMasters { get; set; } = new List<CityMaster>();
 
     public virtual ICollection<CompanyMaster> CompanyMasterCorporateCountries { get; set; } = new List<CompanyMaster>();

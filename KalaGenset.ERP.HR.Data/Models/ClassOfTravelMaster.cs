@@ -29,5 +29,9 @@ public partial class ClassOfTravelMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public int UpdatedBy { get; set; }
+
+    public DateTime UpdatedDate { get; set; }
+
     public virtual GradeMaster ClassOfTravelGrade { get; set; } = null!;
 }

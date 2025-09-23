@@ -23,6 +23,10 @@ public partial class StateMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public int UpdatedBy { get; set; }
+
+    public DateTime UpdatedDate { get; set; }
+
     public virtual ICollection<CityMaster> CityMasters { get; set; } = new List<CityMaster>();
 
     public virtual ICollection<CompanyMaster> CompanyMasterCorporateStates { get; set; } = new List<CompanyMaster>();

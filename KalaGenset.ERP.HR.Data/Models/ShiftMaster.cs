@@ -37,6 +37,10 @@ public partial class ShiftMaster
 
     public DateTime CreatedDate { get; set; }
 
+    public int UpdatedBy { get; set; }
+
+    public DateTime UpdatedDate { get; set; }
+
     public virtual CompanyMaster ShiftMasterCompany { get; set; } = null!;
 
     public virtual EmployeeTypeMaster ShiftMasterEmployeeType { get; set; } = null!;
