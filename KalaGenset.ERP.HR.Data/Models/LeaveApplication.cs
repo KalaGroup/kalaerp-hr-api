@@ -11,11 +11,17 @@ public partial class LeaveApplication
 
     public int LeaveApplicationsLeaveTypeId { get; set; }
 
+    public DateOnly LeaveApplicationsFromDate { get; set; }
+
+    public DateOnly LeaveApplicationsToDate { get; set; }
+
     public int LeaveApplicationsLeaveCount { get; set; }
 
     public string LeaveApplicationsRemark { get; set; } = null!;
 
     public string LeaveApplicationsAuthRemark { get; set; } = null!;
+
+    public bool LeaveApplicationsAuth { get; set; }
 
     public bool LeaveApplicationsIsDiscard { get; set; }
 

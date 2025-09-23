@@ -80,6 +80,8 @@ using KalaGenset.ERP.HR.Core.Request.WorkstationBudget;
 using KalaGenset.ERP.HR.Core.Validation.WorkstationBudgetValidation;
 using KalaGenset.ERP.HR.Core.Request.LeaveTypeMaster;
 using KalaGenset.ERP.HR.Core.Validation.LeaveTypeMasterValidation;
+using KalaGenset.ERP.HR.Core.Validation.OfferLetter;
+using KalaGenset.ERP.HR.Core.Request.OfferLetter;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -149,6 +151,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<UpdateDepartmentRequestVali
 builder.Services.AddValidatorsFromAssemblyContaining<InsertWorkstationBudgetRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertLeaveTypeMasterRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateLeaveTypeMasterRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertOfferLetterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateOffereLetterValidator>();
 
 //registering service
 builder.Services.AddScoped<IUserLogin, UserLoginServices>();
@@ -272,6 +276,9 @@ builder.Services.AddScoped<IValidator<InsertWorkstationBudgetRequest>, InsertWor
 builder.Services.AddScoped<ILeaveTypeMaster, LeaveTypeMasterService>();
 builder.Services.AddScoped<IValidator<InsertleaveTypeMasterRequest>,InsertLeaveTypeMasterRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateLeaveTypeMasterRequest>, UpdateLeaveTypeMasterRequestValidator>();
+builder.Services.AddScoped<IOfferLetter, OfferLetterServices>();
+builder.Services.AddScoped<IValidator<InsertOfferLetterRequest>, InsertOfferLetterValidator>();
+builder.Services.AddScoped<IValidator<UpdateOfferLetterRequest>, UpdateOffereLetterValidator>();
 
 
 var jsonBuilder = new ConfigurationBuilder()
