@@ -11,7 +11,7 @@ public partial class OfferLetter
 
     public int OfferLetterRecruitmentId { get; set; }
 
-    public double OfferLetterJoinindate { get; set; }
+    public DateOnly OfferLetterJoinindate { get; set; }
 
     public string OfferLetterRemark { get; set; } = null!;
 

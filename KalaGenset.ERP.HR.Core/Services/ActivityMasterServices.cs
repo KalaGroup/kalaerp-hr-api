@@ -6,6 +6,7 @@ using KalaGenset.ERP.HR.Data.DbContexts;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using static KalaGenset.ERP.HR.Core.Request.KPAMaster.InsertKPAMasterRequest;
 
 namespace KalaGenset.ERP.HR.Core.Services
 {
@@ -81,10 +82,11 @@ namespace KalaGenset.ERP.HR.Core.Services
 
                 // Remove details first
                 if (activity.ActivityDetails.Any())
-                    context.ActivityDetails.RemoveRange(activity.ActivityDetails);
+                    activity.ActivityIsActive = false;
+                context.ActivityDetails.RemoveRange(activity.ActivityDetails);
 
                 // Remove master
-                context.ActivityMasters.Remove(activity);
+                //context.ActivityMasters.Remove(activity);
 
                 await context.SaveChangesAsync();
             }

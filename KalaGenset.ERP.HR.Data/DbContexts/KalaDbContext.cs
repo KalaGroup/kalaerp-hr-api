@@ -1316,7 +1316,7 @@ public partial class KalaDbContext : DbContext
 
         modelBuilder.Entity<LeaveApplication>(entity =>
         {
-            entity.HasKey(e => e.LeaveApplicationId).HasName("PK__LeaveApp__038EC20D33CC6293");
+            entity.HasKey(e => e.LeaveApplicationId).HasName("PK__LeaveApp__038EC20D6D63CC6A");
 
             entity.ToTable(tb => tb.IsTemporal(ttb =>
                     {
@@ -1439,7 +1439,7 @@ public partial class KalaDbContext : DbContext
 
         modelBuilder.Entity<OfferLetter>(entity =>
         {
-            entity.HasKey(e => e.OfferLetterId).HasName("PK__OfferLet__94C850474AC1ED29");
+            entity.HasKey(e => e.OfferLetterId).HasName("PK__OfferLet__94C85047A44BA7A4");
 
             entity
                 .ToTable("OfferLetter")
@@ -1484,7 +1484,7 @@ public partial class KalaDbContext : DbContext
 
         modelBuilder.Entity<OfferLetterCtc>(entity =>
         {
-            entity.HasKey(e => e.OfferLetterCtcid).HasName("PK__OfferLet__B657EDD3A448CEF6");
+            entity.HasKey(e => e.OfferLetterCtcid).HasName("PK__OfferLet__B657EDD3968ECE04");
 
             entity
                 .ToTable("OfferLetterCTC")
