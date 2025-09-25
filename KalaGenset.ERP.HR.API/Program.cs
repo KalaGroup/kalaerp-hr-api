@@ -84,6 +84,8 @@ using KalaGenset.ERP.HR.Core.Validation.OfferLetter;
 using KalaGenset.ERP.HR.Core.Request.OfferLetter;
 using KalaGenset.ERP.HR.Core.Validation.EmployeeLeaveBalanceValidation;
 using KalaGenset.ERP.HR.Core.Request.EmployeeLeaveBalance;
+using KalaGenset.ERP.HR.Core.Validation.LeaveApplication;
+using KalaGenset.ERP.HR.Core.Request.LeaveApplication;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -157,6 +159,9 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertOfferLetterValidator>
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateOffereLetterValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateEmployeeLeaveBalanceValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertEmployeeLeaveBalanceValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateLeaveApplicationValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertLeaveApplicationValidator>();
+
 
 //registering service
 builder.Services.AddScoped<IUserLogin, UserLoginServices>();
@@ -287,6 +292,10 @@ builder.Services.AddScoped<IValidator<UpdateOfferLetterRequest>, UpdateOffereLet
 builder.Services.AddScoped<IEmployeeLeaveBalance, EmployeeLeaveBalanceService>();
 builder.Services.AddScoped<IValidator<InsertEmployeeLeaveBalanceRequest>, InsertEmployeeLeaveBalanceValidator>();
 builder.Services.AddScoped<IValidator<UpdateEmployeeLeaveBalanceRequest>, UpdateEmployeeLeaveBalanceValidator>();
+builder.Services.AddScoped<ILeaveApplication, LeaveApplicationServices>();
+builder.Services.AddScoped<IValidator<InsertLeaveApplicationRequest>, InsertLeaveApplicationValidator>();
+builder.Services.AddScoped<IValidator<UpdateLeaveApplicationRequest>, UpdateLeaveApplicationValidator>();
+
 
 var jsonBuilder = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())

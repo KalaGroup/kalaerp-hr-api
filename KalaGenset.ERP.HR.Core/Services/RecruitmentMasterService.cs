@@ -198,6 +198,10 @@ namespace KalaGenset.ERP.HR.Core.Services
                 {
                     EmployeeMasterId = c.EmployeeMasterId,
                     EmployeeMasterFullName = c.EmployeeMasterFullName,
+                    EmployeeMasterCode=c.EmployeeMasterCode,
+                     LeaveBalancesClosing=c.EmployeeLeaveBalances
+                                        .Where(lb => lb.LeaveBalancesIsActive)
+                                        .Sum(lb => lb.LeaveBalancesClosing)
                 })
                 .ToListAsync();
 
