@@ -35,6 +35,10 @@ public partial class CountryMaster
 
     public virtual ICollection<DistrictMaster> DistrictMasters { get; set; } = new List<DistrictMaster>();
 
+    public virtual ICollection<EmployeeMasterAddressDetail> EmployeeMasterAddressDetailAddressDetailsEmployeeMasterPermanantCountries { get; set; } = new List<EmployeeMasterAddressDetail>();
+
+    public virtual ICollection<EmployeeMasterAddressDetail> EmployeeMasterAddressDetailAddressDetailsEmployeeMasterPresentCountries { get; set; } = new List<EmployeeMasterAddressDetail>();
+
     public virtual ICollection<EmployeeMasterPersonalDetail> EmployeeMasterPersonalDetails { get; set; } = new List<EmployeeMasterPersonalDetail>();
 
     public virtual ICollection<StateMaster> StateMasters { get; set; } = new List<StateMaster>();

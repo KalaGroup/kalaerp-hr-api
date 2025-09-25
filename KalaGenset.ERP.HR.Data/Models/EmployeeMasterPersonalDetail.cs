@@ -55,6 +55,10 @@ public partial class EmployeeMasterPersonalDetail
 
     public virtual ICollection<EmployeeLeaveBalance> EmployeeLeaveBalances { get; set; } = new List<EmployeeLeaveBalance>();
 
+    public virtual ICollection<EmployeeMasterAddressDetail> EmployeeMasterAddressDetails { get; set; } = new List<EmployeeMasterAddressDetail>();
+
+    public virtual ICollection<EmployeeMasterFamilyDetail> EmployeeMasterFamilyDetails { get; set; } = new List<EmployeeMasterFamilyDetail>();
+
     public virtual CountryMaster EmployeeMasterNationalityCountry { get; set; } = null!;
 
     public virtual ICollection<LeaveApplication> LeaveApplications { get; set; } = new List<LeaveApplication>();

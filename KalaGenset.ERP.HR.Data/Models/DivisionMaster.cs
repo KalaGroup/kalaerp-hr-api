@@ -39,6 +39,8 @@ public partial class DivisionMaster
 
     public virtual ICollection<DepartmentMaster> DepartmentMasters { get; set; } = new List<DepartmentMaster>();
 
+    public virtual ICollection<KalaErppageDetail> KalaErppageDetails { get; set; } = new List<KalaErppageDetail>();
+
     public virtual ICollection<Kpamaster> Kpamasters { get; set; } = new List<Kpamaster>();
 
     public virtual ICollection<PositionMaster> PositionMasters { get; set; } = new List<PositionMaster>();

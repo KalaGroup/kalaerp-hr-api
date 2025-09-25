@@ -52,6 +52,10 @@ public partial class KalaDbContext : DbContext
 
     public virtual DbSet<EmployeeLeaveBalance> EmployeeLeaveBalances { get; set; }
 
+    public virtual DbSet<EmployeeMasterAddressDetail> EmployeeMasterAddressDetails { get; set; }
+
+    public virtual DbSet<EmployeeMasterFamilyDetail> EmployeeMasterFamilyDetails { get; set; }
+
     public virtual DbSet<EmployeeMasterPersonalDetail> EmployeeMasterPersonalDetails { get; set; }
 
     public virtual DbSet<EmployeeMasterUpdationForMaster> EmployeeMasterUpdationForMasters { get; set; }
@@ -67,6 +71,8 @@ public partial class KalaDbContext : DbContext
     public virtual DbSet<HolidayMaster> HolidayMasters { get; set; }
 
     public virtual DbSet<HrauthorisationLog> HrauthorisationLogs { get; set; }
+
+    public virtual DbSet<KalaErppageDetail> KalaErppageDetails { get; set; }
 
     public virtual DbSet<Kpadetail> Kpadetails { get; set; }
 
@@ -926,6 +932,116 @@ public partial class KalaDbContext : DbContext
                 .HasConstraintName("FK_LeaveBalancesId_UpdatedBy");
         });
 
+        modelBuilder.Entity<EmployeeMasterAddressDetail>(entity =>
+        {
+            entity.HasKey(e => e.EmployeeMasterAddressDetailsId).HasName("PK__Employee__5FDB10C89241C603");
+
+            entity.ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("EmployeeMasterAddressDetailsHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.AddressDetailsEmployeeMasterAuthRemark)
+                .HasMaxLength(500)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.AddressDetailsEmployeeMasterPermanantAdress).HasMaxLength(500);
+            entity.Property(e => e.AddressDetailsEmployeeMasterPresentAdress).HasMaxLength(500);
+            entity.Property(e => e.UpdatedBy).HasDefaultValue(1);
+            entity.Property(e => e.UpdatedDate).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.AddressDetailsEmployeeMaster).WithMany(p => p.EmployeeMasterAddressDetails)
+                .HasForeignKey(d => d.AddressDetailsEmployeeMasterId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterAddressDetailsId_AddressDetailsEmployeeMasterId");
+
+            entity.HasOne(d => d.AddressDetailsEmployeeMasterPermanantCity).WithMany(p => p.EmployeeMasterAddressDetailAddressDetailsEmployeeMasterPermanantCities)
+                .HasForeignKey(d => d.AddressDetailsEmployeeMasterPermanantCityId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterAddressDetailsId_AddressDetailsEmployeeMasterPermanantCityId");
+
+            entity.HasOne(d => d.AddressDetailsEmployeeMasterPermanantCountry).WithMany(p => p.EmployeeMasterAddressDetailAddressDetailsEmployeeMasterPermanantCountries)
+                .HasForeignKey(d => d.AddressDetailsEmployeeMasterPermanantCountryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterAddressDetailsId_AddressDetailsEmployeeMasterPermanantCountryId");
+
+            entity.HasOne(d => d.AddressDetailsEmployeeMasterPermanantState).WithMany(p => p.EmployeeMasterAddressDetailAddressDetailsEmployeeMasterPermanantStates)
+                .HasForeignKey(d => d.AddressDetailsEmployeeMasterPermanantStateId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterAddressDetailsId_AddressDetailsEmployeeMasterPermanantStateId");
+
+            entity.HasOne(d => d.AddressDetailsEmployeeMasterPresentCityt).WithMany(p => p.EmployeeMasterAddressDetailAddressDetailsEmployeeMasterPresentCityts)
+                .HasForeignKey(d => d.AddressDetailsEmployeeMasterPresentCitytId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterAddressDetailsId_AddressDetailsEmployeeMasterPresentCitytId");
+
+            entity.HasOne(d => d.AddressDetailsEmployeeMasterPresentCountry).WithMany(p => p.EmployeeMasterAddressDetailAddressDetailsEmployeeMasterPresentCountries)
+                .HasForeignKey(d => d.AddressDetailsEmployeeMasterPresentCountryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterAddressDetailsId_AddressDetailsEmployeeMasterPresentCountryId");
+
+            entity.HasOne(d => d.AddressDetailsEmployeeMasterPresentDistrict).WithMany(p => p.EmployeeMasterAddressDetails)
+                .HasForeignKey(d => d.AddressDetailsEmployeeMasterPresentDistrictId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterAddressDetailsId_AddressDetailsEmployeeMasterPermanantDistrictId");
+
+            entity.HasOne(d => d.AddressDetailsEmployeeMasterPresentState).WithMany(p => p.EmployeeMasterAddressDetailAddressDetailsEmployeeMasterPresentStates)
+                .HasForeignKey(d => d.AddressDetailsEmployeeMasterPresentStateId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterAddressDetailsId_AddressDetailsEmployeeMasterPresentStateId");
+
+            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.EmployeeMasterAddressDetails)
+                .HasForeignKey(d => d.UpdatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterAddressDetailsId_UpdatedBy");
+        });
+
+        modelBuilder.Entity<EmployeeMasterFamilyDetail>(entity =>
+        {
+            entity.HasKey(e => e.EmployeeMasterFamilyDetailsId).HasName("PK__Employee__AD5C9C74281848AF");
+
+            entity.ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("EmployeeMasterFamilyDetailsHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.FamilyDetailsEmployeeMasterAuthRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.FamilyDetailsEmployeeMasterFatherHusbandName).HasMaxLength(10);
+            entity.Property(e => e.FamilyDetailsEmployeeMasterMartialStatus).HasMaxLength(20);
+            entity.Property(e => e.FamilyDetailsEmployeeMasterMotherName).HasMaxLength(200);
+            entity.Property(e => e.FamilyDetailsEmployeeMasterRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.FamilyDetailsEmployeeMasterSpouseAadharNumber).HasMaxLength(200);
+            entity.Property(e => e.FamilyDetailsEmployeeMasterSpouseAadharNumberAttachment).HasMaxLength(500);
+            entity.Property(e => e.FamilyDetailsEmployeeMasterSpouseName).HasMaxLength(200);
+            entity.Property(e => e.UpdatedBy).HasDefaultValue(1);
+            entity.Property(e => e.UpdatedDate).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.FamilyDetailsEmployeeMaster).WithMany(p => p.EmployeeMasterFamilyDetails)
+                .HasForeignKey(d => d.FamilyDetailsEmployeeMasterId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterFamilyDetailsId_FamilyDetailsEmployeeMasterId");
+
+            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.EmployeeMasterFamilyDetails)
+                .HasForeignKey(d => d.UpdatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterFamilyDetailsId_UpdatedBy");
+        });
+
         modelBuilder.Entity<EmployeeMasterPersonalDetail>(entity =>
         {
             entity.HasKey(e => e.EmployeeMasterId).HasName("PK__Employee__EE32E139BB7BFF48");
@@ -1224,6 +1340,66 @@ public partial class KalaDbContext : DbContext
                 .HasForeignKey(d => d.UpdatedBy)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_HRAuthLogID_UpdatedBy");
+        });
+
+        modelBuilder.Entity<KalaErppageDetail>(entity =>
+        {
+            entity.HasKey(e => e.KalaErppageDetailsId).HasName("PK__KalaERPP__D93D0346D377300C");
+
+            entity
+                .ToTable("KalaERPPageDetails")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("KalaERPPageDetailsHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.KalaErppageDetailsId).HasColumnName("KalaERPPageDetailsID");
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.KalaErppageDetailsAuth).HasColumnName("KalaERPPageDetailsAuth");
+            entity.Property(e => e.KalaErppageDetailsAuthRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil")
+                .HasColumnName("KalaERPPageDetailsAuthRemark");
+            entity.Property(e => e.KalaErppageDetailsDivisionId).HasColumnName("KalaERPPageDetailsDivisionID");
+            entity.Property(e => e.KalaErppageDetailsIsActive)
+                .HasDefaultValue(true)
+                .HasColumnName("KalaERPPageDetailsIsActive");
+            entity.Property(e => e.KalaErppageDetailsIsDiscard)
+                .HasDefaultValue(true)
+                .HasColumnName("KalaERPPageDetailsIsDiscard");
+            entity.Property(e => e.KalaErppageDetailsRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil")
+                .HasColumnName("KalaERPPageDetailsRemark");
+            entity.Property(e => e.PageIsonumber)
+                .HasMaxLength(200)
+                .HasColumnName("PageISONumber");
+            entity.Property(e => e.PageTittle).HasMaxLength(200);
+            entity.Property(e => e.PageUrl)
+                .HasMaxLength(400)
+                .HasColumnName("PageURL");
+            entity.Property(e => e.UpdatedDate).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.KalaErppageDetailCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_KalaERPPageDetailsId_CreatedBy");
+
+            entity.HasOne(d => d.KalaErppageDetailsDivision).WithMany(p => p.KalaErppageDetails)
+                .HasForeignKey(d => d.KalaErppageDetailsDivisionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_KalaERPPageDetailsId_KalaERPPageDetailsDivisionID");
+
+            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.KalaErppageDetailUpdatedByNavigations)
+                .HasForeignKey(d => d.UpdatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_KalaERPPageDetailsId_UpdatedBy");
         });
 
         modelBuilder.Entity<Kpadetail>(entity =>

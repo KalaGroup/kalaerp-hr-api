@@ -88,9 +88,4 @@ public partial class PositionMaster
     public virtual WorkStationMaster PositionMasterWorkStation { get; set; } = null!;
 
     public virtual ICollection<RecruitmentMaster> RecruitmentMasters { get; set; } = new List<RecruitmentMaster>();
-
-    public static async Task GetpositionDetailsByMsaterId(int positionMasterId)
-    {
-        throw new NotImplementedException();
-    }
 }

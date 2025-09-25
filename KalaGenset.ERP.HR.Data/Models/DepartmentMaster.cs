@@ -7,11 +7,11 @@ public partial class DepartmentMaster
 {
     public int DepartmentId { get; set; }
 
-    public string DepartmentCode { get; set; }
+    public string DepartmentCode { get; set; } = null!;
 
-    public string DepartmentName { get; set; }
+    public string DepartmentName { get; set; } = null!;
 
-    public string DepartmentShortName { get; set; }
+    public string DepartmentShortName { get; set; } = null!;
 
     public int? DepartmentDivisionId { get; set; }
 
