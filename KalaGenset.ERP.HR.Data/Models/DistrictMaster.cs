@@ -43,5 +43,7 @@ public partial class DistrictMaster
 
     public virtual CountryMaster Country { get; set; } = null!;
 
+    public virtual ICollection<EmployeeMasterAddressDetail> EmployeeMasterAddressDetails { get; set; } = new List<EmployeeMasterAddressDetail>();
+
     public virtual StateMaster State { get; set; } = null!;
 }

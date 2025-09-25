@@ -113,9 +113,17 @@ public partial class UserLogin
 
     public virtual ICollection<EmployeeLeaveBalance> EmployeeLeaveBalanceUpdatedByNavigations { get; set; } = new List<EmployeeLeaveBalance>();
 
+    public virtual ICollection<EmployeeMasterAddressDetail> EmployeeMasterAddressDetails { get; set; } = new List<EmployeeMasterAddressDetail>();
+
+    public virtual ICollection<EmployeeMasterFamilyDetail> EmployeeMasterFamilyDetails { get; set; } = new List<EmployeeMasterFamilyDetail>();
+
     public virtual ICollection<HrauthorisationLog> HrauthorisationLogCreatedByNavigations { get; set; } = new List<HrauthorisationLog>();
 
     public virtual ICollection<HrauthorisationLog> HrauthorisationLogUpdatedByNavigations { get; set; } = new List<HrauthorisationLog>();
+
+    public virtual ICollection<KalaErppageDetail> KalaErppageDetailCreatedByNavigations { get; set; } = new List<KalaErppageDetail>();
+
+    public virtual ICollection<KalaErppageDetail> KalaErppageDetailUpdatedByNavigations { get; set; } = new List<KalaErppageDetail>();
 
     public virtual ICollection<LeaveApplication> LeaveApplicationCreatedByNavigations { get; set; } = new List<LeaveApplication>();
 
