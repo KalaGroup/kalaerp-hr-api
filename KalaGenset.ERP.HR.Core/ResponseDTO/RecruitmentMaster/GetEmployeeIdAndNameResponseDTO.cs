@@ -10,5 +10,7 @@ namespace KalaGenset.ERP.HR.Core.ResponseDTO.RecruitmentMaster
     {
         public int EmployeeMasterId { get; set; }
         public string EmployeeMasterFullName { get; set; } = null!;
+        public string EmployeeMasterCode { get; set; } = null!;
+        public int LeaveBalancesClosing { get; set; }
     }
 }
