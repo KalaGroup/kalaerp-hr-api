@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Azure.Core;
+using FluentValidation;
 using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.DepartmentBudget;
 using KalaGenset.ERP.HR.Core.Request.ShiftMaster;
@@ -6,6 +7,7 @@ using KalaGenset.ERP.HR.Core.ResponseDTO.DepartmentBudget;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace KalaGenset.ERP.HR.API.Controllers
 {
@@ -31,19 +33,29 @@ namespace KalaGenset.ERP.HR.API.Controllers
         [HttpPost("InsertDepartmentBudget")]
         public async Task<IActionResult> InsertDepartmentBudget(InsertDepartmentBudgetRequest InsertDepartmentBudgetRequest)
         {
+            if (InsertDepartmentBudgetRequest == null)
+            {
+                return BadRequest("Invalid request data.");
+            }
             var validationResult = await _insertdepartmetbudgetValidator.ValidateAsync(InsertDepartmentBudgetRequest);
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);
+                var errors = validationResult.Errors
+                .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
+                .FirstOrDefault();
+
+                return BadRequest(errors);
             }
             try
             {
                 await _DepartmentBudget.AddDepartmentBudgetAsync(InsertDepartmentBudgetRequest);
                 return Ok();
+
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"An error occurred while adding Department Budget: {ex.Message}");
+                // Log the exception (not implemented here)
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Internal server error: {ex.Message}");
             }
         }
         /// <summary>
