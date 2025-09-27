@@ -193,7 +193,6 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             var employees = await Context.EmployeeMasterPersonalDetails
                 .Where(c => c.EmployeeMasterIsActive)
-                //.Include(c => c.RecruitmentMasterInterviewerEmployee)
                 .Select(c => new GetEmployeeIdAndNameResponseDTO
                 {
                     EmployeeMasterId = c.EmployeeMasterId,
@@ -202,6 +201,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                      LeaveBalancesClosing=c.EmployeeLeaveBalances
                                         .Where(lb => lb.LeaveBalancesIsActive)
                                         .Sum(lb => lb.LeaveBalancesClosing)
+                   
                 })
                 .ToListAsync();
 

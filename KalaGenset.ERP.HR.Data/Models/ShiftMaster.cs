@@ -41,6 +41,8 @@ public partial class ShiftMaster
 
     public DateTime UpdatedDate { get; set; }
 
+    public virtual ICollection<DailyAttendance> DailyAttendances { get; set; } = new List<DailyAttendance>();
+
     public virtual CompanyMaster ShiftMasterCompany { get; set; } = null!;
 
     public virtual EmployeeTypeMaster ShiftMasterEmployeeType { get; set; } = null!;

@@ -11,19 +11,19 @@ public partial class DailyAttendance
 
     public int AttendanceCompanyId { get; set; }
 
-    public string AttendanceDate { get; set; } = null!;
+    public DateTime AttendanceDate { get; set; }
 
-    public int InTime { get; set; }
+    public TimeOnly InTime { get; set; }
 
-    public int OutTime { get; set; }
+    public TimeOnly OutTime { get; set; }
 
-    public bool AttendanceShiftId { get; set; }
+    public int AttendanceShiftId { get; set; }
 
     public bool InTimeAuth { get; set; }
 
     public bool OutTimeAuth { get; set; }
 
-    public int AttendanceStatus { get; set; }
+    public string AttendanceStatus { get; set; } = null!;
 
     public string AttendanceRemark { get; set; } = null!;
 
@@ -46,6 +46,8 @@ public partial class DailyAttendance
     public virtual CompanyMaster AttendanceCompany { get; set; } = null!;
 
     public virtual EmployeeMasterPersonalDetail AttendanceEmployee { get; set; } = null!;
+
+    public virtual ShiftMaster AttendanceShift { get; set; } = null!;
 
     public virtual UserLogin CreatedByNavigation { get; set; } = null!;
 

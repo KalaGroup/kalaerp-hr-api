@@ -86,6 +86,8 @@ using KalaGenset.ERP.HR.Core.Validation.EmployeeLeaveBalanceValidation;
 using KalaGenset.ERP.HR.Core.Request.EmployeeLeaveBalance;
 using KalaGenset.ERP.HR.Core.Validation.LeaveApplication;
 using KalaGenset.ERP.HR.Core.Request.LeaveApplication;
+using KalaGenset.ERP.HR.Core.Validation.DailyAttendance;
+using KalaGenset.ERP.HR.Core.Request.DailyAttendance;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -161,6 +163,10 @@ builder.Services.AddValidatorsFromAssemblyContaining<UpdateEmployeeLeaveBalanceV
 builder.Services.AddValidatorsFromAssemblyContaining<InsertEmployeeLeaveBalanceValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateLeaveApplicationValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertLeaveApplicationValidator>();
+
+builder.Services.AddValidatorsFromAssemblyContaining<InsertDailyAttendanceValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateDailyAttendanceValidator>();
+
 
 
 //registering service
@@ -295,6 +301,10 @@ builder.Services.AddScoped<IValidator<UpdateEmployeeLeaveBalanceRequest>, Update
 builder.Services.AddScoped<ILeaveApplication, LeaveApplicationServices>();
 builder.Services.AddScoped<IValidator<InsertLeaveApplicationRequest>, InsertLeaveApplicationValidator>();
 builder.Services.AddScoped<IValidator<UpdateLeaveApplicationRequest>, UpdateLeaveApplicationValidator>();
+builder.Services.AddScoped<IDailyAttendance, DailyAttendanceServices>();
+builder.Services.AddScoped<IValidator<InsertDailyAttendanceRequest>, InsertDailyAttendanceValidator>();
+builder.Services.AddScoped<IValidator<UpdateDailyAttendanceRequest>, UpdateDailyAttendanceValidator>();
+
 
 
 var jsonBuilder = new ConfigurationBuilder()
