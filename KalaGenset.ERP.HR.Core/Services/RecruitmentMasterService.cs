@@ -19,14 +19,14 @@ namespace KalaGenset.ERP.HR.Core.Services
 {
     public class RecruitmentMasterService : IRecruitmentMaster
     {
-        private readonly KalaDbContext Context;
+        private readonly KalaDbContext context;
         public RecruitmentMasterService(KalaDbContext context)
         {
-            Context = context;
+            this.context = context;
         }
         public async Task AddRecruitmentMasterAsync(InsertRecruitmentMasterRequest request)
         {
-            using var transaction = await Context.Database.BeginTransactionAsync();
+            using var transaction = await context.Database.BeginTransactionAsync();
             try
             {
                 var recruitmentmaster = new RecruitmentMaster
@@ -62,8 +62,8 @@ namespace KalaGenset.ERP.HR.Core.Services
                     CreatedDate = DateTime.Now
                 };
 
-                Context.RecruitmentMasters.Add(recruitmentmaster);
-                await Context.SaveChangesAsync();
+                context.RecruitmentMasters.Add(recruitmentmaster);
+                await context.SaveChangesAsync();
 
                 int recruitmentMstId = recruitmentmaster.RecruitmentMasterId;
 
@@ -77,8 +77,8 @@ namespace KalaGenset.ERP.HR.Core.Services
                         RecruitmentDetailsAttributeId = item.newAttributeId
                     }).ToList();
 
-                    Context.RecruitmentDetails.AddRange(details);
-                    await Context.SaveChangesAsync();
+                    context.RecruitmentDetails.AddRange(details);
+                    await context.SaveChangesAsync();
                 }
 
                 // ✅ Commit only if all operations succeed
@@ -98,20 +98,20 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             try
             {
-                var recruitmentmaster = await Context.RecruitmentMasters
+                var recruitmentmaster = await context.RecruitmentMasters
                     .Include(r => r.RecruitmentDetails) // 👈 load child details
                     .FirstOrDefaultAsync(c => c.RecruitmentMasterId == recruitmentMasterId);
 
                 if (recruitmentmaster == null)
                     throw new Exception("RecruitmentMaster not found");
-               
+
                 // Remove details first
                 if (recruitmentmaster.RecruitmentDetails.Any())
-                    Context.RecruitmentDetails.RemoveRange(recruitmentmaster.RecruitmentDetails);
+                    context.RecruitmentDetails.RemoveRange(recruitmentmaster.RecruitmentDetails);
                 recruitmentmaster.RecruitmentMasterIsActive = false;
-              
-                
-                await Context.SaveChangesAsync();
+
+
+                await context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -123,36 +123,36 @@ namespace KalaGenset.ERP.HR.Core.Services
         public async Task<IEnumerable<RecruitmentMasterDTO>> GetAllRecruitmentMasterAsync()
         {
             var recruitments = await (
-                from rm in Context.RecruitmentMasters
+                from rm in context.RecruitmentMasters
 
-                join pos in Context.PositionMasters
+                join pos in context.PositionMasters
                     on rm.RecruitmentMasterPositionId equals pos.PositionMasterId   // ✅ FIXED
 
-                join refm in Context.RecruitmentReferenceMasters
+                join refm in context.RecruitmentReferenceMasters
                     on rm.RecruitmentMasterReferenceId equals refm.RecruitmentReferenceId
 
-                join city in Context.CityMasters
+                join city in context.CityMasters
                     on rm.RecruitmentMasterCityId equals city.CityId
 
-                join comp in Context.CompanyMasters
+                join comp in context.CompanyMasters
                     on rm.RecruitmentMasterCompanyId equals comp.CompanyId
 
-                join emp in Context.EmployeeMasterPersonalDetails
+                join emp in context.EmployeeMasterPersonalDetails
                     on rm.RecruitmentMasterInterviewerEmployeeId equals emp.EmployeeMasterId
 
-                join g in Context.GradeMasters
+                join g in context.GradeMasters
                     on rm.RecruitmentMasterGradeId equals g.GradeId
 
-                join d in Context.DesignationMasters
+                join d in context.DesignationMasters
                     on rm.RecruitmentMasterDesignationId equals d.DesignationId
 
-                join stage in Context.RecruitmentStageStatusMasters
+                join stage in context.RecruitmentStageStatusMasters
                     on rm.RecruitmentMasterRecruitmentStageStatusId equals stage.RecruitmentStageStatusId
 
                 select new RecruitmentMasterDTO
                 {
                     RecruitmentMasterId = rm.RecruitmentMasterId,
-                    PositionMasterName = pos.PositionMasterName,
+                    RecruitmentMasterPositionName = pos.PositionMasterName,
                     RecruitmentMasterCode = rm.RecruitmentMasterCode,
                     RecruitmentReferenceName = refm.RecruitmentReferenceName,
                     RecruitmentMasterReferenceName = rm.RecruitmentMasterReferenceName,
@@ -163,13 +163,13 @@ namespace KalaGenset.ERP.HR.Core.Services
                     RecruitmentMasterCandidateEmailId = rm.RecruitmentMasterCandidateEmailId,
                     RecruitmentMasterCandidateContactNumber = rm.RecruitmentMasterCandidateContactNumber,
                     RecruitmentMasterAppropriateForJobRole = rm.RecruitmentMasterAppropriateForJobRole,
-                    EmployeeMasterFullName = emp.EmployeeMasterFullName,
+                    RecruiterFullName = emp.EmployeeMasterFullName,
                     RecruitmentMasterInterviewerComment = rm.RecruitmentMasterInterviewerComment,
                     GradeName = g.GradeName,
                     DesignationName = d.DesignationName,
-                    RecruitmentMasterCurrentCtcpa = rm.RecruitmentMasterCurrentCtcpa,
-                    RecruitmentMasterExpectedCtcpa = rm.RecruitmentMasterExpectedCtcpa,
-                    RecruitmentMasterRecommendedCtcpa = rm.RecruitmentMasterRecommendedCtcpa,
+                    RecruitmentMasterCurrentCTCPA = rm.RecruitmentMasterCurrentCtcpa,
+                    RecruitmentMasterExpectedCTCPA = rm.RecruitmentMasterExpectedCtcpa,
+                    RecruitmentMasterRecommendedCTCPA = rm.RecruitmentMasterRecommendedCtcpa,
                     RecruitmentMasterExpectedJoiningDate = rm.RecruitmentMasterExpectedJoiningDate,
                     RecruitmentMasterHrcomment = rm.RecruitmentMasterHrcomment,
                     RecruitmentStageStatusName = stage.RecruitmentStageStatusName,
@@ -186,19 +186,16 @@ namespace KalaGenset.ERP.HR.Core.Services
         }
 
 
-
-
-
         public async Task<List<GetEmployeeIdAndNameResponseDTO>> GetEmployeeIdAndNameAsync()
         {
-            var employees = await Context.EmployeeMasterPersonalDetails
+            var employees = await context.EmployeeMasterPersonalDetails
                 .Where(c => c.EmployeeMasterIsActive)
                 .Select(c => new GetEmployeeIdAndNameResponseDTO
                 {
                     EmployeeMasterId = c.EmployeeMasterId,
                     EmployeeMasterFullName = c.EmployeeMasterFullName,
-                    EmployeeMasterCode=c.EmployeeMasterCode,
-                     LeaveBalancesClosing=c.EmployeeLeaveBalances
+                    EmployeeMasterCode = c.EmployeeMasterCode,
+                    LeaveBalancesClosing = c.EmployeeLeaveBalances
                                         .Where(lb => lb.LeaveBalancesIsActive)
                                         .Sum(lb => lb.LeaveBalancesClosing)
                    
@@ -210,20 +207,20 @@ namespace KalaGenset.ERP.HR.Core.Services
 
         public async Task<List<GetPositionIdAnd_NameDTO>> GetPositionIdAndNameAsync()
         {
-          var position=await Context.PositionMasters
-                .Where(c=>c.PositionMasterIsActive)
-                .Select(c=> new GetPositionIdAnd_NameDTO
-                {
-                    PositionMasterId = c.PositionMasterId,
-                    PositionMasterName = c.PositionMasterName,
-                })
-                .ToListAsync();
+            var position = await context.PositionMasters
+                  .Where(c => c.PositionMasterIsActive)
+                  .Select(c => new GetPositionIdAnd_NameDTO
+                  {
+                      PositionMasterId = c.PositionMasterId,
+                      PositionMasterName = c.PositionMasterName,
+                  })
+                  .ToListAsync();
             return position;
         }
 
         public async Task<IEnumerable<getrecruitmenDetailsById>> GetrecruitmentDetailsByMsaterId(int RecruitmentMasterId)
         {
-            return await Context.RecruitmentDetails  // assuming your DbSet is called RecruitmentDetails
+            return await context.RecruitmentDetails  // assuming your DbSet is called RecruitmentDetails
                 .Where(d => d.DetailsRecruitmentMasterId == RecruitmentMasterId)  // filter by master ID
                 .Select(d => new getrecruitmenDetailsById
                 {
@@ -236,18 +233,81 @@ namespace KalaGenset.ERP.HR.Core.Services
                 .ToListAsync();
         }
 
-        public async Task<RecruitmentMaster?> GetRecruitmentMasterByIdAsync(int RecruitmentMasterId)
+        public async Task<RecruitmentMasterDTO?> GetRecruitmentMasterByIdAsync(int recruitmentMasterId)
         {
-            return await Context.RecruitmentMasters.FirstOrDefaultAsync(c => c.RecruitmentMasterId == RecruitmentMasterId);
+            var recruitment = await (
+                from rm in context.RecruitmentMasters
+
+                join pos in context.PositionMasters
+                    on rm.RecruitmentMasterPositionId equals pos.PositionMasterId
+
+                join refm in context.RecruitmentReferenceMasters
+                    on rm.RecruitmentMasterReferenceId equals refm.RecruitmentReferenceId
+
+                join city in context.CityMasters
+                    on rm.RecruitmentMasterCityId equals city.CityId
+
+                join comp in context.CompanyMasters
+                    on rm.RecruitmentMasterCompanyId equals comp.CompanyId
+
+                join emp in context.EmployeeMasterPersonalDetails
+                    on rm.RecruitmentMasterInterviewerEmployeeId equals emp.EmployeeMasterId
+
+                join g in context.GradeMasters
+                    on rm.RecruitmentMasterGradeId equals g.GradeId
+
+                join d in context.DesignationMasters
+                    on rm.RecruitmentMasterDesignationId equals d.DesignationId
+
+                join stage in context.RecruitmentStageStatusMasters
+                    on rm.RecruitmentMasterRecruitmentStageStatusId equals stage.RecruitmentStageStatusId
+
+                where rm.RecruitmentMasterId == recruitmentMasterId   // ✅ filter by ID
+
+                select new RecruitmentMasterDTO
+                {
+                    RecruitmentMasterId = rm.RecruitmentMasterId,
+                    RecruitmentMasterPositionName = pos.PositionMasterName,
+                    RecruitmentMasterCode = rm.RecruitmentMasterCode,
+                    RecruitmentReferenceName = refm.RecruitmentReferenceName,
+                    RecruitmentMasterReferenceName = rm.RecruitmentMasterReferenceName,
+                    RecruitmentMasterReferenceCode = rm.RecruitmentMasterReferenceCode,
+                    RecruitmentMasterNameOfCandidates = rm.RecruitmentMasterNameOfCandidates,
+                    CityName = city.CityName,
+                    CompanyName = comp.CompanyName,
+                    RecruitmentMasterCandidateEmailId = rm.RecruitmentMasterCandidateEmailId,
+                    RecruitmentMasterCandidateContactNumber = rm.RecruitmentMasterCandidateContactNumber,
+                    RecruitmentMasterAppropriateForJobRole = rm.RecruitmentMasterAppropriateForJobRole,
+                    RecruiterFullName = emp.EmployeeMasterFullName,
+                    RecruitmentMasterInterviewerComment = rm.RecruitmentMasterInterviewerComment,
+                    GradeName = g.GradeName,
+                    DesignationName = d.DesignationName,
+                    RecruitmentMasterCurrentCTCPA = rm.RecruitmentMasterCurrentCtcpa,
+                    RecruitmentMasterExpectedCTCPA = rm.RecruitmentMasterExpectedCtcpa,
+                    RecruitmentMasterRecommendedCTCPA = rm.RecruitmentMasterRecommendedCtcpa,
+                    RecruitmentMasterExpectedJoiningDate = rm.RecruitmentMasterExpectedJoiningDate,
+                    RecruitmentMasterHrcomment = rm.RecruitmentMasterHrcomment,
+                    RecruitmentStageStatusName = stage.RecruitmentStageStatusName,
+                    RecruitmentMasterOfferLetterStatus = rm.RecruitmentMasterOfferLetterStatus,
+                    RecruitmentMasterRemark = rm.RecruitmentMasterRemark,
+                    RecruitmentMasterAuthRemark = rm.RecruitmentMasterAuthRemark,
+                    RecruitmentMasterAuth = rm.RecruitmentMasterAuth,
+                    RecruitmentMasterIsDiscard = rm.RecruitmentMasterIsDiscard,
+                    RecruitmentMasterIsActive = rm.RecruitmentMasterIsActive
+                }
+            ).FirstOrDefaultAsync();
+
+            return recruitment;
         }
 
-      
+
+
         public async Task UpdateRecruitmentMasterAsync(UpdateRecruitmentMasterRequest request)
         {
-            using var transaction = await Context.Database.BeginTransactionAsync();
+            using var transaction = await context.Database.BeginTransactionAsync();
             try
             {
-                var recruitmentmaster = await Context.RecruitmentMasters
+                var recruitmentmaster = await context.RecruitmentMasters
                     .Include(r => r.RecruitmentDetails)
                     .FirstOrDefaultAsync(r => r.RecruitmentMasterId == request.RecruitmentMasterId);
 
@@ -286,11 +346,11 @@ namespace KalaGenset.ERP.HR.Core.Services
                 recruitmentmaster.CreatedDate = request.CreatedDate;
 
                 // Remove + re-add details
-                Context.RecruitmentDetails.RemoveRange(recruitmentmaster.RecruitmentDetails);
+                context.RecruitmentDetails.RemoveRange(recruitmentmaster.RecruitmentDetails);
 
                 if (request.RecruitmentDetails != null && request.RecruitmentDetails.Any())
                 {
-                    Context.RecruitmentDetails.RemoveRange(recruitmentmaster.RecruitmentDetails);
+                    context.RecruitmentDetails.RemoveRange(recruitmentmaster.RecruitmentDetails);
                     var newDetails = request.RecruitmentDetails.Select(item => new RecruitmentDetail
                     {
                         DetailsRecruitmentMasterId = recruitmentmaster.RecruitmentMasterId,
@@ -299,10 +359,10 @@ namespace KalaGenset.ERP.HR.Core.Services
                         RecruitmentDetailsAttributeId = item.newAttributeId
                     }).ToList();
 
-                    await Context.RecruitmentDetails.AddRangeAsync(newDetails);
+                    await context.RecruitmentDetails.AddRangeAsync(newDetails);
                 }
 
-                await Context.SaveChangesAsync();
+                await context.SaveChangesAsync();
                 await transaction.CommitAsync(); // ✅ commit
             }
             catch (Exception ex)
@@ -312,6 +372,26 @@ namespace KalaGenset.ERP.HR.Core.Services
             }
         }
 
+        public async Task<List<GetRecruitmentNameandIdByPositionId>> GetRecruitmentIdandNameByPositonIdFromDB(int PositionId)
+        {
+            //var result = await (from r in context.RecruitmentMasters
+            //                    where r.RecruitmentMasterPositionId == PositionId
+            //                    select new GetRecruitmentNameandIdByPositionId
+            //                    {
+            //                        RecruitmentId = r.RecruitmentMasterId,
+            //                        RecruitmentName = r.RecruitmentMasterNameOfCandidates
+            //                    }).ToListAsync();
 
+            var result = await (from r in context.RecruitmentMasters
+                                where r.RecruitmentMasterPositionId == PositionId
+                                      && r.RecruitmentMasterOfferLetterStatus == "SEL"
+                                select new GetRecruitmentNameandIdByPositionId
+                                {
+                                    RecruitmentMasterId = r.RecruitmentMasterId,
+                                    RecruitmentMasterNameOfCandidates = r.RecruitmentMasterNameOfCandidates
+                                }).ToListAsync();
+
+            return result;
+        }
     }
 }

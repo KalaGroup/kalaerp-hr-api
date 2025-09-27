@@ -10,7 +10,7 @@ namespace KalaGenset.ERP.HR.Core.ResponseDTO.RecruitmentMaster
     {
         public int RecruitmentMasterId { get; set; }
 
-        public string PositionMasterName { get; set; } = null!;   // string
+        public string RecruitmentMasterPositionName { get; set; } = null!;   // string
 
         public string RecruitmentMasterCode { get; set; } = null!;
 
@@ -32,7 +32,7 @@ namespace KalaGenset.ERP.HR.Core.ResponseDTO.RecruitmentMaster
 
         public string RecruitmentMasterAppropriateForJobRole { get; set; } = null!;
 
-        public string EmployeeMasterFullName { get; set; } = null!; // string
+        public string RecruiterFullName { get; set; } = null!; // string
 
         public string RecruitmentMasterInterviewerComment { get; set; } = null!;
 
@@ -40,11 +40,11 @@ namespace KalaGenset.ERP.HR.Core.ResponseDTO.RecruitmentMaster
 
         public string DesignationName { get; set; } = null!;      // string
 
-        public double RecruitmentMasterCurrentCtcpa { get; set; }
+        public double RecruitmentMasterCurrentCTCPA { get; set; }
 
-        public double RecruitmentMasterExpectedCtcpa { get; set; }
+        public double RecruitmentMasterExpectedCTCPA { get; set; }
 
-        public double RecruitmentMasterRecommendedCtcpa { get; set; }
+        public double RecruitmentMasterRecommendedCTCPA { get; set; }
 
         public DateTime RecruitmentMasterExpectedJoiningDate { get; set; }
 

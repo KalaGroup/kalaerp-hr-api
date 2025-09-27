@@ -94,21 +94,21 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             try
             {
-                var offerLetter = await context.OfferLetters
-                    .Include(o => o.OfferLetterCtcs)
-                    .FirstOrDefaultAsync(o => o.OfferLetterId == offerLetterId);
+                var offerLetterCTC = await context.OfferLetterCtcs
+                    .Where(ol => ol.OfferLetterCtcofferLetterId == offerLetterId)
+                    .ToListAsync();
 
+                if (offerLetterCTC == null)
+                    throw new Exception("Offer letter ctc not found");
+                else
+                    context.OfferLetterCtcs.RemoveRange(offerLetterCTC);
+
+                var offerLetter = await context.OfferLetters
+                    .FirstOrDefaultAsync(ol => ol.OfferLetterId == offerLetterId);
                 if (offerLetter == null)
                     throw new Exception("Offer letter not found");
-
-                // Soft delete: mark inactive instead of removing master
-                offerLetter.OfferLetterIsActive = false;
-
-                // Remove child records if any
-                if (offerLetter.OfferLetterCtcs != null && offerLetter.OfferLetterCtcs.Any())
-                {
-                    context.OfferLetterCtcs.RemoveRange(offerLetter.OfferLetterCtcs);
-                }
+                else
+                    offerLetter.OfferLetterIsActive = false;
 
                 await context.SaveChangesAsync();
             }
@@ -125,6 +125,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                                     on ol.OfferLetterPositionId equals pos.PositionMasterId
                                 join rec in context.RecruitmentMasters
                                     on ol.OfferLetterRecruitmentId equals rec.RecruitmentMasterId
+                                where ol.OfferLetterIsActive == true
                                 select new OfferLetterWithDto
                                 {
                                     OfferLetterId = ol.OfferLetterId,
