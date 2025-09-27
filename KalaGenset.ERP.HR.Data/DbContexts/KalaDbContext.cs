@@ -625,7 +625,7 @@ public partial class KalaDbContext : DbContext
 
         modelBuilder.Entity<DailyAttendance>(entity =>
         {
-            entity.HasKey(e => e.AttendanceId).HasName("PK__DailyAtt__8B69261C71F04441");
+            entity.HasKey(e => e.AttendanceId).HasName("PK__DailyAtt__8B69261CA8D3BA4A");
 
             entity
                 .ToTable("DailyAttendance")
@@ -641,7 +641,6 @@ public partial class KalaDbContext : DbContext
                     }));
 
             entity.Property(e => e.AttendanceCompanyId).HasColumnName("AttendanceCompanyID");
-            entity.Property(e => e.AttendanceDate).HasMaxLength(50);
             entity.Property(e => e.AttendanceEmployeeId).HasColumnName("AttendanceEmployeeID");
             entity.Property(e => e.AttendanceInTimeAuthRemark)
                 .HasMaxLength(200)
@@ -654,6 +653,7 @@ public partial class KalaDbContext : DbContext
             entity.Property(e => e.AttendanceRemark)
                 .HasMaxLength(200)
                 .HasDefaultValue("Nil");
+            entity.Property(e => e.AttendanceStatus).HasMaxLength(10);
             entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.UpdatedDate).HasDefaultValueSql("(getdate())");
 
@@ -666,6 +666,11 @@ public partial class KalaDbContext : DbContext
                 .HasForeignKey(d => d.AttendanceEmployeeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_AttendanceId_AttendanceEmployeeID");
+
+            entity.HasOne(d => d.AttendanceShift).WithMany(p => p.DailyAttendances)
+                .HasForeignKey(d => d.AttendanceShiftId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_AttendanceId_AttendanceShiftId");
 
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.DailyAttendanceCreatedByNavigations)
                 .HasForeignKey(d => d.CreatedBy)
