@@ -88,7 +88,8 @@ using KalaGenset.ERP.HR.Core.Validation.LeaveApplication;
 using KalaGenset.ERP.HR.Core.Request.LeaveApplication;
 using KalaGenset.ERP.HR.Core.Validation.DailyAttendance;
 using KalaGenset.ERP.HR.Core.Request.DailyAttendance;
-
+using KalaGenset.ERP.HR.Core.Request.ERPPageDetails;
+using KalaGenset.ERP.HR.Core.Validation.ERPPageDetailsValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -163,11 +164,10 @@ builder.Services.AddValidatorsFromAssemblyContaining<UpdateEmployeeLeaveBalanceV
 builder.Services.AddValidatorsFromAssemblyContaining<InsertEmployeeLeaveBalanceValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateLeaveApplicationValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertLeaveApplicationValidator>();
-
 builder.Services.AddValidatorsFromAssemblyContaining<InsertDailyAttendanceValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateDailyAttendanceValidator>();
-
-
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateERPPageDetailsValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertERPPageDetailsValidator>();
 
 //registering service
 builder.Services.AddScoped<IUserLogin, UserLoginServices>();
@@ -294,7 +294,6 @@ builder.Services.AddScoped<IValidator<UpdateLeaveTypeMasterRequest>, UpdateLeave
 builder.Services.AddScoped<IOfferLetter, OfferLetterServices>();
 builder.Services.AddScoped<IValidator<InsertOfferLetterRequest>, InsertOfferLetterValidator>();
 builder.Services.AddScoped<IValidator<UpdateOfferLetterRequest>, UpdateOffereLetterValidator>();
-
 builder.Services.AddScoped<IEmployeeLeaveBalance, EmployeeLeaveBalanceService>();
 builder.Services.AddScoped<IValidator<InsertEmployeeLeaveBalanceRequest>, InsertEmployeeLeaveBalanceValidator>();
 builder.Services.AddScoped<IValidator<UpdateEmployeeLeaveBalanceRequest>, UpdateEmployeeLeaveBalanceValidator>();
@@ -304,7 +303,9 @@ builder.Services.AddScoped<IValidator<UpdateLeaveApplicationRequest>, UpdateLeav
 builder.Services.AddScoped<IDailyAttendance, DailyAttendanceServices>();
 builder.Services.AddScoped<IValidator<InsertDailyAttendanceRequest>, InsertDailyAttendanceValidator>();
 builder.Services.AddScoped<IValidator<UpdateDailyAttendanceRequest>, UpdateDailyAttendanceValidator>();
-
+builder.Services.AddScoped<IERPPageDetails, ERPPageDetailsService>();
+builder.Services.AddScoped<IValidator<InsertERPPageDetailsRequest>, InsertERPPageDetailsValidator>();
+builder.Services.AddScoped<IValidator<UpdateERPPageDetailsRequest>, UpdateERPPageDetailsValidator>();
 
 
 var jsonBuilder = new ConfigurationBuilder()
