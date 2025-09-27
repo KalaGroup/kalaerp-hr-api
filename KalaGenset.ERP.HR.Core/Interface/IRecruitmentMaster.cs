@@ -22,12 +22,16 @@ namespace KalaGenset.ERP.HR.Core.Interface
 
         public Task<IEnumerable<RecruitmentMasterDTO>> GetAllRecruitmentMasterAsync();
 
-        public Task<RecruitmentMaster?> GetRecruitmentMasterByIdAsync(int RecruitmentMasterId);
+        public Task<RecruitmentMasterDTO?> GetRecruitmentMasterByIdAsync(int RecruitmentMasterId);
 
         public Task DeleteRecruitmentMasterAsync(int RecruitmentMasterId);
         public Task<List<GetEmployeeIdAndNameResponseDTO>> GetEmployeeIdAndNameAsync();
         public Task<List<GetPositionIdAnd_NameDTO>> GetPositionIdAndNameAsync();
 
         public Task<IEnumerable<getrecruitmenDetailsById>> GetrecruitmentDetailsByMsaterId(int RecruitmentMasterId);
+        
+        //get recruitmentmaster id and name by position id
+        public Task<List<GetRecruitmentNameandIdByPositionId>> GetRecruitmentIdandNameByPositonIdFromDB(int PositionId);
+
     }
 }

@@ -10,12 +10,12 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OffereLetterController : ControllerBase
+    public class OfferLetterController : ControllerBase
     {
         private readonly IOfferLetter offerLetter;
         private readonly IValidator<InsertOfferLetterRequest> validator;
         private readonly IValidator<UpdateOfferLetterRequest> updateValidator;
-        public OffereLetterController(IOfferLetter offerLetter,
+        public OfferLetterController(IOfferLetter offerLetter,
                                          IValidator<InsertOfferLetterRequest> validator,
                                          IValidator<UpdateOfferLetterRequest> updateValidator)
         {

@@ -147,13 +147,31 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 var recruitment = await recruitmentMaster.GetrecruitmentDetailsByMsaterId(RecruitmentMasterId);
                 if (recruitment == null)
                 {
-                    return NotFound("Resposibility not found.");
+                    return NotFound("Recruitment Details not found.");
                 }
                 return Ok(recruitment);
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Error retrieving resposibility: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error retrieving recruitment details: {ex.Message}");
+            }
+        }
+
+        [HttpGet("getallrecruitementidandnamebypositionid/{PositionId}")]
+        public async Task<IActionResult> GetRecruitmentidAndNameByPositionId(int PositionId)
+        {
+            try
+            {
+                var recruitment = await recruitmentMaster.GetRecruitmentIdandNameByPositonIdFromDB(PositionId);
+                if (recruitment == null)
+                {
+                    return NotFound("Recruitment id and name not found.");
+                }
+                return Ok(recruitment);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error retrieving recruitment id and name : {ex.Message}");
             }
         }
     }
