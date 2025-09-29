@@ -117,6 +117,10 @@ public partial class UserLogin
 
     public virtual ICollection<EmployeeMasterFamilyDetail> EmployeeMasterFamilyDetails { get; set; } = new List<EmployeeMasterFamilyDetail>();
 
+    public virtual ICollection<GatePassType> GatePassTypeCreatedByNavigations { get; set; } = new List<GatePassType>();
+
+    public virtual ICollection<GatePassType> GatePassTypeUpdatedByNavigations { get; set; } = new List<GatePassType>();
+
     public virtual ICollection<HrauthorisationLog> HrauthorisationLogCreatedByNavigations { get; set; } = new List<HrauthorisationLog>();
 
     public virtual ICollection<HrauthorisationLog> HrauthorisationLogUpdatedByNavigations { get; set; } = new List<HrauthorisationLog>();
