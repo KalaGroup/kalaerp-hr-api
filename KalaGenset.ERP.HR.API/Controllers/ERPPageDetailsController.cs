@@ -7,7 +7,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ERPPageDetailsController : ControllerBase
+    public class ERPPageDetailsController : BaseController
     {
         private readonly IERPPageDetails _erpPageDetails;
         private readonly IValidator<InsertERPPageDetailsRequest> _insertValidator;

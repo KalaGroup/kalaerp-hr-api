@@ -9,7 +9,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LocationMasterController : ControllerBase
+    public class LocationMasterController : BaseController
     {
         private readonly ILocationMaster _locationMaster;
         private readonly IValidator<InsertLocationRequest> _insertLocationValidator;

@@ -8,7 +8,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FacilityMasterController : ControllerBase
+    public class FacilityMasterController : BaseController
     {
         private readonly IFacilityMaster _facilityMaster;
         private readonly IValidator<InsertFacilityRequest> _validator;

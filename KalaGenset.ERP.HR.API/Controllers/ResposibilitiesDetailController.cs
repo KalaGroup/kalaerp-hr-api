@@ -10,7 +10,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ResposibilitiesDetailController : ControllerBase
+    public class ResposibilitiesDetailController : BaseController
     {
         private readonly IResposibilitiesDetail resposibilitiesDetail;
         public ResposibilitiesDetailController(IResposibilitiesDetail resposibilitiesDetail)

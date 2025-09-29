@@ -11,7 +11,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProfitcenterMasterController : ControllerBase
+    public class ProfitcenterMasterController : BaseController
     {
         private readonly IProfitcenterMaster _iProfitCenter;    
         private readonly IValidator<InsertProfitcenterRequest> _insertValidator;

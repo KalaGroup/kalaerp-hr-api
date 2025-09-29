@@ -9,7 +9,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LeaveTypeMasterController : ControllerBase
+    public class LeaveTypeMasterController : BaseController
     {
         private readonly ILeaveTypeMaster _LeaveTypeMaster;
         private readonly IValidator<InsertleaveTypeMasterRequest> _insertLeaveTypeValidator;

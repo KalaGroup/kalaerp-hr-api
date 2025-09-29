@@ -8,7 +8,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WorkstationMasterController : ControllerBase
+    public class WorkstationMasterController : BaseController
     {
         private readonly IWorkstationMaster _workstationmaster;
         private readonly IValidator<InsertWorkstationRequest> _insertWorkstationValidator;

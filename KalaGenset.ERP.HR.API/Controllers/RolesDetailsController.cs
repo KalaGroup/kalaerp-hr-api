@@ -8,7 +8,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RolesDetailsController : ControllerBase
+    public class RolesDetailsController : BaseController
     {
         private readonly IRoleDetails _roleDetailsService;
         public RolesDetailsController(IRoleDetails roleDetailsService)

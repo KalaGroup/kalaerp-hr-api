@@ -12,7 +12,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CTCStructureMasterController : ControllerBase
+    public class CTCStructureMasterController : BaseController
     {
         private readonly ICTCStructureMaster cTC;
         private readonly IValidator<InsertCTCStructureMasterRequest> InsertCTC;

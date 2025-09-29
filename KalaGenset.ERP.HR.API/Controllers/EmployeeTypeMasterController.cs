@@ -14,7 +14,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    public class EmployeeTypeMasterController : ControllerBase
+    public class EmployeeTypeMasterController : BaseController
     {
         private readonly IEmployeeTypeMaster _employeeTypeMaster;
         private readonly IValidator<InsertEmployeeTypeRequest> _validator;

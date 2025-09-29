@@ -10,7 +10,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeeLeaveBalanceController : ControllerBase
+    public class EmployeeLeaveBalanceController : BaseController
     {
         private readonly IEmployeeLeaveBalance _employeeleavebalance;
         private readonly IValidator<InsertEmployeeLeaveBalanceRequest> _insertEmployeeLeaveBalanceValidator;

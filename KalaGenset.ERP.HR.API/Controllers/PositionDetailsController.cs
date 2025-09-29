@@ -10,7 +10,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
-    public class PositionDetailController : ControllerBase
+    public class PositionDetailController : BaseController
     {
         private readonly IPositionDetails positionDetailService;
 

@@ -11,7 +11,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class QualificationTypeMasterController : ControllerBase
+    public class QualificationTypeMasterController : BaseController
     {
         private readonly IQualificationTypeMaster _qualificationtypeMaster;
         private readonly IValidator<InsertQualificationTypeMasterRequest> _validator;

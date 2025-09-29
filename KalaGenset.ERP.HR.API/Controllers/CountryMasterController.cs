@@ -13,7 +13,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class CountryMasterController : ControllerBase
+    public class CountryMasterController : BaseController
     {
         private readonly ICountryMaster _countryMaster;
         private readonly IValidator<InsertCountryRequest> _insertCountryValidator;

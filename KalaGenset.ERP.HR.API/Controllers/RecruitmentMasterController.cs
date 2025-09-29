@@ -12,7 +12,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RecruitmentMasterController : ControllerBase
+    public class RecruitmentMasterController : BaseController
     {
         private readonly IRecruitmentMaster recruitmentMaster;
         private readonly IValidator<InsertRecruitmentMasterRequest> _validator;

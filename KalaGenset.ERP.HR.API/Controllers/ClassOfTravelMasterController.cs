@@ -10,7 +10,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClassOfTravelMasterController : ControllerBase
+    public class ClassOfTravelMasterController : BaseController
     {
         private readonly IClassOfTravelMaster _classOfTravelMaster;
         private readonly IValidator<InsertClassOfTravelRequest> _insertClassOfTravelValidator;

@@ -11,7 +11,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ResposibilitiesMasterController : ControllerBase
+    public class ResposibilitiesMasterController : BaseController
     {
         private readonly IResposibilitiesMaster resposibilitiesMaster;
         private readonly IValidator<InsertResposibilitiesMasterRequest> _validator;// Validator for InsertCompanyRequest

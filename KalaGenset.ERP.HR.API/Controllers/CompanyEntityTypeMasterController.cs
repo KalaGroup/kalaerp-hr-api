@@ -10,7 +10,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CompanyEntityTypeMasterController : ControllerBase
+    public class CompanyEntityTypeMasterController : BaseController
     {
         private readonly ICompanyEntityTypeMaster _companyEntityTypeMaster;
         private readonly IValidator<InsertCompanyEntityTypeMasterRequest> _insertValidator;
