@@ -40,7 +40,7 @@ namespace KalaERP.HR.API.Controllers
             try
             {
                 await companyMaster.AddCompanyAsync(request);
-                return Ok("Company added successfully.");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -137,7 +137,8 @@ namespace KalaERP.HR.API.Controllers
             try
             {
                 await companyMaster.UpdateCompanyAsync(request);
-                return Ok("Company updated successfully.");
+                return Ok();
+
             }
             catch (Exception ex)
             {
@@ -164,5 +165,6 @@ namespace KalaERP.HR.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Internal server error: {ex.Message}");
             }
         }
+      
     }
 }
