@@ -11,7 +11,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WorkstationBudgetController : ControllerBase
+    public class WorkstationBudgetController : BaseController
     {
         private readonly IWorkstationBudget _WorkstationBudget;
         private readonly IValidator<InsertWorkstationBudgetRequest> _insertworkstaionbudgetValidator;

@@ -8,7 +8,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DivisionMasterController : ControllerBase
+    public class DivisionMasterController : BaseController
     {
         private readonly IDivisionMaster _Divisionmaster;
         private readonly IValidator<InsertDivisionMasterRequest> _insertDivisionValidator;

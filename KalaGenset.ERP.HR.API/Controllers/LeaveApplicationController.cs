@@ -11,7 +11,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LeaveApplicationController : ControllerBase
+    public class LeaveApplicationController : BaseController
     {
         private readonly ILeaveApplication leaveApplication;
         private readonly IValidator<InsertLeaveApplicationRequest> _validator;

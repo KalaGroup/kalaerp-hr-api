@@ -9,7 +9,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StateMasterController : ControllerBase
+    public class StateMasterController : BaseController
     {
         private readonly IStateMaster _stateMaster;
         private readonly IValidator<InsertStateRequest> _insertStateValidator;

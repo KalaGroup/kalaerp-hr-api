@@ -12,7 +12,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PositionMasterController : ControllerBase
+    public class PositionMasterController : BaseController
     {
         private readonly IPositionMaster _position;
         private readonly IValidator<InsertPositionRequest> _insertValidator;

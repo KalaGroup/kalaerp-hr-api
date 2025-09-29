@@ -14,7 +14,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ShiftMasterController : ControllerBase
+    public class ShiftMasterController : BaseController
     {
         private readonly IShiftMaster _shiftMaster;
         private readonly IValidator<InsertShiftMasterRequest> _insertshiftValidator;

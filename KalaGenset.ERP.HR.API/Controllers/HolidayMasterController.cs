@@ -10,7 +10,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    public class HolidayMasterController : ControllerBase
+    public class HolidayMasterController : BaseController
     {
         private readonly IHolidayMaster _holidayMaster;
         private readonly IValidator<InsertHolidayMasterRequest> _validator;

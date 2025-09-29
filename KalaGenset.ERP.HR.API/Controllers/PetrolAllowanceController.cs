@@ -8,7 +8,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class PetrolAllowanceController : ControllerBase
+    public class PetrolAllowanceController : BaseController
     {
         private readonly IPetrolAllowanceMaster _petrolAllowancemaster;
         private readonly IValidator<InsertPetrolAllowanceMasterRequest> _validator;

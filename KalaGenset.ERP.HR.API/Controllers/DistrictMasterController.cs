@@ -10,7 +10,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DistrictMasterController : ControllerBase
+    public class DistrictMasterController : BaseController
     {
 
         private readonly IDistrictMaster _districtmaster;

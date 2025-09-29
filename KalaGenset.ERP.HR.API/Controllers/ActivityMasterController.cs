@@ -12,7 +12,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ActivityMasterController : ControllerBase
+    public class ActivityMasterController : BaseController
     {
         private readonly IActivityMaster activityMaster;
         private readonly IValidator<InsertActivityMasterRequest> validator;

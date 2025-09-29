@@ -8,7 +8,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class KPADetailsController : ControllerBase
+    public class KPADetailsController : BaseController
     {
         /// <summary>
         /// constructor for KPADetailsController

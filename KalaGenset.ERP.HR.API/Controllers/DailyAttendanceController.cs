@@ -11,7 +11,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DailyAttendanceController : ControllerBase
+    public class DailyAttendanceController : BaseController
     {
         private readonly IDailyAttendance dailyAttendance;
         private readonly IValidator<InsertDailyAttendanceRequest> validator;

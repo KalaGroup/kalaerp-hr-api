@@ -7,7 +7,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ActivityDetailsController : ControllerBase
+    public class ActivityDetailsController : BaseController
     {
         private readonly IActivityDetails activityDetails;
         public ActivityDetailsController(IActivityDetails activityDetails)

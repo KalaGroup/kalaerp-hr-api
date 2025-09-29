@@ -11,7 +11,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class KPAMasterController : ControllerBase
+    public class KPAMasterController : BaseController
     {
         /// <summary>
         /// method to initialize KPAMasterController

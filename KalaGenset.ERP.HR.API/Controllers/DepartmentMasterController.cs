@@ -10,7 +10,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmentMasterController : ControllerBase
+    public class DepartmentMasterController : BaseController
     {
         private readonly IDepartmentMaster _departmentMaster;
         private readonly IValidator<InsertDepartmentRequest> _insertDepartmentValidator;

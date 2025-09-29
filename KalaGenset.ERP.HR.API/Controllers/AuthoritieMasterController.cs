@@ -8,7 +8,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthoritieMasterController : ControllerBase
+    public class AuthoritieMasterController : BaseController
     {
         /// <summary>
         /// represents the controller for managing authorities in the system.

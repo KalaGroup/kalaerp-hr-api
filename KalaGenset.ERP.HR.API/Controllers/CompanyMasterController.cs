@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using KalaERP.HR.Core.Interface;
 using KalaERP.HR.Core.Request.CompanyMaster;
+using KalaGenset.ERP.HR.API.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +9,7 @@ namespace KalaERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CompanyMasterController : ControllerBase
+    public class CompanyMasterController : BaseController
     {
         private readonly ICompanyMaster companyMaster;// Interface for company master operations
         private readonly IValidator<InsertCompanyRequest> _validator;// Validator for InsertCompanyRequest

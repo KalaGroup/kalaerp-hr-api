@@ -8,7 +8,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserLoginController : ControllerBase
+    public class UserLoginController : BaseController
     {
          private readonly IUserLogin _userLogin;
 

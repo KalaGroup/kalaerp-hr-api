@@ -8,7 +8,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RecruitmentAttributeMasterController : ControllerBase
+    public class RecruitmentAttributeMasterController : BaseController
     {
 
         private readonly IRecruitmentAttributeMaster _RecruitmentAttributeMastermaster;

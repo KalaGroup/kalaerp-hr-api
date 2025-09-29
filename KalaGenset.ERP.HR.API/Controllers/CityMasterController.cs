@@ -7,7 +7,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CityMasterController : ControllerBase
+    public class CityMasterController : BaseController
     {
         private readonly ICityMaster _CityMaster;
         private readonly IValidator<InsertCityRequest> _insertCityValidator;

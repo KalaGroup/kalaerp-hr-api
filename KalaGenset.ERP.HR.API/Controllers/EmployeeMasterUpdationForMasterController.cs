@@ -10,7 +10,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeeMasterUpdationForMasterController : ControllerBase
+    public class EmployeeMasterUpdationForMasterController : BaseController
     {
         private readonly IEmployeeMasterUpdationForMaster _employeeMasterUpdationForMaster;
         private readonly IValidator<InsertEmployeeMasterUpdationForMasterRequest> _insertEmployeeMasterUpdationForMasterValidator;

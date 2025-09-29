@@ -9,7 +9,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GradeMasterController : ControllerBase
+    public class GradeMasterController : BaseController
     {
         private readonly IGradeMaster _gradeMaster;
         private readonly IValidator<InsertGradeRequest> _insertGradeValidator;

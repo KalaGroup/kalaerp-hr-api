@@ -8,7 +8,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CurrencyMasterController : ControllerBase
+    public class CurrencyMasterController : BaseController
     {
         private readonly ICurrencyMaster currencyMaster;
         private readonly IValidator<InsertCurrencyRequest> _validator;
