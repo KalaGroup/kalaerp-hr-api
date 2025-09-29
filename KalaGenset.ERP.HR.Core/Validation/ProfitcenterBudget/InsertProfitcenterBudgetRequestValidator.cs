@@ -38,7 +38,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.ProfitcenterBudget
                        .AnyAsync(b => b.ProfitcenterFy == request.ProfitcenterFy &&
                                       b.ProfitcenterBudgetProfitcenterId == request.ProfitcenterBudgetProfitcenterId);
                })
-               .WithMessage("A budget for this Financial Year and Workstation already exists.");
+               .WithMessage("A budget for this Financial Year and Profitcenter  already exists.");
 
         }
     }
