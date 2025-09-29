@@ -64,6 +64,8 @@ public partial class KalaDbContext : DbContext
 
     public virtual DbSet<FacilityMaster> FacilityMasters { get; set; }
 
+    public virtual DbSet<GatePassType> GatePassTypes { get; set; }
+
     public virtual DbSet<GradeFacilityAssignment> GradeFacilityAssignments { get; set; }
 
     public virtual DbSet<GradeMaster> GradeMasters { get; set; }
@@ -1190,6 +1192,45 @@ public partial class KalaDbContext : DbContext
             entity.Property(e => e.UpdatedDate).HasDefaultValueSql("(getdate())");
         });
 
+        modelBuilder.Entity<GatePassType>(entity =>
+        {
+            entity.HasKey(e => e.GatePassTypeId).HasName("PK__GatePass__7E897470200B613B");
+
+            entity.ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("GatePassTypesHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.GatePassTypeId).HasColumnName("GatePassTypeID");
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.GatePassTypesAuthRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.GatePassTypesDescription).HasMaxLength(200);
+            entity.Property(e => e.GatePassTypesIsActive).HasDefaultValue(true);
+            entity.Property(e => e.GatePassTypesIsAuth).HasDefaultValue(true);
+            entity.Property(e => e.GatePassTypesIsDiscard).HasDefaultValue(true);
+            entity.Property(e => e.GatePassTypesTypeCode).HasMaxLength(100);
+            entity.Property(e => e.GatePassTypesTypeName).HasMaxLength(100);
+            entity.Property(e => e.UpdatedDate).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.GatePassTypeCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_GatePassTypesId_CreatedBy");
+
+            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.GatePassTypeUpdatedByNavigations)
+                .HasForeignKey(d => d.UpdatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_GatePassTypesId_UpdatedBy");
+        });
+
         modelBuilder.Entity<GradeFacilityAssignment>(entity =>
         {
             entity.HasKey(e => e.GradeFacilityAssignmentId).HasName("PK__GradeFac__345403E20D70C2DF");
@@ -1351,18 +1392,7 @@ public partial class KalaDbContext : DbContext
         {
             entity.HasKey(e => e.KalaErppageDetailsId).HasName("PK__KalaERPP__D93D0346D377300C");
 
-            entity
-                .ToTable("KalaERPPageDetails")
-                .ToTable(tb => tb.IsTemporal(ttb =>
-                    {
-                        ttb.UseHistoryTable("KalaERPPageDetailsHistory", "dbo");
-                        ttb
-                            .HasPeriodStart("SysStartTime")
-                            .HasColumnName("SysStartTime");
-                        ttb
-                            .HasPeriodEnd("SysEndTime")
-                            .HasColumnName("SysEndTime");
-                    }));
+            entity.ToTable("KalaERPPageDetails");
 
             entity.Property(e => e.KalaErppageDetailsId).HasColumnName("KalaERPPageDetailsID");
             entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
