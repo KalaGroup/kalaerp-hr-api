@@ -90,6 +90,8 @@ using KalaGenset.ERP.HR.Core.Validation.DailyAttendance;
 using KalaGenset.ERP.HR.Core.Request.DailyAttendance;
 using KalaGenset.ERP.HR.Core.Request.ERPPageDetails;
 using KalaGenset.ERP.HR.Core.Validation.ERPPageDetailsValidation;
+using KalaGenset.ERP.HR.Core.Validation.GatePassTypeValidation;
+using KalaGenset.ERP.HR.Core.Request.GatePassType;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -168,6 +170,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<InsertDailyAttendanceValida
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateDailyAttendanceValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateERPPageDetailsValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<InsertERPPageDetailsValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateGatePassTypeValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<InsertGatePassTypeValidator>();
 
 //registering service
 builder.Services.AddScoped<IUserLogin, UserLoginServices>();
@@ -306,7 +310,9 @@ builder.Services.AddScoped<IValidator<UpdateDailyAttendanceRequest>, UpdateDaily
 builder.Services.AddScoped<IERPPageDetails, ERPPageDetailsService>();
 builder.Services.AddScoped<IValidator<InsertERPPageDetailsRequest>, InsertERPPageDetailsValidator>();
 builder.Services.AddScoped<IValidator<UpdateERPPageDetailsRequest>, UpdateERPPageDetailsValidator>();
-
+builder.Services.AddScoped<IGatePassType, GatePassTypeService>();
+builder.Services.AddScoped<IValidator<InsertGatePassTypeRequest>, InsertGatePassTypeValidator>();
+builder.Services.AddScoped<IValidator<UpdateGatePassTypeRequest>, UpdateGatePassTypeValidator>();
 
 var jsonBuilder = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
