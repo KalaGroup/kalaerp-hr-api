@@ -1,11 +1,12 @@
-﻿using System;
+﻿using FluentValidation;
+using KalaGenset.ERP.HR.Core.Request.DepartmentBudget;
+using KalaGenset.ERP.HR.Data.DbContexts;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FluentValidation;
-using KalaGenset.ERP.HR.Core.Request.DepartmentBudget;
-using KalaGenset.ERP.HR.Data.DbContexts;
 
 namespace KalaGenset.ERP.HR.Core.Validation.DepartmentBudget
 {
@@ -27,6 +28,15 @@ namespace KalaGenset.ERP.HR.Core.Validation.DepartmentBudget
             RuleFor(x => x.DepartmentBudgetHeadId)
                 .GreaterThan(0).WithMessage("DepartmentBudgetHead ID must be greater than 0.")
                 .NotEmpty().WithMessage("DepartmentBudgetHead ID is required.");
+
+            RuleFor(x => x)
+               .MustAsync(async (request, cancellation) =>
+               {
+                   return !await context.DepartmentBudgets
+                       .AnyAsync(b => b.DepartmentFy == request.DepartmentFy &&
+                                      b.DepartmentBudgetHeadId == request.DepartmentBudgetHeadId);
+               })
+               .WithMessage("A budget for this Financial Year and Department already exists.");
         } 
     }
 }
