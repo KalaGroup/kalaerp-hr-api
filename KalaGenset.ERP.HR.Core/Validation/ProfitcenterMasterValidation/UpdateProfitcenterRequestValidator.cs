@@ -17,7 +17,8 @@ namespace KalaGenset.ERP.HR.Core.Validation.ProfitcenterMaster
          
             _context = context;
             RuleFor(x => x.ProfitCenterName)
-               .ApplyAlphaNumeric("Profit Center Name ", 100, allowSpaces: true);
+               .ApplyAlphaNumeric("Profit Center Name ", 100, allowSpaces: true)
+               .Matches("^[A-Za-z ]+$");
             RuleFor(x => x.ProfitCenterId)
                 .MustBePresentWhenNew("ProfitCenterId");
             RuleFor(x => x.ProfitCenterRemark)

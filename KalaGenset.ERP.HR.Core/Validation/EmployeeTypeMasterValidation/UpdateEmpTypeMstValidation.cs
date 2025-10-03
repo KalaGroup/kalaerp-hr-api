@@ -24,7 +24,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.EmployeeTypeMasterValidation
 
             RuleFor(x => x.EmployeeTypeName)
                 .NotEmpty().WithMessage("EmployeeTypeName name is required.")
-                .Matches("^[a-zA-Z0-9 -]*$").WithMessage("EmployeeTypeName  must not contain special characters.")
+                .Matches("^[a-zA-Z0-9 ]*$").WithMessage("EmployeeTypeName  must not contain special characters.")
                 .MaximumLength(100).WithMessage("EmployeeTypeName  cannot exceed 100 characters.");
 
             //RuleFor(x => x.CreatedBy)

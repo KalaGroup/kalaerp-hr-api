@@ -25,7 +25,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.QualificationTypeMaster
 
             RuleFor(x => x.QualificationTypeName)
                 .NotEmpty().WithMessage("QualificationTypeName name is required.")
-                .Matches("^[a-zA-Z0-9 -]*$").WithMessage("QualificationTypeName  must not contain special characters.")
+                .Matches("^[a-zA-Z]*$").WithMessage("QualificationTypeName  must not contain special characters.")
                 .MaximumLength(100).WithMessage("QualificationTypeName  cannot exceed 100 characters.");
 
             RuleFor(x => x.CreatedBy)

@@ -23,7 +23,9 @@ namespace KalaGenset.ERP.HR.Core.Validation.FacilityMaster
 
             RuleFor(x => x.FacilityName)
                 .ApplyAlphaNumeric("Facility Name", 100, allowSpaces: true)
-               .MustAsync(BeUniqueFacilityName).WithMessage("Facility Name already exists.");
+               .MustAsync(BeUniqueFacilityName).WithMessage("Facility Name already exists.")
+               .Matches("^[A-Za-z ]+$");
+               
 
 
         }

@@ -25,13 +25,13 @@ namespace KalaGenset.ERP.HR.Core.Validation.WorkstationMasterValidation
             RuleFor(x => x.WorkStationName)
                     .NotEmpty().WithMessage("WorkStationName name is required.")
                     .MustAsync(BeUniqueWorkStationNameName).WithMessage("WorkStationName name already exists.")
-                    .Matches("^[a-zA-Z0-9 ]*$").WithMessage("WorkStationName name must not contain special characters.")
+                    .Matches("^[a-zA-Z]*$").WithMessage("WorkStationName name must not contain special characters.")
                     .MaximumLength(100);
 
             RuleFor(x => x.WorkStationShortName)
                 .NotEmpty().WithMessage("WorkStationName name is required.")
                 .MustAsync(BeUniqueWorkStationNameName).WithMessage("WorkStationName name already exists.")
-                .Matches("^[a-zA-Z0-9 ]*$").WithMessage("WorkStationName name must not contain special characters.")
+                .Matches("^[a-zA-Z ]*$").WithMessage("WorkStationName name must not contain special characters.")
                 .MaximumLength(100);
 
             RuleFor(x => x.WorkStationProfitcenterId)

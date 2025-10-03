@@ -23,7 +23,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.CountryValidation
             RuleFor(x => x.CountryName)
                .NotEmpty().WithMessage("Country name is required.")
                .MustAsync(BeUniqueCountryName).WithMessage("Country name already exists.")
-               .Matches("^[a-zA-Z0-9 ]*$").WithMessage("Country name must not contain special characters.")
+               .Matches("^[a-zA-Z ]*$").WithMessage("Country name must not contain special characters.")
                .MaximumLength(100).WithMessage("Country name cannot exceed 100 characters.")
                .Must(BeProperCase).WithMessage("Country name must be in proper case (e.g., 'India', 'United States', 'Sri-Lanka').");
             RuleFor(x => x.CountryShortName)

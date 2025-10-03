@@ -30,8 +30,9 @@ namespace KalaGenset.ERP.HR.Core.Validation.RecruitmentMaster
                 .GreaterThan(0).WithMessage("ReferenceId must be a positive integer.");
 
             RuleFor(x => x.RecruitmentMasterReferenceName)
-                .NotEmpty().WithMessage("ReferenceName is required.")
-                .MaximumLength(100);
+                .NotEmpty().WithMessage("RecruitmentMasterReferenceName is required.")
+             .Matches("^[A-Za-z ]+$")
+            .WithMessage("Recruitment Reference Name must contain only letters.");
 
             RuleFor(x => x.RecruitmentMasterReferenceCode)
                 .NotEmpty().WithMessage("ReferenceCode is required.")
@@ -39,8 +40,8 @@ namespace KalaGenset.ERP.HR.Core.Validation.RecruitmentMaster
 
             RuleFor(x => x.RecruitmentMasterNameOfCandidates)
                 .NotEmpty().WithMessage("Candidate name is required.")
-                .MaximumLength(150);
-
+           .Matches("^[A-Za-z ]+$")
+ .WithMessage("RecruitmentMasterNameOfCandidates must contain only letters.");
             RuleFor(x => x.RecruitmentMasterCityId)
                 .NotEmpty().WithMessage("CityId is required.")
                 .GreaterThan(0);

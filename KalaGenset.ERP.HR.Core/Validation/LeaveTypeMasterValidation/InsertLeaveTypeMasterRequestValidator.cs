@@ -22,7 +22,9 @@ namespace KalaGenset.ERP.HR.Core.Validation.LeaveTypeMasterValidation
 
             RuleFor(x => x.LeaveTypeMasterName)
                 .ApplyAlphaNumeric("LeaveType Name", 100, allowSpaces: true)
-                .MustAsync(BeUniqueLeaveTypeMasterName).WithMessage("LeaveTypeMasterName already exists.");
+                .MustAsync(BeUniqueLeaveTypeMasterName).WithMessage("LeaveTypeMasterName already exists.")
+                .Matches("^[A-Za-z ]+$");
+
 
             RuleFor(x => x.CreatedBy)
                .MustBePresentWhenNew("CreatedBy");

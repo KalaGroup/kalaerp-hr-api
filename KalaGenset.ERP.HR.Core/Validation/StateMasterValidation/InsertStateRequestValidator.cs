@@ -26,7 +26,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.StateValidator
             RuleFor(x => x.StateName)
                 .NotEmpty().WithMessage("State name is required.")
                 .MustAsync(BeUniqueStateName).WithMessage("State name already exists.")
-                .Matches("^[a-zA-Z0-9 ]*$").WithMessage("State name must not contain special characters.")
+                .Matches("^[a-zA-Z ]*$").WithMessage("State name must not contain special characters.")
                 .MaximumLength(100);
 
             RuleFor(x => x.ShortName)

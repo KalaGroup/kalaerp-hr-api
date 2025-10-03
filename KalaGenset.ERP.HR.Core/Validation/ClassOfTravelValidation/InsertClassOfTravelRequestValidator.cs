@@ -25,7 +25,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.ClassOfTravelValidation
             RuleFor(x => x.ClassOfTravelName)
                 .NotEmpty().WithMessage("Class of travel name is required.")
                 .MaximumLength(100).WithMessage("Name cannot exceed 100 characters.")
-                .Matches("^[a-zA-Z0-9 ]*$").WithMessage("Name must not contain special characters.")
+                .Matches("^[a-zA-Z ]*$").WithMessage("Name must not contain special characters.")
                 .MustAsync(BeUniqueName).WithMessage("Name already exists.")
                 .Must(BeProperCase).WithMessage("Name must be in proper case.");
             RuleFor(x => x.ClassOfTravelGradeId)

@@ -88,6 +88,8 @@ namespace KalaGenset.ERP.HR.API.Extension
 
             //ERP Configuration
             services.AddScoped<IERPPageDetails, ERPPageDetailsService>();
+            services.AddScoped<IGradeMaster, GradeMasterService>();
+            services.AddScoped<IGatePassType, GatePassTypeService>();
 
             return services;
         }

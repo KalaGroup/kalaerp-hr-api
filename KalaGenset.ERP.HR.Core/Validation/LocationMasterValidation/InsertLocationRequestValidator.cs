@@ -26,7 +26,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.LocationValidator
             RuleFor(x => x.LocationName)
                     .NotEmpty().WithMessage("Location name is required.")
                     .MustAsync(BeUniqueStateName).WithMessage("Location name already exists.")
-                    .Matches("^[a-zA-Z0-9 ]*$").WithMessage("Location name must not contain special characters.")
+                    .Matches("^[a-zA-Z]*$").WithMessage("Location name must not contain special characters.")
                     .MaximumLength(100);
 
             RuleFor(x => x.LocationType)

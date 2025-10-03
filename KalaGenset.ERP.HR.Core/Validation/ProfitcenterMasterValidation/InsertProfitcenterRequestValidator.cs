@@ -24,7 +24,8 @@ namespace KalaGenset.ERP.HR.Core.Validation.ProfitcenterMaster
 
             RuleFor(x => x.ProfitCenterName)
                 .ApplyAlphaNumeric("Profit Center Name", 100, allowSpaces: true)
-               .MustAsync(BeUniqueProfitCenterName).WithMessage("Profit Center Name already exists.");
+               .MustAsync(BeUniqueProfitCenterName).WithMessage("Profit Center Name already exists.")
+                .Matches("^[A-Za-z ]+$");
 
             RuleFor(x => x.ProfitCenterRemark)
                .ApplyAlphaNumeric("Remark should not be blank. Remark", 100, allowSpaces: true);
