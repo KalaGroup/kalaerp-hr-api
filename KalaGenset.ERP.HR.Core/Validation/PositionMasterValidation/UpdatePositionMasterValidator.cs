@@ -20,7 +20,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.PositionMasterValidation
             RuleFor(x => x.PositionMasterName)
                 .NotEmpty().WithMessage("Position Master name is required.")
                 .MaximumLength(100).WithMessage("Position Master name cannot exceed 100 characters.")
-                .Matches("^[a-zA-Z0-9 -]*$").WithMessage("Position Master name must not contain special characters.");
+                .Matches("^[a-zA-Z]*$").WithMessage("Position Master name must not contain special characters.");
 
             RuleFor(x => x.PositionMasterCode)
                  .NotEmpty().WithMessage("Position Master Code is required.")

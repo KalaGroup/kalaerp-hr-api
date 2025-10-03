@@ -20,7 +20,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.RecruitmentAttributeMasterValidation
             RuleFor(x => x.RecruitmentAttributeName)
                 .NotEmpty().WithMessage("RecruitmentAttributeName is required.")
                 .MustAsync(BeUniqueRecruitmentAttributeName).WithMessage("RecruitmentAttributeName already exists.")
-                .Matches("^[a-zA-Z0-9 ]*$").WithMessage("RecruitmentAttributeName must not contain special characters.")
+                .Matches("^[a-zA-Z ]*$").WithMessage("RecruitmentAttributeName must not contain special characters.")
                 .MaximumLength(100);
             RuleFor(x => x.RecruitmentAttributeMarks)
                 .NotEmpty().WithMessage("RecruitmentAttributeMarks is required.")

@@ -20,7 +20,10 @@ namespace KalaGenset.ERP.HR.Core.Validation.RecruitmentReferenceMaster
             _context = context;
 
             RuleFor(x => x.RecruitmentReferenceName)
-                     .NotEmpty().WithMessage("RecruitmentReferenceName is required.");
+                     .NotEmpty().WithMessage("RecruitmentReferenceName is required.") 
+            .Matches("^[A-Za-z ]+$")
+            .WithMessage("Recruitment Reference Name must contain only letters.");
+
             RuleFor(x => x.RecruitmentReferenceAuthRemark)
              .NotEmpty().WithMessage("RecruitmentReferenceAuthRemark is required.");
         }

@@ -20,13 +20,13 @@ namespace KalaGenset.ERP.HR.Core.Validation.ShiftMasterValidation
             RuleFor(x => x.ShiftMasterName)
                     .NotEmpty().WithMessage("Shift name is required.")
                     .MustAsync(BeUniqueShiftName).WithMessage("Shift name already exists.")
-                    .Matches("^[a-zA-Z0-9 ]*$").WithMessage("shift name must not contain special characters.")
+                    .Matches("^[a-zA-Z ]*$").WithMessage("shift name must not contain special characters.")
                     .MaximumLength(100);
 
             RuleFor(x => x.ShiftMasterAliseName)
                 .NotEmpty().WithMessage("ShiftMasterAliseName is required.")
                 .MaximumLength(10)
-                .Matches("^[a-zA-Z0-9]*$").WithMessage("ShiftMasterAliseName must not contain special characters.");
+                .Matches("^[a-zA-Z]*$").WithMessage("ShiftMasterAliseName must not contain special characters.");
 
             RuleFor(x => x.ShiftMasterCompanyId)
                .GreaterThan(0).WithMessage("Master company ID must be greater than 0.")

@@ -27,7 +27,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.DepartmentValidation
             RuleFor(x => x.DepartmentName)
                 .NotEmpty().WithMessage("Department name is required.")
                 .MaximumLength(100).WithMessage("Department name cannot exceed 100 characters.")
-                .Matches("^[a-zA-Z0-9 ]*$").WithMessage("Department name must not contain special characters.")
+                .Matches("^[a-zA-Z ]*$").WithMessage("Department name must not contain special characters.")
                 .MustAsync(BeUniqueName).WithMessage("Department name already exists.")
                 .Must(BeProperCase).WithMessage("Department name must be in proper case.");
             RuleFor(x => x.DepartmentShortName)

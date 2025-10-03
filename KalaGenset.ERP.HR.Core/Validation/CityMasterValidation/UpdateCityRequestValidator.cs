@@ -41,7 +41,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.CityMasterValidation
             RuleFor(x => x.CityName)
                 .NotEmpty().WithMessage("City name is required.")
                 .MaximumLength(100).WithMessage("City name cannot exceed 100 characters.")
-                .Matches("^[a-zA-Z0-9 -]*$").WithMessage("City name must not contain special characters.")
+                .Matches("^[a-zA-Z]*$").WithMessage("City name must not contain special characters.")
                 .Must(BeProperCase).WithMessage("City name must be in proper case (e.g., 'Mumbai', 'New Delhi').");
 
             RuleFor(x => x.CityShortName)

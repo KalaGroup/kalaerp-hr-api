@@ -28,20 +28,23 @@ namespace KalaGenset.ERP.HR.Core.Services
             try
             {
                 var PetrolAllowance = new PetrolAllowanceMaster
-                {           
+                {
                     TwoWheelerPerKm = InsertPetrolAllowanceMasterRequest.TwoWheelerPerKm,
                     FourWheelerPerKm = InsertPetrolAllowanceMasterRequest.FourWheelerPerKm,
                     PetrolAllowanceRemark = InsertPetrolAllowanceMasterRequest.PetrolAllowanceRemark,
                     PetrolAllowanceAuthRemark = InsertPetrolAllowanceMasterRequest.PetrolAllowanceAuthRemark,
                     PetrolAllowanceIsAuth = InsertPetrolAllowanceMasterRequest.PetrolAllowanceIsAuth,
                     PetrolAllowanceIsDiscard = InsertPetrolAllowanceMasterRequest.PetrolAllowanceIsDiscard,
-                    PetrolAllowanceIsActive = InsertPetrolAllowanceMasterRequest.PetrolAllowanceIsActive,
+
+                    // Always set to true when inserting
+                    PetrolAllowanceIsActive = true,
+
                     CreatedBy = InsertPetrolAllowanceMasterRequest.CreatedBy,
                     CreatedDate = InsertPetrolAllowanceMasterRequest.CreatedDate,
                 };
+
                 await _context.PetrolAllowanceMasters.AddAsync(PetrolAllowance);
                 await _context.SaveChangesAsync();
-
             }
             catch
             {

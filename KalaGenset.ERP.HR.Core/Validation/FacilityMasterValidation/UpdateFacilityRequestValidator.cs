@@ -17,7 +17,9 @@ namespace KalaGenset.ERP.HR.Core.Validation.FacilityMaster
         {
             _context = context;
             RuleFor(x => x.FacilityName)
-               .ApplyAlphaNumeric("Facility Name required", 100, allowSpaces: true);
+               .ApplyAlphaNumeric("Facility Name required", 100, allowSpaces: true)
+                .Matches("^[A-Za-z ]+$")
+   .WithMessage("Facility name must contain only letters.");
             RuleFor(x => x.FacilityId)
                 .MustBePresentWhenNew("FacilityId");
             RuleFor(x => x.FacilityRemark)

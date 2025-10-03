@@ -19,12 +19,12 @@ namespace KalaGenset.ERP.HR.Core.Validation.WorkstationMasterValidation
             RuleFor(x => x.WorkStationName)
                 .NotEmpty().WithMessage("WorkStation name is required.")
                 .MaximumLength(100).WithMessage("WorkStation name cannot exceed 100 characters.")
-                .Matches("^[a-zA-Z0-9 -]*$").WithMessage("WorkStation name must not contain special characters.");
+                .Matches("^[a-zA-Z]*$").WithMessage("WorkStation name must not contain special characters.");
 
             RuleFor(x => x.WorkStationShortName)
                  .NotEmpty().WithMessage("WorkStation short name is required.")
                 .MaximumLength(10).WithMessage("WorkStation name cannot exceed 10 characters.")
-                .Matches("^[A-Z0-9]*$").WithMessage("WorkStation name must be uppercase and alphanumeric.");
+                .Matches("^[A-Za-z]*$").WithMessage("WorkStation name must be uppercase and alphanumeric.");
 
             RuleFor(x => x.WorkStationCode)
                  .NotEmpty().WithMessage("WorkStation Code is required.")

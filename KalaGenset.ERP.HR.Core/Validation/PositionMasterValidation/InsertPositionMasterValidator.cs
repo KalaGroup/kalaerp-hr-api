@@ -27,7 +27,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.PositionMasterValidation
             RuleFor(x => x.PositionMasterName)
                     .NotEmpty().WithMessage("Position Master name is required.")
                     .MustAsync(BeUniquePositionName).WithMessage("Position Master name already exists.")
-                    .Matches("^[a-zA-Z0-9 ]*$").WithMessage("Position Master name must not contain special characters.")
+                    .Matches("^[a-zA-Z]*$").WithMessage("Position Master name must not contain special characters.")
                     .MaximumLength(100);
 
             RuleFor(x => x.PositionMasterCompanyId)

@@ -34,12 +34,12 @@ namespace KalaGenset.ERP.HR.Core.Validation.ShiftMasterValidation
                 .NotEmpty().WithMessage("ShiftMaster name is required.")
                 .MaximumLength(100).WithMessage("ShiftMaster name cannot exceed 100 characters.")
                 .MustAsync(BeUniqueShiftName).WithMessage("Shift name already exists.")
-                .Matches("^[a-zA-Z0-9 -]*$").WithMessage("ShiftMaster name must not contain special characters.");
+                .Matches("^[a-zA-Z]*$").WithMessage("ShiftMaster name must not contain special characters.");
 
             RuleFor(x => x.ShiftMasterAliseName)
                .NotEmpty().WithMessage("ShiftMasterAliseName is required.")
                .MaximumLength(10)
-               .Matches("^[a-zA-Z0-9]*$").WithMessage("ShiftMasterAliseName must not contain special characters.");
+               .Matches("^[a-zA-Z]*$").WithMessage("ShiftMasterAliseName must not contain special characters.");
 
             RuleFor(x => x.CreatedBy)
                 .NotEmpty().WithMessage("CreatedBy is required.");

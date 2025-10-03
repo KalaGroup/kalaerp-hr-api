@@ -17,10 +17,12 @@ namespace KalaGenset.ERP.HR.Core.Validation.PetrolAllowanceMaster
             _context = context;
 
             RuleFor(x => x.TwoWheelerPerKm)
-                 .NotEmpty().WithMessage("Two Wheeler per km is required.");
+                 .NotEmpty().WithMessage("Two Wheeler per km is required.")
+                 .Matches("^[0-9]+$").WithMessage("Two Wheeler per km must contain only numbers."); ;
 
             RuleFor(x => x.FourWheelerPerKm)
-                    .NotEmpty().WithMessage("QualificationType code is required.");
+                    .NotEmpty().WithMessage("QualificationType code is required.")
+                    .Matches("^[0-9]+$").WithMessage("Two Wheeler per km must contain only numbers."); ;
                     
             RuleFor(x => x.CreatedBy)
                    .NotEmpty().WithMessage("CreatedBy is required.");

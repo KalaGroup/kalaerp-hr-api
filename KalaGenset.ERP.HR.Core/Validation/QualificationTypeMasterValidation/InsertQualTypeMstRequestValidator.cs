@@ -23,7 +23,9 @@ namespace KalaGenset.ERP.HR.Core.Validation.QualificationTypeMaster
 
             RuleFor(x => x.QualificationTypeName)
                 .ApplyAlphaNumeric("QualificationType name", 100, allowSpaces: true)
-                .MustAsync(BeUniqueQualificationTypeName).WithMessage("Qualification name already exists.");
+                .MustAsync(BeUniqueQualificationTypeName).WithMessage("Qualification name already exists.")
+             .Matches("^[A-Za-z ]+$")
+            .WithMessage("Qualification name must contain only letters.");
 
             RuleFor(x => x.CreatedBy)
                .MustBePresentWhenNew("CreatedBy");

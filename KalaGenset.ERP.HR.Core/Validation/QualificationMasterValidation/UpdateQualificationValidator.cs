@@ -35,7 +35,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.QualificationValidator
             RuleFor(x => x.QualificationName)
                 .NotEmpty().WithMessage("Qualification name is required.")
                 .MaximumLength(100).WithMessage("Qualification name cannot exceed 100 characters.")
-                .Matches("^[a-zA-Z0-9 -]*$").WithMessage("Qualification name must not contain special characters.");
+                .Matches("^[a-zA-Z]*$").WithMessage("Qualification name must not contain special characters.");
 
             RuleFor(x => x.CreatedBy)
                 .NotEmpty().WithMessage("CreatedBy is required.");

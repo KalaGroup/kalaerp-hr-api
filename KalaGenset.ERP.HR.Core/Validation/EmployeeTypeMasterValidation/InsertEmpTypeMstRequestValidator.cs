@@ -18,15 +18,17 @@ namespace KalaGenset.ERP.HR.Core.Validation.EmployeeTypeMasterValidation
         {
             _context = context;
 
-           
+
 
             RuleFor(x => x.EmployeeTypeName)
                 .ApplyAlphaNumeric("EmployeeType name", 100, allowSpaces: true)
-                .MustAsync(BeUniqueEmployeeTypeName).WithMessage("EmployeeType name already exists.");
+                .MustAsync(BeUniqueEmployeeTypeName).WithMessage("EmployeeType name already exists.")
+                .Matches("^[A-Za-z ]+$").WithMessage("EmployeeTypeName  must not contain special characters.");
+            RuleFor(x => x.EmployeeTypeDescription)
+                .Matches("^[A-Za-z ]+$").WithMessage("EmployeeTypeDescription   must not contain special characters.");
 
-            //RuleFor(x => x.CreatedBy)
-            //   .MustBePresentWhenNew("CreatedBy");
 
+          
         }
       
         private async Task<bool> BeUniqueEmployeeTypeName(string EmployeeTypeName, CancellationToken cancellationToken)

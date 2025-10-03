@@ -35,7 +35,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.StateValidator
             RuleFor(x => x.StateName)
                 .NotEmpty().WithMessage("State name is required.")
                 .MaximumLength(100).WithMessage("State name cannot exceed 100 characters.")
-                .Matches("^[a-zA-Z0-9 -]*$").WithMessage("State name must not contain special characters.")
+                .Matches("^[a-zA-Z]*$").WithMessage("State name must not contain special characters.")
                 .Must(BeProperCase).WithMessage("State name must be in proper case (e.g., 'Mumbai', 'New Delhi').");
 
             RuleFor(x => x.ShortName)

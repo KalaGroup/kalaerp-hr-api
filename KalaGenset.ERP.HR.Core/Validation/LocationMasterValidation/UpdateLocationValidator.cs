@@ -30,7 +30,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.LocationValidator
             RuleFor(x => x.LocationName)
                 .NotEmpty().WithMessage("Location name is required.")
                 .MaximumLength(100).WithMessage("Location name cannot exceed 100 characters.")
-                .Matches("^[a-zA-Z0-9 -]*$").WithMessage("Location name must not contain special characters.");
+                .Matches("^[a-zA-Z]*$").WithMessage("Location name must not contain special characters.");
 
             RuleFor(x => x.ProfitcenterLocationId)
                  .GreaterThan(0).WithMessage("Profitcenter Location Id is required")

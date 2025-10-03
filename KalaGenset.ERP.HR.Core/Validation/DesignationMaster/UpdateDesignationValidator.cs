@@ -19,7 +19,9 @@ namespace KalaERP.HR.Core.Validation.DesignationMaster
 
             RuleFor(x => x.DesignationName)
                 .NotEmpty().WithMessage("Designation Name is required.")
-                .MaximumLength(200).WithMessage("Designation Name cannot exceed 200 characters.");
+                .MaximumLength(200).WithMessage("Designation Name cannot exceed 200 characters.")
+                    .Matches("^[A-Za-z ]+$")
+   .WithMessage("Designation name must contain only letters.");
 
             RuleFor(x => x.DesignationDescription)
                 .MaximumLength(500).WithMessage("Designation Description cannot exceed 500 characters.");

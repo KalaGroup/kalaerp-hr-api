@@ -25,13 +25,13 @@ namespace KalaGenset.ERP.HR.Core.Validation.DivisionMasterValidation
             RuleFor(x => x.DivisionName)
                 .NotEmpty().WithMessage("Division Name is required.")
                 .MaximumLength(100).WithMessage("Division Name cannot be longer than 100 characters.")
-                .Matches("^[a-zA-Z0-9 ]*$").WithMessage("Division Name must not contain special characters.")
+                .Matches("^[a-zA-Z ]*$").WithMessage("Division Name must not contain special characters.")
                 .MustAsync(BeUniqueDivisionName).WithMessage("Division Name already exists.");
 
             RuleFor(x => x.DivisionShortName)
                 .NotEmpty().WithMessage("Division Short Name is required.")
                 .MaximumLength(100).WithMessage("Division Short Name cannot be longer than 100 characters.")
-                .Matches("^[a-zA-Z0-9 ]*$").WithMessage("Division Short Name must not contain special characters.")
+                .Matches("^[a-zA-Z]*$").WithMessage("Division Short Name must not contain special characters.")
                 .MustAsync(BeUniqueDivisionShortName).WithMessage("Division Short Name already exists.");
 
             RuleFor(x => x.DivisionMailId)

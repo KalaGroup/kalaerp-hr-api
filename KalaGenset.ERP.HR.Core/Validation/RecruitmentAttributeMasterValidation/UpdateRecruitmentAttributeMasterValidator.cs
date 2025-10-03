@@ -20,7 +20,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.RecruitmentAttributeMasterValidation
             RuleFor(x => x.RecruitmentAttributeName)
                 .NotEmpty().WithMessage("Recruitment Attribute name is required.")
                 .MaximumLength(100).WithMessage("Recruitment Attribute name cannot exceed 100 characters.")
-                .Matches("^[a-zA-Z0-9 -]*$").WithMessage("Recruitment Attribute name must not contain special characters.");
+                .Matches("^[a-zA-Z]*$").WithMessage("Recruitment Attribute name must not contain special characters.");
 
             RuleFor(x => x.RecruitmentAttributeMarks)
                 .NotEmpty().WithMessage("Recruitment Attribute Marks is required.")
@@ -28,7 +28,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.RecruitmentAttributeMasterValidation
 
             RuleFor(x => x.RecruitmentAttributeRemark)
                 .MaximumLength(500).WithMessage("Recruitment Attribute Remark cannot exceed 500 characters.")
-                .Matches("^[a-zA-Z0-9 -]*$").WithMessage("Recruitment Attribute Remark must not contain special characters.");
+                .Matches("^[a-zA-Z]*$").WithMessage("Recruitment Attribute Remark must not contain special characters.");
 
             RuleFor(x => x.RecruitmentAttributeAuthRemark)
                 .MaximumLength(500).WithMessage("Recruitment Attribute Auth Remark cannot exceed 500 characters.")
