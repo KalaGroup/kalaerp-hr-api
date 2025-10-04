@@ -109,6 +109,10 @@ public partial class CompanyMaster
 
     public virtual ICollection<DailyAttendance> DailyAttendances { get; set; } = new List<DailyAttendance>();
 
+    public virtual ICollection<EmployeeMasterEmploymentDetail> EmployeeMasterEmploymentDetailEmploymentDetailsCompanyEntities { get; set; } = new List<EmployeeMasterEmploymentDetail>();
+
+    public virtual ICollection<EmployeeMasterEmploymentDetail> EmployeeMasterEmploymentDetailEmploymentDetailsParentCompanies { get; set; } = new List<EmployeeMasterEmploymentDetail>();
+
     public virtual ICollection<HolidayMaster> HolidayMasters { get; set; } = new List<HolidayMaster>();
 
     public virtual ICollection<CompanyMaster> InverseParentCompany { get; set; } = new List<CompanyMaster>();

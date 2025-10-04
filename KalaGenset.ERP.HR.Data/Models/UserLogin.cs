@@ -115,6 +115,8 @@ public partial class UserLogin
 
     public virtual ICollection<EmployeeMasterAddressDetail> EmployeeMasterAddressDetails { get; set; } = new List<EmployeeMasterAddressDetail>();
 
+    public virtual ICollection<EmployeeMasterEmploymentDetail> EmployeeMasterEmploymentDetails { get; set; } = new List<EmployeeMasterEmploymentDetail>();
+
     public virtual ICollection<EmployeeMasterFamilyDetail> EmployeeMasterFamilyDetails { get; set; } = new List<EmployeeMasterFamilyDetail>();
 
     public virtual ICollection<GatePassType> GatePassTypeCreatedByNavigations { get; set; } = new List<GatePassType>();

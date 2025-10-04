@@ -155,7 +155,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                     throw new Exception("District not found.");
                 }
                 district.IsActive = false;
-                district.IsDiscard = false;
+
                 _context.DistrictMasters.Update(district);
                 await _context.SaveChangesAsync();
 
@@ -165,6 +165,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                 throw; // Let the controller handle the error
             }
         }
+        
         /// <summary>
         /// GetDistrictByStateIdAsync
         /// </summary>

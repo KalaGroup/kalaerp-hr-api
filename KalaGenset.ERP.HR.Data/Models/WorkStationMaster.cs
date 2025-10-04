@@ -33,6 +33,8 @@ public partial class WorkStationMaster
 
     public DateTime UpdatedDate { get; set; }
 
+    public virtual ICollection<EmployeeMasterEmploymentDetail> EmployeeMasterEmploymentDetails { get; set; } = new List<EmployeeMasterEmploymentDetail>();
+
     public virtual ICollection<PositionMaster> PositionMasters { get; set; } = new List<PositionMaster>();
 
     public virtual ProfitcenterMaster WorkStationProfitcenter { get; set; } = null!;

@@ -17,6 +17,8 @@ public partial class KalaErppageDetail
 
     public string PageIsonumber { get; set; } = null!;
 
+    public int? MakerKalaErppageDetailsId { get; set; }
+
     public string KalaErppageDetailsRemark { get; set; } = null!;
 
     public string KalaErppageDetailsAuthRemark { get; set; } = null!;
@@ -37,7 +39,11 @@ public partial class KalaErppageDetail
 
     public virtual UserLogin CreatedByNavigation { get; set; } = null!;
 
+    public virtual ICollection<KalaErppageDetail> InverseMakerKalaErppageDetails { get; set; } = new List<KalaErppageDetail>();
+
     public virtual DivisionMaster KalaErppageDetailsDivision { get; set; } = null!;
+
+    public virtual KalaErppageDetail? MakerKalaErppageDetails { get; set; }
 
     public virtual UserLogin UpdatedByNavigation { get; set; } = null!;
 }
