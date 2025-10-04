@@ -57,6 +57,12 @@ public partial class EmployeeMasterPersonalDetail
 
     public virtual ICollection<EmployeeMasterAddressDetail> EmployeeMasterAddressDetails { get; set; } = new List<EmployeeMasterAddressDetail>();
 
+    public virtual ICollection<EmployeeMasterEmploymentDetail> EmployeeMasterEmploymentDetailEmploymentDetailsEmployeeMasters { get; set; } = new List<EmployeeMasterEmploymentDetail>();
+
+    public virtual ICollection<EmployeeMasterEmploymentDetail> EmployeeMasterEmploymentDetailEmploymentDetailsReportDepartmentHods { get; set; } = new List<EmployeeMasterEmploymentDetail>();
+
+    public virtual ICollection<EmployeeMasterEmploymentDetail> EmployeeMasterEmploymentDetailEmploymentDetailsReportTos { get; set; } = new List<EmployeeMasterEmploymentDetail>();
+
     public virtual ICollection<EmployeeMasterFamilyDetail> EmployeeMasterFamilyDetails { get; set; } = new List<EmployeeMasterFamilyDetail>();
 
     public virtual CountryMaster EmployeeMasterNationalityCountry { get; set; } = null!;

@@ -91,6 +91,10 @@ namespace KalaGenset.ERP.HR.API.Extension
             services.AddScoped<IGradeMaster, GradeMasterService>();
             services.AddScoped<IGatePassType, GatePassTypeService>();
 
+            //Employee Master 
+            services.AddScoped<IEmployeeMaster, EmployeeMasterServices>();
+           
+
             return services;
         }
     }

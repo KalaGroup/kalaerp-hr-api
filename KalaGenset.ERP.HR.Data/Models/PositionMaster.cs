@@ -57,6 +57,8 @@ public partial class PositionMaster
 
     public DateTime UpdatedDate { get; set; }
 
+    public virtual ICollection<EmployeeMasterEmploymentDetail> EmployeeMasterEmploymentDetails { get; set; } = new List<EmployeeMasterEmploymentDetail>();
+
     public virtual ICollection<OfferLetter> OfferLetters { get; set; } = new List<OfferLetter>();
 
     public virtual ActivityMaster PositionMasterActivity { get; set; } = null!;

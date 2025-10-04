@@ -31,6 +31,8 @@ public partial class DesignationMaster
 
     public virtual QualificationMaster DesignationQualification { get; set; } = null!;
 
+    public virtual ICollection<EmployeeMasterEmploymentDetail> EmployeeMasterEmploymentDetails { get; set; } = new List<EmployeeMasterEmploymentDetail>();
+
     public virtual ICollection<Kpamaster> Kpamasters { get; set; } = new List<Kpamaster>();
 
     public virtual ICollection<PositionMaster> PositionMasters { get; set; } = new List<PositionMaster>();

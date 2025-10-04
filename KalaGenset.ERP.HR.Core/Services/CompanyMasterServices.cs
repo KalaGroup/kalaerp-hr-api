@@ -120,7 +120,7 @@ namespace KalaERP.HR.Core.Services
         public async Task<List<CompanyDetailsResponseDTO>> GetCompanyDetailsAsync()
         {
             var result = await context.CompanyMasters
-                .Where(c => c.CompanyIsActive && !c.CompanyIsDiscard)
+                .Where(c => c.CompanyIsActive )
                 .Include(c => c.RegisteredCountry)
                 .Include(c => c.RegisteredState)
                 .Include(c => c.RegisteredDistrict)

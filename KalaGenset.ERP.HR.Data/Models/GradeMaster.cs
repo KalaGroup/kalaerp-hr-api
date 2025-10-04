@@ -57,6 +57,8 @@ public partial class GradeMaster
 
     public virtual ICollection<DesignationMaster> DesignationMasters { get; set; } = new List<DesignationMaster>();
 
+    public virtual ICollection<EmployeeMasterEmploymentDetail> EmployeeMasterEmploymentDetails { get; set; } = new List<EmployeeMasterEmploymentDetail>();
+
     public virtual CurrencyMaster GradeCurrency { get; set; } = null!;
 
     public virtual ICollection<GradeFacilityAssignment> GradeFacilityAssignments { get; set; } = new List<GradeFacilityAssignment>();

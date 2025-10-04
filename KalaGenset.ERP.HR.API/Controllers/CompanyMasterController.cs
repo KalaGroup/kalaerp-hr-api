@@ -158,7 +158,7 @@ namespace KalaERP.HR.API.Controllers
             try
             {
                 await companyMaster.DeleteCompanyAsync(id);
-                 return Ok("Company deleted successfully.");
+                 return Ok();
             }
             catch (Exception ex)
             {

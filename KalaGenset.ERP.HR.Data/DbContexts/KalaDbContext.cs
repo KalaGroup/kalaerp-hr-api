@@ -54,6 +54,8 @@ public partial class KalaDbContext : DbContext
 
     public virtual DbSet<EmployeeMasterAddressDetail> EmployeeMasterAddressDetails { get; set; }
 
+    public virtual DbSet<EmployeeMasterEmploymentDetail> EmployeeMasterEmploymentDetails { get; set; }
+
     public virtual DbSet<EmployeeMasterFamilyDetail> EmployeeMasterFamilyDetails { get; set; }
 
     public virtual DbSet<EmployeeMasterPersonalDetail> EmployeeMasterPersonalDetails { get; set; }
@@ -1008,6 +1010,113 @@ public partial class KalaDbContext : DbContext
                 .HasConstraintName("FK_EmployeeMasterAddressDetailsId_UpdatedBy");
         });
 
+        modelBuilder.Entity<EmployeeMasterEmploymentDetail>(entity =>
+        {
+            entity.HasKey(e => e.EmployeeMasterEmploymentDetailsId).HasName("PK__Employee__E1E44AAA4B7EDE8C");
+
+            entity.ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("EmployeeMasterEmploymentDetailsHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.EmploymentDetailsAuth1Remark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.EmploymentDetailsAuth2Remark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.EmploymentDetailsAuth3Remark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.EmploymentDetailsRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil");
+            entity.Property(e => e.EmploymentDetailsReportDepartmentHodid).HasColumnName("EmploymentDetailsReportDepartmentHODId");
+            entity.Property(e => e.UpdatedBy).HasDefaultValue(1);
+            entity.Property(e => e.UpdatedDate).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.EmploymentDetailsCompanyEntity).WithMany(p => p.EmployeeMasterEmploymentDetailEmploymentDetailsCompanyEntities)
+                .HasForeignKey(d => d.EmploymentDetailsCompanyEntityId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterEmploymentDetailsId_EmploymentDetailsCompanyEntityId");
+
+            entity.HasOne(d => d.EmploymentDetailsDepartment).WithMany(p => p.EmployeeMasterEmploymentDetails)
+                .HasForeignKey(d => d.EmploymentDetailsDepartmentId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterEmploymentDetailsId_EmploymentDetailsDepartmentId");
+
+            entity.HasOne(d => d.EmploymentDetailsDesignation).WithMany(p => p.EmployeeMasterEmploymentDetails)
+                .HasForeignKey(d => d.EmploymentDetailsDesignationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterEmploymentDetailsId_EmploymentDetailsDesignationId");
+
+            entity.HasOne(d => d.EmploymentDetailsDivision).WithMany(p => p.EmployeeMasterEmploymentDetails)
+                .HasForeignKey(d => d.EmploymentDetailsDivisionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterEmploymentDetailsId_EmploymentDetailsDivisionId");
+
+            entity.HasOne(d => d.EmploymentDetailsEmployeeMaster).WithMany(p => p.EmployeeMasterEmploymentDetailEmploymentDetailsEmployeeMasters)
+                .HasForeignKey(d => d.EmploymentDetailsEmployeeMasterId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterEmploymentDetailsId_EmploymentDetailsEmployeeMasterId");
+
+            entity.HasOne(d => d.EmploymentDetailsEmployeeType).WithMany(p => p.EmployeeMasterEmploymentDetails)
+                .HasForeignKey(d => d.EmploymentDetailsEmployeeTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterEmploymentDetailsId_EmploymentDetailsEmployeeTypeId");
+
+            entity.HasOne(d => d.EmploymentDetailsGrade).WithMany(p => p.EmployeeMasterEmploymentDetails)
+                .HasForeignKey(d => d.EmploymentDetailsGradeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterEmploymentDetailsId_EmploymentDetailsGradeId");
+
+            entity.HasOne(d => d.EmploymentDetailsOfferLetter).WithMany(p => p.EmployeeMasterEmploymentDetails)
+                .HasForeignKey(d => d.EmploymentDetailsOfferLetterId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterEmploymentDetailsId_EmploymentDetailsOfferLetterId");
+
+            entity.HasOne(d => d.EmploymentDetailsParentCompany).WithMany(p => p.EmployeeMasterEmploymentDetailEmploymentDetailsParentCompanies)
+                .HasForeignKey(d => d.EmploymentDetailsParentCompanyId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterEmploymentDetailsId_EmploymentDetailsParentCompanyId");
+
+            entity.HasOne(d => d.EmploymentDetailsPosition).WithMany(p => p.EmployeeMasterEmploymentDetails)
+                .HasForeignKey(d => d.EmploymentDetailsPositionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterEmploymentDetailsId_EmploymentDetailsPositionId");
+
+            entity.HasOne(d => d.EmploymentDetailsProfitcenter).WithMany(p => p.EmployeeMasterEmploymentDetails)
+                .HasForeignKey(d => d.EmploymentDetailsProfitcenterId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterEmploymentDetailsId_EmploymentDetailsProfitcenterId");
+
+            entity.HasOne(d => d.EmploymentDetailsReportDepartmentHod).WithMany(p => p.EmployeeMasterEmploymentDetailEmploymentDetailsReportDepartmentHods)
+                .HasForeignKey(d => d.EmploymentDetailsReportDepartmentHodid)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterEmploymentDetailsId_EmploymentDetailsReportDepartmentHODId");
+
+            entity.HasOne(d => d.EmploymentDetailsReportTo).WithMany(p => p.EmployeeMasterEmploymentDetailEmploymentDetailsReportTos)
+                .HasForeignKey(d => d.EmploymentDetailsReportToId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterEmploymentDetailsId_EmploymentDetailsReportToId");
+
+            entity.HasOne(d => d.EmploymentDetailsWorkastation).WithMany(p => p.EmployeeMasterEmploymentDetails)
+                .HasForeignKey(d => d.EmploymentDetailsWorkastationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterEmploymentDetailsId_EmploymentDetailsWorkastationId");
+
+            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.EmployeeMasterEmploymentDetails)
+                .HasForeignKey(d => d.UpdatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmployeeMasterEmploymentDetailsId_UpdatedBy");
+        });
+
         modelBuilder.Entity<EmployeeMasterFamilyDetail>(entity =>
         {
             entity.HasKey(e => e.EmployeeMasterFamilyDetailsId).HasName("PK__Employee__AD5C9C74281848AF");
@@ -1390,9 +1499,20 @@ public partial class KalaDbContext : DbContext
 
         modelBuilder.Entity<KalaErppageDetail>(entity =>
         {
-            entity.HasKey(e => e.KalaErppageDetailsId).HasName("PK__KalaERPP__D93D0346D377300C");
+            entity.HasKey(e => e.KalaErppageDetailsId).HasName("PK__KalaERPP__D93D034634DA20C4");
 
-            entity.ToTable("KalaERPPageDetails");
+            entity
+                .ToTable("KalaERPPageDetails")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("KalaERPPageDetailsHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
 
             entity.Property(e => e.KalaErppageDetailsId).HasColumnName("KalaERPPageDetailsID");
             entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
@@ -1412,6 +1532,7 @@ public partial class KalaDbContext : DbContext
                 .HasMaxLength(200)
                 .HasDefaultValue("Nil")
                 .HasColumnName("KalaERPPageDetailsRemark");
+            entity.Property(e => e.MakerKalaErppageDetailsId).HasColumnName("MakerKalaERPPageDetailsID");
             entity.Property(e => e.PageIsonumber)
                 .HasMaxLength(200)
                 .HasColumnName("PageISONumber");
@@ -1430,6 +1551,10 @@ public partial class KalaDbContext : DbContext
                 .HasForeignKey(d => d.KalaErppageDetailsDivisionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_KalaERPPageDetailsId_KalaERPPageDetailsDivisionID");
+
+            entity.HasOne(d => d.MakerKalaErppageDetails).WithMany(p => p.InverseMakerKalaErppageDetails)
+                .HasForeignKey(d => d.MakerKalaErppageDetailsId)
+                .HasConstraintName("FK_KalaERPPageDetailsId_MakerKalaERPPageDetailsID");
 
             entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.KalaErppageDetailUpdatedByNavigations)
                 .HasForeignKey(d => d.UpdatedBy)

@@ -45,6 +45,8 @@ public partial class DepartmentMaster
 
     public virtual ProfitcenterMaster DepartmentProfitcenter { get; set; } = null!;
 
+    public virtual ICollection<EmployeeMasterEmploymentDetail> EmployeeMasterEmploymentDetails { get; set; } = new List<EmployeeMasterEmploymentDetail>();
+
     public virtual ICollection<DepartmentMaster> InverseParentDepartment { get; set; } = new List<DepartmentMaster>();
 
     public virtual DepartmentMaster? ParentDepartment { get; set; }

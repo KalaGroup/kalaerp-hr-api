@@ -32,10 +32,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.CountryValidation
                .MaximumLength(10).WithMessage("Country Short Name cannot exceed 10 characters.");
             RuleFor(x => x.CountryCurrencyId)
                .GreaterThan(0).WithMessage("Currency ID must be greater than 0.");
-            //RuleFor(x => x.CreatedBy)
-            //   .NotEmpty().WithMessage("CreatedBy is required.");
-            //RuleFor(x => x.CreatedDate)
-            //   .LessThanOrEqualTo(DateTime.Now).WithMessage("Created date can't be in the future.");
+            
         }
         private async Task<bool> BeUniqueCountryName(string countryName, CancellationToken cancellationToken)
         {

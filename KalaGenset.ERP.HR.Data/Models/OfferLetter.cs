@@ -39,6 +39,8 @@ public partial class OfferLetter
 
     public DateTime UpdatedDate { get; set; }
 
+    public virtual ICollection<EmployeeMasterEmploymentDetail> EmployeeMasterEmploymentDetails { get; set; } = new List<EmployeeMasterEmploymentDetail>();
+
     public virtual ICollection<OfferLetterCtc> OfferLetterCtcs { get; set; } = new List<OfferLetterCtc>();
 
     public virtual PositionMaster OfferLetterPosition { get; set; } = null!;

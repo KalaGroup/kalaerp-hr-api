@@ -36,7 +36,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.GatePassTypeValidation
             RuleFor(x => x.GatePassTypesTypeName)
                 .NotEmpty().WithMessage("GatePassType Name is required.")
                 .MaximumLength(100).WithMessage("GatePassType Name must not exceed 100 characters.")
-                .Matches("^[a-zA-Z0-9 ]*$").WithMessage("GatePassType Name must not contain special characters.")
+                .Matches("^[a-zA-Z0 ]*$").WithMessage("GatePassType Name must not contain special characters.")
                 .MustAsync(async (request, name, cancellationToken) =>
                     !await _context.GatePassTypes.AnyAsync(c =>
                         c.GatePassTypesTypeName == name && c.GatePassTypeId != request.GatePassTypeId, cancellationToken))
