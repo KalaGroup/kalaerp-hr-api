@@ -34,12 +34,6 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// <param name="GradeId"></param>
         /// <returns></returns>
         public Task<GradeMaster?> GetGradeById(int GradeId);
-        /// <summary>
-        /// Deletes a grade by its ID from the database.
-        /// </summary>
-        /// <param name="gid"></param>
-        /// <returns></returns>
-        public Task DeleteGradeAsync(int gid);
 
         //Get Grade Id and Name
         public Task<List<GradeIdAndNameResponseDTO>> GetGradeIdAndNameFromDB();
