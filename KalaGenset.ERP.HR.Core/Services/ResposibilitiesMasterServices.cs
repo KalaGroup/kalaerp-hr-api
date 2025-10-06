@@ -30,23 +30,6 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             try
             {
-                //var resposibility = new ResponsibilitiesMaster
-                //{
-                //    ResponsibilitiesGradeId = request.ResposibilitiesGradeId,
-
-                //    ResponsibilitiesRemark = request.ResposibilitiesRemark,
-                //    ResponsibilitiesDesignationId = request.ResposibilitiesDesignationId,
-                //    ResponsibilitiesAuthRemark = request.ResposibilitiesAuthRemark,
-                //    ResponsibilitiesDivisionId = request.ResponsibilitiesDivisionId,
-                //    ResponsibilitiesAuth = request.ResposibilitiesAuth,
-                //    ResponsibilitiesIsDiscard = request.ResposibilitiesIsDiscard,
-                //    ResponsibilitiesIsActive = request.ResposibilitiesIsActive,
-                //    CreatedBy = 1,
-                //    CreatedDate = DateTime.Now,
-                //};
-                //context.ResponsibilitiesMasters.Add(resposibility);
-                //await context.SaveChangesAsync();
-
                 var responsibility = new ResponsibilitiesMaster
                 {
                     ResponsibilitiesGradeId = request.ResposibilitiesGradeId,
@@ -95,23 +78,6 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        //public async Task DeleteResposibilitiesAsync(int id)
-        //{
-        //    try
-        //    {
-        //        var resposibilitie = await context.ResponsibilitiesMasters.FirstOrDefaultAsync(c => c.ResponsibilitiesId == id);
-        //        resposibilitie.ResponsibilitiesIsActive = false;
-        //        context.ResponsibilitiesMasters.Update(resposibilitie);
-        //        await context.SaveChangesAsync();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Handle exception (log it, rethrow it, etc.)
-        //        throw new Exception("Error deleting responsibility", ex);
-        //    }
-        //}
-
-
         public async Task DeleteResposibilitiesAsync(int id)
         {
             try
@@ -188,75 +154,6 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// <param name="request"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        //public async Task UpdateResposibilitiesAsync(UpdateResposibilitiesMasterRequest request)
-        //{
-        //    try
-        //    {
-        //        //var resposibility = context.ResponsibilitiesMasters.FirstOrDefault(d => d.ResponsibilitiesId == request.ResposibilitiesId);
-
-        //        //resposibility.ResponsibilitiesGradeId = request.ResposibilitiesGradeId;
-        //        //resposibility.ResponsibilitiesDesignationId = request.ResposibilitiesDesignationId;
-        //        //resposibility.ResponsibilitiesRemark = request.ResposibilitiesRemark;
-        //        //resposibility.ResponsibilitiesAuthRemark = request.ResposibilitiesAuthRemark;
-        //        //resposibility.ResponsibilitiesDivisionId = request.ResponsibilitiesDivisionId;
-        //        //resposibility.ResponsibilitiesAuth = request.ResposibilitiesAuth;
-        //        //resposibility.ResponsibilitiesIsDiscard = request.ResposibilitiesIsDiscard;
-        //        //resposibility.ResponsibilitiesIsActive = request.ResposibilitiesIsActive;
-        //        //resposibility.CreatedBy = 1;
-        //        //resposibility.CreatedDate = DateTime.Now;
-        //        //context.ResponsibilitiesMasters.Update(resposibility);
-        //        //return context.SaveChangesAsync();
-        //        var responsibility = await context.ResponsibilitiesMasters
-        //                            .FirstOrDefaultAsync(d => d.ResponsibilitiesId == request.ResposibilitiesId);
-
-        //        if (responsibility == null)
-        //            throw new Exception("Responsibility not found");
-
-        //        // ✅ Update master
-        //        responsibility.ResponsibilitiesGradeId = request.ResposibilitiesGradeId;
-        //        responsibility.ResponsibilitiesDesignationId = request.ResposibilitiesDesignationId;
-        //        responsibility.ResponsibilitiesRemark = request.ResposibilitiesRemark;
-        //        responsibility.ResponsibilitiesAuthRemark = request.ResposibilitiesAuthRemark;
-        //        responsibility.ResponsibilitiesDivisionId = request.ResponsibilitiesDivisionId;
-        //        responsibility.ResponsibilitiesAuth = request.ResposibilitiesAuth;
-        //        responsibility.ResponsibilitiesIsDiscard = request.ResposibilitiesIsDiscard;
-        //        responsibility.ResponsibilitiesIsActive = request.ResposibilitiesIsActive;
-        //        responsibility.CreatedBy = 1;
-        //        responsibility.CreatedDate = DateTime.Now;
-
-        //        context.ResponsibilitiesMasters.Update(responsibility);
-
-        //        // ✅ Update child descriptions
-        //        if (request.descriptions != null && request.descriptions.Any())
-        //        {
-        //            // Remove existing children for this master
-        //            var existingDetails = await context.ResponsibilitiesDetails
-        //                .Where(d => d.DetailsResposibilitiesId == request.ResposibilitiesId)
-        //                .ToListAsync();   // <-- FIX
-
-        //            context.ResponsibilitiesDetails.RemoveRange(existingDetails);
-
-        //            // Insert new descriptions
-        //            var details = request.descriptions.Select(item => new ResponsibilitiesDetail
-        //            {
-        //                DetailsResposibilitiesId = request.ResposibilitiesId,
-        //                SrNo = item.srno,
-        //                ResponsibilitiesDetailsDescription = item.desc
-        //            }).ToList();
-
-        //            await context.ResponsibilitiesDetails.AddRangeAsync(details);
-        //        }
-
-        //        await context.SaveChangesAsync();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Handle exception (log it, rethrow it, etc.)
-        //        throw new Exception("Error updating responsibility", ex);
-        //    }
-        //}
-
-
         public async Task UpdateResposibilitiesAsync(UpdateResposibilitiesMasterRequest request)
         {
             try

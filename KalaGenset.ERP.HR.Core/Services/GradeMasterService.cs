@@ -29,196 +29,149 @@ namespace KalaGenset.ERP.HR.Core.Services
         /// 
         public async Task AddGradeDetailsAsync(InsertGradeRequest request)
         {
-            using var transaction = await _context.Database.BeginTransactionAsync();
-            try
+            //using var transaction = await _context.Database.BeginTransactionAsync();
+            //try
+            //{
+            //    // 1. Insert Grade Master
+            //    var grade = new GradeMaster
+            //    {
+            //        GradeCode = request.gradeData.GradeCode,
+            //        GradeName = request.gradeData.GradeName,
+            //        GradeLevel = request.gradeData.GradeLevel,
+            //        MinSalCtc = request.gradeData.MinSalCTC,
+            //        MaxSalCtc = request.gradeData.MaxSalCTC,
+            //        GradeCurrencyId = request.gradeData.GradeCurrencyId,
+            //        GradeDescription = request.gradeData.GradeDescription,
+            //        LeaveEntitlementAnnual = request.gradeData.LeaveEntitlementAnnual,
+            //        ProbationPeriod = request.gradeData.ProbationPeriod,
+            //        NoticePeriod = request.gradeData.NoticePeriod,
+            //        ExperiencedRequired = request.gradeData.ExperiencedRequired,
+            //        ExperiencedRemark = request.gradeData.ExperiencedRemark,
+            //        GradeRemark = request.gradeData.GradeRemark,
+            //        GradeAuth = request.gradeData.GradeAuth,
+            //        GradeIsDiscard = request.gradeData.GradeIsDiscard,
+            //        GradeIsActive = request.gradeData.GradeIsActive,
+            //        CreatedBy = 1, // Set appropriate user ID
+            //        CreatedDate = DateTime.Now
+            //    };
+            //    _context.GradeMasters.Add(grade);
+            //    await _context.SaveChangesAsync();
+
+            //    // Get the generated GradeId
+            //    var gradeId = grade.GradeId;
+
+            //    // 2. Insert CTC Structure
+            //    if (request.ctcStructure != null)
+            //    {
+            //        var ctcStructure = new CtcstructureMaster // Assuming table name is CTCMaster
+            //        {
+            //            CtcmasterGradeId = gradeId, // Link to the generated GradeId
+            //            CtcmasterBasic = request.ctcStructure.CTCMasterBasic,
+            //            CtcmasterBonus = request.ctcStructure.CTCMasterBonus,
+            //            CtcmasterCarAllowance = request.ctcStructure.CTCMasterCarAllowance,
+            //            CtcmasterCityCompensatoryAlowance = request.ctcStructure.CTCMasterCityCompensatoryAlowance,
+            //            CtcmasterConvAllowance = request.ctcStructure.CTCMasterConvAllowance,
+            //            CtcmasterDa = request.ctcStructure.CTCMasterDA,
+            //            CtcmasterDriverAllowance = request.ctcStructure.CTCMasterDriverAllowance,
+            //            CtcmasterEsic = request.ctcStructure.CTCMasterEsic,
+            //            CtcmasterFuelAllowance = request.ctcStructure.CTCMasterFuelAllowance,
+            //            CtcmasterGraduity = request.ctcStructure.CTCMasterGraduity,
+            //            CtcmasterGross = request.ctcStructure.CTCMasterGross,
+            //            CtcmasterHra = request.ctcStructure.CTCMasterHRA,
+            //            CtcmasterLeaveTravelAllowance = request.ctcStructure.CTCMasterLeaveTravelAllowance,
+            //            CtcmasterMlwf = request.ctcStructure.CTCMasterMLWF,
+            //            CtcmasterMedicalInsurance = request.ctcStructure.CTCMasterMedicalInsurance,
+            //            CtcmasterMiscAllowance = request.ctcStructure.CTCMasterMiscAllowance,
+            //            CtcmasterPfemployee = request.ctcStructure.CTCMasterPFEmployee,
+            //            CtcmasterPfemployer = request.ctcStructure.CTCMasterPFEmployer,
+            //            CtcmasterPt = request.ctcStructure.CTCMasterPT,
+            //            CtcmasterPerformanceKpa = request.ctcStructure.CTCMasterPerformanceKPA,
+            //          //  CreatedBy = 1, // Set appropriate user ID
+            //           // CreatedDate = DateTime.Now,
+            //           // IsActive = true // Assuming you want to set it as active by default
+            //        };
+            //        _context.CtcstructureMasters.Add(ctcStructure);
+            //        await _context.SaveChangesAsync();
+            //    }
+
+            //    // 3. Insert Designations
+            //    if (request.designations != null && request.designations.Any())
+            //    {
+            //        var designations = request.designations.Select(d => new DesignationMaster
+            //        {
+            //            DesignationGradeId = gradeId,
+            //            DesignationCode = d.DesignationCode,
+            //            DesignationName = d.DesignationName,
+            //            DesignationQualificationId = d.DesignationQualificationId,
+            //            DesignationDescription = d.DesignationDescription,
+            //            GradeQualificationRemark = d.GradeQualificationRemark,
+            //            RequiredSkills = d.RequiredSkills,
+            //            DesignationRemark = d.DesignationRemark,
+            //        }).ToList();
+            //        _context.DesignationMasters.AddRange(designations);
+            //        await _context.SaveChangesAsync();
+            //    }
+
+            //    // 4. Insert Facility Assignments
+            //    if (request.facilityAssignments != null && request.facilityAssignments.Any())
+            //    {
+            //        var facilityAssignments = request.facilityAssignments.Select(f => new GradeFacilityAssignment
+            //        {
+            //            AssignmentGradeId = gradeId,
+            //            AssignmentFacilityId = f.AssignmentFacilityId,
+            //        }).ToList();
+            //        _context.GradeFacilityAssignments.AddRange(facilityAssignments);
+            //        await _context.SaveChangesAsync();
+            //    }
+
+            //    // Commit transaction
+            //    await transaction.CommitAsync();
+            //}
+            //catch (Exception)
+            //{
+            //    // Rollback transaction on error
+            //    await transaction.RollbackAsync();
+            //    throw;
+            //}
+
+            var strategy = _context.Database.CreateExecutionStrategy();
+
+            await strategy.ExecuteAsync(async () =>
             {
-                // 1. Insert Grade Master
-                var grade = new GradeMaster
+                await using var transaction = await _context.Database.BeginTransactionAsync();
+                try
                 {
-                    GradeCode = request.gradeData.GradeCode,
-                    GradeName = request.gradeData.GradeName,
-                    GradeLevel = request.gradeData.GradeLevel,
-                    MinSalCtc = request.gradeData.MinSalCTC,
-                    MaxSalCtc = request.gradeData.MaxSalCTC,
-                    GradeCurrencyId = request.gradeData.GradeCurrencyId,
-                    GradeDescription = request.gradeData.GradeDescription,
-                    LeaveEntitlementAnnual = request.gradeData.LeaveEntitlementAnnual,
-                    ProbationPeriod = request.gradeData.ProbationPeriod,
-                    NoticePeriod = request.gradeData.NoticePeriod,
-                    ExperiencedRequired = request.gradeData.ExperiencedRequired,
-                    ExperiencedRemark = request.gradeData.ExperiencedRemark,
-                    GradeRemark = request.gradeData.GradeRemark,
-                    GradeAuth = request.gradeData.GradeAuth,
-                    GradeIsDiscard = request.gradeData.GradeIsDiscard,
-                    GradeIsActive = request.gradeData.GradeIsActive,
-                    CreatedBy = 1, // Set appropriate user ID
-                    CreatedDate = DateTime.Now
-                };
-                _context.GradeMasters.Add(grade);
-                await _context.SaveChangesAsync();
-
-                // Get the generated GradeId
-                var gradeId = grade.GradeId;
-
-                // 2. Insert CTC Structure
-                if (request.ctcStructure != null)
-                {
-                    var ctcStructure = new CtcstructureMaster // Assuming table name is CTCMaster
+                    // 1. Insert Grade Master
+                    var grade = new GradeMaster
                     {
-                        CtcmasterGradeId = gradeId, // Link to the generated GradeId
-                        CtcmasterBasic = request.ctcStructure.CTCMasterBasic,
-                        CtcmasterBonus = request.ctcStructure.CTCMasterBonus,
-                        CtcmasterCarAllowance = request.ctcStructure.CTCMasterCarAllowance,
-                        CtcmasterCityCompensatoryAlowance = request.ctcStructure.CTCMasterCityCompensatoryAlowance,
-                        CtcmasterConvAllowance = request.ctcStructure.CTCMasterConvAllowance,
-                        CtcmasterDa = request.ctcStructure.CTCMasterDA,
-                        CtcmasterDriverAllowance = request.ctcStructure.CTCMasterDriverAllowance,
-                        CtcmasterEsic = request.ctcStructure.CTCMasterEsic,
-                        CtcmasterFuelAllowance = request.ctcStructure.CTCMasterFuelAllowance,
-                        CtcmasterGraduity = request.ctcStructure.CTCMasterGraduity,
-                        CtcmasterGross = request.ctcStructure.CTCMasterGross,
-                        CtcmasterHra = request.ctcStructure.CTCMasterHRA,
-                        CtcmasterLeaveTravelAllowance = request.ctcStructure.CTCMasterLeaveTravelAllowance,
-                        CtcmasterMlwf = request.ctcStructure.CTCMasterMLWF,
-                        CtcmasterMedicalInsurance = request.ctcStructure.CTCMasterMedicalInsurance,
-                        CtcmasterMiscAllowance = request.ctcStructure.CTCMasterMiscAllowance,
-                        CtcmasterPfemployee = request.ctcStructure.CTCMasterPFEmployee,
-                        CtcmasterPfemployer = request.ctcStructure.CTCMasterPFEmployer,
-                        CtcmasterPt = request.ctcStructure.CTCMasterPT,
-                        CtcmasterPerformanceKpa = request.ctcStructure.CTCMasterPerformanceKPA,
-                      //  CreatedBy = 1, // Set appropriate user ID
-                       // CreatedDate = DateTime.Now,
-                       // IsActive = true // Assuming you want to set it as active by default
+                        GradeCode = request.gradeData.GradeCode,
+                        GradeName = request.gradeData.GradeName,
+                        GradeLevel = request.gradeData.GradeLevel,
+                        MinSalCtc = request.gradeData.MinSalCTC,
+                        MaxSalCtc = request.gradeData.MaxSalCTC,
+                        GradeCurrencyId = request.gradeData.GradeCurrencyId,
+                        GradeDescription = request.gradeData.GradeDescription,
+                        LeaveEntitlementAnnual = request.gradeData.LeaveEntitlementAnnual,
+                        ProbationPeriod = request.gradeData.ProbationPeriod,
+                        NoticePeriod = request.gradeData.NoticePeriod,
+                        ExperiencedRequired = request.gradeData.ExperiencedRequired,
+                        ExperiencedRemark = request.gradeData.ExperiencedRemark,
+                        GradeRemark = request.gradeData.GradeRemark,
+                        GradeAuth = request.gradeData.GradeAuth,
+                        GradeIsDiscard = request.gradeData.GradeIsDiscard,
+                        GradeIsActive = request.gradeData.GradeIsActive,
+                        CreatedBy = 1,
+                        CreatedDate = DateTime.Now
                     };
-                    _context.CtcstructureMasters.Add(ctcStructure);
+
+                    _context.GradeMasters.Add(grade);
                     await _context.SaveChangesAsync();
-                }
 
-                // 3. Insert Designations
-                if (request.designations != null && request.designations.Any())
-                {
-                    var designations = request.designations.Select(d => new DesignationMaster
+                    var gradeId = grade.GradeId;
+
+                    // 2. Insert CTC Structure
+                    if (request.ctcStructure != null)
                     {
-                        DesignationGradeId = gradeId,
-                        DesignationCode = d.DesignationCode,
-                        DesignationName = d.DesignationName,
-                        DesignationQualificationId = d.DesignationQualificationId,
-                        DesignationDescription = d.DesignationDescription,
-                        GradeQualificationRemark = d.GradeQualificationRemark,
-                        RequiredSkills = d.RequiredSkills,
-                        DesignationRemark = d.DesignationRemark,
-                    }).ToList();
-                    _context.DesignationMasters.AddRange(designations);
-                    await _context.SaveChangesAsync();
-                }
-
-                // 4. Insert Facility Assignments
-                if (request.facilityAssignments != null && request.facilityAssignments.Any())
-                {
-                    var facilityAssignments = request.facilityAssignments.Select(f => new GradeFacilityAssignment
-                    {
-                        AssignmentGradeId = gradeId,
-                        AssignmentFacilityId = f.AssignmentFacilityId,
-                    }).ToList();
-                    _context.GradeFacilityAssignments.AddRange(facilityAssignments);
-                    await _context.SaveChangesAsync();
-                }
-
-                // Commit transaction
-                await transaction.CommitAsync();
-            }
-            catch (Exception)
-            {
-                // Rollback transaction on error
-                await transaction.RollbackAsync();
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Updates an existing grade in the database.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        /// 
-        public async Task UpdateGradeDetailsAsync(UpdateGradeDetailsRequest request)
-        {
-            using var transaction = await _context.Database.BeginTransactionAsync();
-            try
-            {
-                // Validate that GradeId exists
-                if (request.gradeData.GradeId == null)
-                {
-                    throw new ArgumentException("GradeId is required for update operation");
-                }
-
-                var gradeId = request.gradeData.GradeId.Value;
-
-                // 1. Update Grade Master
-                var existingGrade = await _context.GradeMasters.FindAsync(gradeId);
-                if (existingGrade == null)
-                {
-                    throw new ArgumentException($"Grade with ID {gradeId} not found");
-                }
-
-                // Update grade properties
-                existingGrade.GradeCode = request.gradeData.GradeCode;
-                existingGrade.GradeName = request.gradeData.GradeName;
-                existingGrade.GradeLevel = request.gradeData.GradeLevel;
-                existingGrade.MinSalCtc = request.gradeData.MinSalCTC;
-                existingGrade.MaxSalCtc = request.gradeData.MaxSalCTC;
-                existingGrade.GradeCurrencyId = request.gradeData.GradeCurrencyId;
-                existingGrade.GradeDescription = request.gradeData.GradeDescription;
-                existingGrade.LeaveEntitlementAnnual = request.gradeData.LeaveEntitlementAnnual;
-                existingGrade.ProbationPeriod = request.gradeData.ProbationPeriod;
-                existingGrade.NoticePeriod = request.gradeData.NoticePeriod;
-                existingGrade.ExperiencedRequired = request.gradeData.ExperiencedRequired;
-                existingGrade.ExperiencedRemark = request.gradeData.ExperiencedRemark;
-                existingGrade.GradeRemark = request.gradeData.GradeRemark;
-                existingGrade.GradeAuth = request.gradeData.GradeAuth;
-                existingGrade.GradeIsDiscard = request.gradeData.GradeIsDiscard;
-                existingGrade.GradeIsActive = request.gradeData.GradeIsActive;
-                //existingGrade.ModifiedBy = 1; // Set appropriate user ID
-                //existingGrade.ModifiedDate = DateTime.Now;
-
-                _context.GradeMasters.Update(existingGrade);
-                await _context.SaveChangesAsync();
-
-                // 2. Update or Insert CTC Structure
-                if (request.ctcStructure != null)
-                {
-                    var existingCtc = await _context.CtcstructureMasters
-                        .FirstOrDefaultAsync(c => c.CtcmasterGradeId == gradeId);
-
-                    if (existingCtc != null)
-                    {
-                        // Update existing CTC structure
-                        existingCtc.CtcmasterBasic = request.ctcStructure.CTCMasterBasic;
-                        existingCtc.CtcmasterBonus = request.ctcStructure.CTCMasterBonus;
-                        existingCtc.CtcmasterCarAllowance = request.ctcStructure.CTCMasterCarAllowance;
-                        existingCtc.CtcmasterCityCompensatoryAlowance = request.ctcStructure.CTCMasterCityCompensatoryAlowance;
-                        existingCtc.CtcmasterConvAllowance = request.ctcStructure.CTCMasterConvAllowance;
-                        existingCtc.CtcmasterDa = request.ctcStructure.CTCMasterDA;
-                        existingCtc.CtcmasterDriverAllowance = request.ctcStructure.CTCMasterDriverAllowance;
-                        existingCtc.CtcmasterEsic = request.ctcStructure.CTCMasterEsic;
-                        existingCtc.CtcmasterFuelAllowance = request.ctcStructure.CTCMasterFuelAllowance;
-                        existingCtc.CtcmasterGraduity = request.ctcStructure.CTCMasterGraduity;
-                        existingCtc.CtcmasterGross = request.ctcStructure.CTCMasterGross;
-                        existingCtc.CtcmasterHra = request.ctcStructure.CTCMasterHRA;
-                        existingCtc.CtcmasterLeaveTravelAllowance = request.ctcStructure.CTCMasterLeaveTravelAllowance;
-                        existingCtc.CtcmasterMlwf = request.ctcStructure.CTCMasterMLWF;
-                        existingCtc.CtcmasterMedicalInsurance = request.ctcStructure.CTCMasterMedicalInsurance;
-                        existingCtc.CtcmasterMiscAllowance = request.ctcStructure.CTCMasterMiscAllowance;
-                        existingCtc.CtcmasterPfemployee = request.ctcStructure.CTCMasterPFEmployee;
-                        existingCtc.CtcmasterPfemployer = request.ctcStructure.CTCMasterPFEmployer;
-                        existingCtc.CtcmasterPt = request.ctcStructure.CTCMasterPT;
-                        existingCtc.CtcmasterPerformanceKpa = request.ctcStructure.CTCMasterPerformanceKPA;
-
-                        _context.CtcstructureMasters.Update(existingCtc);
-                    }
-                    else
-                    {
-                        // Insert new CTC structure
                         var ctcStructure = new CtcstructureMaster
                         {
                             CtcmasterGradeId = gradeId,
@@ -243,74 +196,400 @@ namespace KalaGenset.ERP.HR.Core.Services
                             CtcmasterPt = request.ctcStructure.CTCMasterPT,
                             CtcmasterPerformanceKpa = request.ctcStructure.CTCMasterPerformanceKPA,
                         };
+
                         _context.CtcstructureMasters.Add(ctcStructure);
+                        await _context.SaveChangesAsync();
                     }
-                    await _context.SaveChangesAsync();
-                }
 
-                // 3. Update Designations (Update existing only)
-                if (request.designations != null && request.designations.Any())
-                {
-                    foreach (var designationData in request.designations)
+                    // 3. Insert Designations
+                    if (request.designations != null && request.designations.Any())
                     {
-                        if (designationData.DesignationId.HasValue && designationData.DesignationId.Value > 0)
+                        var designations = request.designations.Select(d => new DesignationMaster
                         {
-                            // Find and update existing designation by DesignationId and GradeId
-                            var existingDesignation = await _context.DesignationMasters
-                                .FirstOrDefaultAsync(d => d.DesignationId == designationData.DesignationId.Value
-                                                       && d.DesignationGradeId == gradeId);
+                            DesignationGradeId = gradeId,
+                            DesignationCode = d.DesignationCode,
+                            DesignationName = d.DesignationName,
+                            DesignationQualificationId = d.DesignationQualificationId,
+                            DesignationDescription = d.DesignationDescription,
+                            GradeQualificationRemark = d.GradeQualificationRemark,
+                            RequiredSkills = d.RequiredSkills,
+                            DesignationRemark = d.DesignationRemark,
+                        }).ToList();
 
-                            if (existingDesignation != null)
+                        _context.DesignationMasters.AddRange(designations);
+                        await _context.SaveChangesAsync();
+                    }
+
+                    // 4. Insert Facility Assignments
+                    if (request.facilityAssignments != null && request.facilityAssignments.Any())
+                    {
+                        var facilityAssignments = request.facilityAssignments.Select(f => new GradeFacilityAssignment
+                        {
+                            AssignmentGradeId = gradeId,
+                            AssignmentFacilityId = f.AssignmentFacilityId,
+                        }).ToList();
+
+                        _context.GradeFacilityAssignments.AddRange(facilityAssignments);
+                        await _context.SaveChangesAsync();
+                    }
+
+                    // ✅ Commit transaction
+                    await transaction.CommitAsync();
+                }
+                catch (Exception ex)
+                {
+                    // ❌ Rollback on any failure
+                    await transaction.RollbackAsync();
+                    Console.Error.WriteLine($"Transaction failed: {ex.Message}");
+                    throw;
+                }
+            });
+
+        }
+
+        /// <summary>
+        /// Updates an existing grade in the database.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// 
+        public async Task UpdateGradeDetailsAsync(UpdateGradeDetailsRequest request)
+        {
+            //using var transaction = await _context.Database.BeginTransactionAsync();
+            //try
+            //{
+            //    // Validate that GradeId exists
+            //    if (request.gradeData.GradeId == null)
+            //    {                                  
+            //        throw new ArgumentException("GradeId is required for update operation");
+            //    }
+
+            //    var gradeId = request.gradeData.GradeId.Value;
+
+            //    // 1. Update Grade Master
+            //    var existingGrade = await _context.GradeMasters.FindAsync(gradeId);
+            //    if (existingGrade == null)
+            //    {
+            //        throw new ArgumentException($"Grade with ID {gradeId} not found");
+            //    }
+
+            //    // Update grade properties
+            //    existingGrade.GradeCode = request.gradeData.GradeCode;
+            //    existingGrade.GradeName = request.gradeData.GradeName;
+            //    existingGrade.GradeLevel = request.gradeData.GradeLevel;
+            //    existingGrade.MinSalCtc = request.gradeData.MinSalCTC;
+            //    existingGrade.MaxSalCtc = request.gradeData.MaxSalCTC;
+            //    existingGrade.GradeCurrencyId = request.gradeData.GradeCurrencyId;
+            //    existingGrade.GradeDescription = request.gradeData.GradeDescription;
+            //    existingGrade.LeaveEntitlementAnnual = request.gradeData.LeaveEntitlementAnnual;
+            //    existingGrade.ProbationPeriod = request.gradeData.ProbationPeriod;
+            //    existingGrade.NoticePeriod = request.gradeData.NoticePeriod;
+            //    existingGrade.ExperiencedRequired = request.gradeData.ExperiencedRequired;
+            //    existingGrade.ExperiencedRemark = request.gradeData.ExperiencedRemark;
+            //    existingGrade.GradeRemark = request.gradeData.GradeRemark;
+            //    existingGrade.GradeAuth = request.gradeData.GradeAuth;
+            //    existingGrade.GradeIsDiscard = request.gradeData.GradeIsDiscard;
+            //    existingGrade.GradeIsActive = request.gradeData.GradeIsActive;
+            //    //existingGrade.ModifiedBy = 1; // Set appropriate user ID
+            //    //existingGrade.ModifiedDate = DateTime.Now;
+
+            //    _context.GradeMasters.Update(existingGrade);
+            //    await _context.SaveChangesAsync();
+
+            //    // 2. Update or Insert CTC Structure
+            //    if (request.ctcStructure != null)
+            //    {
+            //        var existingCtc = await _context.CtcstructureMasters
+            //            .FirstOrDefaultAsync(c => c.CtcmasterGradeId == gradeId);
+
+            //        if (existingCtc != null)
+            //        {
+            //            // Update existing CTC structure
+            //            existingCtc.CtcmasterBasic = request.ctcStructure.CTCMasterBasic;
+            //            existingCtc.CtcmasterBonus = request.ctcStructure.CTCMasterBonus;
+            //            existingCtc.CtcmasterCarAllowance = request.ctcStructure.CTCMasterCarAllowance;
+            //            existingCtc.CtcmasterCityCompensatoryAlowance = request.ctcStructure.CTCMasterCityCompensatoryAlowance;
+            //            existingCtc.CtcmasterConvAllowance = request.ctcStructure.CTCMasterConvAllowance;
+            //            existingCtc.CtcmasterDa = request.ctcStructure.CTCMasterDA;
+            //            existingCtc.CtcmasterDriverAllowance = request.ctcStructure.CTCMasterDriverAllowance;
+            //            existingCtc.CtcmasterEsic = request.ctcStructure.CTCMasterEsic;
+            //            existingCtc.CtcmasterFuelAllowance = request.ctcStructure.CTCMasterFuelAllowance;
+            //            existingCtc.CtcmasterGraduity = request.ctcStructure.CTCMasterGraduity;
+            //            existingCtc.CtcmasterGross = request.ctcStructure.CTCMasterGross;
+            //            existingCtc.CtcmasterHra = request.ctcStructure.CTCMasterHRA;
+            //            existingCtc.CtcmasterLeaveTravelAllowance = request.ctcStructure.CTCMasterLeaveTravelAllowance;
+            //            existingCtc.CtcmasterMlwf = request.ctcStructure.CTCMasterMLWF;
+            //            existingCtc.CtcmasterMedicalInsurance = request.ctcStructure.CTCMasterMedicalInsurance;
+            //            existingCtc.CtcmasterMiscAllowance = request.ctcStructure.CTCMasterMiscAllowance;
+            //            existingCtc.CtcmasterPfemployee = request.ctcStructure.CTCMasterPFEmployee;
+            //            existingCtc.CtcmasterPfemployer = request.ctcStructure.CTCMasterPFEmployer;
+            //            existingCtc.CtcmasterPt = request.ctcStructure.CTCMasterPT;
+            //            existingCtc.CtcmasterPerformanceKpa = request.ctcStructure.CTCMasterPerformanceKPA;
+
+            //            _context.CtcstructureMasters.Update(existingCtc);
+            //        }
+            //        else
+            //        {
+            //            // Insert new CTC structure
+            //            var ctcStructure = new CtcstructureMaster
+            //            {
+            //                CtcmasterGradeId = gradeId,
+            //                CtcmasterBasic = request.ctcStructure.CTCMasterBasic,
+            //                CtcmasterBonus = request.ctcStructure.CTCMasterBonus,
+            //                CtcmasterCarAllowance = request.ctcStructure.CTCMasterCarAllowance,
+            //                CtcmasterCityCompensatoryAlowance = request.ctcStructure.CTCMasterCityCompensatoryAlowance,
+            //                CtcmasterConvAllowance = request.ctcStructure.CTCMasterConvAllowance,
+            //                CtcmasterDa = request.ctcStructure.CTCMasterDA,
+            //                CtcmasterDriverAllowance = request.ctcStructure.CTCMasterDriverAllowance,
+            //                CtcmasterEsic = request.ctcStructure.CTCMasterEsic,
+            //                CtcmasterFuelAllowance = request.ctcStructure.CTCMasterFuelAllowance,
+            //                CtcmasterGraduity = request.ctcStructure.CTCMasterGraduity,
+            //                CtcmasterGross = request.ctcStructure.CTCMasterGross,
+            //                CtcmasterHra = request.ctcStructure.CTCMasterHRA,
+            //                CtcmasterLeaveTravelAllowance = request.ctcStructure.CTCMasterLeaveTravelAllowance,
+            //                CtcmasterMlwf = request.ctcStructure.CTCMasterMLWF,
+            //                CtcmasterMedicalInsurance = request.ctcStructure.CTCMasterMedicalInsurance,
+            //                CtcmasterMiscAllowance = request.ctcStructure.CTCMasterMiscAllowance,
+            //                CtcmasterPfemployee = request.ctcStructure.CTCMasterPFEmployee,
+            //                CtcmasterPfemployer = request.ctcStructure.CTCMasterPFEmployer,
+            //                CtcmasterPt = request.ctcStructure.CTCMasterPT,
+            //                CtcmasterPerformanceKpa = request.ctcStructure.CTCMasterPerformanceKPA,
+            //            };
+            //            _context.CtcstructureMasters.Add(ctcStructure);
+            //        }
+            //        await _context.SaveChangesAsync();
+            //    }
+
+            //    // 3. Update Designations (Update existing only)
+            //    if (request.designations != null && request.designations.Any())
+            //    {
+            //        foreach (var designationData in request.designations)
+            //        {
+            //            if (designationData.DesignationId.HasValue && designationData.DesignationId.Value > 0)
+            //            {
+            //                // Find and update existing designation by DesignationId and GradeId
+            //                var existingDesignation = await _context.DesignationMasters
+            //                    .FirstOrDefaultAsync(d => d.DesignationId == designationData.DesignationId.Value
+            //                                           && d.DesignationGradeId == gradeId);
+
+            //                if (existingDesignation != null)
+            //                {
+            //                    // Update existing designation properties
+            //                    existingDesignation.DesignationCode = designationData.DesignationCode;
+            //                    existingDesignation.DesignationName = designationData.DesignationName;
+            //                    existingDesignation.DesignationQualificationId = designationData.DesignationQualificationId;
+            //                    existingDesignation.DesignationDescription = designationData.DesignationDescription;
+            //                    existingDesignation.GradeQualificationRemark = designationData.GradeQualificationRemark;
+            //                    existingDesignation.RequiredSkills = designationData.RequiredSkills;
+            //                    existingDesignation.DesignationRemark = designationData.DesignationRemark;
+
+            //                    _context.DesignationMasters.Update(existingDesignation);
+            //                }
+            //            }
+            //        }
+            //        await _context.SaveChangesAsync();
+            //    }
+
+            //    // 4. Update Facility Assignments (Delete existing and insert new)
+            //    // Remove existing facility assignments
+            //    var existingFacilityAssignments = await _context.GradeFacilityAssignments
+            //        .Where(f => f.AssignmentGradeId == gradeId)
+            //        .ToListAsync();
+
+            //    if (existingFacilityAssignments.Any())
+            //    {
+            //        _context.GradeFacilityAssignments.RemoveRange(existingFacilityAssignments);
+            //        await _context.SaveChangesAsync();
+            //    }
+
+            //    // Insert new facility assignments
+            //    if (request.facilityAssignments != null && request.facilityAssignments.Any())
+            //    {
+            //        var facilityAssignments = request.facilityAssignments.Select(f => new GradeFacilityAssignment
+            //        {
+            //            AssignmentGradeId = gradeId,
+            //            AssignmentFacilityId = f.AssignmentFacilityId,
+            //        }).ToList();
+            //        _context.GradeFacilityAssignments.AddRange(facilityAssignments);
+            //        await _context.SaveChangesAsync();
+            //    }
+
+            //    // Commit transaction
+            //    await transaction.CommitAsync();
+            //}
+            //catch (Exception)
+            //{
+            //    // Rollback transaction on error
+            //    await transaction.RollbackAsync();
+            //    throw;
+            //}
+            var strategy = _context.Database.CreateExecutionStrategy();
+
+            await strategy.ExecuteAsync(async () =>
+            {
+                await using var transaction = await _context.Database.BeginTransactionAsync();
+                try
+                {
+                    // Validate that GradeId exists
+                    if (request.gradeData.GradeId == null)
+                    {
+                        throw new ArgumentException("GradeId is required for update operation");
+                    }
+
+                    var gradeId = request.gradeData.GradeId.Value;
+
+                    // 1. Update Grade Master
+                    var existingGrade = await _context.GradeMasters.FindAsync(gradeId);
+                    if (existingGrade == null)
+                    {
+                        throw new ArgumentException($"Grade with ID {gradeId} not found");
+                    }
+
+                    // Update grade properties
+                    existingGrade.GradeCode = request.gradeData.GradeCode;
+                    existingGrade.GradeName = request.gradeData.GradeName;
+                    existingGrade.GradeLevel = request.gradeData.GradeLevel;
+                    existingGrade.MinSalCtc = request.gradeData.MinSalCTC;
+                    existingGrade.MaxSalCtc = request.gradeData.MaxSalCTC;
+                    existingGrade.GradeCurrencyId = request.gradeData.GradeCurrencyId;
+                    existingGrade.GradeDescription = request.gradeData.GradeDescription;
+                    existingGrade.LeaveEntitlementAnnual = request.gradeData.LeaveEntitlementAnnual;
+                    existingGrade.ProbationPeriod = request.gradeData.ProbationPeriod;
+                    existingGrade.NoticePeriod = request.gradeData.NoticePeriod;
+                    existingGrade.ExperiencedRequired = request.gradeData.ExperiencedRequired;
+                    existingGrade.ExperiencedRemark = request.gradeData.ExperiencedRemark;
+                    existingGrade.GradeRemark = request.gradeData.GradeRemark;
+                    existingGrade.GradeAuth = request.gradeData.GradeAuth;
+                    existingGrade.GradeIsDiscard = request.gradeData.GradeIsDiscard;
+                    existingGrade.GradeIsActive = request.gradeData.GradeIsActive;
+
+                    _context.GradeMasters.Update(existingGrade);
+                    await _context.SaveChangesAsync();
+
+                    // 2. Update or Insert CTC Structure
+                    if (request.ctcStructure != null)
+                    {
+                        var existingCtc = await _context.CtcstructureMasters
+                            .FirstOrDefaultAsync(c => c.CtcmasterGradeId == gradeId);
+
+                        if (existingCtc != null)
+                        {
+                            // Update existing CTC structure
+                            existingCtc.CtcmasterBasic = request.ctcStructure.CTCMasterBasic;
+                            existingCtc.CtcmasterBonus = request.ctcStructure.CTCMasterBonus;
+                            existingCtc.CtcmasterCarAllowance = request.ctcStructure.CTCMasterCarAllowance;
+                            existingCtc.CtcmasterCityCompensatoryAlowance = request.ctcStructure.CTCMasterCityCompensatoryAlowance;
+                            existingCtc.CtcmasterConvAllowance = request.ctcStructure.CTCMasterConvAllowance;
+                            existingCtc.CtcmasterDa = request.ctcStructure.CTCMasterDA;
+                            existingCtc.CtcmasterDriverAllowance = request.ctcStructure.CTCMasterDriverAllowance;
+                            existingCtc.CtcmasterEsic = request.ctcStructure.CTCMasterEsic;
+                            existingCtc.CtcmasterFuelAllowance = request.ctcStructure.CTCMasterFuelAllowance;
+                            existingCtc.CtcmasterGraduity = request.ctcStructure.CTCMasterGraduity;
+                            existingCtc.CtcmasterGross = request.ctcStructure.CTCMasterGross;
+                            existingCtc.CtcmasterHra = request.ctcStructure.CTCMasterHRA;
+                            existingCtc.CtcmasterLeaveTravelAllowance = request.ctcStructure.CTCMasterLeaveTravelAllowance;
+                            existingCtc.CtcmasterMlwf = request.ctcStructure.CTCMasterMLWF;
+                            existingCtc.CtcmasterMedicalInsurance = request.ctcStructure.CTCMasterMedicalInsurance;
+                            existingCtc.CtcmasterMiscAllowance = request.ctcStructure.CTCMasterMiscAllowance;
+                            existingCtc.CtcmasterPfemployee = request.ctcStructure.CTCMasterPFEmployee;
+                            existingCtc.CtcmasterPfemployer = request.ctcStructure.CTCMasterPFEmployer;
+                            existingCtc.CtcmasterPt = request.ctcStructure.CTCMasterPT;
+                            existingCtc.CtcmasterPerformanceKpa = request.ctcStructure.CTCMasterPerformanceKPA;
+
+                            _context.CtcstructureMasters.Update(existingCtc);
+                        }
+                        else
+                        {
+                            // Insert new CTC structure
+                            var ctcStructure = new CtcstructureMaster
                             {
-                                // Update existing designation properties
-                                existingDesignation.DesignationCode = designationData.DesignationCode;
-                                existingDesignation.DesignationName = designationData.DesignationName;
-                                existingDesignation.DesignationQualificationId = designationData.DesignationQualificationId;
-                                existingDesignation.DesignationDescription = designationData.DesignationDescription;
-                                existingDesignation.GradeQualificationRemark = designationData.GradeQualificationRemark;
-                                existingDesignation.RequiredSkills = designationData.RequiredSkills;
-                                existingDesignation.DesignationRemark = designationData.DesignationRemark;
+                                CtcmasterGradeId = gradeId,
+                                CtcmasterBasic = request.ctcStructure.CTCMasterBasic,
+                                CtcmasterBonus = request.ctcStructure.CTCMasterBonus,
+                                CtcmasterCarAllowance = request.ctcStructure.CTCMasterCarAllowance,
+                                CtcmasterCityCompensatoryAlowance = request.ctcStructure.CTCMasterCityCompensatoryAlowance,
+                                CtcmasterConvAllowance = request.ctcStructure.CTCMasterConvAllowance,
+                                CtcmasterDa = request.ctcStructure.CTCMasterDA,
+                                CtcmasterDriverAllowance = request.ctcStructure.CTCMasterDriverAllowance,
+                                CtcmasterEsic = request.ctcStructure.CTCMasterEsic,
+                                CtcmasterFuelAllowance = request.ctcStructure.CTCMasterFuelAllowance,
+                                CtcmasterGraduity = request.ctcStructure.CTCMasterGraduity,
+                                CtcmasterGross = request.ctcStructure.CTCMasterGross,
+                                CtcmasterHra = request.ctcStructure.CTCMasterHRA,
+                                CtcmasterLeaveTravelAllowance = request.ctcStructure.CTCMasterLeaveTravelAllowance,
+                                CtcmasterMlwf = request.ctcStructure.CTCMasterMLWF,
+                                CtcmasterMedicalInsurance = request.ctcStructure.CTCMasterMedicalInsurance,
+                                CtcmasterMiscAllowance = request.ctcStructure.CTCMasterMiscAllowance,
+                                CtcmasterPfemployee = request.ctcStructure.CTCMasterPFEmployee,
+                                CtcmasterPfemployer = request.ctcStructure.CTCMasterPFEmployer,
+                                CtcmasterPt = request.ctcStructure.CTCMasterPT,
+                                CtcmasterPerformanceKpa = request.ctcStructure.CTCMasterPerformanceKPA,
+                            };
+                            _context.CtcstructureMasters.Add(ctcStructure);
+                        }
+                        await _context.SaveChangesAsync();
+                    }
 
-                                _context.DesignationMasters.Update(existingDesignation);
+                    // 3. Update Designations (Update existing only)
+                    if (request.designations != null && request.designations.Any())
+                    {
+                        foreach (var designationData in request.designations)
+                        {
+                            if (designationData.DesignationId.HasValue && designationData.DesignationId.Value > 0)
+                            {
+                                var existingDesignation = await _context.DesignationMasters
+                                    .FirstOrDefaultAsync(d => d.DesignationId == designationData.DesignationId.Value
+                                                           && d.DesignationGradeId == gradeId);
+
+                                if (existingDesignation != null)
+                                {
+                                    existingDesignation.DesignationCode = designationData.DesignationCode;
+                                    existingDesignation.DesignationName = designationData.DesignationName;
+                                    existingDesignation.DesignationQualificationId = designationData.DesignationQualificationId;
+                                    existingDesignation.DesignationDescription = designationData.DesignationDescription;
+                                    existingDesignation.GradeQualificationRemark = designationData.GradeQualificationRemark;
+                                    existingDesignation.RequiredSkills = designationData.RequiredSkills;
+                                    existingDesignation.DesignationRemark = designationData.DesignationRemark;
+
+                                    _context.DesignationMasters.Update(existingDesignation);
+                                }
                             }
                         }
+                        await _context.SaveChangesAsync();
                     }
-                    await _context.SaveChangesAsync();
-                }
 
-                // 4. Update Facility Assignments (Delete existing and insert new)
-                // Remove existing facility assignments
-                var existingFacilityAssignments = await _context.GradeFacilityAssignments
-                    .Where(f => f.AssignmentGradeId == gradeId)
-                    .ToListAsync();
+                    // 4. Update Facility Assignments (Delete existing and insert new)
+                    var existingFacilityAssignments = await _context.GradeFacilityAssignments
+                        .Where(f => f.AssignmentGradeId == gradeId)
+                        .ToListAsync();
 
-                if (existingFacilityAssignments.Any())
-                {
-                    _context.GradeFacilityAssignments.RemoveRange(existingFacilityAssignments);
-                    await _context.SaveChangesAsync();
-                }
-
-                // Insert new facility assignments
-                if (request.facilityAssignments != null && request.facilityAssignments.Any())
-                {
-                    var facilityAssignments = request.facilityAssignments.Select(f => new GradeFacilityAssignment
+                    if (existingFacilityAssignments.Any())
                     {
-                        AssignmentGradeId = gradeId,
-                        AssignmentFacilityId = f.AssignmentFacilityId,
-                    }).ToList();
-                    _context.GradeFacilityAssignments.AddRange(facilityAssignments);
-                    await _context.SaveChangesAsync();
-                }
+                        _context.GradeFacilityAssignments.RemoveRange(existingFacilityAssignments);
+                        await _context.SaveChangesAsync();
+                    }
 
-                // Commit transaction
-                await transaction.CommitAsync();
-            }
-            catch (Exception)
-            {
-                // Rollback transaction on error
-                await transaction.RollbackAsync();
-                throw;
-            }
+                    if (request.facilityAssignments != null && request.facilityAssignments.Any())
+                    {
+                        var facilityAssignments = request.facilityAssignments.Select(f => new GradeFacilityAssignment
+                        {
+                            AssignmentGradeId = gradeId,
+                            AssignmentFacilityId = f.AssignmentFacilityId,
+                        }).ToList();
+
+                        _context.GradeFacilityAssignments.AddRange(facilityAssignments);
+                        await _context.SaveChangesAsync();
+                    }
+
+                    // Commit transaction
+                    await transaction.CommitAsync();
+                }
+                catch
+                {
+                    await transaction.RollbackAsync();
+                    throw;
+                }
+            });
         }
         /// <summary>
         /// Retrieves all Grades from the database.
@@ -333,28 +612,6 @@ namespace KalaGenset.ERP.HR.Core.Services
                 throw new Exception("ID Not available");
             }
             return await _context.GradeMasters.FirstOrDefaultAsync(c => c.GradeId == GradeId);
-        }
-        public async Task DeleteGradeAsync(int gid)
-        {
-            try
-            {
-                var grade = await _context.GradeMasters.FirstOrDefaultAsync(c => c.GradeId == gid);
-                if (grade == null)
-                {
-                    throw new Exception("Grade not found.");
-                }
-                if (!grade.GradeIsActive)
-                {
-                    throw new Exception("Grade is already soft-deleted");
-                }
-                grade.GradeIsActive = false;
-                _context.GradeMasters.Update(grade);
-                await _context.SaveChangesAsync();
-            }
-            catch
-            {
-                throw;
-            }
         }
 
         //get GradeId and GradeName from GradeMaster table
