@@ -26,70 +26,143 @@ namespace KalaGenset.ERP.HR.Core.Services
         }
         public async Task AddRecruitmentMasterAsync(InsertRecruitmentMasterRequest request)
         {
-            using var transaction = await context.Database.BeginTransactionAsync();
-            try
+            //using var transaction = await context.Database.BeginTransactionAsync();
+            //try
+            //{
+            //    var recruitmentmaster = new RecruitmentMaster
+            //    {
+            //        RecruitmentMasterPositionId = request.RecruitmentMasterPositionId,
+            //        RecruitmentMasterCode = request.RecruitmentMasterCode,
+            //        RecruitmentMasterReferenceId = request.RecruitmentMasterReferenceId,
+            //        RecruitmentMasterReferenceName = request.RecruitmentMasterReferenceName,
+            //        RecruitmentMasterReferenceCode = request.RecruitmentMasterReferenceCode,
+            //        RecruitmentMasterNameOfCandidates = request.RecruitmentMasterNameOfCandidates,
+            //        RecruitmentMasterCityId = request.RecruitmentMasterCityId,
+            //        RecruitmentMasterCompanyId = request.RecruitmentMasterCompanyId,
+            //        RecruitmentMasterCandidateEmailId = request.RecruitmentMasterCandidateEmailId,
+            //        RecruitmentMasterCandidateContactNumber = request.RecruitmentMasterCandidateContactNumber,
+            //        RecruitmentMasterAppropriateForJobRole = request.RecruitmentMasterAppropriateForJobRole,
+            //        RecruitmentMasterInterviewerEmployeeId = request.RecruitmentMasterInterviewerEmployeeId,
+            //        RecruitmentMasterInterviewerComment = request.RecruitmentMasterInterviewerComment,
+            //        RecruitmentMasterGradeId = request.RecruitmentMasterGradeId,
+            //        RecruitmentMasterDesignationId = request.RecruitmentMasterDesignationId,
+            //        RecruitmentMasterCurrentCtcpa = request.RecruitmentMasterCurrentCtcpa,
+            //        RecruitmentMasterExpectedCtcpa = request.RecruitmentMasterExpectedCtcpa,
+            //        RecruitmentMasterRecommendedCtcpa = request.RecruitmentMasterRecommendedCtcpa,
+            //        RecruitmentMasterExpectedJoiningDate = request.RecruitmentMasterExpectedJoiningDate,
+            //        RecruitmentMasterHrcomment = request.RecruitmentMasterHrcomment,
+            //        RecruitmentMasterRecruitmentStageStatusId = request.RecruitmentMasterRecruitmentStageStatusId,
+            //        RecruitmentMasterOfferLetterStatus = request.RecruitmentMasterOfferLetterStatus,
+            //        RecruitmentMasterRemark = request.RecruitmentMasterRemark,
+            //        RecruitmentMasterAuthRemark = request.RecruitmentMasterAuthRemark,
+            //        RecruitmentMasterAuth = request.RecruitmentMasterAuth,
+            //        RecruitmentMasterIsDiscard = request.RecruitmentMasterIsDiscard,
+            //        RecruitmentMasterIsActive = request.RecruitmentMasterIsActive,
+            //        CreatedBy = request.CreatedBy,
+            //        CreatedDate = DateTime.Now
+            //    };
+
+            //    context.RecruitmentMasters.Add(recruitmentmaster);
+            //    await context.SaveChangesAsync();
+
+            //    int recruitmentMstId = recruitmentmaster.RecruitmentMasterId;
+
+            //    if (request.RecruitmentDetails != null && request.RecruitmentDetails.Any())
+            //    {
+            //        var details = request.RecruitmentDetails.Select(item => new RecruitmentDetail
+            //        {
+            //            DetailsRecruitmentMasterId = recruitmentMstId,
+            //            RecruitmentDetailsInterviewRoundNumber = item.newRound,
+            //            RecruitmentDetailsMarksObtained = item.newMarks,
+            //            RecruitmentDetailsAttributeId = item.newAttributeId
+            //        }).ToList();
+
+            //        context.RecruitmentDetails.AddRange(details);
+            //        await context.SaveChangesAsync();
+            //    }
+
+            //    // ✅ Commit only if all operations succeed
+            //    await transaction.CommitAsync();
+            //}
+            //catch (Exception ex)
+            //{
+            //    // ❌ Rollback if any operation fails
+            //    await transaction.RollbackAsync();
+            //    throw new Exception($"Error adding RecruitmentMaster: {ex.Message}", ex);
+            //}
+
+            var strategy = context.Database.CreateExecutionStrategy();
+
+            await strategy.ExecuteAsync(async () =>
             {
-                var recruitmentmaster = new RecruitmentMaster
+                await using var transaction = await context.Database.BeginTransactionAsync();
+                try
                 {
-                    RecruitmentMasterPositionId = request.RecruitmentMasterPositionId,
-                    RecruitmentMasterCode = request.RecruitmentMasterCode,
-                    RecruitmentMasterReferenceId = request.RecruitmentMasterReferenceId,
-                    RecruitmentMasterReferenceName = request.RecruitmentMasterReferenceName,
-                    RecruitmentMasterReferenceCode = request.RecruitmentMasterReferenceCode,
-                    RecruitmentMasterNameOfCandidates = request.RecruitmentMasterNameOfCandidates,
-                    RecruitmentMasterCityId = request.RecruitmentMasterCityId,
-                    RecruitmentMasterCompanyId = request.RecruitmentMasterCompanyId,
-                    RecruitmentMasterCandidateEmailId = request.RecruitmentMasterCandidateEmailId,
-                    RecruitmentMasterCandidateContactNumber = request.RecruitmentMasterCandidateContactNumber,
-                    RecruitmentMasterAppropriateForJobRole = request.RecruitmentMasterAppropriateForJobRole,
-                    RecruitmentMasterInterviewerEmployeeId = request.RecruitmentMasterInterviewerEmployeeId,
-                    RecruitmentMasterInterviewerComment = request.RecruitmentMasterInterviewerComment,
-                    RecruitmentMasterGradeId = request.RecruitmentMasterGradeId,
-                    RecruitmentMasterDesignationId = request.RecruitmentMasterDesignationId,
-                    RecruitmentMasterCurrentCtcpa = request.RecruitmentMasterCurrentCtcpa,
-                    RecruitmentMasterExpectedCtcpa = request.RecruitmentMasterExpectedCtcpa,
-                    RecruitmentMasterRecommendedCtcpa = request.RecruitmentMasterRecommendedCtcpa,
-                    RecruitmentMasterExpectedJoiningDate = request.RecruitmentMasterExpectedJoiningDate,
-                    RecruitmentMasterHrcomment = request.RecruitmentMasterHrcomment,
-                    RecruitmentMasterRecruitmentStageStatusId = request.RecruitmentMasterRecruitmentStageStatusId,
-                    RecruitmentMasterOfferLetterStatus = request.RecruitmentMasterOfferLetterStatus,
-                    RecruitmentMasterRemark = request.RecruitmentMasterRemark,
-                    RecruitmentMasterAuthRemark = request.RecruitmentMasterAuthRemark,
-                    RecruitmentMasterAuth = request.RecruitmentMasterAuth,
-                    RecruitmentMasterIsDiscard = request.RecruitmentMasterIsDiscard,
-                    RecruitmentMasterIsActive = request.RecruitmentMasterIsActive,
-                    CreatedBy = request.CreatedBy,
-                    CreatedDate = DateTime.Now
-                };
-
-                context.RecruitmentMasters.Add(recruitmentmaster);
-                await context.SaveChangesAsync();
-
-                int recruitmentMstId = recruitmentmaster.RecruitmentMasterId;
-
-                if (request.RecruitmentDetails != null && request.RecruitmentDetails.Any())
-                {
-                    var details = request.RecruitmentDetails.Select(item => new RecruitmentDetail
+                    // 1️⃣ Insert Recruitment Master
+                    var recruitmentmaster = new RecruitmentMaster
                     {
-                        DetailsRecruitmentMasterId = recruitmentMstId,
-                        RecruitmentDetailsInterviewRoundNumber = item.newRound,
-                        RecruitmentDetailsMarksObtained = item.newMarks,
-                        RecruitmentDetailsAttributeId = item.newAttributeId
-                    }).ToList();
+                        RecruitmentMasterPositionId = request.RecruitmentMasterPositionId,
+                        RecruitmentMasterCode = request.RecruitmentMasterCode,
+                        RecruitmentMasterReferenceId = request.RecruitmentMasterReferenceId,
+                        RecruitmentMasterReferenceName = request.RecruitmentMasterReferenceName,
+                        RecruitmentMasterReferenceCode = request.RecruitmentMasterReferenceCode,
+                        RecruitmentMasterNameOfCandidates = request.RecruitmentMasterNameOfCandidates,
+                        RecruitmentMasterCityId = request.RecruitmentMasterCityId,
+                        RecruitmentMasterCompanyId = request.RecruitmentMasterCompanyId,
+                        RecruitmentMasterCandidateEmailId = request.RecruitmentMasterCandidateEmailId,
+                        RecruitmentMasterCandidateContactNumber = request.RecruitmentMasterCandidateContactNumber,
+                        RecruitmentMasterAppropriateForJobRole = request.RecruitmentMasterAppropriateForJobRole,
+                        RecruitmentMasterInterviewerEmployeeId = request.RecruitmentMasterInterviewerEmployeeId,
+                        RecruitmentMasterInterviewerComment = request.RecruitmentMasterInterviewerComment,
+                        RecruitmentMasterGradeId = request.RecruitmentMasterGradeId,
+                        RecruitmentMasterDesignationId = request.RecruitmentMasterDesignationId,
+                        RecruitmentMasterCurrentCtcpa = request.RecruitmentMasterCurrentCtcpa,
+                        RecruitmentMasterExpectedCtcpa = request.RecruitmentMasterExpectedCtcpa,
+                        RecruitmentMasterRecommendedCtcpa = request.RecruitmentMasterRecommendedCtcpa,
+                        RecruitmentMasterExpectedJoiningDate = request.RecruitmentMasterExpectedJoiningDate,
+                        RecruitmentMasterHrcomment = request.RecruitmentMasterHrcomment,
+                        RecruitmentMasterRecruitmentStageStatusId = request.RecruitmentMasterRecruitmentStageStatusId,
+                        RecruitmentMasterOfferLetterStatus = request.RecruitmentMasterOfferLetterStatus,
+                        RecruitmentMasterRemark = request.RecruitmentMasterRemark,
+                        RecruitmentMasterAuthRemark = request.RecruitmentMasterAuthRemark,
+                        RecruitmentMasterAuth = request.RecruitmentMasterAuth,
+                        RecruitmentMasterIsDiscard = request.RecruitmentMasterIsDiscard,
+                        RecruitmentMasterIsActive = request.RecruitmentMasterIsActive,
+                        CreatedBy = request.CreatedBy,
+                        CreatedDate = DateTime.Now
+                    };
 
-                    context.RecruitmentDetails.AddRange(details);
+                    context.RecruitmentMasters.Add(recruitmentmaster);
                     await context.SaveChangesAsync();
-                }
 
-                // ✅ Commit only if all operations succeed
-                await transaction.CommitAsync();
-            }
-            catch (Exception ex)
-            {
-                // ❌ Rollback if any operation fails
-                await transaction.RollbackAsync();
-                throw new Exception($"Error adding RecruitmentMaster: {ex.Message}", ex);
-            }
+                    int recruitmentMstId = recruitmentmaster.RecruitmentMasterId;
+
+                    // 2️⃣ Insert Recruitment Details
+                    if (request.RecruitmentDetails != null && request.RecruitmentDetails.Any())
+                    {
+                        var details = request.RecruitmentDetails.Select(item => new RecruitmentDetail
+                        {
+                            DetailsRecruitmentMasterId = recruitmentMstId,
+                            RecruitmentDetailsInterviewRoundNumber = item.newRound,
+                            RecruitmentDetailsMarksObtained = item.newMarks,
+                            RecruitmentDetailsAttributeId = item.newAttributeId
+                        }).ToList();
+
+                        context.RecruitmentDetails.AddRange(details);
+                        await context.SaveChangesAsync();
+                    }
+
+                    // ✅ Commit transaction
+                    await transaction.CommitAsync();
+                }
+                catch (Exception ex)
+                {
+                    // ❌ Rollback on any failure
+                    await transaction.RollbackAsync();
+                    Console.Error.WriteLine($"Recruitment transaction failed: {ex.Message}");
+                    throw new Exception($"Error adding RecruitmentMaster: {ex.Message}", ex);
+                }
+            });
         }
 
 
@@ -99,7 +172,7 @@ namespace KalaGenset.ERP.HR.Core.Services
             try
             {
                 var recruitmentmaster = await context.RecruitmentMasters
-                    .Include(r => r.RecruitmentDetails) // 👈 load child details
+                    .Include(r => r.RecruitmentDetails) 
                     .FirstOrDefaultAsync(c => c.RecruitmentMasterId == recruitmentMasterId);
 
                 if (recruitmentmaster == null)
@@ -126,7 +199,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                 from rm in context.RecruitmentMasters
 
                 join pos in context.PositionMasters
-                    on rm.RecruitmentMasterPositionId equals pos.PositionMasterId   // ✅ FIXED
+                    on rm.RecruitmentMasterPositionId equals pos.PositionMasterId   
 
                 join refm in context.RecruitmentReferenceMasters
                     on rm.RecruitmentMasterReferenceId equals refm.RecruitmentReferenceId
@@ -304,84 +377,149 @@ namespace KalaGenset.ERP.HR.Core.Services
 
         public async Task UpdateRecruitmentMasterAsync(UpdateRecruitmentMasterRequest request)
         {
-            using var transaction = await context.Database.BeginTransactionAsync();
-            try
+            //using var transaction = await context.Database.BeginTransactionAsync();
+            //try
+            //{
+            //    var recruitmentmaster = await context.RecruitmentMasters
+            //        .Include(r => r.RecruitmentDetails)
+            //        .FirstOrDefaultAsync(r => r.RecruitmentMasterId == request.RecruitmentMasterId);
+
+            //    if (recruitmentmaster == null)
+            //        throw new Exception("RecruitmentMaster not found");
+
+            //    // Update master fields (same as before)...
+            //    recruitmentmaster.RecruitmentMasterPositionId = request.RecruitmentMasterPositionId;
+            //    recruitmentmaster.RecruitmentMasterCode = request.RecruitmentMasterCode;
+            //    recruitmentmaster.RecruitmentMasterReferenceId = request.RecruitmentMasterReferenceId;
+            //    recruitmentmaster.RecruitmentMasterReferenceName = request.RecruitmentMasterReferenceName;
+            //    recruitmentmaster.RecruitmentMasterReferenceCode = request.RecruitmentMasterReferenceCode;
+            //    recruitmentmaster.RecruitmentMasterNameOfCandidates = request.RecruitmentMasterNameOfCandidates;
+            //    recruitmentmaster.RecruitmentMasterCityId = request.RecruitmentMasterCityId;
+            //    recruitmentmaster.RecruitmentMasterCompanyId = request.RecruitmentMasterCompanyId;
+            //    recruitmentmaster.RecruitmentMasterCandidateEmailId = request.RecruitmentMasterCandidateEmailId;
+            //    recruitmentmaster.RecruitmentMasterCandidateContactNumber = request.RecruitmentMasterCandidateContactNumber;
+            //    recruitmentmaster.RecruitmentMasterAppropriateForJobRole = request.RecruitmentMasterAppropriateForJobRole;
+            //    recruitmentmaster.RecruitmentMasterInterviewerEmployeeId = request.RecruitmentMasterInterviewerEmployeeId;
+            //    recruitmentmaster.RecruitmentMasterInterviewerComment = request.RecruitmentMasterInterviewerComment;
+            //    recruitmentmaster.RecruitmentMasterGradeId = request.RecruitmentMasterGradeId;
+            //    recruitmentmaster.RecruitmentMasterDesignationId = request.RecruitmentMasterDesignationId;
+            //    recruitmentmaster.RecruitmentMasterCurrentCtcpa = request.RecruitmentMasterCurrentCtcpa;
+            //    recruitmentmaster.RecruitmentMasterExpectedCtcpa = request.RecruitmentMasterExpectedCtcpa;
+            //    recruitmentmaster.RecruitmentMasterRecommendedCtcpa = request.RecruitmentMasterRecommendedCtcpa;
+            //    recruitmentmaster.RecruitmentMasterExpectedJoiningDate = request.RecruitmentMasterExpectedJoiningDate;
+            //    recruitmentmaster.RecruitmentMasterHrcomment = request.RecruitmentMasterHrcomment;
+            //    recruitmentmaster.RecruitmentMasterRecruitmentStageStatusId = request.RecruitmentMasterRecruitmentStageStatusId;
+            //    recruitmentmaster.RecruitmentMasterOfferLetterStatus = request.RecruitmentMasterOfferLetterStatus;
+            //    recruitmentmaster.RecruitmentMasterRemark = request.RecruitmentMasterRemark;
+            //    recruitmentmaster.RecruitmentMasterAuthRemark = request.RecruitmentMasterAuthRemark;
+            //    recruitmentmaster.RecruitmentMasterAuth = request.RecruitmentMasterAuth;
+            //    recruitmentmaster.RecruitmentMasterIsDiscard = request.RecruitmentMasterIsDiscard;
+            //    recruitmentmaster.RecruitmentMasterIsActive = request.RecruitmentMasterIsActive;
+            //    recruitmentmaster.CreatedBy = request.CreatedBy;
+            //    recruitmentmaster.CreatedDate = request.CreatedDate;
+
+            //    // Remove + re-add details
+            //    context.RecruitmentDetails.RemoveRange(recruitmentmaster.RecruitmentDetails);
+
+            //    if (request.RecruitmentDetails != null && request.RecruitmentDetails.Any())
+            //    {
+            //        context.RecruitmentDetails.RemoveRange(recruitmentmaster.RecruitmentDetails);
+            //        var newDetails = request.RecruitmentDetails.Select(item => new RecruitmentDetail
+            //        {
+            //            DetailsRecruitmentMasterId = recruitmentmaster.RecruitmentMasterId,
+            //            RecruitmentDetailsInterviewRoundNumber = item.newRound,
+            //            RecruitmentDetailsMarksObtained = item.newMarks,
+            //            RecruitmentDetailsAttributeId = item.newAttributeId
+            //        }).ToList();
+
+            //        await context.RecruitmentDetails.AddRangeAsync(newDetails);
+            //    }
+
+            //    await context.SaveChangesAsync();
+            //    await transaction.CommitAsync(); // ✅ commit
+            //}
+            //catch (Exception ex)
+            //{
+            //    await transaction.RollbackAsync(); // ❌ rollback
+            //    throw new Exception($"Error updating RecruitmentMaster: {ex.Message}", ex);
+            //}
+
+            var strategy = context.Database.CreateExecutionStrategy();
+
+            await strategy.ExecuteAsync(async () =>
             {
-                var recruitmentmaster = await context.RecruitmentMasters
-                    .Include(r => r.RecruitmentDetails)
-                    .FirstOrDefaultAsync(r => r.RecruitmentMasterId == request.RecruitmentMasterId);
-
-                if (recruitmentmaster == null)
-                    throw new Exception("RecruitmentMaster not found");
-
-                // Update master fields (same as before)...
-                recruitmentmaster.RecruitmentMasterPositionId = request.RecruitmentMasterPositionId;
-                recruitmentmaster.RecruitmentMasterCode = request.RecruitmentMasterCode;
-                recruitmentmaster.RecruitmentMasterReferenceId = request.RecruitmentMasterReferenceId;
-                recruitmentmaster.RecruitmentMasterReferenceName = request.RecruitmentMasterReferenceName;
-                recruitmentmaster.RecruitmentMasterReferenceCode = request.RecruitmentMasterReferenceCode;
-                recruitmentmaster.RecruitmentMasterNameOfCandidates = request.RecruitmentMasterNameOfCandidates;
-                recruitmentmaster.RecruitmentMasterCityId = request.RecruitmentMasterCityId;
-                recruitmentmaster.RecruitmentMasterCompanyId = request.RecruitmentMasterCompanyId;
-                recruitmentmaster.RecruitmentMasterCandidateEmailId = request.RecruitmentMasterCandidateEmailId;
-                recruitmentmaster.RecruitmentMasterCandidateContactNumber = request.RecruitmentMasterCandidateContactNumber;
-                recruitmentmaster.RecruitmentMasterAppropriateForJobRole = request.RecruitmentMasterAppropriateForJobRole;
-                recruitmentmaster.RecruitmentMasterInterviewerEmployeeId = request.RecruitmentMasterInterviewerEmployeeId;
-                recruitmentmaster.RecruitmentMasterInterviewerComment = request.RecruitmentMasterInterviewerComment;
-                recruitmentmaster.RecruitmentMasterGradeId = request.RecruitmentMasterGradeId;
-                recruitmentmaster.RecruitmentMasterDesignationId = request.RecruitmentMasterDesignationId;
-                recruitmentmaster.RecruitmentMasterCurrentCtcpa = request.RecruitmentMasterCurrentCtcpa;
-                recruitmentmaster.RecruitmentMasterExpectedCtcpa = request.RecruitmentMasterExpectedCtcpa;
-                recruitmentmaster.RecruitmentMasterRecommendedCtcpa = request.RecruitmentMasterRecommendedCtcpa;
-                recruitmentmaster.RecruitmentMasterExpectedJoiningDate = request.RecruitmentMasterExpectedJoiningDate;
-                recruitmentmaster.RecruitmentMasterHrcomment = request.RecruitmentMasterHrcomment;
-                recruitmentmaster.RecruitmentMasterRecruitmentStageStatusId = request.RecruitmentMasterRecruitmentStageStatusId;
-                recruitmentmaster.RecruitmentMasterOfferLetterStatus = request.RecruitmentMasterOfferLetterStatus;
-                recruitmentmaster.RecruitmentMasterRemark = request.RecruitmentMasterRemark;
-                recruitmentmaster.RecruitmentMasterAuthRemark = request.RecruitmentMasterAuthRemark;
-                recruitmentmaster.RecruitmentMasterAuth = request.RecruitmentMasterAuth;
-                recruitmentmaster.RecruitmentMasterIsDiscard = request.RecruitmentMasterIsDiscard;
-                recruitmentmaster.RecruitmentMasterIsActive = request.RecruitmentMasterIsActive;
-                recruitmentmaster.CreatedBy = request.CreatedBy;
-                recruitmentmaster.CreatedDate = request.CreatedDate;
-
-                // Remove + re-add details
-                context.RecruitmentDetails.RemoveRange(recruitmentmaster.RecruitmentDetails);
-
-                if (request.RecruitmentDetails != null && request.RecruitmentDetails.Any())
+                await using var transaction = await context.Database.BeginTransactionAsync();
+                try
                 {
+                    var recruitmentmaster = await context.RecruitmentMasters
+                        .Include(r => r.RecruitmentDetails)
+                        .FirstOrDefaultAsync(r => r.RecruitmentMasterId == request.RecruitmentMasterId);
+
+                    if (recruitmentmaster == null)
+                        throw new Exception("RecruitmentMaster not found");
+
+                    // Update master fields
+                    recruitmentmaster.RecruitmentMasterPositionId = request.RecruitmentMasterPositionId;
+                    recruitmentmaster.RecruitmentMasterCode = request.RecruitmentMasterCode;
+                    recruitmentmaster.RecruitmentMasterReferenceId = request.RecruitmentMasterReferenceId;
+                    recruitmentmaster.RecruitmentMasterReferenceName = request.RecruitmentMasterReferenceName;
+                    recruitmentmaster.RecruitmentMasterReferenceCode = request.RecruitmentMasterReferenceCode;
+                    recruitmentmaster.RecruitmentMasterNameOfCandidates = request.RecruitmentMasterNameOfCandidates;
+                    recruitmentmaster.RecruitmentMasterCityId = request.RecruitmentMasterCityId;
+                    recruitmentmaster.RecruitmentMasterCompanyId = request.RecruitmentMasterCompanyId;
+                    recruitmentmaster.RecruitmentMasterCandidateEmailId = request.RecruitmentMasterCandidateEmailId;
+                    recruitmentmaster.RecruitmentMasterCandidateContactNumber = request.RecruitmentMasterCandidateContactNumber;
+                    recruitmentmaster.RecruitmentMasterAppropriateForJobRole = request.RecruitmentMasterAppropriateForJobRole;
+                    recruitmentmaster.RecruitmentMasterInterviewerEmployeeId = request.RecruitmentMasterInterviewerEmployeeId;
+                    recruitmentmaster.RecruitmentMasterInterviewerComment = request.RecruitmentMasterInterviewerComment;
+                    recruitmentmaster.RecruitmentMasterGradeId = request.RecruitmentMasterGradeId;
+                    recruitmentmaster.RecruitmentMasterDesignationId = request.RecruitmentMasterDesignationId;
+                    recruitmentmaster.RecruitmentMasterCurrentCtcpa = request.RecruitmentMasterCurrentCtcpa;
+                    recruitmentmaster.RecruitmentMasterExpectedCtcpa = request.RecruitmentMasterExpectedCtcpa;
+                    recruitmentmaster.RecruitmentMasterRecommendedCtcpa = request.RecruitmentMasterRecommendedCtcpa;
+                    recruitmentmaster.RecruitmentMasterExpectedJoiningDate = request.RecruitmentMasterExpectedJoiningDate;
+                    recruitmentmaster.RecruitmentMasterHrcomment = request.RecruitmentMasterHrcomment;
+                    recruitmentmaster.RecruitmentMasterRecruitmentStageStatusId = request.RecruitmentMasterRecruitmentStageStatusId;
+                    recruitmentmaster.RecruitmentMasterOfferLetterStatus = request.RecruitmentMasterOfferLetterStatus;
+                    recruitmentmaster.RecruitmentMasterRemark = request.RecruitmentMasterRemark;
+                    recruitmentmaster.RecruitmentMasterAuthRemark = request.RecruitmentMasterAuthRemark;
+                    recruitmentmaster.RecruitmentMasterAuth = request.RecruitmentMasterAuth;
+                    recruitmentmaster.RecruitmentMasterIsDiscard = request.RecruitmentMasterIsDiscard;
+                    recruitmentmaster.RecruitmentMasterIsActive = request.RecruitmentMasterIsActive;
+                    recruitmentmaster.CreatedBy = request.CreatedBy;
+                    recruitmentmaster.CreatedDate = request.CreatedDate;
+
+                    // Remove existing details
                     context.RecruitmentDetails.RemoveRange(recruitmentmaster.RecruitmentDetails);
-                    var newDetails = request.RecruitmentDetails.Select(item => new RecruitmentDetail
+
+                    // Add new details
+                    if (request.RecruitmentDetails != null && request.RecruitmentDetails.Any())
                     {
-                        DetailsRecruitmentMasterId = recruitmentmaster.RecruitmentMasterId,
-                        RecruitmentDetailsInterviewRoundNumber = item.newRound,
-                        RecruitmentDetailsMarksObtained = item.newMarks,
-                        RecruitmentDetailsAttributeId = item.newAttributeId
-                    }).ToList();
+                        var newDetails = request.RecruitmentDetails.Select(item => new RecruitmentDetail
+                        {
+                            DetailsRecruitmentMasterId = recruitmentmaster.RecruitmentMasterId,
+                            RecruitmentDetailsInterviewRoundNumber = item.newRound,
+                            RecruitmentDetailsMarksObtained = item.newMarks,
+                            RecruitmentDetailsAttributeId = item.newAttributeId
+                        }).ToList();
 
-                    await context.RecruitmentDetails.AddRangeAsync(newDetails);
+                        await context.RecruitmentDetails.AddRangeAsync(newDetails);
+                    }
+
+                    await context.SaveChangesAsync();
+                    await transaction.CommitAsync();
                 }
+                catch (Exception)
+                {
+                    await transaction.RollbackAsync();
+                    throw;
+                }
+            });
 
-                await context.SaveChangesAsync();
-                await transaction.CommitAsync(); // ✅ commit
-            }
-            catch (Exception ex)
-            {
-                await transaction.RollbackAsync(); // ❌ rollback
-                throw new Exception($"Error updating RecruitmentMaster: {ex.Message}", ex);
-            }
         }
 
         public async Task<List<GetRecruitmentNameandIdByPositionId>> GetRecruitmentIdandNameByPositonIdFromDB(int PositionId)
         {
-            //var result = await (from r in context.RecruitmentMasters
-            //                    where r.RecruitmentMasterPositionId == PositionId
-            //                    select new GetRecruitmentNameandIdByPositionId
-            //                    {
-            //                        RecruitmentId = r.RecruitmentMasterId,
-            //                        RecruitmentName = r.RecruitmentMasterNameOfCandidates
-            //                    }).ToListAsync();
-
             var result = await (from r in context.RecruitmentMasters
                                 where r.RecruitmentMasterPositionId == PositionId
                                       && r.RecruitmentMasterOfferLetterStatus == "SEL"

@@ -8,7 +8,7 @@ namespace KalaERP.HR.Core.Request.CompanyMaster
 {
     public class InsertCompanyRequest
     {
-       // public string CompanyCode { get; set; } = null!;
+        public string CompanyCode { get; set; } = null!;
 
         public string CompanyName { get; set; } = null!;
 
