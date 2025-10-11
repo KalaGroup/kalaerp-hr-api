@@ -28,7 +28,13 @@ namespace KalaGenset.ERP.HR.Core.Validation.AuthoritieMaster
                 .GreaterThan(0).WithMessage("Authorities Grade ID must be greater than 0.");
             RuleFor(x => x.AuthoritiesDesignationId)
                 .GreaterThan(0).WithMessage("Authorities Designation ID must be greater than 0.");
-           
+            RuleFor(x => x.AuthoritiesAuthRemark)
+     .Matches(@"^[a-zA-Z]*$").WithMessage("Activity remark contains invalid characters.")
+     .MaximumLength(500).WithMessage("Activity remark cannot exceed 500 characters.");
+            RuleFor(x => x.AuthoritiesRemark)
+     .Matches(@"^[a-zA-Z]*$").WithMessage("Activity remark contains invalid characters.")
+     .MaximumLength(500).WithMessage("Activity remark cannot exceed 500 characters.");
+
         }
     }
 }

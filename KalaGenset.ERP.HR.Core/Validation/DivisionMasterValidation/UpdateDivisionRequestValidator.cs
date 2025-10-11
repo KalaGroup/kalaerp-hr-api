@@ -15,7 +15,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.DivisionMasterValidation
             RuleFor(x => x.DivisionCode)
                 .NotEmpty().WithMessage("Division Code is required.")
                 .MaximumLength(10).WithMessage("Division Code cannot be longer than 10 characters.")
-                .Matches("^[a-zA-Z0-9]*$").WithMessage("Division Code must not contain special characters.");
+                .Matches("^[A-Z0-9]*$").WithMessage("Division Code must not contain special characters.");
 
             RuleFor(x => x.DivisionName)
                 .NotEmpty().WithMessage("Division Name is required.")

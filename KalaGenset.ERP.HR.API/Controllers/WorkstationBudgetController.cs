@@ -108,6 +108,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(500, $"An error occurred while updating Department Budget: {ex.Message}");
             }
         }
+
         /// <summary>
         /// Delete Workstation Budget
         /// </summary>

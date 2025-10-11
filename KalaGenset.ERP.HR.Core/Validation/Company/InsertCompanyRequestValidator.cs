@@ -20,13 +20,10 @@ namespace KalaERP.HR.Core.Validation.Company
         public InsertCompanyRequestValidator(KalaDbContext context)
         {
             this.context = context;
-            RuleFor(x => x.CompanyCode)
-                .NotEmpty().WithMessage("Company Code is required.");
-            //    .MaximumLength(20).WithMessage("Company Code cannot exceed 20 characters.")
-            //    .MustAsync(BeUniqueCompanyCode).WithMessage("Company Code must be unique.");
-
+            
             RuleFor(x => x.CompanyName)
                 .NotEmpty().WithMessage("Company Name is required.")
+             .Matches("^[A-Za-z ]+$").WithMessage("Company Name must contain only letters.")
                 .MaximumLength(200).WithMessage("Company Name cannot exceed 200 characters.");
 
             RuleFor(x => x.ShortName)

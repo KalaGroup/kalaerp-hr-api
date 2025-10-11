@@ -34,10 +34,17 @@ namespace KalaGenset.ERP.HR.API.Controllers
         [HttpPost("CreateEmployeeMasterUpdationFor")]
         public async Task<IActionResult> CreateEmployeeMasterUpdationFor([FromBody] InsertEmployeeMasterUpdationForMasterRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data.");
+            }
             var validationResult = await _insertEmployeeMasterUpdationForMasterValidator.ValidateAsync(request);
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);
+                var errors = validationResult.Errors
+                 .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
+                 .FirstOrDefault();
+                return BadRequest(errors);
             }
             try
             {

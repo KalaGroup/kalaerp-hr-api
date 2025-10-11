@@ -36,7 +36,8 @@ namespace KalaERP.HR.Core.Services
 
                 var company = new CompanyMaster()
                 {
-                    CompanyCode = "COMP002",
+                    // CompanyCode = "COMP002",
+                  
                     CompanyName = request.CompanyName,
                     ShortName = request.ShortName,
                     RegisteredAddress = request.RegisteredAddress,

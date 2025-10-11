@@ -22,16 +22,15 @@ namespace KalaGenset.ERP.HR.Core.Validation.RolesMasterValidation
             RuleFor(x => x.RolesRemark)
                 .NotEmpty().WithMessage("Roles Remark is required.")
                 .MaximumLength(500).WithMessage("Roles Remark cannot exceed 500 characters.");
-          
-            //RuleFor(x => x.RolesAuthRemark)
-            //    .NotEmpty().WithMessage("Roles Auth Remark is required.")
-            //    .MaximumLength(500).WithMessage("Roles Auth Remark cannot exceed 500 characters.");
-            RuleFor(x => x.RolesIsDiscard)
-                .NotNull().WithMessage("Roles Is Discard must be specified.");
-            RuleFor(x => x.CreatedBy)
-                .GreaterThan(0).WithMessage("Updated By must be greater than 0.");
-            RuleFor(x => x.CreatedDate)
-                .LessThanOrEqualTo(DateTime.Now).WithMessage("Updated date can't be in the future.");
+
+           
+            RuleFor(x => x.RolesRemark)
+      .Matches(@"^[a-zA-Z]*$").WithMessage("Role remark contains invalid characters.")
+      .MaximumLength(500).WithMessage("Role remark cannot exceed 500 characters.");
+            RuleFor(x => x.RolesAuthRemark)
+     .Matches(@"^[a-zA-Z]*$").WithMessage("Role remark contains invalid characters.")
+     .MaximumLength(500).WithMessage("KPA remark cannot exceed 500 characters.");
+
         }
     }
 }

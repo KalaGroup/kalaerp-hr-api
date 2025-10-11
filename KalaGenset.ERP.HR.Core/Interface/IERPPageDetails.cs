@@ -49,6 +49,8 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// <param name="request">The request object containing the updated ERP Page Details information.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
         public Task UpdateERPPageDetailsAsync(UpdateERPPageDetailsRequest request);
+
+        public Task<IEnumerable<KalaERPPageDetailsDto>> GetPageTitel();
     }
 }
 

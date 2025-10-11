@@ -37,6 +37,13 @@ namespace KalaGenset.ERP.HR.Core.Validation.DepartmentBudget
                                       b.DepartmentBudgetHeadId == request.DepartmentBudgetHeadId);
                })
                .WithMessage("A budget for this Financial Year and Department already exists.");
+
+            RuleFor(x => x.DepartmentBudgetAuthRemark)
+   .Matches(@"^[a-zA-Z]*$").WithMessage("DepartmentBudget remark contains invalid characters.")
+   .MaximumLength(500).WithMessage("Department remark cannot exceed 500 characters.");
+            RuleFor(x => x.DepartmentBudgetRemark)
+     .Matches(@"^[a-zA-Z]*$").WithMessage("DepartmentBudget remark contains invalid characters.")
+     .MaximumLength(500).WithMessage("Department remark cannot exceed 500 characters."); ;
         } 
     }
 }

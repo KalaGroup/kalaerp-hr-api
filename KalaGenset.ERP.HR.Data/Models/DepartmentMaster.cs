@@ -47,6 +47,8 @@ public partial class DepartmentMaster
 
     public virtual ICollection<EmployeeMasterEmploymentDetail> EmployeeMasterEmploymentDetails { get; set; } = new List<EmployeeMasterEmploymentDetail>();
 
+    public virtual ICollection<ErppageAssignmentRelationship> ErppageAssignmentRelationships { get; set; } = new List<ErppageAssignmentRelationship>();
+
     public virtual ICollection<DepartmentMaster> InverseParentDepartment { get; set; } = new List<DepartmentMaster>();
 
     public virtual DepartmentMaster? ParentDepartment { get; set; }

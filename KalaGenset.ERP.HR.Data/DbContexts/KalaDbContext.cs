@@ -64,6 +64,10 @@ public partial class KalaDbContext : DbContext
 
     public virtual DbSet<EmployeeTypeMaster> EmployeeTypeMasters { get; set; }
 
+    public virtual DbSet<ErppageAssignmentRelationship> ErppageAssignmentRelationships { get; set; }
+
+    public virtual DbSet<ErppageAssignmentRelationshipDetail> ErppageAssignmentRelationshipDetails { get; set; }
+
     public virtual DbSet<FacilityMaster> FacilityMasters { get; set; }
 
     public virtual DbSet<GatePassType> GatePassTypes { get; set; }
@@ -1268,6 +1272,133 @@ public partial class KalaDbContext : DbContext
                 .HasDefaultValue("Nil");
             entity.Property(e => e.UpdatedBy).HasDefaultValue(1);
             entity.Property(e => e.UpdatedDate).HasDefaultValueSql("(getdate())");
+        });
+
+        modelBuilder.Entity<ErppageAssignmentRelationship>(entity =>
+        {
+            entity.HasKey(e => e.ErppageAssignmentRelationshipId).HasName("PK__ERPPageA__E110D36CF4449B8F");
+
+            entity
+                .ToTable("ERPPageAssignmentRelationship")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("ERPPageAssignmentRelationshipHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.ErppageAssignmentRelationshipId).HasColumnName("ERPPageAssignmentRelationshipId");
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.ErppageAssignmentRelationshipAuth1).HasColumnName("ERPPageAssignmentRelationshipAuth1");
+            entity.Property(e => e.ErppageAssignmentRelationshipAuth1Remark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil")
+                .HasColumnName("ERPPageAssignmentRelationshipAuth1Remark");
+            entity.Property(e => e.ErppageAssignmentRelationshipAuth2).HasColumnName("ERPPageAssignmentRelationshipAuth2");
+            entity.Property(e => e.ErppageAssignmentRelationshipAuth2Remark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil")
+                .HasColumnName("ERPPageAssignmentRelationshipAuth2Remark");
+            entity.Property(e => e.ErppageAssignmentRelationshipDepartmentId).HasColumnName("ERPPageAssignmentRelationshipDepartmentId");
+            entity.Property(e => e.ErppageAssignmentRelationshipDivisionId).HasColumnName("ERPPageAssignmentRelationshipDivisionId");
+            entity.Property(e => e.ErppageAssignmentRelationshipIsActive)
+                .HasDefaultValue(true)
+                .HasColumnName("ERPPageAssignmentRelationshipIsActive");
+            entity.Property(e => e.ErppageAssignmentRelationshipIsDiscard)
+                .HasDefaultValue(true)
+                .HasColumnName("ERPPageAssignmentRelationshipIsDiscard");
+            entity.Property(e => e.ErppageAssignmentRelationshipProfitcenterId).HasColumnName("ERPPageAssignmentRelationshipProfitcenterId");
+            entity.Property(e => e.ErppageAssignmentRelationshipRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil")
+                .HasColumnName("ERPPageAssignmentRelationshipRemark");
+            entity.Property(e => e.UpdatedDate).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.ErppageAssignmentRelationshipDepartment).WithMany(p => p.ErppageAssignmentRelationships)
+                .HasForeignKey(d => d.ErppageAssignmentRelationshipDepartmentId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ERPPageAssignmentRelationshipId_ERPPageAssignmentRelationshipDepartmentId");
+
+            entity.HasOne(d => d.ErppageAssignmentRelationshipDivision).WithMany(p => p.ErppageAssignmentRelationships)
+                .HasForeignKey(d => d.ErppageAssignmentRelationshipDivisionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ERPPageAssignmentRelationshipId_ERPPageAssignmentRelationshipDivisionId");
+
+            entity.HasOne(d => d.ErppageAssignmentRelationshipProfitcenter).WithMany(p => p.ErppageAssignmentRelationships)
+                .HasForeignKey(d => d.ErppageAssignmentRelationshipProfitcenterId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ERPPageAssignmentRelationshipId_ERPPageAssignmentRelationshipProfitcenterId");
+        });
+
+        modelBuilder.Entity<ErppageAssignmentRelationshipDetail>(entity =>
+        {
+            entity.HasKey(e => e.ErppageAssignmentRelationshipDetailsId).HasName("PK__ERPPageA__AB3F1B778FFA19BD");
+
+            entity
+                .ToTable("ERPPageAssignmentRelationshipDetails")
+                .ToTable(tb => tb.IsTemporal(ttb =>
+                    {
+                        ttb.UseHistoryTable("ERPPageAssignmentRelationshipDetailsHistory", "dbo");
+                        ttb
+                            .HasPeriodStart("SysStartTime")
+                            .HasColumnName("SysStartTime");
+                        ttb
+                            .HasPeriodEnd("SysEndTime")
+                            .HasColumnName("SysEndTime");
+                    }));
+
+            entity.Property(e => e.ErppageAssignmentRelationshipDetailsId).HasColumnName("ERPPageAssignmentRelationshipDetailsId");
+            entity.Property(e => e.DetailsErppageAssignmentRelationshipId).HasColumnName("DetailsERPPageAssignmentRelationshipId");
+            entity.Property(e => e.ErppageAssignmentRelationshipDetailsIsActive)
+                .HasDefaultValue(true)
+                .HasColumnName("ERPPageAssignmentRelationshipDetailsIsActive");
+            entity.Property(e => e.ErppageAssignmentRelationshipDetailsIsDiscard)
+                .HasDefaultValue(true)
+                .HasColumnName("ERPPageAssignmentRelationshipDetailsIsDiscard");
+            entity.Property(e => e.ErppageAssignmentRelationshipDetailsPageId).HasColumnName("ERPPageAssignmentRelationshipDetailsPageId");
+            entity.Property(e => e.ErppageAssignmentRelationshipDetailsRemark)
+                .HasMaxLength(200)
+                .HasDefaultValue("Nil")
+                .HasColumnName("ERPPageAssignmentRelationshipDetailsRemark");
+            entity.Property(e => e.ErppageAssignmentRelationshipDetailschecker1PositiontId).HasColumnName("ERPPageAssignmentRelationshipDetailschecker1PositiontId");
+            entity.Property(e => e.ErppageAssignmentRelationshipDetailschecker2PositiontId).HasColumnName("ERPPageAssignmentRelationshipDetailschecker2PositiontId");
+            entity.Property(e => e.ErppageAssignmentRelationshipDetailschecker3PositiontId).HasColumnName("ERPPageAssignmentRelationshipDetailschecker3PositiontId");
+            entity.Property(e => e.ErppageAssignmentRelationshipDetailschecker4PositiontId).HasColumnName("ERPPageAssignmentRelationshipDetailschecker4PositiontId");
+            entity.Property(e => e.ErppageAssignmentRelationshipDetailschecker5PositiontId).HasColumnName("ERPPageAssignmentRelationshipDetailschecker5PositiontId");
+
+            entity.HasOne(d => d.DetailsErppageAssignmentRelationship).WithMany(p => p.ErppageAssignmentRelationshipDetails)
+                .HasForeignKey(d => d.DetailsErppageAssignmentRelationshipId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ERPPageAssignmentRelationshipDetailsId_DetailsERPPageAssignmentRelationshipId");
+
+            entity.HasOne(d => d.ErppageAssignmentRelationshipDetailsPage).WithMany(p => p.ErppageAssignmentRelationshipDetails)
+                .HasForeignKey(d => d.ErppageAssignmentRelationshipDetailsPageId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ERPPageAssignmentRelationshipDetailsId_ERPPageAssignmentRelationshipDetailsPageId");
+
+            entity.HasOne(d => d.ErppageAssignmentRelationshipDetailschecker1Positiont).WithMany(p => p.ErppageAssignmentRelationshipDetailErppageAssignmentRelationshipDetailschecker1Positionts)
+                .HasForeignKey(d => d.ErppageAssignmentRelationshipDetailschecker1PositiontId)
+                .HasConstraintName("FK_ERPPageAssignmentRelationshipDetailsId_ERPPageAssignmentRelationshipDetailschecker1PositiontId");
+
+            entity.HasOne(d => d.ErppageAssignmentRelationshipDetailschecker2Positiont).WithMany(p => p.ErppageAssignmentRelationshipDetailErppageAssignmentRelationshipDetailschecker2Positionts)
+                .HasForeignKey(d => d.ErppageAssignmentRelationshipDetailschecker2PositiontId)
+                .HasConstraintName("FK_ERPPageAssignmentRelationshipDetailsId_ERPPageAssignmentRelationshipDetailschecker2PositiontId");
+
+            entity.HasOne(d => d.ErppageAssignmentRelationshipDetailschecker3Positiont).WithMany(p => p.ErppageAssignmentRelationshipDetailErppageAssignmentRelationshipDetailschecker3Positionts)
+                .HasForeignKey(d => d.ErppageAssignmentRelationshipDetailschecker3PositiontId)
+                .HasConstraintName("FK_ERPPageAssignmentRelationshipDetailsId_ERPPageAssignmentRelationshipDetailschecker3PositiontId");
+
+            entity.HasOne(d => d.ErppageAssignmentRelationshipDetailschecker4Positiont).WithMany(p => p.ErppageAssignmentRelationshipDetailErppageAssignmentRelationshipDetailschecker4Positionts)
+                .HasForeignKey(d => d.ErppageAssignmentRelationshipDetailschecker4PositiontId)
+                .HasConstraintName("FK_ERPPageAssignmentRelationshipDetailsId_ERPPageAssignmentRelationshipDetailschecker4PositiontId");
+
+            entity.HasOne(d => d.ErppageAssignmentRelationshipDetailschecker5Positiont).WithMany(p => p.ErppageAssignmentRelationshipDetailErppageAssignmentRelationshipDetailschecker5Positionts)
+                .HasForeignKey(d => d.ErppageAssignmentRelationshipDetailschecker5PositiontId)
+                .HasConstraintName("FK_ERPPageAssignmentRelationshipDetailsId_ERPPageAssignmentRelationshipDetailschecker5PositiontId");
         });
 
         modelBuilder.Entity<FacilityMaster>(entity =>

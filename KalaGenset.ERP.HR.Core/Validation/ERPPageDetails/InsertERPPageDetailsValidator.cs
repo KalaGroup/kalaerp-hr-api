@@ -20,8 +20,8 @@ namespace KalaGenset.ERP.HR.Core.Validation.ERPPageDetailsValidation
             RuleFor(x => x.PageTittle)
                 .NotEmpty().WithMessage("Page Title is required.")
                 .MaximumLength(200).WithMessage("Page Title must not exceed 200 characters.")
-                .Matches("^[a-zA-Z0-9 ]*$").WithMessage("Page Title must not contain special characters.")
-                .MustAsync(BeUniquePageTitle).WithMessage("Page Title already exists.");
+                .Matches("^[a-zA-Z0-9 ]*$").WithMessage("Page Title must not contain special characters.");
+
 
             RuleFor(x => x.PageUrl)
                 .NotEmpty().WithMessage("Page URL is required.")
@@ -41,15 +41,10 @@ namespace KalaGenset.ERP.HR.Core.Validation.ERPPageDetailsValidation
             RuleFor(x => x.KalaErppageDetailsAuthRemark)
                 .MaximumLength(500).WithMessage("Auth Remark must not exceed 500 characters.");
 
-            RuleFor(x => x.CreatedBy)
-                .NotEmpty().WithMessage("CreatedBy is required.");
+        
         }
 
-        private async Task<bool> BeUniquePageTitle(string pageTitle, CancellationToken cancellationToken)
-        {
-            return !await _context.KalaErppageDetails
-                .AnyAsync(p => EF.Functions.Like(p.PageTittle, pageTitle), cancellationToken);
-        }
+      
 
         private async Task<bool> BeUniquePageUrl(string pageUrl, CancellationToken cancellationToken)
         {

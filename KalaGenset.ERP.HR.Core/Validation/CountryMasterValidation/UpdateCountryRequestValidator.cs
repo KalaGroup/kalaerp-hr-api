@@ -20,7 +20,6 @@ namespace KalaGenset.ERP.HR.Core.Validation.CountryValidation
                 .GreaterThan(0).WithMessage("Country ID must be greater than 0.")
                 .MustAsync(CountryMustExist).WithMessage("Country with this ID does not exist.");
             RuleFor(x => x.CountryCode)
-                .MustAsync(BeUniqueCountryCodeForUpdate).WithMessage("Country code already exists for another country. Enter a unique code.")
                 .NotEmpty().WithMessage("Country code is required.")
                 .Length(3).WithMessage("Country CountryCode must be exactly 3 characters long.")
                 .Matches("^[0-9]*$").WithMessage("Country code must be exactly 3 numeric digits (e.g., '001', '002') & must not contain special characters.");

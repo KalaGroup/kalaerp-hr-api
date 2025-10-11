@@ -32,7 +32,10 @@ namespace KalaGenset.ERP.HR.API.Controllers
             var validationResult = await _insertClassOfTravelValidator.ValidateAsync(request);
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);
+                var errors = validationResult.Errors
+               .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
+               .FirstOrDefault();
+                return BadRequest(errors);
             }
             try
             {
@@ -55,7 +58,10 @@ namespace KalaGenset.ERP.HR.API.Controllers
             var validationResult = await _updateClassOfTravelValidator.ValidateAsync(request);
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);
+                var errors = validationResult.Errors
+               .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
+               .FirstOrDefault();
+                return BadRequest(errors);
             }
             try
             {

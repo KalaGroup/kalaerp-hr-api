@@ -24,10 +24,12 @@ namespace KalaGenset.ERP.HR.Core.Validation.QualificationValidator
                     .Matches("^[a-zA-Z0-9]*$").WithMessage("Qualification Code must not contain special characters.");
 
             RuleFor(x => x.QualificationName)
-                    .NotEmpty().WithMessage("Qualification name is required.")
-                    .MustAsync(BeUniqueStateName).WithMessage("Qualification name already exists.")
-                    .Matches("^[a-zA-Z]*$").WithMessage("Qualification name must not contain special characters.")
-                    .MaximumLength(100);
+    .NotEmpty().WithMessage("Qualification name is required.")
+    .MustAsync(BeUniqueStateName).WithMessage("Qualification name already exists.")
+    .Matches("^[a-zA-Z ]*$").WithMessage("Qualification name must contain only letters and spaces.")
+    .MaximumLength(100);
+
+
 
             RuleFor(x => x.CreatedBy)
                     .NotEmpty().WithMessage("CreatedBy is required.");

@@ -41,6 +41,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                     PageIsonumber = request.PageIsonumber,
                     KalaErppageDetailsRemark = request.KalaErppageDetailsRemark,
                     KalaErppageDetailsAuthRemark = request.KalaErppageDetailsAuthRemark,
+                    MakerKalaErppageDetailsId = request.MakerKalaErppageDetailsId,
                     KalaErppageDetailsAuth = request.KalaErppageDetailsAuth,
                     KalaErppageDetailsIsDiscard = request.KalaErppageDetailsIsDiscard,
                     KalaErppageDetailsIsActive = request.KalaErppageDetailsIsActive,
@@ -116,7 +117,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                     PageUrl = ep.PageUrl,
                     PageType = ep.PageType,
                     PageIsonumber = ep.PageIsonumber,
-
+                    MakerKalaErppageDetailsId= ep.MakerKalaErppageDetailsId,
                     KalaErppageDetailsRemark = ep.KalaErppageDetailsRemark,
                     KalaErppageDetailsAuthRemark = ep.KalaErppageDetailsAuthRemark,
                     KalaErppageDetailsAuth = ep.KalaErppageDetailsAuth,
@@ -157,7 +158,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                 erpPageDetails.PageUrl = request.PageUrl;
                 erpPageDetails.PageType = request.PageType;
                 erpPageDetails.PageIsonumber = request.PageIsonumber;
-
+                erpPageDetails.MakerKalaErppageDetailsId = request.MakerKalaErppageDetailsId;
                 erpPageDetails.KalaErppageDetailsRemark = request.KalaErppageDetailsRemark;
                 erpPageDetails.KalaErppageDetailsAuthRemark = request.KalaErppageDetailsAuthRemark;
                 erpPageDetails.KalaErppageDetailsAuth = request.KalaErppageDetailsAuth;
@@ -177,6 +178,24 @@ namespace KalaGenset.ERP.HR.Core.Services
                 throw;
             }
         }
+
+        public async Task<IEnumerable<KalaERPPageDetailsDto>> GetPageTitel()
+        {
+            var pageTitles = await _context.KalaErppageDetails
+                .Where(p => p.KalaErppageDetailsIsActive) // Only active pages
+                .Select(p => new KalaERPPageDetailsDto
+                {
+                    KalaErppageDetailsId = p.KalaErppageDetailsId,
+                    PageTittle = p.PageTittle
+                })
+                .ToListAsync();
+
+            return pageTitles;
+        }
+
+
+
+
 
     }
 }

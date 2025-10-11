@@ -10,7 +10,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.ActivityMaster
         /// <summary>
         /// constructor for initializing the InsertAuthoritieMasterValidator with the database context.
         /// </summary>
-        /// <param name="context"></param>\
+        /// <param name="context"></param>
         /// 
         public InsertActivityMasterValidator(KalaDbContext context)
         {
@@ -23,6 +23,15 @@ namespace KalaGenset.ERP.HR.Core.Validation.ActivityMaster
            
             RuleFor(x=>x.ActivityDivisionId)
                  .GreaterThan(0).WithMessage("Activity Grade ID must be greater than 0.");
+            RuleFor(x => x.ActivityRemark)
+      .Matches(@"^[a-zA-Z]*$").WithMessage("Activity remark contains invalid characters.")
+      .MaximumLength(500).WithMessage("Activity remark cannot exceed 500 characters.");
+            RuleFor(x => x.ActivityAuthRemark)
+     .Matches(@"^[a-zA-Z]*$").WithMessage("Activity remark contains invalid characters.")
+     .MaximumLength(500).WithMessage("Activity remark cannot exceed 500 characters.");
+
+            
+
         }
     }
 }

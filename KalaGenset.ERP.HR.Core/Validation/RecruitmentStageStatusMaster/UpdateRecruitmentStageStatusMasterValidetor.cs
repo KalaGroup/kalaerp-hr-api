@@ -20,15 +20,15 @@ namespace KalaGenset.ERP.HR.Core.Validation.RecruitmentStageStatusMaster
            .GreaterThan(0).WithMessage("Qualification ID must be greater than 0.");
 
 
-               RuleFor(x => x.RecruitmentStageStatusName)
-                    .NotEmpty().WithMessage("RecruitmentStage Name is required.")
-                    .MaximumLength(200).WithMessage("RecruitmentStage Name cannot exceed 200 characters.")
-            .Must((model, name) =>
-             {
-                 return !_context.RecruitmentStageStatusMasters
-                     .Any(r => r.RecruitmentStageStatusName == name && r.RecruitmentStageStatusId != model.RecruitmentStageStatusId);
-             })
-            .WithMessage("RecruitmentStage Name already exists.");
+            RuleFor(x => x.RecruitmentStageStatusName)
+                 .NotEmpty().WithMessage("RecruitmentStage Name is required.")
+                 .MaximumLength(200).WithMessage("RecruitmentStage Name cannot exceed 200 characters.")
+         .Must((model, name) =>
+          {
+              return !_context.RecruitmentStageStatusMasters
+                  .Any(r => r.RecruitmentStageStatusName == name && r.RecruitmentStageStatusId != model.RecruitmentStageStatusId);
+          });
+          
 
             RuleFor(x => x.RecruitmentStageStatusAuth)
                    .NotEmpty().WithMessage("RecruitmentStage  is required.");

@@ -29,6 +29,7 @@ namespace KalaERP.HR.Core.Validation.Company
 
             RuleFor(x => x.CompanyName)
                 .NotEmpty().WithMessage("Company Name is required.")
+                .Matches("^[A-Za-z ]+$").WithMessage("Company Name must contain only letters.")
                 .MaximumLength(200).WithMessage("Company Name cannot exceed 200 characters.");
 
             RuleFor(x => x.ShortName)

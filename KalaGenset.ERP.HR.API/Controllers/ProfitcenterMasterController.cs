@@ -31,7 +31,10 @@ namespace KalaGenset.ERP.HR.API.Controllers
             var validationResult = await _insertValidator.ValidateAsync(insertProfitCenterReq);
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);
+                var errors = validationResult.Errors
+                .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
+                .FirstOrDefault();
+                return BadRequest(errors);
             }
             try
             {
@@ -50,7 +53,10 @@ namespace KalaGenset.ERP.HR.API.Controllers
             var validationResult = await _updateValidator.ValidateAsync(updateProfitCenterRequest);
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);
+                var errors = validationResult.Errors
+                .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
+                .FirstOrDefault();
+                return BadRequest(errors);
             }
             try
             {

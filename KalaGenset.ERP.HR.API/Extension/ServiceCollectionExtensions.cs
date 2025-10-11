@@ -93,7 +93,11 @@ namespace KalaGenset.ERP.HR.API.Extension
 
             //Employee Master 
             services.AddScoped<IEmployeeMaster, EmployeeMasterServices>();
-           
+
+            //ERPPage
+            services.AddScoped<IERPPageAssignmentRelationship, ERPPageAssignmentRelationshipServices>();
+          
+
 
             return services;
         }

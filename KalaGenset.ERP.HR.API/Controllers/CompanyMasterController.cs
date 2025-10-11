@@ -37,8 +37,8 @@ namespace KalaERP.HR.API.Controllers
             if (!validationResult.IsValid)
             {
                 var errors = validationResult.Errors
-                     .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
-                     .FirstOrDefault();
+               .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
+               .FirstOrDefault();
                 return BadRequest(errors);
             }
             try
@@ -137,8 +137,8 @@ namespace KalaERP.HR.API.Controllers
             if (!validationResult.IsValid)
             {
                 var errors = validationResult.Errors
-                    .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
-                    .FirstOrDefault();
+             .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
+             .FirstOrDefault();
                 return BadRequest(errors);
             }
             try

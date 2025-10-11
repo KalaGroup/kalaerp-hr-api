@@ -15,6 +15,7 @@ public partial class EmployeeMasterUpdationForMaster
 
     public bool EmployeeMasterUpdationForAuth { get; set; }
 
+
     public bool EmployeeMasterUpdationForIsDiscard { get; set; }
 
     public bool EmployeeMasterUpdationForIsActive { get; set; }
