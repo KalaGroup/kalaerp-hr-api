@@ -29,13 +29,13 @@ namespace KalaGenset.ERP.HR.Core.Validation.QualificationValidator
 
             RuleFor(x => x.QualificationCode)
                 .NotEmpty().WithMessage("Qualification code is required.")
-                .Matches("^[A-Z0-9]*$").WithMessage("Qualification code must be uppercase alphanumeric only.")
-                .MustAsync(BeUniqueQualificationCodeForUpdate).WithMessage("Qualification code already exists for another Country.");
+                .Matches("^[a-zA-Z0-9]*$").WithMessage("Qualification code must be uppercase alphanumeric only.");
+               
 
             RuleFor(x => x.QualificationName)
                 .NotEmpty().WithMessage("Qualification name is required.")
                 .MaximumLength(100).WithMessage("Qualification name cannot exceed 100 characters.")
-                .Matches("^[a-zA-Z]*$").WithMessage("Qualification name must not contain special characters.");
+                .Matches("^[a-zA-Z ]*$").WithMessage("Qualification name must not contain special characters.");
 
             RuleFor(x => x.CreatedBy)
                 .NotEmpty().WithMessage("CreatedBy is required.");

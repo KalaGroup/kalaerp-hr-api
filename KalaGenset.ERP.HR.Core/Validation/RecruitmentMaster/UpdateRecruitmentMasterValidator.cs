@@ -89,7 +89,8 @@ namespace KalaGenset.ERP.HR.Core.Validation.RecruitmentMaster
 
             RuleFor(x => x.RecruitmentMasterExpectedJoiningDate)
                 .NotEmpty().WithMessage("ExpectedJoiningDate is required.")
-                .GreaterThanOrEqualTo(DateTime.Today).WithMessage("Joining date cannot be in the past.");
+                .GreaterThanOrEqualTo(DateTime.Today)
+                .WithMessage("Joining date cannot be in the past.");
 
             RuleFor(x => x.RecruitmentMasterHrcomment)
                 .MaximumLength(500);

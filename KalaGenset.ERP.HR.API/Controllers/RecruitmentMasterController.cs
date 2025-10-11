@@ -36,7 +36,10 @@ namespace KalaGenset.ERP.HR.API.Controllers
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);
+                var errors = validationResult.Errors
+                .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
+                .FirstOrDefault();
+                return BadRequest(errors);
             }
 
             try
@@ -60,7 +63,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         }
 
         [HttpPut("updaterecruitmentMaster")]
-        public async Task<IActionResult> UpdateCurrency([FromBody] UpdateRecruitmentMasterRequest request)
+        public async Task<IActionResult> updaterecruitment([FromBody] UpdateRecruitmentMasterRequest request)
         {
             var validationResult = await _updatevalidator.ValidateAsync(request);
             if (!validationResult.IsValid)
@@ -86,7 +89,7 @@ namespace KalaGenset.ERP.HR.API.Controllers
         }
 
         [HttpDelete("deleterecruitmentMaster/{RecruitmentMasterId}")]
-        public async Task<IActionResult> DeleteCurrency(int RecruitmentMasterId)
+        public async Task<IActionResult> Deleterecruitment(int RecruitmentMasterId)
         {
             try
             {

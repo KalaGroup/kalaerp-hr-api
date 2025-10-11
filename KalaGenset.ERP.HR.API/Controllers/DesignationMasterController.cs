@@ -44,7 +44,10 @@ namespace KalaERP.HR.API.Controllers
             var validationResult = await _validator.ValidateAsync(request);// Validate the request using the validator
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);// Return a BadRequest response if validation fails
+                var errors = validationResult.Errors
+                .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
+                .FirstOrDefault();
+                return BadRequest(errors);// Return a BadRequest response if validation fails
             }
             try
             {
@@ -87,7 +90,10 @@ namespace KalaERP.HR.API.Controllers
             var validationResult = await _updateValidator.ValidateAsync(request);// Validate the request using the update validator
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);
+                var errors = validationResult.Errors
+                .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
+                .FirstOrDefault();
+                return BadRequest(errors);
             }
             try
             {

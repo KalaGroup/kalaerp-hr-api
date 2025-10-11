@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.ERPPageDetails;
+using KalaGenset.ERP.HR.Core.ResponseDTO.ERPPageDetails;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KalaGenset.ERP.HR.API.Controllers
@@ -34,7 +35,9 @@ namespace KalaGenset.ERP.HR.API.Controllers
             var validationResult = await _insertValidator.ValidateAsync(request);
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);
+                var errors = validationResult.Errors
+                .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
+                .FirstOrDefault();
             }
 
             try
@@ -132,6 +135,22 @@ namespace KalaGenset.ERP.HR.API.Controllers
                 return StatusCode(500, $"An error occurred while deleting ERP Page Details: {ex.Message}");
             }
         }
+        [HttpGet("GetActiveMakers")]
+        public async Task<IActionResult> GetActiveMakers()
+        {
+            try
+            {
+                var result = await _erpPageDetails.GetPageTitel(); // returns IEnumerable<KalaERPPageDetailsDto>
+                return Ok(result); // 200 OK with the list
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if needed
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+
     }
 }
 

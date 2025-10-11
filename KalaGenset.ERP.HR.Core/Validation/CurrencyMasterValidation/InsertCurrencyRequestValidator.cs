@@ -31,22 +31,25 @@ namespace KalaGenset.ERP.HR.Core.Validation.CurrencyValidation
             RuleFor(x => x.CurrencyName)
                 .NotEmpty().WithMessage("Currency name is required.")
                 .MaximumLength(100).WithMessage("Currency name must not exceed 100 characters.")
+                
                 .Matches("^[a-zA-Z ]*$").WithMessage("Currency name must not contain special characters.")
-                .MustAsync(BeUniqueCurrencyName).WithMessage("Currency name already exists.");
+                .MustAsync(BeUniqueCurrencySymbol).WithMessage("Currency name already exists.");
 
             RuleFor(x => x.CurrencySymbol)
-                .NotEmpty().WithMessage("Currency symbol is required.");
-            // .MaximumLength(10).WithMessage("Currency symbol must not exceed 10 characters.")
-            //.Matches(@"^[\p{Sc}]$").WithMessage("Currency symbol must be a valid currency character.");
+                .NotEmpty().WithMessage("Currency symbol is required.")
+                 .MustAsync(BeUniqueCurrencySymbol).WithMessage("Currency Symbol Code must be unique Beacuse already Exists")
+             .MaximumLength(10).WithMessage("Currency symbol must not exceed 10 characters.")
+            .Matches(@"^[\p{Sc}]$").WithMessage("Currency symbol must be a valid currency character.");
 
-           // RuleFor(x => x.CreatedBy)
-           //.NotEmpty().WithMessage("UpdatedBy is required.");
+            // RuleFor(x => x.CreatedBy)
+            //.NotEmpty().WithMessage("UpdatedBy is required.");
         }
-        private async Task<bool> BeUniqueCurrencyName(string currencyName, CancellationToken cancellationToken)
+        private async Task<bool> BeUniqueCurrencySymbol(string symbol, CancellationToken cancellationToken)
         {
-            return !await _context.CurrencyMasters
-                .AnyAsync(c => c.CurrencyName.ToLower() == currencyName.ToLower(), cancellationToken);
+            return !await _context.CurrencyMasters.AnyAsync(c => c.CurrencySymbol == symbol, cancellationToken);
         }
+
+
     }
 }
     

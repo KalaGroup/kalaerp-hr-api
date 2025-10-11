@@ -35,18 +35,12 @@ namespace KalaGenset.ERP.HR.Core.Validation.DepartmentValidation
             RuleFor(x => x.DepartmentProfitcenterId)
                 .GreaterThan(0).WithMessage("DepartmentProfitcenter ID must be valid.");
             RuleFor(x => x.DepartmentRemark)
-                .MaximumLength(200).WithMessage("Remark cannot exceed 200 characters.");
-            RuleFor(x => x.DepartmentType)
-                .NotEmpty().WithMessage("Department type is required.")
-                .MaximumLength(50).WithMessage("Department type cannot exceed 50 characters.");
+    .Matches(@"^[a-zA-Z]*$").WithMessage("Department remark contains invalid characters.")
+    .MaximumLength(500).WithMessage("Department remark cannot exceed 500 characters.");
             RuleFor(x => x.DepartmentAuthRemark)
-                .MaximumLength(200).WithMessage("Auth remark cannot exceed 200 characters.");
-            RuleFor(x => x.DepartmentIsActive)
-                .NotNull().WithMessage("Active status is required.");
-            RuleFor(x => x.CreatedBy)
-                .GreaterThan(0).WithMessage("CreatedBy must be greater than 0.");
-            RuleFor(x => x.CreatedDate)
-               .LessThanOrEqualTo(DateTime.Now).WithMessage("Created date can't be in the future.");
+     .Matches(@"^[a-zA-Z]*$").WithMessage("Department remark contains invalid characters.")
+     .MaximumLength(500).WithMessage("Department remark cannot exceed 500 characters."); ;
+
         }
 
         private async Task<bool> BeUniqueCode(string code, CancellationToken cancellationToken)

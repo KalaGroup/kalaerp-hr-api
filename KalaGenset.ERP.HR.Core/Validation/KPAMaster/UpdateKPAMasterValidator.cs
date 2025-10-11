@@ -25,7 +25,13 @@ namespace KalaGenset.ERP.HR.Core.Validation.KPAMaster
                 .GreaterThan(0).WithMessage("KPA Grade ID must be greater than 0.");
             RuleFor(x => x.KpadesignationId)
                 .GreaterThan(0).WithMessage("KPA Designation ID must be greater than 0.");
-           
+            RuleFor(x => x.Kparemark)
+     .Matches(@"^[a-zA-Z]*$").WithMessage("KPA remark contains invalid characters.")
+     .MaximumLength(500).WithMessage("KPA remark cannot exceed 500 characters.");
+            RuleFor(x => x.KpaauthRemark)
+     .Matches(@"^[a-zA-Z]*$").WithMessage("KPA remark contains invalid characters.")
+     .MaximumLength(500).WithMessage("KPA remark cannot exceed 500 characters.");
+
 
         }
     }

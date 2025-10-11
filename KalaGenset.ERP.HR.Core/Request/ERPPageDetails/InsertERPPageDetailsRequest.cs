@@ -19,6 +19,8 @@ namespace KalaGenset.ERP.HR.Core.Request.ERPPageDetails
         public string PageIsonumber { get; set; } = null!;
 
         public string KalaErppageDetailsRemark { get; set; } = null!;
+        public int MakerKalaErppageDetailsId { get; set; }
+
 
         public string KalaErppageDetailsAuthRemark { get; set; } = null!;
 

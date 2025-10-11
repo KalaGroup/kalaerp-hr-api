@@ -30,8 +30,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.CountryValidation
                .NotEmpty().WithMessage("Country short name is required.")
                .Matches("^[A-Z0-9]*$").WithMessage("Country short name must be uppercase and must not contain special characters.")
                .MaximumLength(10).WithMessage("Country Short Name cannot exceed 10 characters.");
-            RuleFor(x => x.CountryCurrencyId)
-               .GreaterThan(0).WithMessage("Currency ID must be greater than 0.");
+        
             
         }
         private async Task<bool> BeUniqueCountryName(string countryName, CancellationToken cancellationToken)

@@ -23,13 +23,12 @@ namespace KalaGenset.ERP.HR.Core.Validation.ClassOfTravelValidation
             RuleFor(x => x.ClassOfTravelCode)
                 .NotEmpty().WithMessage("Code is required.")
                 .MaximumLength(10).WithMessage("Code must not exceed 10 characters.")
-                .Matches("^[a-zA-Z0-9]*$").WithMessage("Code must be alphanumeric only.")
+                .Matches("^[A-Z0-9]*$").WithMessage("Code must be alphanumeric only.")
                 .MustAsync(BeUniqueCode).WithMessage("Code already exists.");
             RuleFor(x => x.ClassOfTravelName)
                 .NotEmpty().WithMessage("Name is required.")
                 .MaximumLength(100).WithMessage("Name cannot exceed 100 characters.")
                 .Matches("^[a-zA-Z ]*$").WithMessage("Name must not contain special characters.")
-                .MustAsync(BeUniqueName).WithMessage("Name already exists.")
                 .Must(BeProperCase).WithMessage("Name must be in proper case.");
             RuleFor(x => x.ClassOfTravelGradeId)
                 .GreaterThan(0).WithMessage("Grade ID must be valid.")
@@ -40,8 +39,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.ClassOfTravelValidation
                 .GreaterThanOrEqualTo(0).WithMessage("Tier type must be non-negative.");
             RuleFor(x => x.ClassOfTravelRemark)
                 .MaximumLength(200).WithMessage("Remark cannot exceed 200 characters.");
-            RuleFor(x => x.ClassOfTravelIsActive)
-                .NotNull().WithMessage("Active status is required.");
+     
         }
         private async Task<bool> ClassOfTravelMustExist(int id, CancellationToken cancellationToken)
         {

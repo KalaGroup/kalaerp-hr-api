@@ -21,19 +21,16 @@ namespace KalaGenset.ERP.HR.Core.Validation.DistrictMasterValidation
 
             RuleFor(x => x.DistrictName)
                 .NotEmpty().WithMessage("District name is required.")
-                .MustAsync(BeUniqueDistrictName).WithMessage("District name already exists.")
                 .Matches("^[a-zA-Z ]*$").WithMessage("District name must not contain special characters.")
                 .MaximumLength(100);
 
             RuleFor(x => x.ShortName)
                .NotEmpty().WithMessage("Short Name is required.")
-               .MustAsync(BeUniqueDistrictShortName).WithMessage("Short Name already exists.")
                .Matches("^[a-zA-Z]*$").WithMessage("Short Name must not contain special characters.")
                .MaximumLength(10);
 
                     RuleFor(x => x.DistrictCode)
            .NotEmpty().WithMessage("DistrictCode is required.")
-           .MustAsync(BeUniqueDistrictCode).WithMessage("DistrictCode already exists.")
            .Matches("^[A-Z]+$").WithMessage("DistrictCode must contain only uppercase letters without special characters.")
            .MaximumLength(10);
 

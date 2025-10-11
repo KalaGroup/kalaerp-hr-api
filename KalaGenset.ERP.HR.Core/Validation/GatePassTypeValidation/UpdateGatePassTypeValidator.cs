@@ -39,8 +39,8 @@ namespace KalaGenset.ERP.HR.Core.Validation.GatePassTypeValidation
                 .Matches("^[a-zA-Z0 ]*$").WithMessage("GatePassType Name must not contain special characters.")
                 .MustAsync(async (request, name, cancellationToken) =>
                     !await _context.GatePassTypes.AnyAsync(c =>
-                        c.GatePassTypesTypeName == name && c.GatePassTypeId != request.GatePassTypeId, cancellationToken))
-                .WithMessage("GatePassType Name already exists.");
+                        c.GatePassTypesTypeName == name && c.GatePassTypeId != request.GatePassTypeId, cancellationToken));
+              
 
             RuleFor(x => x.GatePassTypesDescription)
                 .NotEmpty().WithMessage("Description is required.")

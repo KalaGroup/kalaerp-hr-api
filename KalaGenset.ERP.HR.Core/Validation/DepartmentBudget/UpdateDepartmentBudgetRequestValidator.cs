@@ -32,12 +32,12 @@ namespace KalaGenset.ERP.HR.Core.Validation.DepartmentBudget
             RuleFor(x => x.DepartmentBudgetAmt)
                           .GreaterThan(0).WithMessage("DepartmentBudget Amount must be greater than 0.")
                           .NotEmpty().WithMessage("DepartmentBudget Amount is required.");
-           
-            RuleFor(x => x.CreatedBy)
-                .NotEmpty().WithMessage("CreatedBy is required.");
-
-            RuleFor(x => x.CreatedDate)
-                .LessThanOrEqualTo(DateTime.Now).WithMessage("Created date can't be in the future.");
+            RuleFor(x => x.DepartmentBudgetAuthRemark)
+    .Matches(@"^[a-zA-Z]*$").WithMessage("DepartmentBudget remark contains invalid characters.")
+    .MaximumLength(500).WithMessage("Department remark cannot exceed 500 characters.");
+            RuleFor(x => x.DepartmentBudgetRemark)
+     .Matches(@"^[a-zA-Z]*$").WithMessage("DepartmentBudget remark contains invalid characters.")
+     .MaximumLength(500).WithMessage("Department remark cannot exceed 500 characters."); ;
         }
 
     }

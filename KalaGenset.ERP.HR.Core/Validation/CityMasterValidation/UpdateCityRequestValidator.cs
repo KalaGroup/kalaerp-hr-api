@@ -35,8 +35,8 @@ namespace KalaGenset.ERP.HR.Core.Validation.CityMasterValidation
             RuleFor(x => x.CityCode)
                 .NotEmpty().WithMessage("City code is required.")
                 .Length(3, 10).WithMessage("City code must be between 3 and 10 characters.")
-                .Matches("^[A-Z0-9]*$").WithMessage("City code must be uppercase alphanumeric only.")
-                .MustAsync(BeUniqueCityCodeForUpdate).WithMessage("City code already exists for another city.");
+                .Matches("^[A-Z0-9]*$").WithMessage("City code must be uppercase alphanumeric only.");
+                
 
             RuleFor(x => x.CityName)
                 .NotEmpty().WithMessage("City name is required.")
@@ -51,14 +51,11 @@ namespace KalaGenset.ERP.HR.Core.Validation.CityMasterValidation
             RuleFor(x => x.CityTierTypeId)
                 .GreaterThan(0).WithMessage("Tier Type ID is required.");
 
-            RuleFor(x => x.CityRemark)
-                .NotEmpty().WithMessage("Remark is required.");
+             RuleFor(x => x.CityRemark)
+                .NotEmpty().WithMessage("Remark is required.")
+                 .Matches(@"^[a-zA-Z]*$").WithMessage("city remark contains invalid characters.")
+    .MaximumLength(500).WithMessage("city remark cannot exceed 500 characters.");
 
-            RuleFor(x => x.CreatedBy)
-                .GreaterThan(0).WithMessage("CreatedBy is required.");
-
-            RuleFor(x => x.CreatedDate)
-                .LessThanOrEqualTo(DateTime.Now).WithMessage("Created date can't be in the future.");
 
             RuleFor(x => x.CityLatitude)
                 .GreaterThan(0).WithMessage("Latitude  must be greater than 0.");

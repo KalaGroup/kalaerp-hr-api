@@ -16,13 +16,13 @@ public class UpdateCurrencyRequestValidator : AbstractValidator<UpdateCurrencyRe
         RuleFor(x => x.CurrencyName)
             .NotEmpty().WithMessage("Currency name is required.")
             .MaximumLength(100).WithMessage("Currency name must not exceed 100 characters.")
-            .Matches("^[a-zA-Z ]*$").WithMessage("Currency name must not contain special characters.")
-            .MustAsync(BeUniqueCurrencyName).WithMessage("Currency name already exists.");
+            .Matches("^[a-zA-Z ]*$").WithMessage("Currency name must not contain special characters.");
+
 
         RuleFor(x => x.CurrencySymbol)
-       .NotEmpty().WithMessage("Currency symbol is required.");
-       //.Matches(@"^[\p{Sc}]$").WithMessage("Invalid currency symbol.")
-       //.MaximumLength(1).WithMessage("Currency symbol must be a single character.");
+                .NotEmpty().WithMessage("Currency symbol is required.");
+            // .MaximumLength(10).WithMessage("Currency symbol must not exceed 10 characters.")
+            //.Matches(@"^[\p{Sc}]$").WithMessage("Currency symbol must be a valid currency symbol.");
 
 
         RuleFor(x => x.CreatedBy)

@@ -37,6 +37,8 @@ public partial class ProfitcenterMaster
 
     public virtual ICollection<EmployeeMasterEmploymentDetail> EmployeeMasterEmploymentDetails { get; set; } = new List<EmployeeMasterEmploymentDetail>();
 
+    public virtual ICollection<ErppageAssignmentRelationship> ErppageAssignmentRelationships { get; set; } = new List<ErppageAssignmentRelationship>();
+
     public virtual ICollection<ProfitcenterMaster> InverseParentProfitCenter { get; set; } = new List<ProfitcenterMaster>();
 
     public virtual ICollection<LocationMaster> LocationMasters { get; set; } = new List<LocationMaster>();

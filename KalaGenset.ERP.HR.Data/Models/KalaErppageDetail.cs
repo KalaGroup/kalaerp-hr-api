@@ -39,6 +39,8 @@ public partial class KalaErppageDetail
 
     public virtual UserLogin CreatedByNavigation { get; set; } = null!;
 
+    public virtual ICollection<ErppageAssignmentRelationshipDetail> ErppageAssignmentRelationshipDetails { get; set; } = new List<ErppageAssignmentRelationshipDetail>();
+
     public virtual ICollection<KalaErppageDetail> InverseMakerKalaErppageDetails { get; set; } = new List<KalaErppageDetail>();
 
     public virtual DivisionMaster KalaErppageDetailsDivision { get; set; } = null!;

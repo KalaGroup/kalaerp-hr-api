@@ -18,8 +18,10 @@ namespace KalaGenset.ERP.HR.Core.Validation
             return ruleBuilder
                 .NotEmpty().WithMessage($"{fieldName} is required.")
                 .MaximumLength(maxLength)
+
                 .Matches(pattern).WithMessage(errorMessage);
         }
+
 
         public static IRuleBuilder<T, int?> MustBeValidId<T>(this IRuleBuilder<T, int?> ruleBuilder, string fieldName)
         {
