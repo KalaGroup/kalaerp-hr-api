@@ -33,9 +33,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.EmployeeMasterUpdationForMasterValid
                 .NotNull().WithMessage("Employee Master Updation For Is Discard is required.");
             RuleFor(x => x.EmployeeMasterUpdationForIsActive)
                 .NotNull().WithMessage("Employee Master Updation For Is Active is required.");
-            RuleFor(x => x.CreatedBy)
-                .NotEmpty().WithMessage("Created By is required.")
-                .GreaterThan(0).WithMessage("Created By must be a positive integer.");
+           
 
             RuleFor(x => x.EmployeeMasterUpdationForId)
                 .NotEmpty().WithMessage("Employee Master Updation For ID is required.")

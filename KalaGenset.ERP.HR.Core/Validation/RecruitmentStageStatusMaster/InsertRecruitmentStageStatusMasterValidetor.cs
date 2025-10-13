@@ -18,11 +18,12 @@ namespace KalaGenset.ERP.HR.Core.Validation.RecruitmentStageStatusMaster
         {
             _context = context;
             RuleFor(x => x.RecruitmentStageStatusName)
-                .NotEmpty().WithMessage("RecruitmentStage Name is required.")
-                .MaximumLength(200).WithMessage("RecruitmentStage Name cannot exceed 200 characters.")
-                .Must((model, name) => !context.RecruitmentStageStatusMasters
-            .Any(r => r.RecruitmentStageStatusName == name))
-        .WithMessage("RecruitmentStage Name already exists.");
+      .NotEmpty().WithMessage("RecruitmentStage Name is required.")
+      .MaximumLength(200).WithMessage("RecruitmentStage Name cannot exceed 200 characters.")
+      .Matches("^[A-Za-z ]+$").WithMessage("RecruitmentStage Name must contain only letters and spaces.")
+      
+      .WithMessage("RecruitmentStage Name already exists.");
+
 
             RuleFor(x => x.RecruitmentStageStatusAuth)
                .NotEmpty().WithMessage("RecruitmentStage  is required.");

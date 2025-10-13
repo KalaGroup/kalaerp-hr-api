@@ -20,7 +20,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.DepartmentValidation
             RuleFor(x => x.DepartmentCode)
                 .NotEmpty().WithMessage("Department code is required.")
                 .MaximumLength(10).WithMessage("Department code must not exceed 10 characters.")
-                .Matches("^[0-9]*$").WithMessage("Department code must be numeric digits (e.g., '001', '002') & must not contain special characters.")
+                .Matches("^[a-zA-Z0-9]*$").WithMessage("Department code must be numeric digits (e.g., 'A001', 'A002') & must not contain special characters.")
                 .MustAsync(BeUniqueCode).WithMessage("Department code already exists.");
             RuleFor(x => x.DepartmentName)
                 .NotEmpty().WithMessage("Department name is required.")

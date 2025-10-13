@@ -28,8 +28,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.EmployeeMasterUpdationForMasterValid
             RuleFor(x => x.EmployeeMasterUpdationForAuthRemark)
                 .NotEmpty().WithMessage("Employee Master Updation For Auth Remark is required.")
                 .MaximumLength(500);
-            RuleFor(x => x.CreatedBy)
-                .NotEmpty().WithMessage("Created By is required.");
+          
         }
 
         private async Task<bool> BeUniqueEmployeeMasterUpdationForName(string EmployeeMasterUpdationForName, CancellationToken cancellationToken)

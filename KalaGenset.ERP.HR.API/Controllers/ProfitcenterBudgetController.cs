@@ -2,6 +2,7 @@
 using KalaGenset.ERP.HR.Core.Interface;
 using KalaGenset.ERP.HR.Core.Request.ActivityMaster;
 using KalaGenset.ERP.HR.Core.Request.ProfitcenterBudget;
+using KalaGenset.ERP.HR.Core.Request.ProfitcenterMaster;
 using KalaGenset.ERP.HR.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -83,27 +84,34 @@ namespace KalaGenset.ERP.HR.API.Controllers
         }
 
         [HttpPut("updateprofitcenterbudget")]
+       
         public async Task<IActionResult> UpdateProfitCenterBudget([FromBody] UpdateProfitcenterBudgetRequest request)
         {
             if (request == null)
-                return BadRequest("Invalid request data.");
+                return BadRequest(new { message = "Invalid request data." });
+
+            // Validate request using FluentValidation
+            var validationResult = await updateValidator.ValidateAsync(request);
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors
+                    .Select(e => new { field = e.PropertyName, message = e.ErrorMessage })
+                    .ToList();
+
+                return BadRequest(new { errors });
+            }
 
             try
             {
                 await profitcenterBudget.UpdateProfitCenterBudgetAsync(request);
-                return Ok();
-            }
-            catch (InvalidOperationException ex)
-            {
-                return Conflict(ex.Message); // Duplicate case
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
+                return Ok(new { message = "Profit Center Budget updated successfully." });
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Internal server error: {ex.Message}");
+                // Log exception if you have logging service
+                // _logger.LogError(ex, "Error updating Profit Center Budget");
+
+                return StatusCode(500, new { message = $"An error occurred while updating Profit Center Budget: {ex.Message}" });
             }
         }
 

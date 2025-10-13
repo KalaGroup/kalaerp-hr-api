@@ -34,33 +34,8 @@ namespace KalaGenset.ERP.HR.Core.Validation.RecruitmentAttributeMasterValidation
                 .MaximumLength(500).WithMessage("Recruitment Attribute Auth Remark cannot exceed 500 characters.")
                 .Matches("^[a-zA-Z0-9 -]*$").WithMessage("Recruitment Attribute Auth Remark must not contain special characters.");
 
-            RuleFor(x => x.RecruitmentAttributeAuth)
-                .NotEmpty().WithMessage("Recruitment Attribute Auth is required."); // Removed MaximumLength as RecruitmentAttributeAuth is a boolean.
-
-            RuleFor(x => x.RecruitmentAttributeIsDiscard)
-                .NotNull().WithMessage("Recruitment Attribute Is Discard is required.")
-                .Must(x => x == true || x == false).WithMessage("Recruitment Attribute Is Discard must be a boolean value.");
-
-            RuleFor(x => x.RecruitmentAttributeIsActive)
-                .NotNull().WithMessage("Recruitment Attribute Is Active is required.")
-                .Must(x => x == true || x == false).WithMessage("Recruitment Attribute Is Active must be a boolean value.");
-
-            RuleFor(x => x.CreatedBy)
-                .NotEmpty().WithMessage("CreatedBy is required."); // Removed MaximumLength as CreatedBy is an integer.
-
-            RuleFor(x => x.CreatedDate)
-                .LessThanOrEqualTo(DateTime.Now).WithMessage("Created date can't be in the future.")
-                .NotEmpty().WithMessage("CreatedDate is required.");
-
-            RuleFor(x => x.RecruitmentAttributeId)
-                .NotEmpty().WithMessage("Recruitment Attribute ID is required.")
-                .GreaterThan(0).WithMessage("Recruitment Attribute ID must be a positive integer.");
-
-            RuleFor(x => x.RecruitmentAttributeId)
-                .MustAsync(async (id, cancellation) =>
-                {
-                    return await context.RecruitmentAttributeMasters.AnyAsync(x => x.RecruitmentAttributeId == id, cancellation);
-                }).WithMessage("Recruitment Attribute ID does not exist.");
+     
+           
         }
     }
 }

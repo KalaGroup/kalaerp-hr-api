@@ -19,7 +19,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.CountryValidation
             RuleFor(x => x.CountryCode)
                .NotEmpty().WithMessage("Country code is required.")
                .Length(3).WithMessage("Country CountryCode must be exactly 3 characters long.")
-               .Matches("^[0-9]*$").WithMessage("Country code must be exactly 3 numeric digits (e.g., '001', '002') & must not contain special characters.");
+               .Matches("^[a-zA-Z0-9]*$").WithMessage("Country code must be exactly 3 numeric digits (e.g., '001', '002') & must not contain special characters.");
             RuleFor(x => x.CountryName)
                .NotEmpty().WithMessage("Country name is required.")
                .MustAsync(BeUniqueCountryName).WithMessage("Country name already exists.")
