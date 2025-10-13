@@ -21,9 +21,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.DepartmentMaster
              .NotEmpty().WithMessage("Responsibilities Grade ID is required.")
              .GreaterThan(0).WithMessage("Responsibilities Grade ID must be greater than 0.");
 
-            //RuleFor(x => x.ResposibilitiesType)
-            //    .NotEmpty().WithMessage("Resposibilities Type is required.");
-
+            
             RuleFor(x => x.ResposibilitiesDesignationId)
                 .NotEmpty().WithMessage("Responsibilities Designation ID is required.")
                 .GreaterThan(0).WithMessage("Responsibilities Designation ID must be greater than 0.");

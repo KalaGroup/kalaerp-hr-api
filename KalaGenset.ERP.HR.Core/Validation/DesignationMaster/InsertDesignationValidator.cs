@@ -20,6 +20,8 @@ namespace KalaERP.HR.Core.Validation.DesignationMaster
 
             RuleFor(x => x.DesignationCode)
                 .NotEmpty().WithMessage("Designation Code is required.")
+              .Matches("^[A-Za-z0-9]*$").WithMessage("Code must contain only letters and numbers, no special characters.")
+
                 .MaximumLength(20).WithMessage("Designation Code cannot exceed 20 characters.")
                 .MustAsync(BeUniqueDesignationCode).WithMessage("Designation Code must be unique.");
 

@@ -34,11 +34,9 @@ namespace KalaGenset.ERP.HR.Core.Validation.StateValidator
                 .Matches("^[a-zA-Z0-9]*$").WithMessage("State short name must not contain special characters.")
                 .MaximumLength(10);
 
-            //RuleFor(x => x.CreatedBy)
-            //    .NotEmpty().WithMessage("CreatedBy is required.");
+           
 
-            RuleFor(x => x.CreatedDate)
-                .LessThanOrEqualTo(DateTime.Now).WithMessage("Created date can't be in the future.");
+
         }
 
         private async Task<bool> BeUniqueStateName(string stateName, CancellationToken cancellationToken)

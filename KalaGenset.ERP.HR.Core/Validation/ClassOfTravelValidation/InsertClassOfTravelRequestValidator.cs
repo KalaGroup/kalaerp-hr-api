@@ -20,7 +20,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.ClassOfTravelValidation
             RuleFor(x => x.ClassOfTravelCode)
                 .NotEmpty().WithMessage("Class of travel code is required.")
                 .MaximumLength(10).WithMessage("Code must not exceed 10 characters.")
-                .Matches("^[A-Z0-9]*$").WithMessage("Code must be numeric only and must not contain special characters")
+           .Matches("^[A-Za-z0-9]*$").WithMessage("Code must contain only letters and numbers, no special characters.")
                 .MustAsync(BeUniqueCode).WithMessage("Code already exists.");
             RuleFor(x => x.ClassOfTravelName)
                 .NotEmpty().WithMessage("Class of travel name is required.")

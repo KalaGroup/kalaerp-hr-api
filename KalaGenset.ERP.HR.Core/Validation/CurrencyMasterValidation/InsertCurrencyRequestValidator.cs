@@ -36,10 +36,11 @@ namespace KalaGenset.ERP.HR.Core.Validation.CurrencyValidation
                 .MustAsync(BeUniqueCurrencySymbol).WithMessage("Currency name already exists.");
 
             RuleFor(x => x.CurrencySymbol)
-                .NotEmpty().WithMessage("Currency symbol is required.")
-                 .MustAsync(BeUniqueCurrencySymbol).WithMessage("Currency Symbol Code must be unique Beacuse already Exists")
-             .MaximumLength(10).WithMessage("Currency symbol must not exceed 10 characters.")
-            .Matches(@"^[\p{Sc}]$").WithMessage("Currency symbol must be a valid currency character.");
+      .NotEmpty().WithMessage("Currency symbol is required.")
+      .MaximumLength(10).WithMessage("Currency symbol must not exceed 10 characters.")
+      .Matches(@"^([\p{Sc}]|[A-Za-z]{2,5})$").WithMessage("Currency symbol must be a valid symbol or 2–5 letter code (e.g. $, ₹, USD).")
+      .MustAsync(BeUniqueCurrencySymbol).WithMessage("Currency Symbol Code must be unique because it already exists.");
+
 
             // RuleFor(x => x.CreatedBy)
             //.NotEmpty().WithMessage("UpdatedBy is required.");

@@ -22,7 +22,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.ERPPageDetailsValidation
             RuleFor(x => x.PageTittle)
                 .NotEmpty().WithMessage("Page Title is required.")
                 .MaximumLength(200).WithMessage("Page Title must not exceed 200 characters.")
-                .Matches("^[a-zA-Z0-9 ]*$").WithMessage("Page Title must not contain special characters.");
+                .Matches("^[a-zA-Z ]*$").WithMessage("Page Title must not contain special characters.");
 
 
             RuleFor(x => x.PageUrl)

@@ -39,8 +39,8 @@ builder.Services.AddCors(options =>
         builder =>
         {
             builder
-                //.WithOrigins(config["CORSOrigin"])//for local- need to improve
-                .WithOrigins("http://4.240.123.216:5050")//for deployment
+                .WithOrigins(config["CORSOrigin"])//for local- need to improve
+                //.WithOrigins("http://4.240.123.216:5050")//for deployment
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();
@@ -54,11 +54,11 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 //comment out this part while publishing
-//if (app.Environment.IsDevelopment())
-//{
+if (app.Environment.IsDevelopment())
+{
     app.UseSwagger();
     app.UseSwaggerUI();
-//}
+}
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

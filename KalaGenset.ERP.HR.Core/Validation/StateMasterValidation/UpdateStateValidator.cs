@@ -44,11 +44,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.StateValidator
                 .Matches("^[A-Z0-9]*$").WithMessage("Short name must be uppercase and alphanumeric.");
 
 
-            RuleFor(x => x.CreatedBy)
-                .NotEmpty().WithMessage("CreatedBy is required.");
-
-            RuleFor(x => x.CreatedDate)
-                .LessThanOrEqualTo(DateTime.Now).WithMessage("Created date can't be in the future.");
+           
         }
 
 

@@ -22,12 +22,12 @@ namespace KalaGenset.ERP.HR.Core.Validation.CompanyEntityTypeMaster
                .ApplyAlphaNumeric("Company Entity Type Name", 100, allowSpaces: true)
                .MustAsync(BeUniqueCompanyEnityType).WithMessage("Company Entity Type already exists.")
               .Matches("^[A-Za-z ]+$").WithMessage("Company Entity Type  must not contain special characters.");
+
             RuleFor(x => x.CompanyEntityTypeShortName)
                .ApplyAlphaNumeric("Company Entity Typee Short Name", 50, allowSpaces: true)
               .Matches("^[A-Za-z ]+$")
             .WithMessage("Company Entity Type  must not contain special characters.");
-            RuleFor(x => x.CreatedBy)
-                .MustBePresentWhenNew("CreatedBy");
+           
         }
 
         private async Task<bool> BeUniqueCompanyEnityType(string CompanyEnityType, CancellationToken cancellationToken)

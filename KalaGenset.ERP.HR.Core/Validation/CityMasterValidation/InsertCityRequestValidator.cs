@@ -18,10 +18,9 @@ namespace KalaGenset.ERP.HR.Core.Validation.CityMasterValidation
             _context = context;
 
             RuleFor(x => x.CityCode)
-               .MustAsync(BeUniqueCityName).WithMessage("City Code must be unique Beacuse City Name already Exists")
                .NotEmpty().WithMessage("City Code is required.")
-               .MaximumLength(50).WithMessage("City Code cannot exceed 50 characters.")
-            .Matches("^[A-Z0-9]*$").WithMessage("City code must be uppercase alphanumeric only.")
+               .MaximumLength(50).WithMessage("City Code cannot exceed 10 characters.")
+           .Matches("^[A-Za-z0-9]*$").WithMessage("Code must contain only letters and numbers, no special characters.")
             .Length(2, 10).WithMessage("City code must be between 2 and 10 characters.");
 
             RuleFor(x => x.CityCountryId)
@@ -44,7 +43,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.CityMasterValidation
             RuleFor(x => x.CityShortName)
       .NotEmpty().WithMessage("City short name is required.")
       .MaximumLength(10).WithMessage("Short name cannot exceed 10 characters.")
-      .Matches("^[A-Z]+$").WithMessage("City short name must be in capital letters.");
+      .Matches("^[a-zA-Z]+$").WithMessage("City short name must be in capital letters.");
 
 
             RuleFor(x => x.CityTierTypeId)

@@ -37,9 +37,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.WorkstationMasterValidation
             RuleFor(x => x.WorkStationProfitcenterId)
             .NotEmpty().WithMessage("WorkStationName name is required.");
 
-            RuleFor(x => x.CreatedBy)
-                    .NotEmpty().WithMessage("CreatedBy is required.");
-
+          
 
         }
 

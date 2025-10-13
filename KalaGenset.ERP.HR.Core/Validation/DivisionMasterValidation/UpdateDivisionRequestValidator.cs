@@ -15,7 +15,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.DivisionMasterValidation
             RuleFor(x => x.DivisionCode)
                 .NotEmpty().WithMessage("Division Code is required.")
                 .MaximumLength(10).WithMessage("Division Code cannot be longer than 10 characters.")
-                .Matches("^[A-Z0-9]*$").WithMessage("Division Code must not contain special characters.");
+                .Matches("^[A-Za-z0-9]*$").WithMessage("Division Code must not contain special characters.");
 
             RuleFor(x => x.DivisionName)
                 .NotEmpty().WithMessage("Division Name is required.")
@@ -31,9 +31,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.DivisionMasterValidation
                 .NotEmpty().WithMessage("Division Mail ID is required.")
                 .EmailAddress().WithMessage("Division Mail ID must be a valid email address.");
 
-            RuleFor(x => x.CreatedBy)
-                .NotEmpty().WithMessage("CreatedBy is required.")
-                .Must(value => int.TryParse(value.ToString(), out _)).WithMessage("CreatedBy must be a number.");
+          
         }
     }
 }

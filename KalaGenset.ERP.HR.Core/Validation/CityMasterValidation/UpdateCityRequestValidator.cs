@@ -35,8 +35,9 @@ namespace KalaGenset.ERP.HR.Core.Validation.CityMasterValidation
             RuleFor(x => x.CityCode)
                 .NotEmpty().WithMessage("City code is required.")
                 .Length(3, 10).WithMessage("City code must be between 3 and 10 characters.")
-                .Matches("^[A-Z0-9]*$").WithMessage("City code must be uppercase alphanumeric only.");
-                
+           .Matches("^[A-Za-z0-9]*$").WithMessage("Code must contain only letters and numbers, no special characters.");
+
+
 
             RuleFor(x => x.CityName)
                 .NotEmpty().WithMessage("City name is required.")

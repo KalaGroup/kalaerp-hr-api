@@ -23,7 +23,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.DistrictMasterValidation
                    RuleFor(x => x.DistrictCode)
            .NotEmpty().WithMessage("DistrictCode is required.")
            .MustAsync(BeUniqueDistrictCode).WithMessage("DistrictCode already exists.")
-           .Matches("^[A-Z]+$").WithMessage("DistrictCode must contain only uppercase letters without special characters.")
+           .Matches("^[A-Za-z0-9]+$").WithMessage("DistrictCode must contain only uppercase letters without special characters.")
            .MaximumLength(10);
 
 

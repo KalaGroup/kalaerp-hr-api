@@ -31,18 +31,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.RecruitmentAttributeMasterValidation
             RuleFor(x => x.RecruitmentAttributeAuthRemark)
                 .NotEmpty().WithMessage("RecruitmentAttributeAuthRemark is required.")
                 .MaximumLength(500);
-            RuleFor(x => x.RecruitmentAttributeAuth)
-                .NotNull().WithMessage("RecruitmentAttributeAuth is required.");
-            RuleFor(x => x.RecruitmentAttributeIsDiscard)
-                .NotNull().WithMessage("RecruitmentAttributeIsDiscard is required.");
-            RuleFor(x => x.RecruitmentAttributeIsActive)
-                .NotNull().WithMessage("RecruitmentAttributeIsActive is required.");
-            RuleFor(x => x.CreatedBy)
-                .NotEmpty().WithMessage("CreatedBy is required.")
-                .GreaterThan(0).WithMessage("CreatedBy must be a positive integer.");
-            RuleFor(x => x.CreatedDate)
-                .NotEmpty().WithMessage("CreatedDate is required.")
-                .LessThanOrEqualTo(DateTime.Now).WithMessage("CreatedDate cannot be in the future.");
+           
         }
 
         private async Task<bool> BeUniqueRecruitmentAttributeName(string RecruitmentAttributeName, CancellationToken cancellationToken)

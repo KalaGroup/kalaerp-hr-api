@@ -24,6 +24,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.EmployeeTypeMasterValidation
                 .ApplyAlphaNumeric("EmployeeType name", 100, allowSpaces: true)
                 .MustAsync(BeUniqueEmployeeTypeName).WithMessage("EmployeeType name already exists.")
                 .Matches("^[A-Za-z ]+$").WithMessage("EmployeeTypeName  must not contain special characters.");
+
             RuleFor(x => x.EmployeeTypeDescription)
                 .Matches("^[A-Za-z ]+$").WithMessage("EmployeeTypeDescription   must not contain special characters.");
 

@@ -25,10 +25,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.DepartmentMaster
                  RuleFor(x => x.ResposibilitiesRemark)
                 .MaximumLength(500).WithMessage("Resposibilities Remark cannot exceed 500 characters.");
 
-                // RuleFor(x => x.ResposibilitiesType)
-                //.NotEmpty().WithMessage("Resposibilities Type is required.")
-                //.MaximumLength(50).WithMessage("Resposibilities Type cannot exceed 50 characters.");
-
+               
                  RuleFor(x => x.ResposibilitiesAuthRemark)
                 .MaximumLength(500).WithMessage("Resposibilities Auth Remark cannot exceed 500 characters.");
         }
