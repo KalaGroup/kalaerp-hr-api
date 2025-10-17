@@ -24,7 +24,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.LocationValidator
 
             RuleFor(x => x.LocationCode)
                 .NotEmpty().WithMessage("Location code is required.")
-                .Matches("^[A-Z0-9]*$").WithMessage("Location code must be uppercase alphanumeric only.")
+                    .Matches("^[a-zA-Z0-9]*$").WithMessage("Location Code must not contain special characters.")
                 .MustAsync(BeUniqueLocationCodeForUpdate).WithMessage("Location code already exists for another Country.");
 
             RuleFor(x => x.LocationName)

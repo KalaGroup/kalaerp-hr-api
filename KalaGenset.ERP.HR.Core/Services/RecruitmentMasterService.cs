@@ -197,7 +197,7 @@ namespace KalaGenset.ERP.HR.Core.Services
         {
             var recruitments = await (
                 from rm in context.RecruitmentMasters
-
+                where rm.RecruitmentMasterIsActive == true  // ✅ Only active records
                 join pos in context.PositionMasters
                     on rm.RecruitmentMasterPositionId equals pos.PositionMasterId   
 

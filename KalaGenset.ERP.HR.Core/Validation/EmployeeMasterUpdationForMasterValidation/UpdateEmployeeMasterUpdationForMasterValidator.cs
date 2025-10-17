@@ -19,7 +19,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.EmployeeMasterUpdationForMasterValid
             RuleFor(x => x.EmployeeMasterUpdationForName)
                 .NotEmpty().WithMessage("Employee Master Updation For Name is required.")
                 .MaximumLength(100).WithMessage("Employee Master Updation For Name cannot exceed 100 characters.")
-                .Matches("^[a-zA-Z]*$").WithMessage("Employee Master Updation For Name must not contain special characters.");
+                .Matches("^[a-zA-Z ]*$").WithMessage("Employee Master Updation For Name must not contain special characters.");
 
             RuleFor(x => x.EmployeeMasterUpdationForRemark)
                 .NotEmpty().WithMessage("Employee Master Updation For Remark is required.")
