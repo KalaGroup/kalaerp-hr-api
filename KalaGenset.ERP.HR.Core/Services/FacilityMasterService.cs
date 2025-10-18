@@ -124,7 +124,7 @@ namespace KalaGenset.ERP.HR.Core.Services
                 }
 
                 var facility = await _context.FacilityMasters.FirstOrDefaultAsync(f => f.FacilityId == facilityId);
-                facility.FacilityIsActive = true;
+                facility.FacilityIsActive = false;
                 _context.FacilityMasters.Update(facility);
                 await _context.SaveChangesAsync();
             }

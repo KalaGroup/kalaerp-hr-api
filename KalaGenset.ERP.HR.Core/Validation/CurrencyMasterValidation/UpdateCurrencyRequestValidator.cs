@@ -19,10 +19,10 @@ public class UpdateCurrencyRequestValidator : AbstractValidator<UpdateCurrencyRe
             .Matches("^[a-zA-Z ]*$").WithMessage("Currency name must not contain special characters.");
 
 
-        RuleFor(x => x.CurrencySymbol)
-      .NotEmpty().WithMessage("Currency symbol is required.")
-      .MaximumLength(10).WithMessage("Currency symbol must not exceed 10 characters.")
-      .Matches(@"^([\p{Sc}]|[A-Za-z]{2,5})$").WithMessage("Currency symbol must be a valid symbol or 2–5 letter code (e.g. $, ₹, USD).");
+        RuleFor(x => x.CurrencySymbol);
+      //.NotEmpty().WithMessage("Currency symbol is required.")
+      //.MaximumLength(10).WithMessage("Currency symbol must not exceed 10 characters.")
+      //.Matches(@"^([\p{Sc}]|[A-Za-z]{2,5})$").WithMessage("Currency symbol must be a valid symbol or 2–5 letter code (e.g. $, ₹, USD).");
 
 
 

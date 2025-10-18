@@ -31,7 +31,7 @@ namespace KalaGenset.ERP.HR.Core.Validation.RecruitmentMaster
 
             RuleFor(x => x.RecruitmentMasterReferenceName)
                 .NotEmpty().WithMessage("ReferenceName is required.")
-                .Matches("^[A-Za-z]+$")
+               .Matches("^[A-Za-z ]+$")
             .WithMessage("Recruitment Reference Name must contain only letters.")
                 .MaximumLength(100);
 

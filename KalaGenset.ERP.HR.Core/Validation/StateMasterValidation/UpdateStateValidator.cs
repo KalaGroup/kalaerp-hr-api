@@ -29,8 +29,8 @@ namespace KalaGenset.ERP.HR.Core.Validation.StateValidator
             RuleFor(x => x.StateCode)
                 .NotEmpty().WithMessage("State code is required.")
                 .Length(2, 10).WithMessage("State code must be between 3 and 10 characters.")
-                .Matches("^[A-Z0-9]*$").WithMessage("State code must be uppercase alphanumeric only.")
-                .MustAsync(BeUniqueStateCodeForUpdate).WithMessage("State code already exists for another Country.");
+              .Matches("^[a-zA-Z0-9]*$").WithMessage("State Code must not contain special characters.");
+              
 
             RuleFor(x => x.StateName)
                 .NotEmpty().WithMessage("State name is required.")
