@@ -15,6 +15,7 @@ namespace KalaGenset.ERP.HR.Core.Interface
         /// added to the system.</returns>
         public Task AddCityAsync(InsertCityRequest request);
 
+
         /// <summary>
         /// Updates the details of an existing city asynchronously.
         /// </summary>
